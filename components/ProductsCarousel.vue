@@ -1,27 +1,28 @@
 <template>
-  <SfSection
+  <AwSection
     :title-heading="title"
     class="section"
   >
-    <SfLoader
+    <AwLoader
       :class="{ loading }"
       :loading="loading"
     >
-      <SfCarousel
+      <AwCarousel
         data-cy="related-products-carousel"
-        :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }"
+        :settings="{ peek: 16, breakpoints: { 103: { peek: 0, perView: 2 } } }"
         class="carousel"
       >
-        <SfCarouselItem
+        <AwCarouselItem
           v-for="(product, i) in mappedProducts"
           :key="i"
           class="carousel__item"
         >
-          <SfProductCard
+          <AwProductCard
             :title="productGetters.getName(product)"
             :image-width="imageSizes.productCard.width"
             :image-height="imageSizes.productCard.height"
             :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+            :colors='[{"label":"Sand","value":"sand","color":"#EDCBB9","selected":true},{"label":"Mint","value":"mint","color":"#ABD9D8","selected":false},{"label":"Vivid rose","value":"vivid rose","color":"#DB5593","selected":false}]'
             :regular-price="$fc(productGetters.getPrice(product).regular)"
             :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
             :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
@@ -30,13 +31,20 @@
             :reviews-count="productGetters.getTotalReviews(product)"
             :is-in-wishlist="isInWishlist({ product })"
             :is-added-to-cart="isInCart({ product })"
-            :wishlist-icon="isAuthenticated ? 'heart' : ''"
+            wishlistIcon="heart"
+            isInWishlistIcon="heart"
+            :isInWishlist="true"
+            showAddToCartButton
+            :isAddedToCart="false"
+            :addToCartDisabled="false"
+            
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"
             @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
           >
+
             <template #image="imageSlotProps">
-              <SfButton
+              <AwButton
                 :link="imageSlotProps.link"
                 class="sf-button--pure sf-product-card__link"
                 data-testid="product-link"
@@ -62,101 +70,93 @@
                   :width="imageSlotProps.imageWidth"
                   :height="imageSlotProps.imageHeight"
                 />
-              </SfButton>
+                </AwButton>
             </template>
-          </SfProductCard>
-        </SfCarouselItem>
-        <template #prev="prevArrow">
-          <SfButton
-            aria-label="previous"
-            class="sf-arrow"
-            @click="prevArrow.go('prev')"
-          >
-            <SvgImage
-              icon="arrow_left"
-              width="24"
-              height="24"
-            />
-          </SfButton>
-        </template>
-        <template #next="nextArrow">
-          <SfButton
-            aria-label="next"
-            class="sf-arrow"
-            @click="nextArrow.go('next')"
-          >
-            <SvgImage
-              icon="arrow_right"
-              width="24"
-              height="24"
-            />
-          </SfButton>
-        </template>
-      </SfCarousel>
-    </SfLoader>
-  </SfSection>
+            </AwProductCard>
+            </AwCarouselItem>
+            <template #prev="prevArrow">
+              <AwButton
+                aria-label="previous"
+                class="sf-arrow"
+                @click="prevArrow.go('prev')"
+              >
+                <SvgImage
+                  icon="arrow_left"
+                  width="24"
+                  height="24"
+                />
+                </AwButton>
+            </template>
+            <template #next="nextArrow">
+              <AwButton
+                aria-label="next"
+                class="sf-arrow"
+                @click="nextArrow.go('next')"
+              >
+                <SvgImage
+                  icon="arrow_right"
+                  width="24"
+                  height="24"
+                />
+                </AwButton>
+            </template>
+            </AwCarousel>
+            </AwLoader>
+            </AwSection>
 </template>
 
 <script>
-import {
-  SfCarousel,
-  SfProductCard,
-  SfSection,
-  SfLoader,
-  SfButton,
-} from '@storefront-ui/vue';
-
-import {
-  productGetters, useUser, useWishlist,
-} from '@vue-storefront/magento';
-import { computed, defineComponent } from '@nuxtjs/composition-api';
-import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwCarousel from "@storefront-ui/root/packages/vue/src/components/organisms/AwCarousel/AwCarousel.vue";
+import AwSection from "@storefront-ui/root/packages/vue/src/components/molecules/AwSection/AwSection.vue";
+import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
+import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
+import { productGetters, useUser, useWishlist } from "@vue-storefront/magento";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { useAddToCart } from "~/helpers/cart/addToCart";
+import { useImage } from "~/composables";
+import SvgImage from "~/components/General/SvgImage.vue";
 
 export default defineComponent({
-  name: 'ProductsCarousel',
+  name: "ProductsCarousel",
   components: {
-    SfCarousel,
-    SfProductCard,
-    SfSection,
-    SfLoader,
-    SfButton,
+    AwCarousel,
+    AwProductCard,
+    AwSection,
+    AwLoader,
+    AwButton,
     SvgImage,
   },
   props: {
     title: {
       type: String,
       required: false,
-      default: '',
+      default: "",
     },
     products: {
       type: Array,
       required: false,
-      default: () => ([]),
+      default: () => [],
     },
     loading: Boolean,
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
-    const {
-      addItemToCart,
-      isInCart,
-    } = useAddToCart();
+    const { isInWishlist, addItem, removeItem } = useWishlist("GlobalWishlist");
+    const { addItemToCart, isInCart } = useAddToCart();
 
-    const mappedProducts = computed(() => props.products.map((product) => ({
-      // @ts-ignore
-      ...product,
-      isInWishlist: isInWishlist({ product }),
-    })));
+    const mappedProducts = computed(() =>
+      props.products.map(product => ({
+        // @ts-ignore
+        ...product,
+        isInWishlist: isInWishlist({ product }),
+      }))
+    );
 
-    const addItemToWishlist = async (product) => {
-      await (
-        isInWishlist({ product })
-          ? removeItem({ product })
-          : addItem({ product })
-      );
+    const addItemToWishlist = async product => {
+      await (isInWishlist({ product })
+        ? removeItem({ product })
+        : addItem({ product }));
     };
 
     const { getMagentoImage, imageSizes } = useImage();
@@ -190,7 +190,7 @@ export default defineComponent({
   &__item {
     margin: 1.9375rem 0 2.4375rem 0;
   }
-
+  
   .sf-arrow {
     --button-color: var(--c-dark);
 
@@ -199,5 +199,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>
