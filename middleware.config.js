@@ -6,6 +6,7 @@ module.exports = {
     magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
+        // client is client name
         api: config.get('magentoGraphQl'),
         cookies: {
           ...cookieNames,
