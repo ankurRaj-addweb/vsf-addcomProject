@@ -1,7 +1,7 @@
 <template>
-  <SfSearchBar
+  <AwSearchBar
     v-click-outside="closeSearch"
-    :placeholder="$t('Search for items')"
+    :placeholder="$t('Search for items and promotions')"
     aria-label="Search"
     class="sf-header__search"
     :value="term"
@@ -13,7 +13,7 @@
     @keydown.esc="closeSearch"
   >
     <template #icon>
-      <SfButton
+      <AwButton
         v-if="!!term"
         class="sf-search-bar__button sf-button--pure"
         aria-label="Close search"
@@ -23,12 +23,12 @@
           <SvgImage
             icon="cross"
             :label="$t('Cancel')"
-            width="18"
-            height="18"
+            width="20"
+            height="20"
           />
         </span>
-      </SfButton>
-      <SfButton
+      </AWButton>
+      <AwButton
         v-else
         class="sf-search-bar__button sf-button--pure"
         aria-label="Open search"
@@ -39,13 +39,13 @@
           <SvgImage
             icon="search"
             :label="$t('Search')"
-            width="18"
-            height="18"
+            width="20"
+            height="20"
           />
         </span>
-      </SfButton>
+      </AwButton>
     </template>
-  </SfSearchBar>
+  </AwSearchBar>
 </template>
 
 <script>
@@ -53,7 +53,8 @@ import { SfButton, SfSearchBar } from '@storefront-ui/vue';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
 import SvgImage from '~/components/General/SvgImage.vue';
-
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwSearchBar from '@storefront-ui/root/packages/vue/src/components/molecules/AwSearchBar/AwSearchBar.vue';
 import debounce from 'lodash.debounce';
 import {
   categoryGetters,
@@ -65,8 +66,10 @@ import { watch, useRoute } from '@nuxtjs/composition-api';
 export default defineComponent({
   name: 'SearchBar',
   components: {
-    SfSearchBar,
     SfButton,
+    SfSearchBar,
+    AwButton,
+    AwSearchBar,
     SvgImage,
   },
   directives: { clickOutside },
@@ -184,5 +187,10 @@ export default defineComponent({
   position: relative;
   right: 20px;
   bottom: 0;
+}
+.sf-header__search
+{
+  color:#3C3C3C;
+  border-bottom: 274px ;
 }
 </style>

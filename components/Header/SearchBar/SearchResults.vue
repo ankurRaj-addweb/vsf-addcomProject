@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SfMegaMenu
+    <AwMegaMenu
       :visible="isSearchOpen"
       :title="$t('Search results')"
       class="search"
@@ -14,58 +14,58 @@
           key="results"
           class="search__wrapper-results"
         >
-          <SfMegaMenuColumn
+          <AwMegaMenuColumn
             :title="$t('Categories')"
             class="sf-mega-menu-column--pined-content-on-mobile search__categories"
           >
             <template #title="{title}">
-              <SfMenuItem
+              <AwMenuItem
                 :label="title"
               >
                 <template #mobile-nav-icon>
                   &#8203;
                 </template>
-              </SfMenuItem>
+              </AwMenuItem>
             </template>
-            <SfList
+            <AwList
               v-if="categories.length > 0"
             >
-              <SfListItem
+              <AwListItem
                 v-for="(category, key) in categories"
                 :key="key"
               >
-                <SfMenuItem
+                <AwMenuItem
                   :label="category.label"
                   :link="localePath(th.getAgnosticCatLink(category))"
                 >
                   <template #mobile-nav-icon>
                     &#8203;
                   </template>
-                </SfMenuItem>
-              </SfListItem>
-            </SfList>
-          </SfMegaMenuColumn>
-          <SfMegaMenuColumn
+                </AwMenuItem>
+              </AwListItem>
+            </AwList>
+          </AwMegaMenuColumn>
+          <AwMegaMenuColumn
             :title="$t('Product suggestions')"
             class="sf-mega-menu-column--pined-content-on-mobile search__results"
           >
             <template #title="{title}">
-              <SfMenuItem
+              <AwMenuItem
                 :label="title"
                 class="sf-mega-menu-column__header search__header"
               >
                 <template #mobile-nav-icon>
                   &#8203;
                 </template>
-              </SfMenuItem>
+              </AwMenuItem>
             </template>
-            <SfScrollable
+            <AwScrollable
               class="results--desktop desktop-only"
               show-text=""
               hide-text=""
             >
               <div class="results-listing">
-                <SfProductCard
+                <AwProductCard
                   v-for="(product, index) in products"
                   :key="index"
                   class="result-card"
@@ -85,7 +85,7 @@
                   @click:wishlist="addItemToWishlist(product)"
                 >
                   <template #image="imageSlotProps">
-                    <SfButton
+                    <AwButton
                       :link="imageSlotProps.link"
                       class="sf-button--pure sf-product-card__link"
                       data-testid="product-link"
@@ -111,13 +111,13 @@
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
                       />
-                    </SfButton>
+                    </AwButton>
                   </template>
-                </SfProductCard>
+                </AwProductCard>
               </div>
-            </SfScrollable>
+            </AwScrollable>
             <div class="results--mobile smartphone-only">
-              <SfProductCard
+              <AwProductCard
                 v-for="(product, index) in products"
                 :key="index"
                 class="result-card"
@@ -137,7 +137,7 @@
                 @click:wishlist="addItemToWishlist(product)"
               >
                 <template #image="imageSlotProps">
-                  <SfButton
+                  <AwButton
                     :link="imageSlotProps.link"
                     class="sf-button--pure sf-product-card__link"
                     data-testid="product-link"
@@ -163,18 +163,18 @@
                       :width="imageSlotProps.imageWidth"
                       :height="imageSlotProps.imageHeight"
                     />
-                  </SfButton>
+                  </AwButton>
                 </template>
-              </SfProductCard>
+              </AwProductCard>
             </div>
-          </SfMegaMenuColumn>
+          </AwMegaMenuColumn>
           <div class="action-buttons smartphone-only">
-            <SfButton
+            <AwButton
               class="action-buttons__button color-light"
               @click="$emit('close')"
             >
               {{ $t('Cancel') }}
-            </SfButton>
+            </AwButton>
           </div>
         </div>
         <div
@@ -182,12 +182,12 @@
           key="no-results"
           class="before-results"
         >
-          <SvgImage
-            icon="error_image"
-            :label="$t('Error')"
+          <nuxt-img
+            src="/error/error.svg"
+            class="before-results__picture"
+            alt="error"
             width="412"
             height="412"
-            class="before-results__picture"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -195,15 +195,15 @@
           <p class="before-results__paragraph">
             {{ $t('Let’s start now – we’ll help you') }}
           </p>
-          <SfButton
+          <AwButton
             class="before-results__button color-secondary smartphone-only"
             @click="$emit('close')"
           >
             {{ $t('Go back') }}
-          </SfButton>
+          </AwButton>
         </div>
       </transition>
-    </SfMegaMenu>
+    </AwMegaMenu>
   </div>
 </template>
 <script>
@@ -215,25 +215,41 @@ import {
   SfMenuItem,
   SfButton,
 } from '@storefront-ui/vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwMenuItem from '@storefront-ui/root/packages/vue/src/components/molecules/AwMenuItem/AwMenuItem.vue';
+import AwScrollable from '@storefront-ui/root/packages/vue/src/components/molecules/AwScrollable/AwScrollable.vue';
+import AwProductCard from '@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue';
+import AwList from '@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue';
+import AwListItem from '@storefront-ui/root/packages/vue/src/components/organisms/AwList/_internal/AwListItem.vue';
+import AwMegaMenu from '@storefront-ui/root/packages/vue/src/components/organisms/AwMegaMenu/AwMegaMenu.vue';
+import AwMegaMenuColumn from '@storefront-ui/root/packages/vue/src/components/organisms/AwMegaMenu/_internal/AwMegaMenuColumn.vue';
 import {
   ref,
+  watch,
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
+import { keyboardImplementationWrapper } from '@testing-library/user-event/dist/keyboard';
 
 export default defineComponent({
   name: 'SearchResults',
   components: {
     SfMegaMenu,
+    AwList,
+    AwListItem,
+    AwMegaMenu,
+    AwMegaMenuColumn,
+    AwButton,
+    AwMenuItem,
     SfList,
+    AwScrollable,
     SfProductCard,
+    AwProductCard,
     SfScrollable,
     SfMenuItem,
     SfButton,
-    SvgImage,
   },
   props: {
     visible: {
@@ -245,7 +261,7 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
@@ -253,6 +269,16 @@ export default defineComponent({
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
     const categories = computed(() => props.result?.categories);
+
+    watch(() => props.visible, (newVal) => {
+      isSearchOpen.value = newVal;
+      if (isSearchOpen.value) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+        emit('removeSearchResults');
+      }
+    });
 
     const addItemToWishlist = async (product) => {
       await (
@@ -274,7 +300,7 @@ export default defineComponent({
       isInWishlist,
       isAuthenticated,
       getMagentoImage,
-      imageSizes,
+      imageSizes
     };
   },
 });

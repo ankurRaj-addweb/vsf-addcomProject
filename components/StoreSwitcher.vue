@@ -1,24 +1,24 @@
 <template>
   <div class="container">
-    <SfButton
+    <AwButton
       class="container__lang container__lang--selected"
       @click="isLangModalOpen = !isLangModalOpen"
     >
-      <SfCharacteristic class="store-switcher">
+      <AwCharacteristic class="store-switcher">
         <template #title>
-          <span class="desktop-only">{{ storeConfig.store_name }}</span>
+          <!-- <span class="desktop-only">{{ storeConfig.store_name }}</span> -->
         </template>
         <template #icon v-if="storeConfigGetters.getLocale(storeConfig)">
           <nuxt-img
-            :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
+            :src="`/icons/english.svg`"
             width="20"
             height="20"
             alt="Flag"
             class="language__flag"
           />
         </template>
-      </SfCharacteristic>
-    </SfButton>
+      </AwCharacteristic>
+    </AwButton>
     <LazyHydrate when-visible>
       <StoresModal
         v-if="isLangModalOpen"
@@ -37,10 +37,8 @@ import {
   storeConfigGetters,
   storeGetters,
 } from '@vue-storefront/magento';
-import {
-  SfButton,
-  SfCharacteristic,
-} from '@storefront-ui/vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwCharacteristic from '@storefront-ui/root/packages/vue/src/components/molecules/AwCharacteristic/AwCharacteristic.vue';
 import {
   ref,
   defineComponent,
@@ -51,8 +49,8 @@ export default defineComponent({
   name: 'StoreSwitcher',
   components: {
     StoresModal,
-    SfButton,
-    SfCharacteristic,
+    AwButton,
+    AwCharacteristic,
     LazyHydrate,
   },
   setup() {
