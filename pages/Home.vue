@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <AwHero class="hero">
-      <AwHeroItem
+    <SfHero class="hero">
+      <SfHeroItem
         v-for="(hero, i) in heroes"
         :key="i"
         :title="hero.title"
@@ -12,7 +12,7 @@
         :class="hero.className"
       />
       <template #prev="prevArrow">
-        <AwButton
+        <SfButton
           aria-label="previous"
           class="hero__arrow"
           @click="prevArrow.go('prev')"
@@ -22,10 +22,10 @@
             width="24"
             height="24"
           />
-          </AwButton>
+        </SfButton>
       </template>
       <template #next="nextArrow">
-        <AwButton
+        <SfButton
           aria-label="next"
           class="hero__arrow"
           @click="nextArrow.go('next')"
@@ -35,11 +35,11 @@
             width="24"
             height="24"
           />
-          </AwButton>
+        </SfButton>
       </template>
-    </AwHero>
+    </SfHero>
     <LazyHydrate when-visible>
-      <AwBannerGrid
+      <SfBannerGrid
         :banner-grid="1"
         class="banner-grid"
       >
@@ -47,7 +47,7 @@
           v-for="item in banners"
           #[item.slot]
         >
-          <AwBanner
+          <SfBanner
             :key="item.slot"
             :title="item.title"
             :subtitle="item.subtitle"
@@ -56,63 +56,66 @@
             :image="item.image"
             :class="item.class"
           />
-</template>
-</AwBannerGrid>
-</LazyHydrate>
-<LazyHydrate when-visible>
-  <ProductsCarousel
-    :products="newProducts"
-    :loading="newProductsLoading"
-    :title="$t('Match it with')"
-  />
-</LazyHydrate>
-  
-<LazyHydrate when-visible>
-  <AwCallToAction
-    :title="$t('Subscribe to Newsletters')"
-    :button-text="$t('Subscribe')"
-    :description="
-          $t(
-            'Be aware of upcoming sales and events. Receive gifts and special offers!'
-          )
-        "
-    image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
-    class="call-to-action"
-  />
-</LazyHydrate>
-<LazyHydrate when-visible>
-  <InstagramFeed />
-</LazyHydrate>
+        </template>
+      </SfBannerGrid>
+    </LazyHydrate>
+    <LazyHydrate when-visible>
+      <ProductsCarousel
+        :products="newProducts"
+        :loading="newProductsLoading"
+        :title="$t('New Products')"
+      />
+    </LazyHydrate>
 
-<LazyHydrate when-visible>
-  <MobileStoreBanner />
-</LazyHydrate>
-</div>
+    <LazyHydrate when-visible>
+      <SfCallToAction
+        :title="$t('Subscribe to Newsletters')"
+        :button-text="$t('Subscribe')"
+        :description="$t('Be aware of upcoming sales and events. Receive gifts and special offers!')"
+        image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
+        class="call-to-action"
+      />
+    </LazyHydrate>
+    <LazyHydrate when-visible>
+      <InstagramFeed />
+    </LazyHydrate>
+
+    <LazyHydrate when-visible>
+      <MobileStoreBanner />
+    </LazyHydrate>
+  </div>
 </template>
 <script type="module">
-import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
-import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
-import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
-import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue";
+import AwBanner from '@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
 
-import { useProduct, productGetters } from "@vue-storefront/magento";
+import {
+  // SfButton,
+  SfHero,
+  // SfBanner,
+  SfCallToAction,
+  SfBannerGrid,
+} from '@storefront-ui/vue';
+import {
+  useProduct,
+  productGetters,
+} from '@vue-storefront/magento';
 import {
   computed,
   defineComponent,
   ref,
   useContext,
-} from "@nuxtjs/composition-api";
-import { onSSR } from "@vue-storefront/core";
-import LazyHydrate from "vue-lazy-hydration";
-import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
-import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
-import InstagramFeed from "~/components/InstagramFeed.vue";
-import ProductsCarousel from "~/components/ProductsCarousel.vue";
-import SvgImage from "~/components/General/SvgImage.vue";
+} from '@nuxtjs/composition-api';
+import { onSSR } from '@vue-storefront/core';
+import LazyHydrate from 'vue-lazy-hydration';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import InstagramFeed from '~/components/InstagramFeed.vue';
+import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
-  name: "HomePage",
+  name: 'HomePage',
   components: {
     InstagramFeed,
     LazyHydrate,
@@ -121,9 +124,9 @@ export default defineComponent({
     SvgImage,
     AwButton,
     AwBanner,
-    AwBannerGrid,
-    AwCallToAction,
-    AwHero,
+    SfBannerGrid,
+    SfCallToAction,
+    SfHero,
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
@@ -135,130 +138,125 @@ export default defineComponent({
       products: newProductsResult,
       search: newProductsSearch,
       loading: newProductsLoading,
-    } = useProduct("newProducts");
+    } = useProduct('newProducts');
     const heroes = ref([
       {
-        title: app.i18n.t("Colorful summer dresses are already in store"),
-        subtitle: app.i18n.t("SUMMER COLLECTION {year}", { year }),
-        buttonText: app.i18n.t("Learn more"),
-        background: "#eceff1",
+        title: app.i18n.t('Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+        buttonText: app.i18n.t('Learn more'),
+        background: '#eceff1',
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg',
         },
-        link: "/c/women/women-clothing-shirts",
+        link: '/c/women/women-clothing-shirts',
       },
       {
-        title: app.i18n.t("Colorful summer dresses are already in store"),
-        subtitle: app.i18n.t("SUMMER COLLECTION {year}", { year }),
-        buttonText: app.i18n.t("Learn more"),
-        background: "#fce4ec",
+        title: app.i18n.t('Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+        buttonText: app.i18n.t('Learn more'),
+        background: '#fce4ec',
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg',
         },
-        link: "/c/women/women-clothing-dresses",
+        link: '/c/women/women-clothing-dresses',
       },
       {
-        title: app.i18n.t("Colorful summer dresses are already in store"),
-        subtitle: app.i18n.t("SUMMER COLLECTION {year}", { year }),
-        buttonText: app.i18n.t("Learn more"),
-        background: "#efebe9",
+        title: app.i18n.t('Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+        buttonText: app.i18n.t('Learn more'),
+        background: '#efebe9',
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg',
         },
-        link: "/c/women/women-shoes-sandals",
+        link: '/c/women/women-shoes-sandals',
         className:
-          "sf-hero-item--position-bg-top-left sf-hero-item--align-right",
+            'sf-hero-item--position-bg-top-left sf-hero-item--align-right',
       },
     ]);
     const banners = ref([
       {
-        slot: "banner-A",
-        subtitle: app.i18n.t("Dresses"),
-        title: app.i18n.t("Cocktail & Party"),
-        description: app.i18n.t(
-          "Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands."
-        ),
-        buttonText: app.i18n.t("Shop now"),
+        slot: 'banner-A',
+        subtitle: app.i18n.t('Dresses'),
+        title: app.i18n.t('Cocktail & Party'),
+        description:
+            app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
         },
-        class: "sf-banner--slim desktop-only",
-        link: "/c/women/women-clothing-skirts",
+        class: 'sf-banner--slim desktop-only',
+        link: '/c/women/women-clothing-skirts',
       },
       {
-        slot: "banner-B",
-        subtitle: app.i18n.t("Dresses"),
-        title: app.i18n.t("Linen Dresses"),
-        description: app.i18n.t(
-          "Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands."
-        ),
-        buttonText: app.i18n.t("Shop now"),
+        slot: 'banner-B',
+        subtitle: app.i18n.t('Dresses'),
+        title: app.i18n.t('Linen Dresses'),
+        description: app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
         },
-        class: "sf-banner--slim banner-central desktop-only",
-        link: "/c/women/women-clothing-dresses",
+        class: 'sf-banner--slim banner-central desktop-only',
+        link: '/c/women/women-clothing-dresses',
       },
       {
-        slot: "banner-C",
-        subtitle: app.i18n.t("T-Shirts"),
-        title: app.i18n.t("The Office Life"),
+        slot: 'banner-C',
+        subtitle: app.i18n.t('T-Shirts'),
+        title: app.i18n.t('The Office Life'),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
         },
-        class: "sf-banner--slim banner__tshirt",
-        link: "/c/women/women-clothing-shirts",
+        class: 'sf-banner--slim banner__tshirt',
+        link: '/c/women/women-clothing-shirts',
       },
       {
-        slot: "banner-D",
-        subtitle: app.i18n.t("Summer Sandals"),
-        title: app.i18n.t("Eco Sandals"),
+        slot: 'banner-D',
+        subtitle: app.i18n.t('Summer Sandals'),
+        title: app.i18n.t('Eco Sandals'),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg",
+              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
         },
-        class: "sf-banner--slim",
-        link: "/c/women/women-shoes-sandals",
+        class: 'sf-banner--slim',
+        link: '/c/women/women-shoes-sandals',
       },
     ]);
 
     // @ts-ignore
-    const newProducts = computed(() =>
-      productGetters.getFiltered(newProductsResult.value?.items, {
-        master: true,
-      })
-    );
+    const newProducts = computed(() => productGetters.getFiltered(newProductsResult.value?.items, { master: true }));
 
     onSSR(async () => {
       await newProductsSearch({
         pageSize: 10,
         currentPage: 1,
         sort: {
-          position: "ASC",
+          position: 'ASC',
         },
       });
 
-      addTags([{ prefix: CacheTagPrefix.View, value: "home" }]);
+      addTags([
+        { prefix: CacheTagPrefix.View, value: 'home' },
+      ]);
     });
 
     return {
@@ -340,8 +338,7 @@ export default defineComponent({
         --hero-item-wrapper-text-align: right;
         --hero-item-subtitle-width: 100%;
         --hero-item-title-width: 100%;
-        --hero-item-wrapper-padding: var(--spacer-sm) var(--spacer-sm)
-          var(--spacer-sm) var(--spacer-2xl);
+        --hero-item-wrapper-padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-2xl);
       }
     }
   }
