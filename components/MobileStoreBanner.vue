@@ -1,13 +1,13 @@
 <template>
-  <SfBanner
+  <AwBanner
     image="/homepage/bannerD.png"
     :subtitle="$t('Fashion to take away')"
     :title="$t('Download our application to your mobile')"
-    class="sf-banner--left desktop-only banner-app"
+    class="sf-banner--left desktop-only banner-app font"
   >
     <template #call-to-action>
       <div class="banner-app__call-to-action">
-        <SfButton
+        <AwButton
           class="banner-app__button sf-button--pure"
           aria-label="Go to Apple Product"
           @click="() => {}"
@@ -17,9 +17,9 @@
             loading="lazy"
             width="174"
             height="57"
-          />
-        </SfButton>
-        <SfButton
+          /> 
+        </AwButton>
+        <AwButton
           class="banner-app__button sf-button--pure"
           aria-label="Go to Google Product"
           @click="() => {}"
@@ -27,26 +27,28 @@
           <nuxt-img
             src="/homepage/google.png"
             loading="lazy"
-            width="174"
+            width="166"
             height="57"
           />
-        </SfButton>
+        </AwButton>
       </div>
     </template>
-  </SfBanner>
+  </AwBanner>
 </template>
 <script type="module">
-import {
-  SfBanner,
-  SfButton,
-} from '@storefront-ui/vue';
+import AwBanner from '@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+// import { 
+//   SfBanner,
+//   SfButton,
+// } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'AppStoreBanner',
   components: {
-    SfBanner,
-    SfButton,
+    AwBanner,
+    AwButton,
   },
 });
 </script>
@@ -55,9 +57,11 @@ export default defineComponent({
 .banner-app {
   --banner-title-margin: var(--spacer-base) 0 var(--spacer-xl) 0;
   --banner-padding: 0 0 var(--spacer-2xl);
-  --banner-title-font-size: var(--h1-font-size);
+  // --banner-title-font-size: var(--h1-font-size);
+  --banner-title-font-size: 190%;
   --banner-subtitle-font-size: var(--font-size--xl);
-  --banner-title-font-weight: var(--font-weight--semibold);
+  // --banner-title-font-weight: var(--font-weight--semibold);
+  --banner-title-font-weight:var(--semibold)"Source Sans Pro", sans-serif;
   --banner-subtitle-font-weight: var(--font-weight--medium);
   --banner-title-text-transform: capitalize;
   --banner-title-text-transform: none;
@@ -78,8 +82,43 @@ export default defineComponent({
     pointer-events: visible;
     & + & {
       margin: 0 0 0 var(--spacer-base);
+      margin-left:195px;
     }
   }
+}
+// .font{
+// font-family: 'Source Sans Pro';
+// font-style: normal;
+// font-weight: 600;
+// font-size: 26px;
+// line-height: 48px;
+
+// }
+.sf-banner__title{
+  // font-size: 37px;
+  /* Download our application to your mobile */
+
+
+position: absolute;
+width: 414px;
+height: 107px;
+left: 100px;
+top: 126px;
+
+font-family: 'Source Sans Pro';
+font-style: normal;
+font-weight: 600;
+font-size: 36px;
+line-height: 48px;
+  
+}
+.sf-banner__subtitle{
+  font-size: 16px;
+}
+#layout{
+  position: absolute;
+width: 1240px;
+height: 420px;
 }
 
 </style>
