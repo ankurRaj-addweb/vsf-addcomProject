@@ -3,3 +3,4 @@ export default async ({ app, redirect }) => {
     return redirect('/');
   }
 };
+ 

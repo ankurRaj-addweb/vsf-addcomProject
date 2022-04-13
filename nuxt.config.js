@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
+import { routes } from './serverMiddleware/body-parser.js';
 
 const {
   integrations: {

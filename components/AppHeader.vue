@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SfHeader
+    <AwHeader
       class="sf-header--has-mobile-search"
       :class="{'header-on-top': isSearchOpen}"
     >
@@ -30,7 +30,7 @@
         #header-icons="{activeIcon}"
       >
         <div class="sf-header__icons">
-          <SfButton
+          <AwButton
             v-e2e="'app-header-account'"
             class="sf-button--pure sf-header__action"
             data-testid="accountIcon"
@@ -46,9 +46,9 @@
                 'sf-header__icon is-active': activeIcon === 'account',
               }"
             />
-          </SfButton>
-          <SfButton
-            v-if="isAuthenticated"
+          </AwButton>
+          <AwButton
+            
             class="sf-button--pure sf-header__action"
             data-testid="wishlistIcon"
             aria-label="Wishlist"
@@ -64,14 +64,14 @@
                 'sf-header__icon is-active': activeIcon === 'wishlist',
               }"
             />
-            <SfBadge
+            <AwBadge
               v-if="wishlistHasProducts"
               class="sf-badge--number cart-badge"
             >
               {{ wishlistItemsQty }}
-            </SfBadge>
-          </SfButton>
-          <SfButton
+            </AwBadge>
+          </AwButton>
+          <AwButton
             v-e2e="'app-header-cart'"
             class="sf-button--pure sf-header__action"
             aria-label="Toggle cart sidebar"
@@ -87,13 +87,13 @@
                 'sf-header__icon is-active': activeIcon === 'cart',
               }"
             />
-            <SfBadge
+            <AwBadge
               v-if="cartTotalItems"
               class="sf-badge--number cart-badge"
             >
               {{ cartTotalItems }}
-            </SfBadge>
-          </SfButton>
+            </AwBadge>
+          </AwButton>
         </div>
       </template>
       <template #search>
@@ -102,24 +102,22 @@
           @SearchBar:result="result = $event"
         />
       </template>
-    </SfHeader>
+    </AwHeader>
     <SearchResults
       v-if="isSearchOpen"
       :visible="isSearchOpen"
       :result="result"
     />
-    <SfOverlay :visible="isSearchOpen" />
+    <AwOverlay :visible="isSearchOpen" />
   </div>
 </template>
 
 <script>
-import {
-  SfOverlay,
-  SfHeader,
-  SfButton,
-  SfBadge,
-} from '@storefront-ui/vue';
 
+import AwOverlay from '@storefront-ui/root/packages/vue/src/components/atoms/AwOverlay/AwOverlay.vue';
+import AwHeader from '@storefront-ui/root/packages/vue/src/components/organisms/AwHeader/AwHeader.vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwBadge from '@storefront-ui/root/packages/vue/src/components/atoms/AwBadge/AwBadge.vue';
 import {
   categoryGetters,
   useCart,
@@ -148,14 +146,14 @@ import StoreSwitcher from '~/components/StoreSwitcher.vue';
 export default defineComponent({
   components: {
     HeaderNavigationItem,
-    SfHeader,
-    SfOverlay,
+    AwOverlay,
+    AwHeader,
+    AwButton,
+    AwBadge,
     CurrencySelector,
     HeaderLogo,
     StoreSwitcher,
     SvgImage,
-    SfButton,
-    SfBadge,
     SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
     SearchResults: () => import(/* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'),
   },
@@ -237,6 +235,12 @@ export default defineComponent({
 
 .nav-item {
   --header-navigation-item-margin: 0 var(--spacer-sm);
+  font-size: 16px;
+  line-height: 24px;
+  top: 32px;
+  font-family: Source Sans Pro;
+  font-weight: 400;
+  color: #3C3C3C;
 
   .sf-header-navigation-item__item--mobile {
     display: none;
@@ -245,6 +249,7 @@ export default defineComponent({
 
 .cart-badge {
   position: absolute;
+  color: #3C3C3C;
   bottom: 40%;
   left: 40%;
 }

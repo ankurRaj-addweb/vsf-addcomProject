@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <SfButton
+    <AwButton
       class="container__currency container__currency--selected"
       @click="isCurrencyModalOpen = !isCurrencyModalOpen"
     >
-      {{ currentCurrencySymbol }}
-    </SfButton>
+      {{ '$' }}
+    </AwButton>
     <CurrenciesModal
       v-if="isCurrencyModalOpen"
       :is-modal-open="isCurrencyModalOpen"
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
 import {
   ref,
   computed,
@@ -27,7 +27,7 @@ import CurrenciesModal from './CurrencySelector/CurrenciesModal';
 export default defineComponent({
   name: 'CurrencySelector',
   components: {
-    SfButton,
+    AwButton,
     CurrenciesModal,
   },
   setup() {
@@ -39,7 +39,7 @@ export default defineComponent({
     const currentCurrencySymbol = computed(() => {
       try {
         return (0).toLocaleString(
-          selectedLocale.value.replace(/[!"$-/:-?[\]^_`{-~]/, '-'),
+          selectedLocale.value.replace(/["$-/:-?[\]^_`{-~]/, '-'),
           {
             style: 'currency',
             currency: selectedCurrency.value,

@@ -30,6 +30,9 @@
         </SfButton>
       </template>
     </SfHero>
+    <template>
+      <popular-categories/>
+    </template>
     <LazyHydrate when-visible>
       <SfBannerGrid :banner-grid="1" class="banner-grid">
         <template v-for="item in banners" #[item.slot]>
@@ -41,7 +44,7 @@
             :button-text="item.buttonText"
             :image="item.image"
             :class="item.class"
-          />
+          /> 
         </template>
       </SfBannerGrid>
     </LazyHydrate>
@@ -74,25 +77,19 @@
     <LazyHydrate when-visible>
       <MobileStoreBanner />
     </LazyHydrate>
+
+    
   </div>
 </template>
 <script type="module">
-import { SfButton, SfHero, SfBanner, SfBannerGrid } from "@storefront-ui/vue";
+
 import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
-import { useProduct, productGetters } from "@vue-storefront/magento";
+
 import {
   computed,
   defineComponent,
   ref,
   useContext,
-} from "@nuxtjs/composition-api";
-import { onSSR } from "@vue-storefront/core";
-import LazyHydrate from "vue-lazy-hydration";
-import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
-import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
-import InstagramFeed from "~/components/InstagramFeed.vue";
-import ProductsCarousel from "~/components/ProductsCarousel.vue";
-import SvgImage from "~/components/General/SvgImage.vue";
 
 export default defineComponent({
   name: "HomePage",
@@ -102,11 +99,13 @@ export default defineComponent({
     MobileStoreBanner,
     ProductsCarousel,
     SvgImage,
-    SfButton,
-    SfBanner,
+    AwButton,
+    AwBanner,
     SfBannerGrid,
     AwCallToAction,
     SfHero,
+    PopularCategories,
+
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
