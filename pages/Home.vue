@@ -38,6 +38,9 @@
         </SfButton>
       </template>
     </SfHero>
+    <template>
+      <popular-categories/>
+    </template>
     <LazyHydrate when-visible>
       <SfBannerGrid
         :banner-grid="1"
@@ -55,7 +58,7 @@
             :button-text="item.buttonText"
             :image="item.image"
             :class="item.class"
-          />
+          /> 
         </template>
       </SfBannerGrid>
     </LazyHydrate>
@@ -83,6 +86,8 @@
     <LazyHydrate when-visible>
       <MobileStoreBanner />
     </LazyHydrate>
+
+    
   </div>
 </template>
 <script type="module">
@@ -113,6 +118,9 @@ import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
+import PopularCategories from '../components/PopularCategories.vue'
+
+
 
 export default defineComponent({
   name: 'HomePage',
@@ -127,6 +135,8 @@ export default defineComponent({
     SfBannerGrid,
     SfCallToAction,
     SfHero,
+    PopularCategories,
+
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
