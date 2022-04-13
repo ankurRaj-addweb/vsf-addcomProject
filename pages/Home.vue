@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <SfHero class="hero">
-      <SfHeroItem
+    <AwHero class="hero">
+      <AwHeroItem
         v-for="(hero, i) in heroes"
         :key="i"
         :title="hero.title"
@@ -12,7 +12,7 @@
         :class="hero.className"
       />
       <template #prev="prevArrow">
-        <SfButton
+        <AwButton
           aria-label="previous"
           class="hero__arrow"
           @click="prevArrow.go('prev')"
@@ -22,10 +22,10 @@
             width="24"
             height="24"
           />
-        </SfButton>
+        </AwButton>
       </template>
       <template #next="nextArrow">
-        <SfButton
+        <AwButton
           aria-label="next"
           class="hero__arrow"
           @click="nextArrow.go('next')"
@@ -35,19 +35,20 @@
             width="24"
             height="24"
           />
-        </SfButton>
+        </AwButton>
       </template>
-    </SfHero>
+    </AwHero>
     <LazyHydrate when-visible>
-      <SfBannerGrid
+      <AwBannerGrid
         :banner-grid="1"
         class="banner-grid"
+      
       >
         <template
           v-for="item in banners"
           #[item.slot]
         >
-          <SfBanner
+          <AwBanner
             :key="item.slot"
             :title="item.title"
             :subtitle="item.subtitle"
@@ -57,7 +58,7 @@
             :class="item.class"
           />
         </template>
-      </SfBannerGrid>
+      </AwBannerGrid>
     </LazyHydrate>
     <LazyHydrate when-visible>
       <ProductsCarousel
@@ -68,7 +69,7 @@
     </LazyHydrate>
 
     <LazyHydrate when-visible>
-      <SfCallToAction
+      <AwCallToAction
         :title="$t('Subscribe to Newsletters')"
         :button-text="$t('Subscribe')"
         :description="$t('Be aware of upcoming sales and events. Receive gifts and special offers!')"
@@ -86,13 +87,13 @@
   </div>
 </template>
 <script type="module">
-import {
-  SfButton,
-  SfHero,
-  SfBanner,
-  SfCallToAction,
-  SfBannerGrid,
-} from '@storefront-ui/vue';
+
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
+import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
+import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
+import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue";
+
 import {
   useProduct,
   productGetters,
@@ -119,11 +120,11 @@ export default defineComponent({
     MobileStoreBanner,
     ProductsCarousel,
     SvgImage,
-    SfButton,
-    SfBanner,
-    SfBannerGrid,
-    SfCallToAction,
-    SfHero,
+    AwButton,
+    AwBanner,
+    AwBannerGrid,
+    AwCallToAction,
+    AwHero,
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
@@ -183,32 +184,37 @@ export default defineComponent({
       {
         slot: 'banner-A',
         subtitle: app.i18n.t('Dresses'),
-        title: app.i18n.t('Cocktail & Party'),
+        title: app.i18n.t('Business & Finance'),
         description:
             app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
         buttonText: app.i18n.t('Shop now'),
-        image: {
+        image:{
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
+               'http://192.168.1.9:3000/_ipx/s_328x343/homepage/Mask%20Group.jpg',
+              
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
+              'http://192.168.1.9:3000/_ipx/s_330x840/homepage/Mask%20Group.jpg',
+          // require('../static/homepage/medium-shot-women-working-together 2.jpg')
+             
         },
-        class: 'sf-banner--slim desktop-only',
+        class: 'sf-banner--slim banner__demo desktop-only ',
         link: '/c/women/women-clothing-skirts',
       },
       {
         slot: 'banner-B',
         subtitle: app.i18n.t('Dresses'),
-        title: app.i18n.t('Linen Dresses'),
+        title: app.i18n.t('Business & Finance'),
         description: app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
+             'http://192.168.1.9:3000/_ipx/s_328x343/homepage/Mask%20Group2.jpg',
+              
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
+              'http://192.168.1.9:3000/_ipx/s_500x640/homepage/Mask%20Group2.jpg',
+              
         },
-        class: 'sf-banner--slim banner-central desktop-only',
+        class: 'sf-banner--slim banner-central de sktop-only',
         link: '/c/women/women-clothing-dresses',
       },
       {
@@ -217,22 +223,25 @@ export default defineComponent({
         title: app.i18n.t('The Office Life'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
+              'http://192.168.1.9:3000/_ipx/s_328x343/homepage/giant-building-with-sun%201.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
+              'http://192.168.1.9:3000/_ipx/s_310x343/homepage/giant-building-with-sun%201.jpg',
         },
-        class: 'sf-banner--slim banner__tshirt',
+        class: 'sf-banner--slim banner__tshirt office',
         link: '/c/women/women-clothing-shirts',
       },
       {
         slot: 'banner-D',
         subtitle: app.i18n.t('Summer Sandals'),
-        title: app.i18n.t('Eco Sandals'),
+        title: app.i18n.t('Eco Friendly Environment'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
+           
+              'http://192.168.1.9:3000/_ipx/s_328x343/homepage/Image%20Mask.jpg',
+              
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
+
+              'http://192.168.1.9:3000/_ipx/s_310x343/homepage/Image%20Mask.jpg',
         },
         class: 'sf-banner--slim',
         link: '/c/women/women-shoes-sandals',
@@ -273,7 +282,6 @@ export default defineComponent({
   font-weight: 600;
   font-size: 20px;
 }
-
 .article-meta {
   margin-top: 10px;
 }
@@ -288,6 +296,7 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.4);
   vertical-align: middle;
 }
+
 
 #home {
   box-sizing: border-box;
@@ -348,6 +357,8 @@ export default defineComponent({
 .banner-grid {
   --banner-container-width: 50%;
   margin: var(--spacer-xl) 0;
+ 
+
 
   ::v-deep .sf-link:hover {
     color: var(--c-white);
@@ -366,12 +377,24 @@ export default defineComponent({
     background-position: left;
   }
 
+  &__demo{
+    // background: red;
+    color: yellow !important;
+    
+  }
+  &__title{
+    width: 211px;
+    color:white;
+  }
+
   &-central {
     @include for-desktop {
       --banner-container-flex: 0 0 70%;
     }
   }
+  
 }
+
 
 .similar-products {
   display: flex;
@@ -386,6 +409,7 @@ export default defineComponent({
     padding-bottom: 0;
   }
 }
+
 
 .call-to-action {
   background-position: right;
@@ -412,4 +436,5 @@ export default defineComponent({
     }
   }
 }
+
 </style>
