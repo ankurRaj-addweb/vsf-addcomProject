@@ -82,14 +82,26 @@
   </div>
 </template>
 <script type="module">
-
+import { SfButton, SfHero, SfBanner, SfBannerGrid } from "@storefront-ui/vue";
 import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
 
+import { onSSR } from "@vue-storefront/core";
+import LazyHydrate from "vue-lazy-hydration";
+import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
+import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
+import InstagramFeed from "~/components/InstagramFeed.vue";
+import ProductsCarousel from "~/components/ProductsCarousel.vue";
+import SvgImage from "~/components/General/SvgImage.vue";
 import {
   computed,
   defineComponent,
   ref,
   useContext,
+} from "@nuxtjs/composition-api";
+import {
+useProduct,
+productGetters,
+} from '@vue-storefront/magento';
 
 export default defineComponent({
   name: "HomePage",
@@ -99,12 +111,11 @@ export default defineComponent({
     MobileStoreBanner,
     ProductsCarousel,
     SvgImage,
-    AwButton,
-    AwBanner,
+    SfButton,
+    SfBanner,
     SfBannerGrid,
     AwCallToAction,
-    SfHero,
-    PopularCategories,
+    SfHero
 
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
