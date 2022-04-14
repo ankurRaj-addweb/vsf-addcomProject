@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style lang=scss>
+<style scoped >
     h1 {
     /* outline: dotted; */
     text-align: center;
@@ -60,24 +60,23 @@ export default {
    /* display: flex; */
     color: #282828
   }
-
-  .popular {
-    display: flex;
-    .sf-category-card__details {
+  /* .sf-category-card__details  {
       background: #037EE6;
-       
-       &__count {
+    } */
 
-       --sf-category-card__count{
-         font-style: normal;
-       }
-       }
-    }
-  }
 
   .first {
     margin: 0.8rem;
   }
 
+</style>
+
+<style lang=scss>
+  .popular {
+    display: flex;
+    .sf-category-card__details  {
+      background: #037EE6;
+    }
+  }
 </style>
 
