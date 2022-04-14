@@ -33,9 +33,9 @@
 
     
     <LazyHydrate when-visible>
-      <SfBannerGrid :banner-grid="1" class="banner-grid">
+      <AwBannerGrid :banner-grid="1" class="banner-grid">
         <template v-for="item in banners" #[item.slot]>
-          <SfBanner
+          <AwBanner
             :key="item.slot"
             :title="item.title"
             :subtitle="item.subtitle"
@@ -45,7 +45,7 @@
             :class="item.class"
           /> 
         </template>
-      </SfBannerGrid>
+      </AwBannerGrid>
     </LazyHydrate>
     <LazyHydrate when-visible>
       <ProductsCarousel
@@ -81,10 +81,12 @@
   </div>
 </template>
 <script type="module">
+
+import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
+import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
+import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue"
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
-import { SfBanner, SfBannerGrid } from "@storefront-ui/vue";
-import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
 
 import { onSSR } from "@vue-storefront/core";
 import LazyHydrate from "vue-lazy-hydration";
@@ -112,9 +114,6 @@ export default defineComponent({
     MobileStoreBanner,
     ProductsCarousel,
     SvgImage,
-    AwButton,
-    SfBanner,
-    SfBannerGrid,
     AwCallToAction,
     AwHero
 
@@ -177,16 +176,16 @@ export default defineComponent({
       {
         slot: "banner-A",
         subtitle: app.i18n.t("Dresses"),
-        title: app.i18n.t("Cocktail & Party"),
+        title: app.i18n.t("Business & Finance"),
         description: app.i18n.t(
           "Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands."
         ),
         buttonText: app.i18n.t("Shop now"),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg",
+            require('../static/homepage/1.jpg'),
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg",
+            require('../static/homepage/1.jpg'),
         },
         class: "sf-banner--slim desktop-only",
         link: "/c/women/women-clothing-skirts",
@@ -194,16 +193,16 @@ export default defineComponent({
       {
         slot: "banner-B",
         subtitle: app.i18n.t("Dresses"),
-        title: app.i18n.t("Linen Dresses"),
+        title: app.i18n.t("Business & Finance"),
         description: app.i18n.t(
           "Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands."
         ),
         buttonText: app.i18n.t("Shop now"),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg",
+             require('../static/homepage/2.jpg'),
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg",
+             require('../static/homepage/2.jpg'),
         },
         class: "sf-banner--slim banner-central desktop-only",
         link: "/c/women/women-clothing-dresses",
@@ -214,9 +213,9 @@ export default defineComponent({
         title: app.i18n.t("The Office Life"),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg",
+            require('../static/homepage/3.jpg'),
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg",
+            require('../static/homepage/3.jpg'),
         },
         class: "sf-banner--slim banner__tshirt",
         link: "/c/women/women-clothing-shirts",
@@ -224,12 +223,12 @@ export default defineComponent({
       {
         slot: "banner-D",
         subtitle: app.i18n.t("Summer Sandals"),
-        title: app.i18n.t("Eco Sandals"),
+        title: app.i18n.t("Eco Friendly Environment"),
         image: {
           mobile:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg",
+           require('../static/homepage/4.jpg'), 
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg",
+           require('../static/homepage/4.jpg'),
         },
         class: "sf-banner--slim",
         link: "/c/women/women-shoes-sandals",

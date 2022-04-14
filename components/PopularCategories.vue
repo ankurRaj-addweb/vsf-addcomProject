@@ -43,19 +43,14 @@ export default {
 };
 </script>
 
+
+
 <style scoped>
 
-  .popular {
-    display: flex;
-    margin-top: 1rem;
-    font-style: normal;
-  }
-
-  .first {
-    margin: 0.8rem;
-  }
+  
 
   h1 {
+
     /* outline: dotted; */
     text-align: center;
     left: 42.1%;
@@ -72,5 +67,20 @@ export default {
     color: #282828
   }
 
+
+  .first {
+    margin: 0.8rem;
+  }
+
+
+</style>
+
+<style lang=scss>
+  .popular {
+    display: flex;
+    .sf-category-card__details  {
+      background: #037EE6;
+    }
+  }
 </style>
 
