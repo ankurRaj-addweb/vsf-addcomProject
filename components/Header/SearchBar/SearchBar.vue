@@ -6,6 +6,7 @@
     class="sf-header__search"
     :value="term"
     @input="handleSearch"
+    :icon='{"icon":"search","size":"1.25rem","color":"#43464E"}'
     @keydown.enter="handleSearch($event)"
     @keydown.tab="hideSearch"
     @focus="showSearch"

@@ -43,8 +43,14 @@ export default {
 };
 </script>
 
-<style scoped >
-    h1 {
+
+
+<style scoped>
+
+  
+
+  h1 {
+
     /* outline: dotted; */
     text-align: center;
     left: 42.1%;
@@ -53,21 +59,19 @@ export default {
     bottom: 84.24%;
     /* font-family: 'Source Sans Pro'; */
     font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
+    font-weight: 600;
+    font-size: 24px;
     line-height: 32px; 
 
    /* display: flex; */
     color: #282828
   }
-  /* .sf-category-card__details  {
-      background: #037EE6;
-    } */
 
 
   .first {
     margin: 0.8rem;
   }
+
 
 </style>
 
