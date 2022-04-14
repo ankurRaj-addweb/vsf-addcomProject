@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <SfHero class="hero">
-      <SfHeroItem
+    <AwHero class="hero">
+      <AwHeroItem
         v-for="(hero, i) in heroes"
         :key="i"
         :title="hero.title"
@@ -12,27 +12,26 @@
         :class="hero.className"
       />
       <template #prev="prevArrow">
-        <SfButton
+        <AwButton
           aria-label="previous"
           class="hero__arrow"
           @click="prevArrow.go('prev')"
         >
           <SvgImage icon="arrow_left" width="24" height="24" />
-        </SfButton>
+        </AwButton>
       </template>
       <template #next="nextArrow">
-        <SfButton
+        <AwButton
           aria-label="next"
           class="hero__arrow"
           @click="nextArrow.go('next')"
         >
           <SvgImage icon="arrow_right" width="24" height="24" />
-        </SfButton>
+        </AwButton>
       </template>
-    </SfHero>
-    <template>
-      <popular-categories/>
-    </template>
+    </AwHero>
+
+    
     <LazyHydrate when-visible>
       <SfBannerGrid :banner-grid="1" class="banner-grid">
         <template v-for="item in banners" #[item.slot]>
@@ -52,7 +51,7 @@
       <ProductsCarousel
         :products="newProducts"
         :loading="newProductsLoading"
-        :title="$t('New Products')"
+        :title="$t('Match it with')"
       />
     </LazyHydrate>
 
@@ -82,7 +81,9 @@
   </div>
 </template>
 <script type="module">
-import { SfButton, SfHero, SfBanner, SfBannerGrid } from "@storefront-ui/vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
+import { SfBanner, SfBannerGrid } from "@storefront-ui/vue";
 import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
 
 import { onSSR } from "@vue-storefront/core";
@@ -111,11 +112,11 @@ export default defineComponent({
     MobileStoreBanner,
     ProductsCarousel,
     SvgImage,
-    SfButton,
+    AwButton,
     SfBanner,
     SfBannerGrid,
     AwCallToAction,
-    SfHero
+    AwHero
 
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -139,7 +140,7 @@ export default defineComponent({
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg",
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg",
+            require('../static/homepage/hero.png'),
         },
         link: "/c/women/women-clothing-shirts",
       },
@@ -152,7 +153,7 @@ export default defineComponent({
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg",
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg",
+            require('../static/homepage/hero.png'),
         },
         link: "/c/women/women-clothing-dresses",
       },
@@ -165,11 +166,11 @@ export default defineComponent({
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg",
           desktop:
-            "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg",
+            require('../static/homepage/hero.png'),
         },
         link: "/c/women/women-shoes-sandals",
         className:
-          "sf-hero-item--position-bg-top-left sf-hero-item--align-right",
+          "sf-hero-item--position-bg-top-left sf-hero-item--align-left",
       },
     ]);
     const banners = ref([
