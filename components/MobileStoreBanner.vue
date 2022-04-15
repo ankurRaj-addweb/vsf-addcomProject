@@ -67,7 +67,7 @@ export default defineComponent({
   --banner-title-text-transform: none;
   --banner-background-size: contain;
   --banner-background-position: right;
-  display: block;
+  display: inline-block;
   min-height: 26.25rem;
   max-width: 77.5rem;
   margin: 0 auto;
@@ -86,39 +86,26 @@ export default defineComponent({
     }
   }
 }
-// .font{
-// font-family: 'Source Sans Pro';
-// font-style: normal;
-// font-weight: 600;
-// font-size: 26px;
-// line-height: 48px;
-
-// }
-.sf-banner__title{
-  // font-size: 37px;
-  /* Download our application to your mobile */
-
-
-position: absolute;
-width: 414px;
-height: 107px;
-left: 100px;
-top: 126px;
-
-font-family: 'Source Sans Pro';
-font-style: normal;
-font-weight: 600;
-font-size: 36px;
-line-height: 48px;
-  
-}
 .sf-banner__subtitle{
   font-size: 16px;
 }
 #layout{
   position: absolute;
-width: 1240px;
-height: 420px;
+  width: 1240px;
+  height: 420px;
 }
 
+</style>
+
+<style lang=scss>
+.sf-banner__title{
+  width: 400px;
+  font-family: Source Sans Pro;
+  font-size: 36px;
+  font-weight: 600, semi bold;
+  line-height: 48px;
+  letter-spacing: 0px;
+  text-align: left;
+  
+}
 </style>
