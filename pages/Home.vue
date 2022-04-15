@@ -71,6 +71,28 @@
           style="font-size: 30px"
         />
     </LazyHydrate>
+    <template>
+
+  <AwInput
+    value=""
+    name="email"
+    placeholder="Your Email"
+    type="text"
+    class="sf-input--outline"
+    style="
+            position: relative;
+            width: 300px;
+            top: 0%;
+            height:53px;
+            font-size: 12px;
+            color: #43464e;
+            background-color: white;
+            margin-left: 710px; 
+            margin-top: 235px;
+            margin-bottom: 150px;
+          "
+  />
+</template>
     <LazyHydrate when-visible>
       <InstagramFeed />
     </LazyHydrate>
@@ -90,6 +112,7 @@ import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organi
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
 import PopularCategories from '../components/PopularCategories.vue';
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import { onSSR } from "@vue-storefront/core";
 import LazyHydrate from "vue-lazy-hydration";
 import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
@@ -118,6 +141,7 @@ export default defineComponent({
     SvgImage,
     AwCallToAction,
     AwHero,
+    AwInput,
     PopularCategories,
 
   },
@@ -390,10 +414,13 @@ export default defineComponent({
 }
 
 .call-to-action {
+  width: 1240px;
+
+  position: absolute;
   background-position: right;
   margin: var(--spacer-xs) 0;
   @include for-desktop {
-    margin: var(--spacer-xl) 0 var(--spacer-2xl) 0;
+    margin: var(--spacer-l) 0 var(--spacer-2xl) 0;
   }
 }
 
