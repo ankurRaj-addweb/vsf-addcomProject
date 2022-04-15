@@ -30,7 +30,9 @@
         </AwButton>
       </template>
     </AwHero>
-
+<template>
+<popular-categories/>
+</template>
     
     <LazyHydrate when-visible>
       <AwBannerGrid :banner-grid="1" class="banner-grid">
@@ -87,7 +89,7 @@ import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/
 import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue"
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
-
+import PopularCategories from '../components/PopularCategories.vue';
 import { onSSR } from "@vue-storefront/core";
 import LazyHydrate from "vue-lazy-hydration";
 import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
@@ -115,7 +117,8 @@ export default defineComponent({
     ProductsCarousel,
     SvgImage,
     AwCallToAction,
-    AwHero
+    AwHero,
+    PopularCategories,
 
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
