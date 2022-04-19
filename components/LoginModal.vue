@@ -17,7 +17,8 @@
       name="sf-fade"
       mode="out-in"
     >
-      <div v-if="isLogin">
+      <div v-if="isLogin"
+      >
         <ValidationObserver
           v-slot="{ handleSubmit }"
           key="log-in"
