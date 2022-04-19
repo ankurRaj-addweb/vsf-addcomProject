@@ -32,6 +32,7 @@
         </ValidationProvider><br>
         <ValidationProvider rules="required|max:250" v-slot="{ errors }">
         <textarea class="sf-input" v-model="msg" placeholder="Your Message" />
+        <!-- <label for="msg">Your Message</label> -->
          <span class="red">{{ errors[0] }}</span>
         </ValidationProvider>
         <AwButton class="color-secondary sf-button" >
@@ -105,8 +106,10 @@ export default defineComponent({
   width: 475px;
   padding: 1rem;
   font-size: 1rem;
-  border-bottom: .5rem solid rgb(3, 3, 3);
-
+  border-top: .5rem  rgb(3, 3, 3);
+  border-left: .5rem  rgb(3, 3, 3);
+border-right: .5rem  rgb(3, 3, 3);
+border-bottom: .1rem solid rgb(3, 3, 3);
 }
 .red{
   color: red;
