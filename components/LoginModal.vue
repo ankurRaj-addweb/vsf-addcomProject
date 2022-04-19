@@ -41,10 +41,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required"
-            >
+            <ValidationProvider v-slot="{ errors }" rules="required">
               <SfInput
                 v-model="form.password"
                 v-e2e="'login-modal-password'"
@@ -57,7 +54,13 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <recaptcha v-if="isRecaptchaEnabled" />
+            <vue-recaptcha
+              ref="recaptcha"
+              :sitekey="sitekey"
+              class="g-recaptcha"
+              @verify="onVerify"
+              :load-recaptcha-script="true"
+            />
             <div v-if="error.login">
               {{ $t(error.login) }}
             </div>
@@ -67,49 +70,31 @@
               class="sf-button--full-width form__button"
               :disabled="loading"
             >
-              <SfLoader
-                :class="{ loader: loading }"
-                :loading="loading"
-              >
-                <div>{{ $t('Login') }}</div>
+              <SfLoader :class="{ loader: loading }" :loading="loading">
+                <div>{{ $t("Login") }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
         <div class="action">
-          <SfButton
-            class="sf-button--text"
-            @click="setIsForgottenValue(true)"
-          >
-            {{ $t('Forgotten password?') }}
+          <SfButton class="sf-button--text" @click="setIsForgottenValue(true)">
+            {{ $t("Forgotten password?") }}
           </SfButton>
         </div>
         <div class="bottom">
           <p class="bottom__paragraph">
-            {{ $t('No account') }}
+            {{ $t("No account") }}
           </p>
-          <SfButton
-            class="sf-button--text"
-            @click="setIsLoginValue(false)"
-          >
-            {{ $t('Register today') }}
+          <SfButton class="sf-button--text" @click="setIsLoginValue(false)">
+            {{ $t("Register today") }}
           </SfButton>
         </div>
       </div>
       <div v-else-if="isForgotten">
-        <p>{{ $t('Forgot Password') }}</p>
-        <ValidationObserver
-          v-slot="{ handleSubmit }"
-          key="log-in"
-        >
-          <form
-            class="form"
-            @submit.prevent="handleSubmit(handleForgotten)"
-          >
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required|email"
-            >
+        <p>{{ $t("Forgot Password") }}</p>
+        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
+          <form class="form" @submit.prevent="handleSubmit(handleForgotten)">
+            <ValidationProvider v-slot="{ errors }" rules="required|email">
               <SfInput
                 v-model="form.username"
                 v-e2e="'forgot-modal-email'"
@@ -122,7 +107,11 @@
             </ValidationProvider>
             <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="forgotPasswordError.request">
-              {{ $t('It was not possible to request a new password, please check the entered email address.') }}
+              {{
+                $t(
+                  "It was not possible to request a new password, please check the entered email address."
+                )
+              }}
             </div>
             <SfButton
               v-e2e="'forgot-modal-submit'"
@@ -134,16 +123,13 @@
                 :class="{ loader: forgotPasswordLoading }"
                 :loading="forgotPasswordLoading"
               >
-                <div>{{ $t('Reset Password') }}</div>
+                <div>{{ $t("Reset Password") }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
       </div>
-      <div
-        v-else-if="isThankYouAfterForgotten"
-        class="thank-you"
-      >
+      <div v-else-if="isThankYouAfterForgotten" class="thank-you">
         <i18n
           tag="p"
           class="thank-you__paragraph"
@@ -152,26 +138,17 @@
           <span class="thank-you__paragraph--bold">{{ userEmail }}</span>
         </i18n>
         <p class="thank-you__paragraph">
-          {{ $t('Thank You Inbox') }}
+          {{ $t("Thank You Inbox") }}
         </p>
       </div>
-      <div
-        v-else
-        class="form"
-      >
-        <ValidationObserver
-          v-slot="{ handleSubmit, invalid }"
-          key="sign-up"
-        >
+      <div v-else class="form">
+        <ValidationObserver v-slot="{ handleSubmit, invalid }" key="sign-up">
           <form
             class="form"
             autocomplete="off"
             @submit.prevent="handleSubmit(handleRegister)"
           >
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required|email"
-            >
+            <ValidationProvider v-slot="{ errors }" rules="required|email">
               <SfInput
                 v-model="form.email"
                 v-e2e="'login-modal-email'"
@@ -182,10 +159,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required"
-            >
+            <ValidationProvider v-slot="{ errors }" rules="required">
               <SfInput
                 v-model="form.firstName"
                 v-e2e="'login-modal-firstName'"
@@ -196,10 +170,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required"
-            >
+            <ValidationProvider v-slot="{ errors }" rules="required">
               <SfInput
                 v-model="form.lastName"
                 v-e2e="'login-modal-lastName'"
@@ -210,10 +181,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider
-              v-slot="{ errors }"
-              rules="required|password"
-            >
+            <ValidationProvider v-slot="{ errors }" rules="required|password">
               <SfInput
                 v-model="form.password"
                 v-e2e="'login-modal-password'"
@@ -257,23 +225,20 @@
               class="sf-button--full-width form__button"
               :disabled="loading || !createAccount || invalid"
             >
-              <SfLoader
-                :class="{ loader: loading }"
-                :loading="loading"
-              >
-                <div>{{ $t('Create an account') }}</div>
+              <SfLoader :class="{ loader: loading }" :loading="loading">
+                <div>{{ $t("Create an account") }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
         <div class="action">
-          {{ $t('or') }}
+          {{ $t("or") }}
           <SfButton
             v-e2e="'login-modal-login-to-your-account'"
             class="sf-button--text"
             @click="setIsLoginValue(true)"
           >
-            {{ $t('login in to your account') }}
+            {{ $t("login in to your account") }}
           </SfButton>
         </div>
       </div>
@@ -288,7 +253,7 @@ import {
   defineComponent,
   computed,
   useContext,
-} from '@nuxtjs/composition-api';
+} from "@nuxtjs/composition-api";
 import {
   SfModal,
   SfInput,
@@ -296,32 +261,39 @@ import {
   SfCheckbox,
   SfLoader,
   SfBar,
-} from '@storefront-ui/vue';
-import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
+} from "@storefront-ui/vue";
+import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
+import { required, email } from "vee-validate/dist/rules";
 import {
-  useUser, useForgotPassword, useWishlist, useCart,
-} from '@vue-storefront/magento';
-import { useUiState } from '~/composables';
-import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
+  useUser,
+  useForgotPassword,
+  useWishlist,
+  useCart,
+} from "@vue-storefront/magento";
+import { useUiState } from "~/composables";
+import {
+  customerPasswordRegExp,
+  invalidPasswordMsg,
+} from "~/helpers/customer/regex";
+import { VueRecaptcha } from "vue-recaptcha";
 
-extend('email', {
+extend("email", {
   ...email,
-  message: 'Invalid email',
+  message: "Invalid email",
 });
 
-extend('required', {
+extend("required", {
   ...required,
-  message: 'This field is required',
+  message: "This field is required",
 });
 
-extend('password', {
+extend("password", {
   message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
 export default defineComponent({
-  name: 'LoginModal',
+  name: "LoginModal",
   components: {
     SfModal,
     SfInput,
@@ -331,6 +303,7 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
     SfBar,
+    VueRecaptcha,
   },
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
@@ -341,28 +314,31 @@ export default defineComponent({
     const rememberMe = ref(false);
     const isForgotten = ref(false);
     const isThankYouAfterForgotten = ref(false);
-    const userEmail = ref('');
+    const userEmail = ref("");
+    const sitekey = ref("6LeOaIMfAAAAANi5IpB6gvEn4wx_axuz0_0VaK2V");
     const { $recaptcha, $config } = useContext();
-    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+    const isRecaptchaEnabled = ref(
+      typeof $recaptcha !== "undefined" && $config.isRecaptcha
+    );
 
-    const {
-      register,
-      login,
-      loading,
-      error: userError,
-    } = useUser();
+    const { register, login, loading, error: userError } = useUser();
 
     const { load: loadCart } = useCart();
-    const { loadItemsCount } = useWishlist('GlobalWishlist');
-    const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
+    const { loadItemsCount } = useWishlist("GlobalWishlist");
+    const {
+      request,
+      error: forgotPasswordError,
+      loading: forgotPasswordLoading,
+    } = useForgotPassword();
 
     const barTitle = computed(() => {
       if (isLogin.value) {
-        return 'Sign in';
-      } if (isForgotten.value || isThankYouAfterForgotten.value) {
-        return 'Reset Password';
+        return "Sign in";
       }
-      return 'Register';
+      if (isForgotten.value || isThankYouAfterForgotten.value) {
+        return "Reset Password";
+      }
+      return "Register";
     });
 
     const error = reactive({
@@ -445,7 +421,7 @@ export default defineComponent({
 
     const handleLogin = async () => {
       await handleForm(login)();
-      await Promise.all([loadItemsCount('GlobalWishlist'), loadCart()]);
+      await Promise.all([loadItemsCount("GlobalWishlist"), loadCart()]);
     };
 
     const handleForgotten = async () => {
@@ -474,6 +450,15 @@ export default defineComponent({
       }
     };
 
+    const onEvent = () => {
+      // when you need a reCAPTCHA challenge
+      this.$refs.recaptcha.execute();
+    };
+
+    const onVerify = (response) => {
+      console.log("Verify: " + response);
+    };
+
     return {
       barTitle,
       closeModal,
@@ -497,13 +482,15 @@ export default defineComponent({
       userEmail,
       userError,
       isRecaptchaEnabled,
+      onEvent,
+      onVerify,
+      sitekey,
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-
 .modal {
   --modal-index: 3;
   --overlay-z-index: 3;
@@ -522,7 +509,8 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   margin: var(--spacer-xl) 0 var(--spacer-xl) 0;
-  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--secondary);
+  font: var(--font-weight--light) var(--font-size--base) / 1.6
+    var(--font-family--secondary);
 
   & > * {
     margin: 0 0 0 var(--spacer-xs);
@@ -558,5 +546,11 @@ export default defineComponent({
       font-weight: var(--font-weight--semibold);
     }
   }
+}
+
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2px;
 }
 </style>
