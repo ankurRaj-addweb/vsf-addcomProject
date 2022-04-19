@@ -41,7 +41,13 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <recaptcha v-if="isRecaptchaEnabled" />
+            <vue-recaptcha
+              ref="recaptcha"
+              :sitekey="sitekey"
+              class="g-recaptcha"
+              @verify="onVerify"
+              :load-recaptcha-script="true"
+            />
             <div v-if="error.login">
               {{ $t(error.login) }}
             </div>
@@ -245,6 +251,7 @@ import {
 } from "@storefront-ui/vue";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
+
 import {
   useUser,
   useForgotPassword,
@@ -256,6 +263,7 @@ import {
   customerPasswordRegExp,
   invalidPasswordMsg,
 } from "~/helpers/customer/regex";
+import { VueRecaptcha } from "vue-recaptcha";
 
 extend("email", {
   ...email,
@@ -283,6 +291,7 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
     SfBar,
+    VueRecaptcha,
   },
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
@@ -294,6 +303,7 @@ export default defineComponent({
     const isForgotten = ref(false);
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref("");
+    const sitekey = ref("6LeOaIMfAAAAANi5IpB6gvEn4wx_axuz0_0VaK2V");
     const { $recaptcha, $config } = useContext();
     const isRecaptchaEnabled = ref(
       typeof $recaptcha !== "undefined" && $config.isRecaptcha
@@ -428,6 +438,15 @@ export default defineComponent({
       }
     };
 
+    const onEvent = () => {
+      // when you need a reCAPTCHA challenge
+      this.$refs.recaptcha.execute();
+    };
+
+    const onVerify = (response) => {
+      console.log("Verify: " + response);
+    };
+
     return {
       barTitle,
       closeModal,
@@ -451,6 +470,9 @@ export default defineComponent({
       userEmail,
       userError,
       isRecaptchaEnabled,
+      onEvent,
+      onVerify,
+      sitekey,
     };
   },
 });
@@ -512,5 +534,11 @@ export default defineComponent({
       font-weight: var(--font-weight--semibold);
     }
   }
+}
+
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2px;
 }
 </style>
