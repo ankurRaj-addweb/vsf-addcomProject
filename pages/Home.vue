@@ -140,8 +140,6 @@ export default defineComponent({
     ProductsCarousel,
     SvgImage,
     AwCallToAction,
-
-    AwHero
     AwHero,
     AwInput,
     PopularCategories,
