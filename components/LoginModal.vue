@@ -13,11 +13,24 @@
         @click:close="closeModal"
       />
     </template>
-    <transition name="sf-fade" mode="out-in">
-      <div v-if="isLogin">
-        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-          <form class="form" @submit.prevent="handleSubmit(handleLogin)">
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
+    <transition
+      name="sf-fade"
+      mode="out-in"
+    >
+      <div v-if="isLogin"
+      >
+        <ValidationObserver
+          v-slot="{ handleSubmit }"
+          key="log-in"
+        >
+          <form
+            class="form"
+            @submit.prevent="handleSubmit(handleLogin)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required|email"
+            >
               <SfInput
                 v-model="form.username"
                 v-e2e="'login-modal-email'"
