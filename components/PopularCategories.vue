@@ -6,26 +6,26 @@
       <AwCategoryCard class="first"
         label="Personal Care" 
         count="32"
-        :background='{"mobile":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
+        :background='{"mobile":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
         link="#"
       /> 
       <AwCategoryCard class="first"
         label="Personal Care" 
         count="32"
-        :background='{"mobile":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
+        :background='{"mobile":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
         link="#"
       /> 
       <AwCategoryCard class="first"
         label="Personal Care" 
         count="32"
-        :background='{"mobile":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
+        :background='{"mobile":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
         link="#"
       /> 
       <AwCategoryCard class="first"
       
         label="Personal Care" 
         count="32"
-        :background='{"mobile":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.123:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
+        :background='{"mobile":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png","desktop":"http://192.168.11.186:3000/_ipx/s_470x470/homepage/two-business-partners-working-office%202.png"}'
         link="#"
       />   
     </div>
