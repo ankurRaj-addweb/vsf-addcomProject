@@ -141,10 +141,8 @@ export default defineComponent({
     SvgImage,
     AwCallToAction,
 
+    AwHero
     AwHero,
-    AwBanner,
-    AwBannerGrid,
-    AwButton,
     AwInput,
     PopularCategories,
 
