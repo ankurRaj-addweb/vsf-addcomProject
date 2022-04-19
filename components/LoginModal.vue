@@ -251,7 +251,6 @@ import {
 } from "@storefront-ui/vue";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email } from "vee-validate/dist/rules";
-
 import {
   useUser,
   useForgotPassword,

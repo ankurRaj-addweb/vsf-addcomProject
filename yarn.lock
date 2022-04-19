@@ -2033,7 +2033,7 @@
 
 "@storefront-ui/root@https://github.com/ankurRaj-addweb/vsf-awstorybook.git":
   version "0.13.0"
-  resolved "https://github.com/ankurRaj-addweb/vsf-awstorybook.git#8fbae6caabdb63890826f91bdc62f1843ca8beac"
+  resolved "https://github.com/ankurRaj-addweb/vsf-awstorybook.git#374ad33e259565dbb6e34168d972352c78eb02db"
 
 "@storefront-ui/shared@0.11.5":
   version "0.11.5"
