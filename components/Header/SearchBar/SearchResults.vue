@@ -183,18 +183,21 @@
           class="before-results"
         >
           <nuxt-img
-            src="/error/error.svg"
+            src="/error/Frame 1.png"
             class="before-results__picture"
             alt="error"
-            width="412"
-            height="412"
+            width="290.24"
+            height="177.61" 
           />
           <p class="before-results__paragraph">
+            {{ $t('No Searches') }}
+          </p>
+          <!-- <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
-          </p>
-          <p class="before-results__paragraph">
+          </p> -->
+          <!-- <p class="before-results__paragraph">
             {{ $t('Let’s start now – we’ll help you') }}
-          </p>
+          </p> -->
           <AwButton
             class="before-results__button color-secondary smartphone-only"
             @click="$emit('close')"
@@ -413,5 +416,26 @@ export default defineComponent({
     margin: var(--spacer-xl) auto;
     width: 100%;
   }
+  .before-results__paragraph{
+    /* position: absolute; */
+    width: 101px;
+    height: 23px;
+    left: 201px;
+    top: 453px;
+
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: flex-end;
+    letter-spacing: 0.03em;
+
+    color: #000000;
+
+    }
 }
 </style>
