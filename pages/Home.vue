@@ -13,7 +13,7 @@
       />
       <template #prev="prevArrow">
         <AwButton
-          aria-label="previous"
+          aria-label="previous" 
           class="hero__arrow"
           @click="prevArrow.go('prev')"
         >
