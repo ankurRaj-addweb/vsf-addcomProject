@@ -1,88 +1,130 @@
 <template>
-  <SfModal
+  <AwModal
     v-e2e="'login-modal'"
     :visible="isLoginModalOpen"
     class="modal"
     @close="closeModal"
   >
     <template #modal-bar>
-      <SfBar
+      <AwBar
         class="sf-modal__bar smartphone-only"
         :close="true"
         :title="barTitle"
         @click:close="closeModal"
       />
     </template>
-    <transition name="sf-fade" mode="out-in">
+    <transition
+      name="sf-fade"
+      mode="out-in"
+    >
       <div v-if="isLogin">
-        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-          <form class="form" @submit.prevent="handleSubmit(handleLogin)">
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <SfInput
+        <ValidationObserver
+          v-slot="{ handleSubmit, invalid}"
+          key="log-in"
+        >
+          <form
+            class="form"
+            @submit.prevent="handleSubmit(handleLogin)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required|email"
+            >
+              <AwInput
                 v-model="form.username"
                 v-e2e="'login-modal-email'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
+                :error-message="errorMessage"
+                @blur="handleBlur()"
+                @focus="handleFocus()"
                 name="email"
                 :label="$t('Your email')"
                 class="form__element"
-              />
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required">
-              <SfInput
-                v-model="form.password"
-                v-e2e="'login-modal-password'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
-                name="password"
-                :label="$t('Password')"
-                type="password"
-                has-show-password
-                class="form__element"
-              />
-            </ValidationProvider>
-            <vue-recaptcha
-              ref="recaptcha"
-              :sitekey="sitekey"
-              class="g-recaptcha"
-              @verify="onVerify"
-              :load-recaptcha-script="true"
-            />
-            <div v-if="error.login">
-              {{ $t(error.login) }}
-            </div>
-            <SfButton
-              v-e2e="'login-modal-submit'"
-              type="submit"
-              class="sf-button--full-width form__button"
-              :disabled="loading"
-            >
-              <SfLoader :class="{ loader: loading }" :loading="loading">
-                <div>{{ $t("Login") }}</div>
-              </SfLoader>
-            </SfButton>
-          </form>
-        </ValidationObserver>
-        <div class="action">
-          <SfButton class="sf-button--text" @click="setIsForgottenValue(true)">
-            {{ $t("Forgotten password?") }}
-          </SfButton>
-        </div>
-        <div class="bottom">
-          <p class="bottom__paragraph">
-            {{ $t("No account") }}
-          </p>
-          <SfButton class="sf-button--text" @click="setIsLoginValue(false)">
-            {{ $t("Register today") }}
-          </SfButton>
-        </div>
+              >
+                <template #error-message="{errorMessage}">
+                  <div>
+                    <p v-if="setShowError">{{ errors[0] }}</p>
+                  </div>
+
+                </template>
+                </AwInput>
+
+                </ValidationProvider>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                >
+                  <AwInput
+                    v-model="form.password"
+                    v-e2e="'login-modal-password'"
+                    :valid="!errors[0]"
+                    :error-message="$t(errors[0])"
+                    name="password"
+                    :label="$t('Password')"
+                    type="password"
+                    has-show-password
+                    class="form__element"
+                  />
+                  </ValidationProvider>
+                  <vue-recaptcha
+                    ref="recaptcha"
+                    :sitekey="sitekey"
+                    class="g-recaptcha"
+                    @verify="onVerify"
+                    :load-recaptcha-script="true"
+                  />
+                  <div v-if="error.login">
+                    {{ $t(error.login) }}
+                  </div>
+                  <AwButton
+                    v-e2e="'login-modal-submit'"
+                    type="submit"
+                    class="sf-button--full-width form__button"
+                    :disabled="invalid"
+                  >
+                    <AwLoader
+                      :class="{ loader: loading }"
+                      :loading="loading"
+                    >
+                      <div>{{ $t('Login') }}</div>
+                      </AwLoader>
+                      </AwButton>
+                      </form>
+                      </ValidationObserver>
+                      <div class="action">
+                        <AwButton
+                          class="sf-button--text"
+                          @click="setIsForgottenValue(true)"
+                        >
+                          {{ $t('Forgotten password?') }}
+                          </AwButton>
+                      </div>
+                      <div class="bottom">
+                        <p class="bottom__paragraph">
+                          {{ $t('No account') }}
+                        </p>
+                        <AwButton
+                          class="sf-button--text"
+                          @click="setIsLoginValue(false)"
+                        >
+                          {{ $t('Register today') }}
+                          </AwButton>
+                      </div>
       </div>
       <div v-else-if="isForgotten">
-        <p>{{ $t("Forgot Password") }}</p>
-        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-          <form class="form" @submit.prevent="handleSubmit(handleForgotten)">
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <SfInput
+        <p>{{ $t('Forgot Password') }}</p>
+        <ValidationObserver
+          v-slot="{ handleSubmit }"
+          key="log-in"
+        >
+          <form
+            class="form"
+            @submit.prevent="handleSubmit(handleForgotten)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required|email"
+            >
+              <AwInput
                 v-model="form.username"
                 v-e2e="'forgot-modal-email'"
                 :valid="!errors[0]"
@@ -91,146 +133,175 @@
                 :label="$t('Forgot Password Modal Email')"
                 class="form__element"
               />
-            </ValidationProvider>
-            <recaptcha v-if="isRecaptchaEnabled" />
-            <div v-if="forgotPasswordError.request">
-              {{
-                $t(
-                  "It was not possible to request a new password, please check the entered email address."
-                )
-              }}
-            </div>
-            <SfButton
-              v-e2e="'forgot-modal-submit'"
-              type="submit"
-              class="sf-button--full-width form__button"
-              :disabled="forgotPasswordLoading"
-            >
-              <SfLoader
-                :class="{ loader: forgotPasswordLoading }"
-                :loading="forgotPasswordLoading"
+              </ValidationProvider>
+              <recaptcha v-if="isRecaptchaEnabled" />
+              <div v-if="forgotPasswordError.request">
+                {{ $t( "It was not possible to request a new password, please check the entered email address." ) }}
+              </div>
+              <AwButton
+                v-e2e="'forgot-modal-submit'"
+                type="submit"
+                class="sf-button--full-width form__button"
+                :disabled="forgotPasswordLoading"
               >
-                <div>{{ $t("Reset Password") }}</div>
-              </SfLoader>
-            </SfButton>
-          </form>
-        </ValidationObserver>
+                <AwLoader
+                  :class="{ loader: forgotPasswordLoading }"
+                  :loading="forgotPasswordLoading"
+                >
+                  <div>{{ $t('Reset Password') }}</div>
+                  </AwLoader>
+                  </AwButton>
+                  </form>
+                  </ValidationObserver>
       </div>
-      <div v-else-if="isThankYouAfterForgotten" class="thank-you">
+      <div
+        v-else-if="isThankYouAfterForgotten"
+        class="thank-you"
+      >
         <i18n
           tag="p"
           class="thank-you__paragraph"
           path="forgotPasswordConfirmation"
         >
           <span class="thank-you__paragraph--bold">{{ userEmail }}</span>
-        </i18n>
-        <p class="thank-you__paragraph">
-          {{ $t("Thank You Inbox") }}
-        </p>
-      </div>
-      <div v-else class="form">
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" key="sign-up">
-          <form
+          </i18n>
+          <p class="thank-you__paragraph">
+            {{ $t("Thank You Inbox") }}
+          </p>
+          </div>
+          <div
+            v-else
             class="form"
-            autocomplete="off"
-            @submit.prevent="handleSubmit(handleRegister)"
           >
-            <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <SfInput
-                v-model="form.email"
-                v-e2e="'login-modal-email'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
-                name="email"
-                :label="$t('Your email')"
-                class="form__element"
-              />
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required">
-              <SfInput
-                v-model="form.firstName"
-                v-e2e="'login-modal-firstName'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
-                name="first-name"
-                :label="$t('First Name')"
-                class="form__element"
-              />
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required">
-              <SfInput
-                v-model="form.lastName"
-                v-e2e="'login-modal-lastName'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
-                name="last-name"
-                :label="$t('Last Name')"
-                class="form__element"
-              />
-            </ValidationProvider>
-            <ValidationProvider v-slot="{ errors }" rules="required|password">
-              <SfInput
-                v-model="form.password"
-                v-e2e="'login-modal-password'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
-                name="password"
-                :label="$t('Password')"
-                type="password"
-                has-show-password
-                class="form__element"
-              />
-            </ValidationProvider>
-            <SfCheckbox
-              v-model="isSubscribed"
-              v-e2e="'sign-up-newsletter'"
-              :label="$t('Sign Up for Newsletter')"
-              name="signupNewsletter"
-              class="form__element"
-            />
-            <ValidationProvider
-              v-slot="{ errors }"
-              :rules="{ required: { allowFalse: false } }"
+            <ValidationObserver
+              v-slot="{ handleSubmit, invalid }"
+              key="sign-up"
             >
-              <SfCheckbox
-                v-model="createAccount"
-                v-e2e="'login-modal-create-account'"
-                :valid="!errors[0]"
-                :error-message="$t(errors[0])"
-                name="create-account"
-                :label="$t('I want to create an account')"
-                class="form__element"
-              />
-            </ValidationProvider>
-            <recaptcha v-if="isRecaptchaEnabled" />
-            <div v-if="error.register">
-              {{ $t(error.register) }}
-            </div>
-            <SfButton
-              v-e2e="'login-modal-submit'"
-              type="submit"
-              class="sf-button--full-width form__button"
-              :disabled="loading || !createAccount || invalid"
-            >
-              <SfLoader :class="{ loader: loading }" :loading="loading">
-                <div>{{ $t("Create an account") }}</div>
-              </SfLoader>
-            </SfButton>
-          </form>
-        </ValidationObserver>
-        <div class="action">
-          {{ $t("or") }}
-          <SfButton
-            v-e2e="'login-modal-login-to-your-account'"
-            class="sf-button--text"
-            @click="setIsLoginValue(true)"
-          >
-            {{ $t("login in to your account") }}
-          </SfButton>
-        </div>
-      </div>
-    </transition>
-  </SfModal>
+              <form
+                class="form"
+                autocomplete="off"
+                @submit.prevent="handleSubmit(handleRegister)"
+              >
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required|email"
+                >
+                  <AwInput
+                    v-model="form.email"
+                    type="text"
+                    v-e2e="'login-modal-email'"
+                    name="email"
+                    :error-message="errorMessage"
+                    @blur="handleBlur()"
+                    @focus="handleFocus()"
+                    :label="$t('Your email')"
+                    class="form__element"
+                  >
+                    <template #error-message="{errorMessage}">
+                      <div>
+                        <p v-if="setShowError">{{ errors[0] }}</p>
+                      </div>
+
+                    </template>
+                    </AwInput>
+                    </ValidationProvider>
+                    <ValidationProvider
+                      v-slot="{ errors }"
+                      rules="required|alpha"
+                    >
+                      <AwInput
+                        v-model="form.firstName"
+                        v-e2e="'login-modal-firstName'"
+                        :valid="!errors[0]"
+                        :error-message="$t(errors[0])"
+                        name="first-name"
+                        :label="$t('First Name')"
+                        class="form__element"
+                      />
+                      </ValidationProvider>
+                      <ValidationProvider
+                        v-slot="{ errors }"
+                        rules="required|alpha"
+                      >
+                        <AwInput
+                          v-model="form.lastName"
+                          v-e2e="'login-modal-lastName'"
+                          :valid="!errors[0]"
+                          :error-message="$t(errors[0])"
+                          name="last-name"
+                          :label="$t('Last Name')"
+                          class="form__element"
+                        />
+                        </ValidationProvider>
+                        <ValidationProvider
+                          v-slot="{ errors }"
+                          rules="required|password"
+                        >
+                          <AwInput
+                            v-model="form.password"
+                            v-e2e="'login-modal-password'"
+                            :valid="!errors[0]"
+                            :error-message="$t(errors[0])"
+                            name="password"
+                            :label="$t('Password')"
+                            type="password"
+                            has-show-password
+                            class="form__element"
+                          />
+                          </ValidationProvider>
+                          <AwCheckbox
+                            v-model="isSubscribed"
+                            v-e2e="'sign-up-newsletter'"
+                            :label="$t('Sign Up for Newsletter')"
+                            name="signupNewsletter"
+                            class="form__element"
+                          />
+                          <ValidationProvider
+                            v-slot="{ errors }"
+                            :rules="{ required: { allowFalse: false } }"
+                          >
+                            <AwCheckbox
+                              v-model="createAccount"
+                              v-e2e="'login-modal-create-account'"
+                              :valid="!errors[0]"
+                              :error-message="$t(errors[0])"
+                              name="create-account"
+                              :label="$t('I want to create an account')"
+                              class="form__element"
+                            />
+                            </ValidationProvider>
+                            <recaptcha v-if="isRecaptchaEnabled" />
+                            <div v-if="error.register">
+                              {{ $t(error.register) }}
+                            </div>
+                            <AwButton
+                              v-e2e="'login-modal-submit'"
+                              type="submit"
+                              class="sf-button--full-width form__button"
+                              :disabled="loading || !createAccount || invalid"
+                            >
+                              <AwLoader
+                                :class="{ loader: loading }"
+                                :loading="loading"
+                              >
+                                <div>{{ $t('Create an account') }}</div>
+                                </AwLoader>
+                                </AwButton>
+                                </form>
+                                </ValidationObserver>
+                                <div class="action">
+                                  {{ $t('or') }}
+                                  <AwButton
+                                    v-e2e="'login-modal-login-to-your-account'"
+                                    class="sf-button--text"
+                                    @click="setIsLoginValue(true)"
+                                  >
+                                    {{ $t('login in to your account') }}
+                                    </AwButton>
+                                </div>
+                                </div>
+                                </transition>
+                                </AwModal>
 </template>
 <script>
 import {
@@ -241,17 +312,15 @@ import {
   computed,
   useContext,
 } from "@nuxtjs/composition-api";
-import {
-  SfModal,
-  SfInput,
-  SfButton,
-  SfCheckbox,
-  SfLoader,
-  SfBar,
-} from "@storefront-ui/vue";
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required, email } from "vee-validate/dist/rules";
+import AwModal from "@storefront-ui/root/packages/vue/src/components/molecules/AwModal/AwModal.vue";
+import AwBar from "@storefront-ui/root/packages/vue/src/components/molecules/AwBar/AwBar.vue";
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
+import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 
+import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
+import { required, email, alpha } from "vee-validate/dist/rules";
 import {
   useUser,
   useForgotPassword,
@@ -274,24 +343,50 @@ extend("required", {
   ...required,
   message: "This field is required",
 });
+extend("alpha", {
+  ...alpha,
+  message: "Please enter only character",
+});
 
 extend("password", {
   message: invalidPasswordMsg,
-  validate: (value) => customerPasswordRegExp.test(value),
+  validate: value => customerPasswordRegExp.test(value),
 });
 
 export default defineComponent({
   name: "LoginModal",
   components: {
-    SfModal,
-    SfInput,
-    SfButton,
-    SfCheckbox,
-    SfLoader,
+    AwModal,
+    AwInput,
+    AwButton,
+    AwCheckbox,
+    AwLoader,
     ValidationProvider,
     ValidationObserver,
-    SfBar,
+    AwBar,
     VueRecaptcha,
+  },
+  data() {
+    return {
+      showError: true,
+      disabled: true,
+    };
+  },
+  computed: {
+    setShowError() {
+      return this.showError;
+    },
+    isDisabled() {
+      if (!form.username == "" && !form.password == "") this.disabled = "false";
+    },
+  },
+  methods: {
+    handleBlur() {
+      this.showError = !this.showError;
+    },
+    handleFocus() {
+      this.showError = false;
+    },
   },
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
@@ -346,12 +441,12 @@ export default defineComponent({
       }
     });
 
-    const setIsLoginValue = (value) => {
+    const setIsLoginValue = value => {
       resetErrorValues();
       isLogin.value = value;
     };
 
-    const setIsForgottenValue = (value) => {
+    const setIsForgottenValue = value => {
       resetErrorValues();
       isForgotten.value = value;
       isLogin.value = !value;
@@ -364,7 +459,7 @@ export default defineComponent({
       toggleLoginModal();
     };
 
-    const handleForm = (fn) => async () => {
+    const handleForm = fn => async () => {
       resetErrorValues();
 
       if (isRecaptchaEnabled.value) {
@@ -443,7 +538,7 @@ export default defineComponent({
       this.$refs.recaptcha.execute();
     };
 
-    const onVerify = (response) => {
+    const onVerify = response => {
       console.log("Verify: " + response);
     };
 
