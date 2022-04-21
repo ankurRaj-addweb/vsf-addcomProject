@@ -1,12 +1,6 @@
 <template>
-  <AwSection
-    :title-heading="title"
-    class="section"
-  >
-    <AwLoader
-      :class="{ loading }"
-      :loading="loading"
-    >
+  <AwSection :title-heading="title" class="section">
+    <AwLoader :class="{ loading }" :loading="loading">
       <AwCarousel
         data-cy="related-products-carousel"
         :settings="{ peek: 16, breakpoints: { 103: { peek: 0, perView: 2 } } }"
@@ -21,28 +15,31 @@
             :title="productGetters.getName(product)"
             :image-width="imageSizes.productCard.width"
             :image-height="imageSizes.productCard.height"
-            :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
-            :colors='[{"label":"Sand","value":"sand","color":"#EDCBB9","selected":true},{"label":"Mint","value":"mint","color":"#ABD9D8","selected":false},{"label":"Vivid rose","value":"vivid rose","color":"#DB5593","selected":false}]'
+            :image="
+              getMagentoImage(productGetters.getProductThumbnailImage(product))
+            "
             :regular-price="$fc(productGetters.getPrice(product).regular)"
-            :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
-            :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
-            :max-rating="5"
+            :special-price="
+              productGetters.getPrice(product).special &&
+              $fc(productGetters.getPrice(product).special)
+            "
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
-            :is-in-wishlist="isInWishlist({ product })"
+            :show-add-to-cart-button="true"
             :is-added-to-cart="isInCart({ product })"
-            wishlistIcon="heart"
-            isInWishlistIcon="heart"
-            :isInWishlist="true"
-            showAddToCartButton
-            :isAddedToCart="false"
-            :addToCartDisabled="false"
-            
+            :is-in-wishlist="isInWishlist({ product })"
+            :wishlist-icon="isAuthenticated ? 'heart' : ''"
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+            :link="
+              localePath(
+                `/p/${productGetters.getProductSku(
+                  product
+                )}${productGetters.getSlug(product, product.categories[0])}`
+              )
+            "
             @click:wishlist="addItemToWishlist(product)"
             @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
           >
-
             <template #image="imageSlotProps">
               <AwButton
                 :link="imageSlotProps.link"
@@ -70,39 +67,31 @@
                   :width="imageSlotProps.imageWidth"
                   :height="imageSlotProps.imageHeight"
                 />
-                </AwButton>
+              </AwButton>
             </template>
-            </AwProductCard>
-            </AwCarouselItem>
-            <template #prev="prevArrow">
-              <AwButton
-                aria-label="previous"
-                class="sf-arrow"
-                @click="prevArrow.go('prev')"
-              >
-                <SvgImage
-                  icon="arrow_left"
-                  width="24"
-                  height="24"
-                />
-                </AwButton>
-            </template>
-            <template #next="nextArrow">
-              <AwButton
-                aria-label="next"
-                class="sf-arrow"
-                @click="nextArrow.go('next')"
-              >
-                <SvgImage
-                  icon="arrow_right"
-                  width="24"
-                  height="24"
-                />
-                </AwButton>
-            </template>
-            </AwCarousel>
-            </AwLoader>
-            </AwSection>
+          </AwProductCard>
+        </AwCarouselItem>
+        <template #prev="prevArrow">
+          <AwButton
+            aria-label="previous"
+            class="sf-arrow"
+            @click="prevArrow.go('prev')"
+          >
+            <SvgImage icon="arrow_left" width="24" height="24" />
+          </AwButton>
+        </template>
+        <template #next="nextArrow">
+          <AwButton
+            aria-label="next"
+            class="sf-arrow"
+            @click="nextArrow.go('next')"
+          >
+            <SvgImage icon="arrow_right" width="24" height="24" />
+          </AwButton>
+        </template>
+      </AwCarousel>
+    </AwLoader>
+  </AwSection>
 </template>
 
 <script>
@@ -146,14 +135,14 @@ export default defineComponent({
     const { addItemToCart, isInCart } = useAddToCart();
 
     const mappedProducts = computed(() =>
-      props.products.map(product => ({
+      props.products.map((product) => ({
         // @ts-ignore
         ...product,
         isInWishlist: isInWishlist({ product }),
       }))
     );
 
-    const addItemToWishlist = async product => {
+    const addItemToWishlist = async (product) => {
       await (isInWishlist({ product })
         ? removeItem({ product })
         : addItem({ product }));
@@ -190,7 +179,7 @@ export default defineComponent({
   &__item {
     margin: 1.9375rem 0 2.4375rem 0;
   }
-  
+
   .sf-arrow {
     --button-color: var(--c-dark);
 
@@ -200,3 +189,4 @@ export default defineComponent({
   }
 }
 </style>
+
