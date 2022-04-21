@@ -97,7 +97,7 @@ export default defineComponent({
 
 </style>
 
-<style lang=scss>
+<style lang=scss scoped>
 .sf-banner__title{
   width: 400px;
   font-family: Source Sans Pro;
