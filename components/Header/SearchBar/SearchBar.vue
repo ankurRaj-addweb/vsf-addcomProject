@@ -8,9 +8,10 @@
     @input="handleSearch"
     :icon='{"icon":"search","size":"1.25rem","color":"#43464E"}'
     @keydown.enter="handleSearch($event)"
-    @keydown.tab="hideSearch"
+    @keydown.tab="showSearch"
+    @keydown="showSearch"
     @focus="showSearch"
-    @click="showSearch"
+    @click="hideSearch"
     @keydown.esc="closeSearch"
   >
     <template #icon>
