@@ -6,12 +6,10 @@
     class="sf-header__search"
     :value="term"
     @input="handleSearch"
-    :icon='{"icon":"search","size":"1.25rem","color":"#43464E"}'
     @keydown.enter="handleSearch($event)"
-    @keydown.tab="showSearch"
-    @keydown="showSearch"
+    @keydown.tab="hideSearch"
     @focus="showSearch"
-    @click="hideSearch"
+    @click="showSearch"
     @keydown.esc="closeSearch"
   >
     <template #icon>
@@ -161,7 +159,20 @@ export default defineComponent({
         categories: (categories?.value ?? [])
           .map((element) => categoryGetters.getCategoryTree(element)),
       };
-
+      let searchResultArray = []
+      for (var i=0; i < result.value.products.length; i++) {
+        // console.log(result.value.products[i].name)
+        var match_var = RegExp(term.value, "ig");
+        if (result.value.products[i].name.match(match_var)!==null){
+         console.log(result.value.products[i].name.match(term.value))
+         searchResultArray.push(result.value.products[i]);
+        }
+      } 
+      // console.log(result.value);
+      console.log('productstest')
+      console.log(result.value.products);
+      console.log(searchResultArray)
+      result.value.products = searchResultArray;
       emit('SearchBar:result', result.value);
     }, 1000);
 
