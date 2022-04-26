@@ -1,6 +1,6 @@
 <template>
   <div id="wishlist">
-    <SfSidebar
+    <AwSidebar
       :visible="isWishlistSidebarOpen"
       :button="false"
       title="My Wishlist"
@@ -9,12 +9,12 @@
     >
       <template #title>
         <div class="heading__wrapper">
-          <SfHeading
+          <AwHeading
             :level="3"
             title="My wishlist"
             class="sf-heading--left"
           />
-          <SfButton
+          <AwButton
             class="heading__close-button sf-button--pure"
             aria-label="Wishlist sidebar close button"
             @click="toggleWishlistSidebar"
@@ -25,11 +25,11 @@
               height="14"
               class="heading__close"
             />
-          </SfButton>
+          </AwButton>
         </div>
       </template>
 
-      <SfLoader :loading="loading">
+      <AwLoader :loading="loading">
         <div
           v-if="totalItems"
           key="my-wishlist"
@@ -39,7 +39,7 @@
             Total items: <strong>{{ totalItems }}</strong>
           </div>
           <div class="collected-product-list">
-            <SfCollectedProduct
+            <AwCollectedProduct
               v-for="(product, item) in products"
               :key="item"
               :image="wishlistGetters.getItemImage(product)"
@@ -55,7 +55,7 @@
                 <div />
               </template>
               <template #image>
-                <SfLink
+                <AwLink
                   :link="
                     localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
                   "
@@ -67,13 +67,13 @@
                     :height="200"
                     class="sf-collected-product__image"
                   />
-                </SfLink>
+                </AwLink>
               </template>
               <template #configuration>
                 <div
                   v-if="getAttributes(product).length > 0"
                 >
-                  <SfProperty
+                  <AwProperty
                     v-for="(attr, index) in getAttributes(product)"
                     :key="index"
                     :name="attr.option_label"
@@ -83,7 +83,7 @@
                 <div
                   v-if="getBundles(product).length > 0"
                 >
-                  <SfProperty
+                  <AwProperty
                     v-for="(bundle, i) in getBundles(product)"
                     :key="i"
                     :value="bundle"
@@ -91,24 +91,24 @@
                     <template #name>
                       <div />
                     </template>
-                  </SfProperty>
+                  </AwProperty>
                 </div>
                 <div v-else />
               </template>
               <template #actions>
                 <div />
               </template>
-            </SfCollectedProduct>
+            </AwCollectedProduct>
           </div>
           <div class="sidebar-bottom">
-            <SfProperty class="sf-property--full-width my-wishlist__total-price">
+            <AwProperty class="sf-property--full-width my-wishlist__total-price">
               <template #name>
                 <span class="my-wishlist__total-price-label">Total price:</span>
               </template>
               <template #value>
-                <SfPrice :regular="$fc(totals.subtotal)" />
+                <AwPrice :regular="$fc(totals.subtotal)" />
               </template>
-            </SfProperty>
+            </AwProperty>
           </div>
         </div>
         <div
@@ -124,36 +124,45 @@
               height="143"
               class="empty-wishlist__icon"
             />
-            <SfHeading
+            <AwHeading
               title="Your bag is empty"
               description="Looks like you haven’t added any items to the Wishlist."
               class="empty-wishlist__label"
             />
           </div>
         </div>
-      </SfLoader>
+      </AwLoader>
       <template #content-bottom>
-        <SfButton
+        <AwButton
           class="sf-button--full-width color-secondary"
           @click="toggleWishlistSidebar"
         >
           {{ $t('Start shopping') }}
-        </SfButton>
+        </AwButton>
       </template>
-    </SfSidebar>
+    </AwSidebar>
   </div>
 </template>
 <script>
-import {
-  SfSidebar,
-  SfHeading,
-  SfButton,
-  SfProperty,
-  SfPrice,
-  SfCollectedProduct,
-  SfLink,
-  SfLoader,
-} from '@storefront-ui/vue';
+// import {
+//   SfSidebar,
+//   SfHeading,
+//   SfButton,
+//   SfProperty,
+//   SfPrice,
+//   SfCollectedProduct,
+//   SfLink,
+//   SfLoader,
+// } from '@storefront-ui/vue';
+
+import AwSidebar from "../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwSidebar/AwSidebar.vue"
+import AwHeading from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue"
+import AwButton from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue"
+import AwProperty from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue"
+import AwPrice from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue"
+import AwCollectedProduct from "../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwCollectedProduct/AwCollectedProduct.vue"
+import AwLink from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue"
+import AwLoader from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue"
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useWishlist,
@@ -167,14 +176,14 @@ import SvgImage from '~/components/General/SvgImage.vue';
 export default defineComponent({
   name: 'WishlistSidebar',
   components: {
-    SfSidebar,
-    SfButton,
-    SfHeading,
-    SfProperty,
-    SfPrice,
-    SfCollectedProduct,
-    SfLink,
-    SfLoader,
+    AwSidebar,
+    AwButton,
+    AwHeading,
+    AwProperty,
+    AwPrice,
+    AwCollectedProduct,
+    AwLink,
+    AwLoader,
     SvgImage,
   },
   setup() {

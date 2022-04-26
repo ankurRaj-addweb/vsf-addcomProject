@@ -11,21 +11,21 @@
       width="32"
       height="32"
     />
-    <SfButton class="sf-button--text">
+    <AwButton class="sf-button--text">
       {{ $t(actionText) }}
-    </SfButton>
+    </AwButton>
   </component>
 </template>
 
 <script>
 import { defineComponent, computed } from '@nuxtjs/composition-api';
-import { SfButton } from '@storefront-ui/vue';
+import { AwButton } from '@storefront-ui/vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'AddToWishlist',
   components: {
-    SfButton,
+    AwButton,
     SvgImage,
   },
   props: {
@@ -72,5 +72,15 @@ export default defineComponent({
     margin-left: 5px;
     display: flex;
   }
+}
+</style>
+<style lang="scss">
+.sf-product-card__wishlist-icon {
+      --icon-color: red;
+      // background-color: red;
+      --icon-border: 1px !important;
+
+      --icon-border-color:  black !important; 
+      // --border-color: black !important;
 }
 </style>

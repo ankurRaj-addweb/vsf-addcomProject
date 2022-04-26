@@ -1104,14 +1104,3 @@ export default defineComponent({
   }
 }
 </style>
-
-<style lang="scss">
-.sf-product-card__wishlist-icon {
-      --icon-color: red;
-      // background-color: red;
-      --icon-border: 1px !important;
-
-      --icon-border-color:  black !important; 
-      // --border-color: black !important;
-}
-</style>
