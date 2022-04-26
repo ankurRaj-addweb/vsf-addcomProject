@@ -13,7 +13,7 @@
         :key="reviewGetters.getReviewId(review)"
         :author="reviewGetters.getReviewAuthor(review)"
         :date="reviewGetters.getReviewDate(review)"
-        :message="reviewGetters.getReviewMessage(review)"
+        :message="reviewGetters.getReviewMessage(review)" 
         :max-rating="5"
         :rating="reviewGetters.getReviewRating(review)"
         :char-limit="250"

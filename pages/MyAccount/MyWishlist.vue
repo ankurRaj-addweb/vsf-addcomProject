@@ -1,11 +1,11 @@
 <template>
-  <SfTabs
+  <AwTabs
     :open-tab="1"
     class="tab-orphan"
   >
-    <SfTab :title="$t('My wishlist')">
+    <AwTab :title="$t('My wishlist')">
       <div v-if="loading">
-        <SfLoader />
+        <AwLoader />
       </div>
       <div
         v-else
@@ -46,7 +46,7 @@
         </div>
 
         <div class="main section">
-          <SfLoader
+          <AwLoader
             :class="{ loading }"
             :loading="loading"
           >
@@ -61,7 +61,7 @@
                 tag="div"
                 class="products__grid"
               >
-                <SfProductCard
+                <AwProductCard
                   v-for="(product, i) in products"
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
@@ -91,7 +91,7 @@
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >
                   <template #image="imageSlotProps">
-                    <SfButton
+                    <AwButton
                       :link="imageSlotProps.link"
                       class="sf-button--pure sf-product-card__link"
                       data-testid="product-link"
@@ -117,9 +117,9 @@
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
                       />
-                    </SfButton>
+                    </AwButton>
                   </template>
-                </SfProductCard>
+                </AwProductCard>
               </transition-group>
               <transition-group
                 v-else
@@ -128,7 +128,7 @@
                 tag="div"
                 class="products__list"
               >
-                <SfProductCardHorizontal
+                <AwProductCardHorizontal
                   v-for="(product, i) in products"
                   :key="productGetters.getSlug(product.product)"
                   class="products__product-card-horizontal"
@@ -156,7 +156,7 @@
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >
                   <template #image="imageSlotProps">
-                    <SfLink
+                    <AwLink
                       :link="imageSlotProps.link"
                       class="
                     sf-product-card-horizontal__link
@@ -182,35 +182,35 @@
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
                       />
-                    </SfLink>
+                    </AwLink>
                   </template>
                   <template #configuration>
-                    <SfProperty
+                    <AwProperty
                       class="desktop-only"
                       :name="$t('Size')"
                       value="XS"
                       style="margin: 0 0 1rem 0"
                     />
-                    <SfProperty
+                    <AwProperty
                       class="desktop-only"
                       :name="$t('Color')"
                       value="white"
                     />
                   </template>
                   <template #actions>
-                    <SfButton
+                    <AwButton
                       class="sf-button--text desktop-only"
                       style="margin: 0 0 1rem auto; display: block"
                       @click="removeItemFromWishlist(product.product)"
                     >
                       {{ $t('Remove from Wishlist') }}
-                    </SfButton>
+                    </AwButton>
                   </template>
-                </SfProductCardHorizontal>
+                </AwProductCardHorizontal>
               </transition-group>
 
               <LazyHydrate on-interaction>
-                <SfPagination
+                <AwPagination
                   v-if="!loading"
                   v-show="pagination.totalPages > 1"
                   class="products__pagination desktop-only"
@@ -226,43 +226,52 @@
               >
                 <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
                 <LazyHydrate on-interaction>
-                  <SfSelect
+                  <AwSelect
                     :value="pagination.itemsPerPage.toString()"
                     class="products__items-per-page"
                     @input="th.changeItemsPerPage"
                   >
-                    <SfSelectOption
+                    <AwSelectOption
                       v-for="option in pagination.pageOptions"
                       :key="option"
                       :value="option"
                       class="products__items-per-page__option"
                     >
                       {{ option }}
-                    </SfSelectOption>
-                  </SfSelect>
+                    </AwSelectOption>
+                  </AwSelect>
                 </LazyHydrate>
               </div>
             </div>
-          </SfLoader>
+          </AwLoader>
         </div>
       </div>
-    </SfTab>
-  </SfTabs>
+    </AwTab>
+  </AwTabs>
 </template>
 
 <script>
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
-import {
-  SfLoader,
-  SfTabs,
-  SfButton,
-  SfProductCard,
-  SfProductCardHorizontal,
-  SfPagination,
-  SfSelect,
-  SfProperty,
-} from '@storefront-ui/vue';
+// import {
+//   AwLoader,
+//   AwTabs,
+//   AwButton,
+//   AwProductCard,
+//   AwProductCardHorizontal,
+//   AwPagination,
+//   AwSelect,
+//   AwProperty,
+// } from '@storefront-ui/root';
+import AwLoader from "../../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
+import AwTabs from "../../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
+import AwButton from "../../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwProductCard from "../../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
+import AwProductCardHorizontal from "../../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardHorizontal/AwProductCardHorizontal.vue";
+import AwPagination from "../../node_modules/@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
+import AwSelect from "../../node_modules/@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
+import AwProperty from "../../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue";
+
 import {
   computed,
   defineComponent,
@@ -282,14 +291,14 @@ import SvgImage from '~/components/General/SvgImage.vue';
 export default defineComponent({
   name: 'MyWishlist',
   components: {
-    SfLoader,
-    SfTabs,
-    SfButton,
-    SfProductCard,
-    SfProductCardHorizontal,
-    SfPagination,
-    SfSelect,
-    SfProperty,
+    AwLoader,
+    AwTabs,
+    AwButton,
+    AwProductCard,
+    AwProductCardHorizontal,
+    AwPagination,
+    AwSelect,
+    AwProperty,
     LazyHydrate,
     SvgImage,
   },
