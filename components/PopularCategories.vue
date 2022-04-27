@@ -1,7 +1,7 @@
 <template>
-  <div >
+  <div class="outer">
     <h1>Popular Categories</h1>
-
+  <div class="main">
     <div class="popular">   
       <AwCategoryCard class="first"
         label="Personal Care" 
@@ -9,26 +9,32 @@
         :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
         link="#"
       /> 
-      <AwCategoryCard class="first"
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      /> 
-      <AwCategoryCard class="first"
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      /> 
-      <AwCategoryCard class="first"
-      
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      />   
     </div>
+    <div class="popular">   
+      <AwCategoryCard class="first"
+        label="Personal Care" 
+        count="32"
+        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+        link="#"
+      /> 
+    </div>
+    <div class="popular">   
+      <AwCategoryCard class="first"
+        label="Personal Care" 
+        count="32"
+        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+        link="#"
+      /> 
+    </div>
+    <div class="popular">   
+      <AwCategoryCard class="first"
+        label="Personal Care" 
+        count="32"
+        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+        link="#"
+      /> 
+    </div>
+  </div>
   </div>
 </template>
 
@@ -47,10 +53,14 @@ export default {
 
 <style scoped>
 
-  
+  *{
+    box-sizing: border-box;
+  }
+  .outer {
+    width: 100%;
+  }
 
   h1 {
-
     /* outline: dotted; */
     text-align: center;
     left: 42.1%;
@@ -67,6 +77,9 @@ export default {
     color: #282828
   }
 
+  .main {
+    display: flex
+  }
 
   .first {
     margin: 0.8rem;
@@ -82,5 +95,22 @@ export default {
       background: #037EE6;
     }
   }
+
+  @media screen and (max-width: 1024px) {
+    .popular {
+      width: 17rem;
+      height: 15rem;
+      display: flex;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .popular {
+      width: 14rem;
+      height: 12rem;
+      display: flex;
+    }
+  }
+
 </style>
 

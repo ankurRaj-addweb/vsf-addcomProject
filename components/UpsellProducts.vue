@@ -2,7 +2,7 @@
   <ProductsCarousel
     v-if="!loading && products && products.length > 0"
     :products="products"
-    :title="$t('Other products you might like')"
+    :title="$t('Match It With')"
   />
 </template>
 <script>
@@ -15,7 +15,7 @@ import { productData } from '~/helpers/product/productData';
 export default defineComponent({
   name: 'UpsellProducts',
   components: {
-    ProductsCarousel,
+    ProductsCarousel, 
   },
   setup() {
     const { id } = productData();

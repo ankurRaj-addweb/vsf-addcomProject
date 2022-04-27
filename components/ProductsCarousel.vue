@@ -30,7 +30,7 @@
             :is-in-wishlist="isInWishlist({ product })"
             :wishlist-icon="isAuthenticated ? 'heart' : ''"
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-            :link="
+            :link=" 
               localePath(
                 `/p/${productGetters.getProductSku(
                   product
