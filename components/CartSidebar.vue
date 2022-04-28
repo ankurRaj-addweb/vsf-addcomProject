@@ -1,6 +1,6 @@
 <template>
   <div id="cart">
-    <SfSidebar
+    <AwSidebar
       v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
       :title="$t('My Cart')"
@@ -37,7 +37,7 @@
         mode="out-in"
       >
         <div class="notifications">
-          <SfNotification
+          <AwNotification
             v-if="!loading"
             :visible="visible"
             title="Are you sure?"
@@ -46,32 +46,32 @@
           >
             <template #action>
               <div class="button-wrap">
-                <SfButton
+                <AwButton
                   class="sf-button_remove_item"
                   @click="actionRemoveItem(tempProduct)"
                 >
                   Yes
-                </SfButton>
-                <SfButton @click="visible = false">
+                </AwButton>
+                <AwButton @click="visible = false">
                   Cancel
-                </SfButton>
+                </AwButton>
               </div>
             </template>
             <template #close>
               <div />
             </template>
-          </SfNotification>
+          </AwNotification>
         </div>
       </transition>
       <template #content-top>
-        <SfProperty
-          v-if="totalItems"
-          class="sf-property--large cart-summary desktop-only"
+        <AwProperty
+         
+          class="sf-property--large cart-summary"
           :name="$t('Total items')"
           :value="totalItems"
         />
       </template>
-      <SfLoader :loading="loading">
+      <AwLoader :loading="loading">
         <transition
           name="sf-fade"
           mode="out-in"
@@ -86,7 +86,7 @@
                 name="sf-fade"
                 tag="div"
               >
-                <SfCollectedProduct
+                <AwCollectedProduct
                   v-for="product in products"
                   :key="cartGetters.getItemSku(product)"
                   :image="cartGetters.getItemImage(product)"
@@ -116,25 +116,25 @@
                       v-if="isInStock(product)"
                       class="sf-collected-product__quantity-wrapper"
                     >
-                      <SfQuantitySelector
+                      <AwQuantitySelector
                         :disabled="loading"
                         :qty="cartGetters.getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
                         @input="delayedUpdateItemQty({ product, quantity: $event })"
                       />
                     </div>
-                    <SfBadge
+                    <AwBadge
                       v-else
                       class="color-danger sf-badge__absolute"
                     >
                       <template #default>
                         <span>{{ $t('Out of stock') }}</span>
                       </template>
-                    </SfBadge>
+                    </AwBadge>
                   </template>
                   <template #configuration>
                     <div v-if="getAttributes(product).length > 0">
-                      <SfProperty
+                      <AwProperty
                         v-for="(attr, index) in getAttributes(product)"
                         :key="index"
                         :name="attr.option_label"
@@ -142,7 +142,7 @@
                       />
                     </div>
                     <div v-if="getBundles(product).length > 0">
-                      <SfProperty
+                      <AwProperty
                         v-for="(bundle, i) in getBundles(product)"
                         :key="i"
                         :name="`${bundle.quantity}x`"
@@ -151,7 +151,7 @@
                     </div>
                     <div v-else />
                   </template>
-                </SfCollectedProduct>
+                </AwCollectedProduct>
               </transition-group>
             </div>
           </div>
@@ -161,14 +161,14 @@
             class="empty-cart"
           >
             <div class="empty-cart__banner">
-              <SvgImage
-                icon="empty_cart_image"
-                :label="$t('Empty bag')"
-                width="211"
-                height="143"
-                class="empty-cart__image"
-              />
-              <SfHeading
+              <nuxt-img
+            src="/icons/cart.png"
+            class="before-results__picture"
+            alt="cart"
+            width="250"
+            height="180" 
+          />
+              <AwHeading
                 title="Your cart is empty"
                 :level="2"
                 class="empty-cart__heading"
@@ -181,19 +181,21 @@
             </div>
           </div>
         </transition>
-      </SfLoader>
+      </AwLoader>
       <template #content-bottom>
         <transition name="sf-fade">
-          <div v-if="totalItems">
-            <SfProperty
-              :name="$t('Subtotal price')"
+          <div >
+            <div v-if="totalItems">
+            <AwProperty
+              :name="$t('Total price')"
               class="
-                sf-property--full-width sf-property--large
+                sf-property sf-property--large
                 my-cart__total-price
               "
             >
               <template #value>
-                <SfPrice
+                <div class="view">
+                <AwPrice
                   :regular="$fc(totals.subtotal)"
                   :special="
                     totals.subtotal <= totals.special
@@ -201,46 +203,58 @@
                       : $fc(totals.special)
                   "
                 />
+            
+            <a @click="view">
+              <AwButton
+                class="view-cart sf-button--text"
+                @click="toggleCartSidebar"
+              >
+                {{ $t('View cart') }}
+              
+              </AwButton></a>
+                </div>
               </template>
-            </SfProperty>
-            <CouponCode />
+            </AwProperty> 
+            </div>
+            <div v-if="totalItems">
+            
             <a @click="goToCheckout">
-              <SfButton
+              <AwButton
                 v-e2e="'go-to-checkout-btn'"
-                class="sf-button--full-width color-secondary"
+                class="sf-button--full-width check"
                 @click="toggleCartSidebar"
               >
                 {{ $t('Go to checkout') }}
-              </SfButton>
+              </AwButton>
             </a>
           </div>
           <div v-else>
-            <SfButton
-              class="sf-button--full-width color-primary"
+            <AwButton
+              class="sf-button--full-width color-secondary"
               @click="toggleCartSidebar"
             >
               {{ $t('Go back shopping') }}
-            </SfButton>
+            </AwButton>
+          </div>
           </div>
         </transition>
       </template>
-    </SfSidebar>
+    </AwSidebar>
   </div>
 </template>
 <script>
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import {
-  SfLoader,
-  SfNotification,
-  SfSidebar,
-  SfHeading,
-  SfButton,
-  SfProperty,
-  SfPrice,
-  SfCollectedProduct,
-  SfQuantitySelector,
-  SfBadge,
-} from '@storefront-ui/vue';
+import AwLoader from '@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue';
+import AwNotification from '@storefront-ui/root/packages/vue/src/components/molecules/AwNotification/AwNotification.vue';
+import AwSidebar from '@storefront-ui/root/packages/vue/src/components/organisms/AwSidebar/AwSidebar.vue';
+import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwProperty from '@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue';
+import AwPrice from '@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue';
+import AwCollectedProduct from '@storefront-ui/root/packages/vue/src/components/organisms/AwCollectedProduct/AwCollectedProduct.vue';
+import AwQuantitySelector from '@storefront-ui/root/packages/vue/src/components/atoms/AwQuantitySelector/AwQuantitySelector.vue';
+import AwBadge from '@storefront-ui/root/packages/vue/src/components/atoms/AwBadge/AwBadge.vue';
+import AwIcon from '@storefront-ui/root/packages/vue/src/components/atoms/AwIcon/AwIcon.vue';
 import {
   computed,
   defineComponent,
@@ -263,16 +277,17 @@ import SvgImage from '~/components/General/SvgImage.vue';
 export default defineComponent({
   name: 'CartSidebar',
   components: {
-    SfLoader,
-    SfNotification,
-    SfSidebar,
-    SfButton,
-    SfHeading,
-    SfProperty,
-    SfPrice,
-    SfCollectedProduct,
-    SfQuantitySelector,
-    SfBadge,
+    AwIcon,
+    AwLoader,
+    AwNotification,
+    AwSidebar,
+    AwButton,
+    AwHeading,
+    AwProperty,
+    AwPrice,
+    AwCollectedProduct,
+    AwQuantitySelector,
+    AwBadge,
     CouponCode,
     SvgImage,
   },
@@ -313,6 +328,11 @@ export default defineComponent({
       const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
       await router.push(`${app.localePath(redirectUrl)}`);
     };
+    const view = async () => {
+      const redirectUrl = await initializeCheckout({ baseUrl: '/default/cart' });
+      await router.push(`${app.localePath(redirectUrl)}`);
+    };
+
 
     const sendToRemove = ({ product }) => {
       if (notifications.value.length > 0) {
@@ -355,6 +375,7 @@ export default defineComponent({
       tempProduct,
       toggleCartSidebar,
       goToCheckout,
+      view,
       totals,
       totalItems,
       cartGetters,
@@ -405,7 +426,9 @@ export default defineComponent({
     }
   }
 }
-
+.check{
+  background-color: #037EE6;
+}
 .cart-summary {
   margin-top: var(--spacer-xl);
 }
@@ -425,12 +448,17 @@ export default defineComponent({
     margin: 0 0 var(--spacer-base) 0;
   }
 }
+.empty-cart__image{
+ color: #037EE6;
+ margin-left: -120px;
+//  background-color: blue;
+}
 
 .empty-cart {
   --heading-description-margin: 0 0 var(--spacer-xl) 0;
   --heading-title-margin: 0 0 var(--spacer-xl) 0;
-  --heading-title-color: var(--c-primary);
-  --heading-title-font-weight: var(--font-weight--semibold);
+  --heading-title-color: #037EE6;
+  --heading-title-font-weight: 600, semibold;
   display: flex;
   flex: 1;
   align-items: center;
@@ -446,7 +474,8 @@ export default defineComponent({
   }
 
   &__heading {
-    padding: 0 var(--spacer-base);
+    padding: 1rem;
+    width: 397px;
   }
 
   &__image {
@@ -458,6 +487,14 @@ export default defineComponent({
     --heading-title-font-size: var(--font-size--xl);
     --heading-title-margin: 0 0 var(--spacer-sm) 0;
   }
+}
+.view-cart{
+  color: #037EE6;
+  background-color: white;
+  // float: right;
+  margin-left: 99px;
+  padding: 0;
+  margin-top: 5px;
 }
 
 .collected-product-list {
@@ -515,5 +552,17 @@ export default defineComponent({
     position: absolute;
     left: 0;
   }
+}
+.sf-property{
+  height: 26px;
+}
+.view{
+  display: flex;
+  
+}
+.para{
+  margin-left:70px;
+  font-weight:400;
+  color: #037EE6;
 }
 </style>
