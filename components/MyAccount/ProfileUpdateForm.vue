@@ -71,7 +71,7 @@
           class="form__button"
           @click="handleSubmit(submitForm(reset))"
         >
-          {{ $t('Update personal data') }}
+          {{ $t('Save Changes') }}
         </SfButton>
       </SfModal>
       <div 
@@ -93,11 +93,11 @@
           class="form__button"
           @click="handleSubmit(submitForm(reset))"
         >
-          {{ $t('Update personal data') }}
+          {{ $t('Save Changes') }}
         </SfButton>
       </div>
       <SfButton v-if="!requirePassword" class="form__button">
-        {{ $t('Update personal data') }}
+        {{ $t('Save Changes') }}
       </SfButton>
     </form>
   </ValidationObserver>
