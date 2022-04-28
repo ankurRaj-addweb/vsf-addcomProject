@@ -16,6 +16,11 @@ export function getRoutes(themeDir = __dirname) {
     path: '/contact',
     component: path.resolve(themeDir, 'pages/ContactForm.vue'),
   },
+  {
+    name: 'cart',
+    path: '/cart',
+    component: path.resolve(themeDir, 'pages/Cart.vue'),
+  },
 
   {
     name: 'category',
@@ -37,6 +42,7 @@ export function getRoutes(themeDir = __dirname) {
         name: 'user-account',
         component: path.resolve(themeDir, 'pages/Checkout/UserAccount.vue'),
       },
+      
       {
         path: 'shipping',
         name: 'shipping',
