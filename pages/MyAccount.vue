@@ -16,7 +16,7 @@
           <MyProfile />
         </SfContentPage>
 
-        <SfContentPage :title="$t('Addresses details')">
+        <SfContentPage :title="$t('Shipping & Payment Details')">
           <AddressesDetails />
         </SfContentPage>
 
