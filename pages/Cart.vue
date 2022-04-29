@@ -27,7 +27,7 @@
       
     </transition>
     <transition name="sf-collapse-top" mode="out-in">
-      <div class="msg notifications" v-if="msg">
+      <div class="msg notifications " v-if="msg">
         <h2 style="color:white; font: size 1.5rem;">Enter your Message</h2>
         <textarea
           
@@ -58,11 +58,11 @@
             </div>
           </template>
       </div>
-       </transition>
+    </transition>
   <div id="cart">
     <AwLoader :loading="loading">
       <transition name="sf-fade" mode="out-in">
-        <div v-if="totalItems" key="my-cart" class="my-cart">
+        <div v-if="totalItems" key="my-cart" class="my-cart cart-page">
           <div class="collected-product-list">
             <transition-group name="sf-fade" tag="div">
               <div
@@ -690,8 +690,15 @@ export default defineComponent({
   --collected-product-remove-opacity: 1;
   --collected-product-configuration-display: flex;
 }
+
 .sf-collected-product{
-  pointer-events: none;
+  pointer-events:unset;
+  .sf-button::before {
+    content: unset !important;
+  }
+   &:hover {
+     box-shadow: unset !important;
+   }
 }
 
 .hidebg{
