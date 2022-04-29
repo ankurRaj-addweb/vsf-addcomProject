@@ -3,7 +3,7 @@
     image="/homepage/bannerD.png"
     :subtitle="$t('Fashion to take away')"
     :title="$t('Download our application to your mobile')"
-    class="sf-banner--left desktop-only banner-app font"
+    class="sf-banner--left desktop-only banner-app"
   >
     <template #call-to-action>
       <div class="banner-app__call-to-action">

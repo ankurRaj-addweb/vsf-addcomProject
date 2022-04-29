@@ -9,7 +9,7 @@
     @keydown.enter="handleSearch($event)"
     @keydown.tab="hideSearch"
     @focus="showSearch"
-    @click="showSearch"
+    @click="hideSearch"
     @keydown.esc="closeSearch"
   >
     <template #icon>
