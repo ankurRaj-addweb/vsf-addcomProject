@@ -27,7 +27,7 @@
       
     </transition>
     <transition name="sf-collapse-top" mode="out-in">
-      <div class="msg notifications" v-if="msg">
+      <div class="msg notifications " v-if="msg">
         <h2 style="color:white; font: size 1.5rem;">Enter your Message</h2>
         <textarea
           
@@ -58,11 +58,11 @@
             </div>
           </template>
       </div>
-       </transition>
+    </transition>
   <div id="cart">
     <AwLoader :loading="loading">
       <transition name="sf-fade" mode="out-in">
-        <div v-if="totalItems" key="my-cart" class="my-cart">
+        <div v-if="totalItems" key="my-cart" class="my-cart cart-page">
           <div class="collected-product-list">
             <transition-group name="sf-fade" tag="div">
               <div
@@ -139,16 +139,9 @@
                   </template>
                 </AwCollectedProduct>
                  <div class="extra">
-                                 
-                      <router-link :to="localePath(
-                      `/p/${cartGetters.getItemSku(
-                        product
-                      )}${cartGetters.getSlug(product)}`
-                    )" ><u>{{ $t('Edit') }}</u>
-                      </router-link>
+                     <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a>
                           <a href="#" @click="sendToRemove({ product })"  style="float:right"><u>Remove from cart</u></a><br />
-                      <!-- <a href="#"><u>Save for later</u></a><br /> -->
-                      <!-- <a href="#"><u>Add to compare</u></a><br /> -->
+                     
                       <div>
                       <p style="font-weight:200 light">
                         Usually arrives in 5-13 business days. A shipping
@@ -359,6 +352,20 @@ export default defineComponent({
     const visible = ref(false);
     const tempProduct = ref();
 
+    const getModSlug = (sku, slug) => {
+      console.log(sku)
+      console.log(slug)
+      console.log(sku.match(/-/g).length)
+      if(sku.match(/-/g).length>1){
+        const index = sku.indexOf("-");
+        const newSku = sku.slice(0,index)
+        
+        router.push(`${app.localePath(`/p/${newSku}${slug}`)}`);
+      }else{
+        router.push(`${app.localePath(`/p/${sku}${slug}`)}`);
+      }
+    };
+
     onMounted(() => {
       if (cart.value === null) {
         loadCart();
@@ -452,6 +459,7 @@ export default defineComponent({
       getAttributes,
       getBundles,
       isInStock,
+      getModSlug,
     };
   },
 });
@@ -682,8 +690,15 @@ export default defineComponent({
   --collected-product-remove-opacity: 1;
   --collected-product-configuration-display: flex;
 }
+
 .sf-collected-product{
-  pointer-events: none;
+  pointer-events:unset;
+  .sf-button::before {
+    content: unset !important;
+  }
+   &:hover {
+     box-shadow: unset !important;
+   }
 }
 
 .hidebg{

@@ -132,7 +132,7 @@ export default defineComponent({
     const closeSearch = (event) => {
       if (document) {
         const searchResultsEl = document.getElementsByClassName('search');
-        if (!searchResultsEl[0].contains(event.target)) {
+        if (searchResultsEl && searchResultsEl[0] && !searchResultsEl[0].contains(event.target)) {
           hideSearch();
           term.value = '';
         }
