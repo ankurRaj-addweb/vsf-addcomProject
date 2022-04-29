@@ -19,7 +19,7 @@
 
 <script>
 import { defineComponent, computed } from '@nuxtjs/composition-api';
-import { AwButton } from '@storefront-ui/vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
