@@ -1,10 +1,12 @@
 <template>
   <transition-group
+        v-if="!isAuthenticated"
+
     tag="div"
     class="notifications"
     name="slide-fade"
   >
-    <SfNotification
+    <AwNotification
       v-for="notification in notifications"
       :key="notification.id"
       :message="notification.message"
@@ -21,27 +23,33 @@
           height="25"
         />
       </template>
-    </SfNotification>
+    </AwNotification>
   </transition-group>
 </template>
 
 <script>
 import { defineComponent } from '@nuxtjs/composition-api';
-import { SfNotification } from '@storefront-ui/vue';
+import AwNotification from '@storefront-ui/root/packages/vue/src/components/molecules/AwNotification/AwNotification.vue';
 import { useUiNotification } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
-
+import LoginModal from './LoginModal.vue';
+import {
+  useUser
+} from '@vue-storefront/magento';
 export default defineComponent({
   name: 'NotificationBar',
   components: {
-    SfNotification,
+    AwNotification,
     SvgImage,
+    LoginModal,
   },
   setup() {
     const { notifications } = useUiNotification();
+    const { isAuthenticated } = useUser();
 
     return {
       notifications,
+      isAuthenticated
     };
   },
 });
