@@ -139,16 +139,9 @@
                   </template>
                 </AwCollectedProduct>
                  <div class="extra">
-                                 
-                      <router-link :to="localePath(
-                      `/p/${cartGetters.getItemSku(
-                        product
-                      )}${cartGetters.getSlug(product)}`
-                    )" ><u>{{ $t('Edit') }}</u>
-                      </router-link>
+                     <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a>
                           <a href="#" @click="sendToRemove({ product })"  style="float:right"><u>Remove from cart</u></a><br />
-                      <!-- <a href="#"><u>Save for later</u></a><br /> -->
-                      <!-- <a href="#"><u>Add to compare</u></a><br /> -->
+                     
                       <div>
                       <p style="font-weight:200 light">
                         Usually arrives in 5-13 business days. A shipping
@@ -359,6 +352,20 @@ export default defineComponent({
     const visible = ref(false);
     const tempProduct = ref();
 
+    const getModSlug = (sku, slug) => {
+      console.log(sku)
+      console.log(slug)
+      console.log(sku.match(/-/g).length)
+      if(sku.match(/-/g).length>1){
+        const index = sku.indexOf("-");
+        const newSku = sku.slice(0,index)
+        
+        router.push(`${app.localePath(`/p/${newSku}${slug}`)}`);
+      }else{
+        router.push(`${app.localePath(`/p/${sku}${slug}`)}`);
+      }
+    };
+
     onMounted(() => {
       if (cart.value === null) {
         loadCart();
@@ -452,6 +459,7 @@ export default defineComponent({
       getAttributes,
       getBundles,
       isInStock,
+      getModSlug,
     };
   },
 });

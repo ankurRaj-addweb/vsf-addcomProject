@@ -135,29 +135,24 @@
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
+              <div class="wishlist">
               <div class="product__additional-actions">
                 <AddToWishlist
                   :is-in-wishlist="isInWishlist"
                   :is-show="isAuthenticated"
                   @addToWishlist="addItemToWishlist({ product })"
                 />
-              </div>
-            </div>
-
-            <div class="latter_compare">
-              <AwButton
-                class="sf-button--text"
-                :is-in-wishlist="isInWishlist"
-                :is-show="isAuthenticated"
-                @addToWishlist="addItemToWishlist({ product })"
-              >
-                Save for Latter
-              </AwButton>
-              <br /><br /><br />
-              <AwButton class="sf-button--text" @click="changeNewReview">
+                </div>
+                <div class="compare">
+                <AwButton class="sf-button--text" @click="changeNewReview">
                 Add to Compare
               </AwButton>
+              </div>
+              </div>
             </div>
+            
+              
+            
 
             <LazyHydrate when-idle>
               <AwTabs
@@ -929,5 +924,12 @@ export default defineComponent({
 }
 .sf-button.color-primary:hover {
   --button-background: #037ee6;
+}
+.wishlist{
+  display: flex;
+  .compare{
+    margin-top: 20px;
+    margin-left: 230px;
+  }
 }
 </style>
