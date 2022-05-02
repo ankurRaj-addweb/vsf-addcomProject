@@ -2,20 +2,25 @@
   <div id="error">
     <SfImage
       class="image"
-      src="/error/error.svg"
+      src="/error/Frame 1.png"
       alt="leaves"
     />
     <SfHeading
       :title="error.statusCode === 404 ? 'Page not found' : 'An error occured'"
       :level="2"
       :description="error.statusCode === 404 ? 'We are sorry that we can’t find the page, please go back or try again' : 'Please go back or try again'"
-      class="heading sf-heading--no-underline"
+      class="heading sf-heading--no-underline font"
     />
-    <div class="actions">
-      <SfButton link="/" class="sf-button--full-width actions__button">
+    <div class="actions"> 
+      <nuxt-link
+        :to="localePath('/default')" 
+      >
+      <SfButton class="sf-button--full-width actions__button returnbtn">
         Return home
       </SfButton>
-      <SfButton class="sf-button--full-width sf-button--text actions__button" @click="router.go(-1)">
+      </nuxt-link>
+      
+      <SfButton class="sf-button--full-width sf-button--text actions__button backcolor" @click="router.go(-1)">
         Back
       </SfButton>
     </div>
@@ -23,14 +28,14 @@
 </template>
 <script>
 import { useRouter } from '@nuxtjs/composition-api';
-import { SfButton, SfImage, SfHeading } from '@storefront-ui/vue';
+import { SfButton, SfImage, SfHeading, SfLink } from '@storefront-ui/vue';
 
 export default {
   name: 'ErrorLayout',
 
   props: ['error'],
 
-  components: { SfButton, SfImage, SfHeading },
+  components: { SfButton, SfImage, SfHeading, SfLink },
 
   setup() {
     const router = useRouter();
@@ -53,7 +58,7 @@ export default {
   padding: 0 var(--spacer-sm);
   margin: var(--spacer-xl) 0;
   @include for-desktop {
-    max-width: 77.5rem;
+    max-width: 77.5rem; 
   }
 }
 .image {
