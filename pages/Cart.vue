@@ -1,5 +1,5 @@
 <template>
-<div>
+<div >
 <transition name="sf-collapse-top" mode="out-in">
       <div class="notifications">
         <AwNotification
@@ -14,11 +14,11 @@
             <div class="button-wrap"  >
               <AwButton
                 class="sf-button_remove_item check"
-                @click="actionRemoveItem(tempProduct); addhidebg()"
+                @click="actionRemoveItem(tempProduct); editTxtBox() "
               >
                 Yes
               </AwButton>
-            <div @click="visible=false">  <AwButton @click="addhidebg()"> Cancel </AwButton></div>
+            <div @click="visible=false">  <AwButton @click=" editTxtBox()"> Cancel </AwButton></div>
             </div>
           </template>
           <div />
@@ -28,20 +28,13 @@
     </transition>
     <transition name="sf-collapse-top" mode="out-in">
       <div class="msg notifications " v-if="msg">
-        <h2 style="color:white; font: size 1.5rem;">Enter your Message</h2>
+        <h2 style="color:black; font: size 1.5rem;">Enter your Message</h2>
         <textarea
-          
-
-      id="first-name"
-      name="first-name"
-      placeholder=""
+                
       :cols="69"
       :rows="7"
       wrap="soft"
-      :disabled="false"
-      :required="false"
-      :maxlength="null"
-      :minlength="null"
+      
     >
           
         </textarea>
@@ -50,11 +43,11 @@
             <div class="button-wrap">
               <AwButton
                 class="sf-button check"
-                @click="actionRemoveItem(tempProduct)"
+                
               >
                 Submit
               </AwButton>
-              <div @click="msg=false">  <AwButton @click="addhidebg()"> Cancel </AwButton></div>
+              <div @click="msg=false">  <AwButton @click=" editTxtBox()"> Cancel </AwButton></div>
             </div>
           </template>
       </div>
@@ -62,7 +55,7 @@
   <div id="cart">
     <AwLoader :loading="loading">
       <transition name="sf-fade" mode="out-in">
-        <div v-if="totalItems" key="my-cart" class="my-cart cart-page">
+        <div v-if="totalItems" key="my-cart" class="my-cart cart-page" >
           <div class="collected-product-list">
             <transition-group name="sf-fade" tag="div">
               <div
@@ -113,7 +106,7 @@
                       </template>
                     </AwBadge>
                   </template>
-                  <template #configuration>
+                  <template >
                     <div>
                       <div v-if="getAttributes(product).length > 0">
                       <AwProperty
@@ -140,10 +133,10 @@
                 </AwCollectedProduct>
                  <div class="extra">
                      <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a>
-                          <a href="#" @click="sendToRemove({ product })"  style="float:right"><u>Remove from cart</u></a><br />
+                          <a href="#" @click="sendToRemove({ product });editTextBox()"  style="float:right"><u>Remove from cart</u></a><br />
                      
                       <div>
-                      <p style="font-weight:200 light">
+                      <p>
                         Usually arrives in 5-13 business days. A shipping
                         timeline specific to your destinttion can be viewed in
                         Checkout.
@@ -233,7 +226,7 @@
           >
             {{ $t("Go back shopping") }}
           </AwButton>
-          <a href="#" style="margin-left:77px" @click="sendToMsg()"> <u>Add message or gift wrap</u></a>
+          <a href="#" style="margin-left:77px" @click="sendToMsg();editTextBox()"> <u>Add message or gift wrap</u></a>
           <div class="mail">
             <SvgImage
               icon="mail "
@@ -331,6 +324,7 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
     const msg=ref(false);
+    // const bgpopup=ref(false);
       const selectedShippingMethod = computed(() =>
       cartGetters.getSelectedShippingMethod(cart.value)
     );
@@ -383,7 +377,6 @@ export default defineComponent({
       await router.push(`${app.localePath(redirectUrl)}`);
     };
     const sendToRemove = ({ product }) => {
-      addhidebg();
       if (notifications.value.length > 0) {
         notifications.value[0].dismiss();
       }
@@ -393,10 +386,16 @@ export default defineComponent({
     };
 
      const sendToMsg = () => {
-      addhidebg();
       
       msg.value = true;
     };
+     const editTextBox = () => {
+       console.log('adding class')
+      document.body.classList.add('bg-popup');
+     };
+     const editTxtBox = () => {
+      document.body.classList.remove('bg-popup');
+     }
 
     const actionRemoveItem = async (product) => {
       await removeItem({ product });
@@ -421,18 +420,7 @@ export default defineComponent({
     const isInStock = (product) =>
       cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
-    const addhidebg = () => {
-      
-      if(document.getElementById('cart').style.opacity==0.5) 
-      {   
-        visible.value=false;
-      document.getElementById('cart').style.opacity=1;
-      }
-      else {
-      document.getElementById('cart').style.opacity=0.5;
-
-      }
-    };
+    
     return {
       sendToRemove,
       actionRemoveItem,
@@ -443,9 +431,11 @@ export default defineComponent({
       delayedUpdateItemQty,
       isCartSidebarOpen,
       notifications,
-      addhidebg,
       visible,
       msg,
+      editTextBox,
+      editTxtBox,
+      // bgpopup,
       sendToMsg,
       tempProduct,
       toggleCartSidebar,
@@ -510,10 +500,14 @@ export default defineComponent({
   --property-name-color: var(--c-text);
 }
 .extra {
-  margin-left: 460px;
+  margin-left: 400px;
   margin-top: -200px;
   width: 300px;
   float: left;
+}
+.sf-collected-product__quantity-selector .sf-collected-product__quantity-wrapper{
+  height: 50px;
+  width: 108px;
 }
 
 #cart {
@@ -523,9 +517,16 @@ export default defineComponent({
   display: flex;
   &.notifictions{
   opacity: .6 ;
+  background-color: white;
   }
 }
 
+p{
+  width: 366px;
+  height: 40px;
+  margin-top: 65px;
+  font-weight: 300, light;
+}
 
 .close-icon {
   position: fixed;
@@ -635,6 +636,7 @@ export default defineComponent({
 .collected-product {
   margin: 0 0 var(--spacer-sm) 0;
   width: 700px;
+  height: 203px;
 
   &__properties {
     margin: var(--spacer-xs) 0 0 0;
@@ -701,9 +703,5 @@ export default defineComponent({
    }
 }
 
-.hidebg{
-  overflow: hidden;
-  opacity: .5;
-  background-color: #037ee6 !important;
-}
+
 </style>
