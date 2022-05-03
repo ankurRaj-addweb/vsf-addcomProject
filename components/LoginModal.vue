@@ -19,6 +19,7 @@
       />
     </template>
     <transition name="sf-fade" mode="out-in">
+      <AwLoader :class="{ loader: loading }" :loading="loading" class="login-loader">
       <div v-if="isLogin">
         <ValidationObserver v-slot="{ handleSubmit, invalid }" key="log-in">
           <form class="form" @submit.prevent="handleSubmit(handleLogin)">
@@ -69,9 +70,7 @@
               class="sf-button--full-width form__button"
               :disabled="invalid"
             >
-              <AwLoader :class="{ loader: loading }" :loading="loading">
                 <div>{{ $t("Login") }}</div>
-              </AwLoader>
             </AwButton>
           </form>
         </ValidationObserver>
@@ -253,6 +252,7 @@
           </AwButton>
         </div>
       </div>
+      </AwLoader>
     </transition>
   </AwModal>
 </template>
@@ -609,5 +609,9 @@ export default defineComponent({
   border-radius: 3px;
   border:1px black solid;
   margin: 0px;
+}
+.login-loader {
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 </style>

@@ -2,15 +2,14 @@
   <div>
     <AwHeader
       class="sf-header--has-mobile-search"
-      :class="{'header-on-top': isSearchOpen}"
+      :class="{ 'header-on-top': isSearchOpen, currentCategory }"
     >
-      <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
         <HeaderLogo />
       </template>
-      <template
-        #navigation
-      >
+
+      <!-- HeaderNavigation Section Start-->
+      <template #navigation>
         <HeaderNavigationItem
           v-for="(category, index) in categoryTree"
           :key="index"
@@ -18,17 +17,79 @@
           class="nav-item"
           :label="category.label"
           :link="localePath(getAgnosticCatLink(category))"
-        />
+          @mouseover.native="
+            () => {
+              currentCategory = category.label;
+            }
+          "
+          @mouseleave.native="currentCategory = ''"
+        >
+          <AwMegaMenu
+            :visible="currentCategory === category.label"
+            :title="category.label"
+            class="sf-mega-menu"
+            :is-absolute="true"
+            @close="currentCategory = ''"
+          >
+            <AwMegaMenuColumn class="categories-header">
+              <AwList class="menu_item_category">
+                <AwListItem
+                  v-for="(subcat, childIndex) in category.items"
+                  :key="childIndex"
+                >
+                  <AwMenuItem :label="subcat.label">
+                    <template #label="{ label }">
+                      <AwLink
+                        :link="localePath(getAgnosticCatLink(subcat))"
+                        @click.native="currentCategory = ''"
+                      >
+                        {{ label }}
+                      </AwLink>
+                    </template>
+                  </AwMenuItem>
+                </AwListItem>
+              </AwList>
+            </AwMegaMenuColumn>
+            <AwMegaMenuColumn 
+            class="subCategories-header"
+              v-for="(subcategory, subIndex) in category.items"
+              :key="subIndex"
+              :title="subcategory.label"
+            >
+              <AwList>
+                <AwListItem
+                  v-for="(subcategoryChild, childIndex) in subcategory.items"
+                  :key="childIndex"
+                >
+                  <AwMenuItem
+                    :label="subcategoryChild.label"
+                    class="menu_item_sub_category"
+                  >
+                    <template #label="{ label }">
+                      <AwLink
+                        :link="localePath(getAgnosticCatLink(subcategoryChild))"
+                        @click.native="currentCategory = ''"
+                      >
+                        {{ label }}
+                      </AwLink>
+                    </template>
+                  </AwMenuItem>
+                </AwListItem>
+              </AwList>
+            </AwMegaMenuColumn>
+          </AwMegaMenu>
+        </HeaderNavigationItem>
       </template>
+
+      <!-- HeaderNavigation Section End-->
+
       <template #aside>
         <div class="sf-header__switchers">
           <CurrencySelector class="smartphone-only" />
           <StoreSwitcher class="smartphone-only" />
         </div>
       </template>
-      <template
-        #header-icons="{activeIcon}"
-      >
+      <template #header-icons="{ activeIcon }">
         <div class="sf-header__icons">
           <AwButton
             v-e2e="'app-header-account'"
@@ -48,7 +109,6 @@
             />
           </AwButton>
           <AwButton
-            
             class="sf-button--pure sf-header__action"
             data-testid="wishlistIcon"
             aria-label="Wishlist"
@@ -87,10 +147,7 @@
                 'sf-header__icon is-active': activeIcon === 'cart',
               }"
             />
-            <AwBadge
-              v-if="cartTotalItems"
-              class="sf-badge--number cart-badge"
-            >
+            <AwBadge v-if="cartTotalItems" class="sf-badge--number cart-badge">
               {{ cartTotalItems }}
             </AwBadge>
           </AwButton>
@@ -103,27 +160,34 @@
         />
       </template>
     </AwHeader>
+
     <SearchResults
       v-if="isSearchOpen"
       :visible="isSearchOpen"
       :result="result"
     />
     <AwOverlay :visible="isSearchOpen" />
+    <!-- <AwOverlay :visible="!!currentCategory" /> -->
   </div>
 </template>
 
 <script>
+import AwOverlay from "@storefront-ui/root/packages/vue/src/components/atoms/AwOverlay/AwOverlay.vue";
+import AwHeader from "@storefront-ui/root/packages/vue/src/components/organisms/AwHeader/AwHeader.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwBadge from "@storefront-ui/root/packages/vue/src/components/atoms/AwBadge/AwBadge.vue";
+import AwMegaMenu from "@storefront-ui/root/packages/vue/src/components/organisms/AwMegaMenu/AwMegaMenu.vue";
+import AwMenuItem from "@storefront-ui/root/packages/vue/src/components/molecules/AwMenuItem/AwMenuItem.vue";
+import AwList from "@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue";
+import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue";
 
-import AwOverlay from '@storefront-ui/root/packages/vue/src/components/atoms/AwOverlay/AwOverlay.vue';
-import AwHeader from '@storefront-ui/root/packages/vue/src/components/organisms/AwHeader/AwHeader.vue';
-import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
-import AwBadge from '@storefront-ui/root/packages/vue/src/components/atoms/AwBadge/AwBadge.vue';
 import {
   categoryGetters,
   useCart,
   useCategory,
-  useUser, useWishlist,
-} from '@vue-storefront/magento';
+  useUser,
+  useWishlist,
+} from "@vue-storefront/magento";
 import {
   computed,
   ref,
@@ -132,16 +196,13 @@ import {
   useContext,
   onMounted,
   useFetch,
-} from '@nuxtjs/composition-api';
-import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
-import {
-  useUiHelpers,
-  useUiState,
-} from '~/composables';
-import CurrencySelector from '~/components/CurrencySelector.vue';
-import HeaderLogo from '~/components/HeaderLogo.vue';
-import SvgImage from '~/components/General/SvgImage.vue';
-import StoreSwitcher from '~/components/StoreSwitcher.vue';
+} from "@nuxtjs/composition-api";
+import HeaderNavigationItem from "~/components/Header/Navigation/HeaderNavigationItem.vue";
+import { useUiHelpers, useUiState } from "~/composables";
+import CurrencySelector from "~/components/CurrencySelector.vue";
+import HeaderLogo from "~/components/HeaderLogo.vue";
+import SvgImage from "~/components/General/SvgImage.vue";
+import StoreSwitcher from "~/components/StoreSwitcher.vue";
 
 export default defineComponent({
   components: {
@@ -150,38 +211,53 @@ export default defineComponent({
     AwHeader,
     AwButton,
     AwBadge,
+    AwMegaMenu,
+    AwMenuItem,
+    AwList,
+    AwLink,
     CurrencySelector,
     HeaderLogo,
     StoreSwitcher,
     SvgImage,
-    SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
-    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'),
+    SearchBar: () => import("~/components/Header/SearchBar/SearchBar.vue"),
+    SearchResults: () =>
+      import(
+        /* webpackPrefetch: true */ "~/components/Header/SearchBar/SearchResults.vue"
+      ),
   },
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
+    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } =
+      useUiState();
     const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
-    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
-    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
-
+    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } =
+      useCart();
     const {
-      categories: categoryList,
-      search: categoriesListSearch,
-    } = useCategory('AppHeader:CategoryList');
+      itemsCount: wishlistItemsQty,
+      loadItemsCount: loadWishlistItemsCount,
+    } = useWishlist("GlobalWishlist");
+
+    const { categories: categoryList, search: categoriesListSearch } =
+      useCategory("AppHeader:CategoryList");
 
     const isSearchOpen = ref(false);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
-    const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
+    const currentCategory = ref("");
 
+    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
+    const accountIcon = computed(() =>
+      isAuthenticated.value ? "profile_fill" : "profile"
+    );
+    const categoryTree = categoryGetters
+      .getCategoryTree(categoryList.value?.[0])
+      ?.items.filter((c) => c.count > 0);
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account')}`);
+        await router.push(`${app.localePath("/my-account")}`);
       } else {
         toggleLoginModal();
       }
@@ -212,6 +288,7 @@ export default defineComponent({
       toggleWishlistSidebar,
       wishlistHasProducts,
       wishlistItemsQty,
+      currentCategory,
     };
   },
 });
@@ -240,7 +317,7 @@ export default defineComponent({
   top: 32px;
   font-family: Source Sans Pro;
   font-weight: 400;
-  color: #3C3C3C;
+  color: #3c3c3c;
 
   .sf-header-navigation-item__item--mobile {
     display: none;
@@ -249,7 +326,7 @@ export default defineComponent({
 
 .cart-badge {
   position: absolute;
-  color: #3C3C3C;
+  color: #3c3c3c;
   bottom: 40%;
   left: 40%;
 }
