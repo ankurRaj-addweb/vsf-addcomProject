@@ -132,7 +132,7 @@
                   </template>
                 </AwCollectedProduct>
                  <div class="extra">
-                     <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a>
+                     <!-- <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a> -->
                           <a href="#" @click="sendToRemove({ product });editTextBox()"  style="float:right"><u>Remove from cart</u></a><br />
                      
                       <div>

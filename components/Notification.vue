@@ -1,12 +1,13 @@
-<template>
+<template >
   <transition-group
-        v-if="!isAuthenticated"
+        v-if="false"
 
     tag="div"
     class="notifications"
     name="slide-fade"
   >
     <AwNotification
+    
       v-for="notification in notifications"
       :key="notification.id"
       :message="notification.message"
