@@ -9,7 +9,7 @@
         rules="required"
         class="form__element"
       >
-        <SfInput
+        <zInput
           v-model="form.currentPassword"
           type="password"
           name="currentPassword"
@@ -24,9 +24,9 @@
           v-slot="{ errors }"
           rules="required|password"
           vid="password"
-          class="form__element"
+          class="form__element profile"
         >
-          <SfInput
+          <AwInput
             v-model="form.newPassword"
             type="password"
             name="newPassword"
@@ -39,9 +39,9 @@
         <ValidationProvider
           v-slot="{ errors }"
           rules="required|confirmed:password"
-          class="form__element"
+          class="form__element profile"
         >
-          <SfInput
+          <AwInput
             v-model="form.repeatPassword"
             type="password"
             name="repeatPassword"
@@ -52,9 +52,9 @@
           />
         </ValidationProvider>
       </div>
-      <SfButton class="form__button">
+      <AwButton class="form__button">
         {{ $t('Update password') }}
-      </SfButton>
+      </AwButton>
     </form>
   </ValidationObserver>
 </template>
@@ -62,15 +62,15 @@
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
-import { SfInput, SfButton } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
-
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 export default defineComponent({
   name: 'PasswordResetForm',
 
   components: {
-    SfInput,
-    SfButton,
+    AwInput,
+    AwButton,
     ValidationProvider,
     ValidationObserver,
   },
