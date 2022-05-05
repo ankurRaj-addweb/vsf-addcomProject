@@ -1,33 +1,46 @@
 <template>
   <transition name="fade">
-    <SfTabs
+    <AwTabs
       v-if="editingAddress"
       key="edit-address"
       :open-tab="1"
       class="tab-orphan"
     >
-      <SfTab
-        :title="isNewAddress ? $t('Add the address') : $t('Update the address')"
+      <AwTab
+        :title="isNewAddress ? $t('Billing Address') : $t('Shipping Address')"
       >
-        <p class="message">
+        <!-- <p class="message">
           {{ $t('Contact details updated') }}
-        </p>
+        </p> -->
 
         <AddressForm
           :address="activeAddress"
           :is-new="isNewAddress"
           @submit="saveAddress"
         />
-      </SfTab>
-    </SfTabs>
+      </AwTab>
+      <AwTab
+        :title="isNewAddress ? $t('Shipping Address') : $t('Billing Address')"
+      >
+        <!-- <p class="message">
+          {{ $t('Contact details updated') }}
+        </p> -->
 
-    <SfTabs
+        <AddressForm
+          :address="activeAddress"
+          :is-new="isNewAddress"
+          @submit="saveAddress"
+        />
+      </AwTab>
+    </AwTabs>
+
+    <AwTabs
       v-else
       key="address-list"
       :open-tab="1"
       class="tab-orphan"
     >
-      <SfTab :title="$t('Addresses details')">
+      <AwTab :title="$t('Addresses details')">
         <p class="message">
           {{ $t('Manage addresses') }}
         </p>
@@ -56,34 +69,36 @@
                 class="addresses__remove smartphone-only"
                 @click.native="removeAddress(address)"
               />
-              <SfButton
+              <AwButton
                 @click="changeAddress(address)"
               >
                 {{ $t('Change') }}
-              </SfButton>
+              </AwButton>
 
-              <SfButton
+              <AwButton
                 v-if="!userAddressesGetters.isDefault(address)"
-                class="color-light addresses__button-delete desktop-only"
+                class="color-light addresses__button-delete "
                 @click="removeAddress(address)"
               >
                 {{ $t('Delete') }}
-              </SfButton>
+              </AwButton>
             </div>
           </div>
         </transition-group>
-        <SfButton
+        <AwButton
           class="action-button"
           @click="changeAddress()"
         >
           {{ $t('Add new address') }}
-        </SfButton>
-      </SfTab>
-    </SfTabs>
+        </AwButton>
+      </AwTab>
+    </AwTabs>
   </transition>
 </template>
 <script>
-import { SfTabs, SfButton } from '@storefront-ui/vue';
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwTabs from "@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
+
 import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
 import {
   computed, defineComponent, useRouter, useRoute, useContext,
@@ -96,8 +111,8 @@ import UserAddressDetails from '~/components/UserAddressDetails.vue';
 export default defineComponent({
   name: 'ShippingDetails',
   components: {
-    SfTabs,
-    SfButton,
+    AwTabs,
+    AwButton,
     AddressForm,
     SvgImage,
     UserAddressDetails,
@@ -124,7 +139,7 @@ export default defineComponent({
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`, query: { id: addressId } })}`);
+      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Shipping & Payment Details')}`, query: { id: addressId } })}`);
     };
 
     const removeAddress = async (address) => {
@@ -140,7 +155,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Addresses details')}`));
+        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Shipping & Payment Details')}`));
       } catch (error) {
         onError(error);
       }
