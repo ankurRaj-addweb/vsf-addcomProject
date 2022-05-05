@@ -1,50 +1,57 @@
 <template>
   <div id="my-account">
-    <SfBreadcrumbs
+    <AwBreadcrumbs
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
     />
-    <SfContentPages
+    <AwContentPages
       v-e2e="'my-account-content-pages'"
       :title="$t('My Account')"
       :active="activePage"
       class="my-account"
       @click:change="changeActivePage"
     >
-      <SfContentCategory :title="$t('Personal Details')">
-        <SfContentPage :title="$t('My profile')">
+      <AwContentCategory :title="$t('Personal Details')">
+        <AwContentPage :title="$t('My profile')">
           <MyProfile />
-        </SfContentPage>
+        </AwContentPage>
 
-        <SfContentPage :title="$t('Shipping & Payment Details')">
+        <AwContentPage :title="$t('Shipping & Payment Details')">
           <AddressesDetails />
-        </SfContentPage>
+        </AwContentPage>
 
-        <SfContentPage :title="$t('My newsletter')">
+         <AwContentPage :title="$t('Loyalty Card')">
+          <LoyaltyCard />
+        </AwContentPage>
+
+        <AwContentPage :title="$t('My newsletter')">
           <MyNewsletter />
-        </SfContentPage>
+        </AwContentPage>
 
-        <SfContentPage :title="$t('My wishlist')">
+        <AwContentPage :title="$t('My wishlist')">
           <MyWishlist />
-        </SfContentPage>
-      </SfContentCategory>
+        </AwContentPage>
+      </AwContentCategory>
 
-      <SfContentCategory :title="$t('Order details')">
-        <SfContentPage :title="$t('Order history')">
+      <AwContentCategory :title="$t('Order details')">
+        <AwContentPage :title="$t('Order history')">
           <OrderHistory />
-        </SfContentPage>
+        </AwContentPage>
 
-        <SfContentPage :title="$t('My reviews')">
+        <AwContentPage :title="$t('My reviews')">
           <MyReviews />
-        </SfContentPage>
-      </SfContentCategory>
+        </AwContentPage>
+      </AwContentCategory>
 
-      <SfContentPage :title="$t('Log out')" />
-    </SfContentPages>
+      <AwContentPage :title="$t('Log out')" />
+    </AwContentPages>
   </div>
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
+import AwContentPages from "@storefront-ui/root/packages/vue/src/components/organisms/AwContentPages/AwContentPages.vue";
+import AwBreadcrumbs from "@storefront-ui/root/packages/vue/src/components/atoms/AwBreadcrumbs/AwBreadcrumbs.vue";
+
 import {
   computed,
   defineComponent,
@@ -65,18 +72,19 @@ import MyNewsletter from './MyAccount/MyNewsletter.vue';
 import MyWishlist from './MyAccount/MyWishlist.vue';
 import OrderHistory from './MyAccount/OrderHistory.vue';
 import MyReviews from './MyAccount/MyReviews.vue';
-
+import LoyaltyCard from './MyAccount/LoyaltyCard.vue';
 export default defineComponent({
   name: 'MyAccount',
   components: {
     AddressesDetails,
+    LoyaltyCard,
     MyNewsletter,
     MyProfile,
     MyReviews,
     MyWishlist,
     OrderHistory,
-    SfBreadcrumbs,
-    SfContentPages,
+    AwBreadcrumbs,
+    AwContentPages,
   },
   middleware: [
     'is-authenticated',
