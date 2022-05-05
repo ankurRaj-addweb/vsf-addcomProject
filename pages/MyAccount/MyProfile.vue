@@ -1,7 +1,7 @@
 <template>
-  <SfTabs :open-tab="1">
+  <AwTabs :open-tab="1">
     <!-- Personal data update -->
-    <SfTab :title="$t('Personal data')">
+    <AwTab title="Personal data">
       <p class="message">
         {{ $t('Feel free to edit') }}
       </p>
@@ -15,17 +15,17 @@
         {{ $t('Use your personal data') }}
         <a href="">{{ $t('Privacy Policy') }}</a>
       </p>
-    </SfTab>
+    </AwTab>
 
     <!-- Password reset -->
-    <SfTab :title="$t('Password change')">
+    <AwTab title="Password change">
       <p class="message">
         {{ $t('Change password your account') }}:<br>
       </p>
 
       <PasswordResetForm @submit="updatePassword" />
-    </SfTab>
-  </SfTabs>
+    </AwTab>
+  </AwTabs>
 </template>
 
 <script>
@@ -35,7 +35,8 @@ import {
   min,
   confirmed,
 } from 'vee-validate/dist/rules';
-import { SfTabs } from '@storefront-ui/vue';
+import AwTabs from "@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
+
 import { onSSR } from '@vue-storefront/core';
 import { useUser } from '@vue-storefront/magento';
 import { defineComponent } from '@nuxtjs/composition-api';
@@ -55,7 +56,6 @@ extend('min', {
 
 extend('password', {
   message: invalidPasswordMsg,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -68,7 +68,7 @@ export default defineComponent({
   name: 'PersonalDetails',
 
   components: {
-    SfTabs,
+    AwTabs,
     ProfileUpdateForm,
     PasswordResetForm,
   },
@@ -80,16 +80,15 @@ export default defineComponent({
       load,
       loading,
       updateUser,
-      error,
     } = useUser();
 
     const formHandler = async (fn, onComplete, onError) => {
-      await fn();
-      const actionErr = error.value.changePassword || error.value.updateUser;
-      if (actionErr) {
-        onError(actionErr);
-      } else {
-        onComplete();
+      try {
+        const data = await fn();
+        if (!data) throw new Error('API Error');
+        await onComplete(data);
+      } catch (error) {
+        onError(error);
       }
     };
 
@@ -102,14 +101,13 @@ export default defineComponent({
       onComplete,
       onError,
     );
-
     const updatePassword = ({
       form,
       onComplete,
       onError,
     }) => formHandler(async () => changePassword({
-      current: form.value.currentPassword,
-      new: form.value.newPassword,
+      currentPassword: form.value.currentPassword,
+      newPassword: form.value.newPassword,
     }), onComplete, onError);
 
     onSSR(async () => {
