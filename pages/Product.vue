@@ -3,12 +3,26 @@
     <AwLoader
       :class="{ 'loading--product': productDataIsLoading }"
       :loading="productDataIsLoading"
-    >
-      <div>
-        <AwBreadcrumbs
-          class="breadcrumbs desktop-only"
-          :breadcrumbs="breadcrumbs"
-        />
+    />
+      <div class="breadMain" v-if="result && urlsp && urlValue && arrOfBreadcrumb" >
+        <div class="bread">
+          <router-link to="/default"> Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; </router-link> 
+          <LazyHydrate never>
+          <template v-for="breads in result">
+            <router-link :to="'/default/c/'+(breads)+'.html'">
+              <!-- {{ urlValue }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; -->  
+              {{breads +"&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;"}}    
+            </router-link>
+          </template>
+          </LazyHydrate>
+        </div>
+          <div>
+            <AwBreadcrumbs
+              class="breadcrumbs desktop-only"
+              :breadcrumbs="breadcrumbs"
+            />
+          </div>
+      </div>
         <div class="product">
           <LazyHydrate when-idle>
             <AwLoader
@@ -131,7 +145,7 @@
                 v-else
                 v-model="qty"
                 v-e2e="'product_add-to-cart'"
-                :disabled="loading || productLoading"
+                :disabled="(routePathWB != -1 || routePathWG != -1 || routePathMG != -1) || (routePathOTM == -1 || routePathMTQ == -1) ||loading || productLoading"
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
@@ -260,8 +274,6 @@
           <UpsellProducts />
         </LazyHydrate>
       </div>
-    </AwLoader>
-  </div>
 </template>
 <script>
 import LazyHydrate from "vue-lazy-hydration";
@@ -502,7 +514,56 @@ export default defineComponent({
           ...Object.fromEntries(productConfiguration.value),
         },
       });
+      // console.log(route.value)
+
     };
+
+     // ==============================Breadcrumb -start =====================================
+
+    const urlsp = route.value.fullPath.split('/').slice(3,4)
+    // if(urlsp[0][0]=="M") {
+    //   console.log("man")
+    // }
+    // else if (urlsp[0][0]=="W") {
+    //   console.log("Women")
+    // }
+    // else {
+    //   console.log("gear")
+    // }
+    // console.log(urlsp)
+    const urlValue = urlsp[0][0]=="M"?"Men":urlsp[0][0]=="W"?"Women":"Gear"
+    // console.log(urlValue)
+    // const breadLength = breadcrumbs.value.length;
+    const arrOfBreadcrumb = [urlValue]
+    breadcrumbs.value.map((val)=>arrOfBreadcrumb.push(val.text))
+    // arrOfBreadcrumb.push(urlValue,"Home")
+    // console.log(breadLength)
+    // const breadFirstvalue = breadcrumbs.value[0].text
+    // console.log(breadcrumbs.value[0].text)
+    // console.log(breadcrumbs.value[1].text)
+    // console.log(breadcrumbs.value[2].text)
+    // console.log(breadcrumbs.value[3].text)
+    // console.log(arrOfBreadcrumb)
+    // const breadcrumbsList = Array.from(new Set(arrOfBreadcrumb.split(','))).toString();
+    const result = arrOfBreadcrumb.filter((val,index)=>arrOfBreadcrumb[index]!= arrOfBreadcrumb[index-1]);
+    //console.log(result)
+    // console.log(breadcrumbsList)
+
+    // ==============================Breadcrumb -end =====================================
+
+    // ==============================cart Button disable -start =====================================
+    const routePathOTM = route.value.fullPath.indexOf('OTM')
+    const routePathMTQ = route.value.fullPath.indexOf('MTQ') 
+    const routePathWG = route.value.fullPath.indexOf('WG')
+    const routePathMG = route.value.fullPath.indexOf('MG')
+    const routePathWB = route.value.fullPath.indexOf('WB')
+    // console.log(route.value.fullPath)
+    // console.log(routePathWG)
+    // console.log(routePathMG)
+    // console.log(routePathWB)
+
+    // ==============================cart Button disable -end =====================================
+
 
     onSSR(async () => {
       const baseSearchQuery = {
@@ -582,6 +643,17 @@ export default defineComponent({
       successAddReview,
       totalReviews,
       updateProductConfiguration,
+      urlsp,
+      urlValue,
+      // breadLength,
+      arrOfBreadcrumb,
+      result,
+
+      routePathMTQ,
+      routePathOTM,
+      routePathWG,
+      routePathMG,
+      routePathWB
     };
   },
 });
@@ -931,5 +1003,31 @@ export default defineComponent({
     margin-top: 20px;
     margin-left: 230px;
   }
+}
+</style>
+
+<style lang=scss>
+.breadMain{
+  display: flex;
+  margin-bottom: 20px;
+}
+.bread {
+  margin-top: 24px;
+   /* width: 973px;
+height: 17px;
+left: 0px;
+top: 3px; */
+
+/* font-family: 'Source Sans Pro'; */
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* or 143% */
+
+
+/* Secondary Color Dark Version 1 */
+
+color: #3C3C3C;
 }
 </style>
