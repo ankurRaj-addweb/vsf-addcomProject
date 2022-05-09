@@ -3,7 +3,7 @@
     :open-tab="1"
     class="tab-orphan"
   >
-    <AwTab :title="$t('My wishlist')">
+    <AwTab title="My wishlist">
       <div v-if="loading">
         <AwLoader />
       </div>
@@ -21,25 +21,25 @@
 
             <div class="navbar__view">
               <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
-              <SvgImage
+              <AwIcon
+                class="navbar__view-icon"
+                :color="isWishlistGridView ? 'black' : 'dark-secondary'"
                 icon="tiles"
-                :label="$t('Change to grid view')"
+                size="12px"
+                role="button"
+                aria-label="Change to grid view"
                 :aria-pressed="isWishlistGridView"
-                width="12"
-                height="12"
-                class="navbar__view-icon"
-                :class="{ 'navbar__view-icon--active': isWishlistGridView }"
-                @click.native="changeToWishlistGridView"
+                @click="changeToWishlistGridView"
               />
-              <SvgImage
-                icon="list"
-                :label="$t('Change to list view')"
-                :aria-pressed="!isWishlistGridView"
-                width="12"
-                height="12"
+              <AwIcon
                 class="navbar__view-icon"
-                :class="{ 'navbar__view-icon--active': !isWishlistGridView }"
-                @click.native="changeToWishlistListView"
+                :color="!isWishlistGridView ? 'black' : 'dark-secondary'"
+                icon="list"
+                size="12px"
+                role="button"
+                aria-label="Change to list view"
+                :aria-pressed="!isWishlistGridView"
+                @click="changeToWishlistListView"
               />
             </div>
           </div>
@@ -66,9 +66,7 @@
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
                   class="products__product-card"
-                  :image-width="imageSizes.productCard.width"
-                  :image-height="imageSizes.productCard.height"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
+                  :image="productGetters.getProductThumbnailImage(product.product)"
                   :is-added-to-cart="isInCart({ product: product.product })"
                   :is-in-wishlist="true"
                   :link="
@@ -78,48 +76,18 @@
                       )}${productGetters.getSlug(product.product, product.product.categories[0])}`
                     )
                   "
-                  :regular-price="$fc(productGetters.getPrice(product.product).regular)"
+                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
                   :reviews-count="productGetters.getTotalReviews(product.product)"
                   :score-rating="productGetters.getAverageRating(product.product)"
                   :show-add-to-cart-button="true"
                   :special-price="productGetters.getPrice(product.product).special
-                    && $fc(productGetters.getPrice(product.product).special)"
+                    && $n(productGetters.getPrice(product.product).special, 'currency')"
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
-                >
-                  <template #image="imageSlotProps">
-                    <AwButton
-                      :link="imageSlotProps.link"
-                      class="sf-button--pure sf-product-card__link"
-                      data-testid="product-link"
-                      :aria-label="$t('Go To Product')"
-                      v-on="$listeners"
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                          :key="key"
-                          class="sf-product-card__picture"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card__image lol"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </AwButton>
-                  </template>
-                </AwProductCard>
+                />
               </transition-group>
               <transition-group
                 v-else
@@ -133,9 +101,7 @@
                   :key="productGetters.getSlug(product.product)"
                   class="products__product-card-horizontal"
                   :description="productGetters.getDescription(product.product)"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
-                  :image-width="imageSizes.productCardHorizontal.width"
-                  :image-height="imageSizes.productCardHorizontal.height"
+                  :image="productGetters.getProductThumbnailImage(product.product)"
                   :is-in-wishlist="true"
                   :link="
                     localePath(
@@ -144,56 +110,27 @@
                       )}${productGetters.getSlug(product.product, product.product.categories[0])}`
                     )
                   "
-                  :regular-price="$fc(productGetters.getPrice(product.product).regular)"
+                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
                   :reviews-count="productGetters.getTotalReviews(product.product)"
                   :score-rating="productGetters.getAverageRating(product.product)"
                   :special-price="productGetters.getPrice(product.product).special
-                    && $fc(productGetters.getPrice(product.product).special)"
+                    && $n(productGetters.getPrice(product.product).special, 'currency')"
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >
-                  <template #image="imageSlotProps">
-                    <AwLink
-                      :link="imageSlotProps.link"
-                      class="
-                    sf-product-card-horizontal__link
-                    sf-product-card-horizontal__link--image
-                  "
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                          :key="key"
-                          class="sf-product-card-horizontal__picture"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card-horizontal__image"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </AwLink>
-                  </template>
                   <template #configuration>
                     <AwProperty
                       class="desktop-only"
-                      :name="$t('Size')"
+                      name="Size"
                       value="XS"
                       style="margin: 0 0 1rem 0"
                     />
                     <AwProperty
                       class="desktop-only"
-                      :name="$t('Color')"
+                      name="Color"
                       value="white"
                     />
                   </template>
@@ -253,31 +190,27 @@
 <script>
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
-// import {
-//   AwLoader,
-//   AwTabs,
-//   AwButton,
-//   AwProductCard,
-//   AwProductCardHorizontal,
-//   AwPagination,
-//   AwSelect,
-//   AwProperty,
-// } from '@storefront-ui/root';
-import AwLoader from "../../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
-import AwTabs from "../../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
-import AwButton from "../../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import AwProductCard from "../../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
-import AwProductCardHorizontal from "../../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardHorizontal/AwProductCardHorizontal.vue";
-import AwPagination from "../../node_modules/@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
-import AwSelect from "../../node_modules/@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
-import AwProperty from "../../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue";
+import {
+  
+
+  SfProperty,
+} from '@storefront-ui/vue';
+import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
+import AwTabs from "@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwIcon from "@storefront-ui/root/packages/vue/src/components/atoms/AwIcon/AwIcon.vue";
+import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
+import AwProductCardHorizontal from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardHorizontal/AwProductCardHorizontal.vue";
+import AwPagination from "@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
+import AwSelect from "@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
+import AwProperty from "@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue";
+
 
 import {
   computed,
   defineComponent,
   useRouter,
   useRoute,
-  useContext,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -285,8 +218,7 @@ import {
   productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState, useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
+import { useUiHelpers, useUiState } from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -294,13 +226,13 @@ export default defineComponent({
     AwLoader,
     AwTabs,
     AwButton,
+    AwIcon,
     AwProductCard,
     AwProductCardHorizontal,
     AwPagination,
     AwSelect,
     AwProperty,
     LazyHydrate,
-    SvgImage,
   },
   setup() {
     const {
@@ -310,7 +242,6 @@ export default defineComponent({
       removeItem,
     } = useWishlist('MyWishlistPage');
     const route = useRoute();
-    const { app } = useContext();
     const {
       query: {
         page,
@@ -344,11 +275,10 @@ export default defineComponent({
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
+          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
             product,
             product.categories[0],
-          )}`;
-          await router.push(`${app.localePath(path)}`);
+          )}`);
           break;
         default:
           throw new Error(`Product Type ${productType} not supported in add to cart yet`);
@@ -358,8 +288,6 @@ export default defineComponent({
     const removeItemFromWishlist = async (product) => {
       await removeItem({ product });
     };
-
-    const { getMagentoImage, imageSizes } = useImage();
 
     onSSR(async () => {
       await load({
@@ -381,8 +309,6 @@ export default defineComponent({
       products,
       th,
       wishlist,
-      getMagentoImage,
-      imageSizes,
     };
   },
 });
@@ -556,14 +482,6 @@ export default defineComponent({
       font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
-    }
-  }
-
-  &__view-icon {
-    cursor: pointer;
-
-    &--active {
-      color: var(--c-primary);
     }
   }
 }

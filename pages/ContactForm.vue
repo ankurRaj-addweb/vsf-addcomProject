@@ -93,6 +93,7 @@ export default defineComponent({
     extend,
     ValidationObserver,
   },
+
   setup(){
     const user =ref('');
     const msg =ref('');
@@ -106,6 +107,8 @@ export default defineComponent({
       mobile,
     }
   },
+
+
 });
 </script>
 

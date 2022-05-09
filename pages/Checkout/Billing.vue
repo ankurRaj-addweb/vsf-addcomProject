@@ -6,9 +6,7 @@
       :title="$t('Billing address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <form
-      @submit.prevent="handleSubmit(handleAddressSubmit(reset))"
-    >
+    <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <SfCheckbox
         v-e2e="'copy-address'"
         :selected="sameAsShipping"
@@ -17,13 +15,15 @@
         class="form__element"
         @change="handleCheckSameAddress"
       />
-      <div
-        v-if="sameAsShipping"
-        class="copy__shipping__addresses"
-      >
+      <div v-if="sameAsShipping" class="copy__shipping__addresses">
         <div class="copy__shipping__address">
           <div class="sf-address">
-            <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
+            <UserAddressDetails
+              :address="{
+                ...billingDetails,
+                region: { region_code: billingDetails.region },
+              }"
+            />
           </div>
         </div>
       </div>
@@ -34,10 +34,7 @@
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
         @setCurrentAddress="handleSetCurrentAddress"
       />
-      <div
-        v-if="!sameAsShipping && canAddNewAddress"
-        class="form"
-      >
+      <div v-if="!sameAsShipping && canAddNewAddress" class="form">
         <ValidationProvider
           v-slot="{ errors }"
           name="firstname"
@@ -53,7 +50,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="firstname => changeBillingDetails('firstname', firstname)"
+            @input="(firstname) => changeBillingDetails('firstname', firstname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -71,7 +68,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="lastname => changeBillingDetails('lastname', lastname)"
+            @input="(lastname) => changeBillingDetails('lastname', lastname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -89,7 +86,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="street => changeBillingDetails('street', street)"
+            @input="(street) => changeBillingDetails('street', street)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -107,7 +104,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="apartment => changeBillingDetails('apartment', apartment)"
+            @input="(apartment) => changeBillingDetails('apartment', apartment)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -125,7 +122,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="city => changeBillingDetails('city', city)"
+            @input="(city) => changeBillingDetails('city', city)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -135,7 +132,9 @@
           slim
         >
           <SfInput
-            v-if="!billingDetails.country_code || regionInformation.length === 0"
+            v-if="
+              !billingDetails.country_code || regionInformation.length === 0
+            "
             v-model="billingDetails.region"
             v-e2e="'state'"
             label="State/Province"
@@ -145,7 +144,7 @@
             :disabled="!billingDetails.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
-            @input="region => changeBillingDetails('region', region)"
+            @input="(region) => changeBillingDetails('region', region)"
           />
           <SfSelect
             v-else
@@ -156,8 +155,14 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-            @input="state => changeBillingDetails('region', state)"
+            class="
+              form__element
+              form__element--half
+              form__element--half-even
+              form__select
+              sf-select--underlined
+            "
+            @input="(state) => changeBillingDetails('region', state)"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -179,7 +184,10 @@
             :value="billingDetails.country_code"
             label="Country"
             name="country"
-            class="form__element form__element--half form__select sf-select--underlined"
+            class="
+              form__element form__element--half form__select
+              sf-select--underlined
+            "
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
@@ -209,7 +217,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="postcode => changeBillingDetails('postcode', postcode)"
+            @input="(postcode) => changeBillingDetails('postcode', postcode)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -227,33 +235,168 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="telephone => changeBillingDetails('telephone', telephone)"
+            @input="(telephone) => changeBillingDetails('telephone', telephone)"
           />
         </ValidationProvider>
       </div>
+      <div class="pay">
+        <p>Payment Methods</p>
+      </div>
+      <div class="lii">
+        <div class="one" @click="showForm = true">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+
+          <nuxt-img
+            src="/icons/visa1.png"
+            class="pic"
+            alt="visa"
+            width="52"
+            height="34"
+          />
+        </div>
+
+         <div class="one" @click="showForm = true">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+        <nuxt-img
+          src="/icons/mas2.png"
+          class="pic"
+          alt="mas"
+          width="52"
+          height="34"
+        /></div>
+
+         <div class="one" @click="showForm = true">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+        <nuxt-img
+          src="/icons/visa3.png"
+          class="pic"
+          alt="visa"
+          width="75"
+          height="34"
+        /></div>
+
+         <div class="one" @click="showForm = false">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+          <a href="#">Cash On Delivery</a>
+          </div>
+
+          <div class="one" @click="showForm = false">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+          <a href="#">Cheque</a>
+          </div>
+      </div>
+      <template>
+      <form class="bil" v-if="showForm">
+       <SfInput
+             
+            label="Card Number"
+            name="cardnumber"
+            class="form__control"
+            required
+          />
+          <SfInput
+            
+            label="Card Holder"
+            name="cardholder"
+            class="form__control"
+            required
+          />
+          <div class="dis">
+          <label id="ed">Expiry Date :</label>
+          <select class="form__control for">
+            <option value="23">MM</option>
+<option value="01">January</option>
+<option value="02">February </option>
+<option value="03">March</option>
+<option value="04">April</option>
+<option value="05">May</option>
+<option value="06">June</option>
+<option value="07">July</option>
+<option value="08">August</option>
+<option value="09">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+          <select class="form__control for" name="yy">
+             <option value="22">YYYY</option>
+<option value="16"> 2021</option>
+<option value="17"> 2022</option>
+<option value="18"> 2023</option>
+<option value="19"> 2024</option>
+<option value="20"> 2025</option>
+<option value="21"> 2026</option>
+</select>
+</div>
+          <div class="dis">
+          <SfInput
+            
+            label="Code CVC "
+            name="cardnumber"
+            class="form__control for"
+            required
+          />
+          <a href="#"><u>Where I find CVC code?</u></a> </div>
+<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">Save this card for other purchases.
+      </form>
+      </template>
       <SfButton
         v-if="!sameAsShipping && !canAddNewAddress"
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
       >
-        {{ $t('Add new address') }}
+        {{ $t("Add new address") }}
       </SfButton>
       <div class="form">
         <div class="form__action">
           <SfButton
             v-e2e="'continue-to-payment'"
-            class="form__action-button"
+            class="form__action-button extend"
             type="submit"
             :disabled="!canMoveForward"
           >
-            {{ $t('Continue to payment') }}
+            {{ $t("Continue to payment") }}
           </SfButton>
           <nuxt-link
             to="localePath('/checkout/shipping')"
-            class="sf-button sf-button--underlined form__back-button smartphone-only"
+            class="
+              sf-button sf-button--underlined
+              form__back-button
+              smartphone-only
+            "
           >
-            {{ $t('Go back') }}
+            {{ $t("Go back") }}
           </nuxt-link>
         </div>
       </div>
@@ -266,9 +409,10 @@ import {
   SfHeading,
   SfInput,
   SfButton,
+  SfRadio,
   SfSelect,
   SfCheckbox,
-} from '@storefront-ui/vue';
+} from "@storefront-ui/vue";
 import {
   useUserBilling,
   userBillingGetters,
@@ -277,9 +421,9 @@ import {
   useShipping,
   useCountrySearch,
   addressGetter,
-} from '@vue-storefront/magento';
-import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required, min, digits } from 'vee-validate/dist/rules';
+} from "@vue-storefront/magento";
+import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
+import { required, min, digits } from "vee-validate/dist/rules";
 import {
   ref,
   computed,
@@ -288,64 +432,62 @@ import {
   useRouter,
   defineComponent,
   useContext,
-} from '@nuxtjs/composition-api';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
-import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
-import { mergeItem } from '~/helpers/asyncLocalStorage';
-import { isPreviousStepValid } from '~/helpers/checkout/steps';
+} from "@nuxtjs/composition-api";
+import UserAddressDetails from "~/components/UserAddressDetails.vue";
+import {
+  addressFromApiToForm,
+  formatAddressReturnToData,
+} from "~/helpers/checkout/address";
+import { mergeItem } from "~/helpers/asyncLocalStorage";
+import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
-const NOT_SELECTED_ADDRESS = '';
+const NOT_SELECTED_ADDRESS = "";
 
-extend('required', {
+extend("required", {
   ...required,
-  message: 'This field is required',
+  message: "This field is required",
 });
-extend('min', {
+extend("min", {
   ...min,
-  message: 'The field should have at least {length} characters',
+  message: "The field should have at least {length} characters",
 });
-extend('digits', {
+extend("digits", {
   ...digits,
-  message: 'Please provide a valid phone number',
+  message: "Please provide a valid phone number",
 });
 
 export default defineComponent({
-  name: 'BillingStep',
+  name: "BillingStep",
   components: {
     SfHeading,
     SfInput,
     SfButton,
+    SfRadio,
     SfSelect,
     SfCheckbox,
     ValidationProvider,
     ValidationObserver,
-    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses.vue'),
+    UserBillingAddresses: () =>
+      import("~/components/Checkout/UserBillingAddresses.vue"),
     UserAddressDetails,
   },
   setup() {
     const router = useRouter();
-    const { app } = useContext();
-    const {
-      load,
-      save,
-      loading,
-      billing: address,
-    } = useBilling();
+   const showForm= ref(false);
+   const { app } = useContext();
+    const { load, save, loading, billing: address } = useBilling();
     const {
       billing: userBilling,
       load: loadUserBilling,
       setDefaultAddress,
     } = useUserBilling();
-    const {
-      shipping: shippingDetails,
-      load: loadShipping,
-    } = useShipping();
+    const { shipping: shippingDetails, load: loadShipping } = useShipping();
     const {
       load: loadCountries,
       countries,
       search: searchCountry,
       country,
-    } = useCountrySearch('Step:Billing');
+    } = useCountrySearch("Step:Billing");
     const { isAuthenticated } = useUser();
     let oldBilling = null;
     const sameAsShipping = ref(false);
@@ -358,9 +500,12 @@ export default defineComponent({
 
     const isBillingDetailsStepCompleted = ref(false);
 
-    const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
-      billingDetails.value,
-    ).length > 0);
+    const canMoveForward = computed(
+      () =>
+        !loading.value &&
+        billingDetails.value &&
+        Object.keys(billingDetails.value).length > 0
+    );
 
     const hasSavedBillingAddress = computed(() => {
       if (!isAuthenticated.value || !userBilling.value) {
@@ -370,9 +515,13 @@ export default defineComponent({
       return Boolean(addresses?.length);
     });
 
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
+    const countriesList = computed(() =>
+      addressGetter.countriesList(countries.value)
+    );
 
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
+    const regionInformation = computed(() =>
+      addressGetter.regionList(country.value)
+    );
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
@@ -387,15 +536,15 @@ export default defineComponent({
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userBillingGetters.getAddresses(
           userBilling.value,
-          { id: addressId },
+          { id: addressId }
         );
         if (chosenAddress && chosenAddress.length > 0) {
           await setDefaultAddress({ address: chosenAddress[0] });
         }
       }
       reset();
-      await mergeItem('checkout', { billing: billingDetailsData });
-      await router.push(`${app.localePath('/checkout/payment')}`);
+      await mergeItem("checkout", { billing: billingDetailsData });
+      await router.push(`${app.localePath("/checkout/payment")}`);
       isBillingDetailsStepCompleted.value = true;
     };
 
@@ -408,7 +557,9 @@ export default defineComponent({
           await searchCountry({ id: shippingDetails.value.country_code });
         }
         oldBilling = { ...billingDetails.value };
-        billingDetails.value = { ...formatAddressReturnToData(shippingDetails.value) };
+        billingDetails.value = {
+          ...formatAddressReturnToData(shippingDetails.value),
+        };
         currentAddressId.value = NOT_SELECTED_ADDRESS;
         setAsDefault.value = false;
         if (billingDetails.value.country_code) {
@@ -448,7 +599,7 @@ export default defineComponent({
     const selectDefaultAddress = () => {
       const defaultAddress = userBillingGetters.getAddresses(
         userBilling.value,
-        { default_billing: true },
+        { default_billing: true }
       );
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
@@ -456,7 +607,7 @@ export default defineComponent({
     };
 
     const changeCountry = async (id) => {
-      changeBillingDetails('country_code', id);
+      changeBillingDetails("country_code", id);
       await searchCountry({ id });
     };
 
@@ -465,15 +616,12 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const validStep = await isPreviousStepValid('shipping');
+      const validStep = await isPreviousStepValid("shipping");
       if (!validStep) {
-        await router.push(app.localePath('/checkout/user-account'));
+        await router.push(app.localePath("/checkout/user-account"));
       }
 
-      await Promise.all([
-        loadCountries(),
-        load(),
-      ]);
+      await Promise.all([loadCountries(), load()]);
 
       if (billingDetails.value?.country_code) {
         await searchCountry({ id: billingDetails.value.country_code });
@@ -482,13 +630,16 @@ export default defineComponent({
       if (!userBilling.value?.addresses && isAuthenticated.value) {
         await loadUserBilling();
       }
-      const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
+      const billingAddresses = userBillingGetters.getAddresses(
+        userBilling.value
+      );
 
       if (!billingAddresses || billingAddresses.length === 0) {
         return;
       }
 
-      const hasEmptyBillingDetails = !billingDetails.value || Object.keys(billingDetails.value).length === 0;
+      const hasEmptyBillingDetails =
+        !billingDetails.value || Object.keys(billingDetails.value).length === 0;
       if (hasEmptyBillingDetails) {
         selectDefaultAddress();
         return;
@@ -520,6 +671,7 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
+      showForm
     };
   },
 });
@@ -635,4 +787,6 @@ export default defineComponent({
     }
   }
 }
+
 </style>
+

@@ -1,6 +1,6 @@
 <template>
-<div>
-<transition name="sf-collapse-top" mode="out-in">
+  <div>
+    <transition name="sf-collapse-top" mode="out-in">
       <div class="notifications">
         <AwNotification
           v-if="!loading"
@@ -11,254 +11,260 @@
           type="secondary"
         >
           <template #action>
-            <div class="button-wrap"  >
+            <div class="button-wrap">
               <AwButton
                 class="sf-button_remove_item check"
-                @click="actionRemoveItem(tempProduct); addhidebg()"
+                @click="
+                  actionRemoveItem(tempProduct);
+                  editTxtBox();
+                "
               >
                 Yes
               </AwButton>
-            <div @click="visible=false">  <AwButton @click="addhidebg()"> Cancel </AwButton></div>
+              <div @click="visible = false">
+                <AwButton @click="editTxtBox()"> Cancel </AwButton>
+              </div>
             </div>
           </template>
           <div />
         </AwNotification>
       </div>
-      
     </transition>
     <transition name="sf-collapse-top" mode="out-in">
-      <div class="msg notifications " v-if="msg">
-        <h2 style="color:white; font: size 1.5rem;">Enter your Message</h2>
-        <textarea
-          
-
-      id="first-name"
-      name="first-name"
-      placeholder=""
-      :cols="69"
-      :rows="7"
-      wrap="soft"
-      :disabled="false"
-      :required="false"
-      :maxlength="null"
-      :minlength="null"
-    >
-          
-        </textarea>
-          <div />
-          <template >
-            <div class="button-wrap">
-              <AwButton
-                class="sf-button check"
-                @click="actionRemoveItem(tempProduct)"
-              >
-                Submit
-              </AwButton>
-              <div @click="msg=false">  <AwButton @click="addhidebg()"> Cancel </AwButton></div>
+      <div class="msg notifications" v-if="msg">
+        <h2 style="color: black; font: size 1.5rem">Enter your Message</h2>
+        <textarea :cols="69" :rows="7" wrap="soft"> </textarea>
+        <div />
+        <template>
+          <div class="button-wrap">
+            <AwButton class="sf-button check"> Submit </AwButton>
+            <div @click="msg = false">
+              <AwButton @click="editTxtBox()"> Cancel </AwButton>
             </div>
-          </template>
+          </div>
+        </template>
       </div>
     </transition>
-  <div id="cart">
-    <AwLoader :loading="loading">
-      <transition name="sf-fade" mode="out-in">
-        <div v-if="totalItems" key="my-cart" class="my-cart cart-page">
-          <div class="collected-product-list">
-            <transition-group name="sf-fade" tag="div">
-              <div
-                v-for="product in products"
-                :key="cartGetters.getItemSku(product)"
-                
-              >
-                <AwCollectedProduct
-                  :image="cartGetters.getItemImage(product)"
-                  :title="cartGetters.getItemName(product)"
-                  :regular-price="
-                    $fc(cartGetters.getItemPrice(product).regular)
-                  "
-                  :special-price="
-                    cartGetters.productHasSpecialPrice(product)
-                      ? getItemPrice(product).special &&
-                        $fc(cartGetters.getItemPrice(product).special)
-                      : ''
-                  "
-                  :link="
-                    localePath(
-                      `/p/${cartGetters.getItemSku(
-                        product
-                      )}${cartGetters.getSlug(product)}`
-                    )
-                  "
-                  class="collected-product"
-                  @input="delayedUpdateItemQty({ product, quantity: $event })"
+    <div id="cart">
+      <AwLoader :loading="loading">
+        <transition name="sf-fade" mode="out-in">
+          <div v-if="totalItems" key="my-cart" class="my-cart cart-page">
+            <div>
+              <a href="" @click="clear()">
+                <AwButton
+                  v-e2e="'go-to-checkout-btn'"
+                  class="sf-button check clear"
                 >
-                  <template #input>
-                    <div
-                      v-if="isInStock(product)"
-                      class="sf-collected-product__quantity-wrapper"
-                    >
-                      <AwQuantitySelector
-                        :disabled="loading"
-                        :qty="cartGetters.getItemQty(product)"
-                        class="sf-collected-product__quantity-selector"
-                        @input="
-                          delayedUpdateItemQty({ product, quantity: $event })
-                        "
-                      />
-                    </div>
+                  {{ $t("Clear Cart") }}
+                </AwButton></a
+              >
+            </div>
+            <div class="collected-product-list" :key="cart.length">
+              <transition-group name="sf-fade" tag="div">
+                <div
+                  v-for="product in products"
+                  :key="cartGetters.getItemSku(product)"
+                >
+                  <AwCollectedProduct
+                    :image="cartGetters.getItemImage(product)"
+                    :title="cartGetters.getItemName(product)"
+                    :regular-price="
+                      $fc(cartGetters.getItemPrice(product).regular)
+                    "
+                    :special-price="
+                      cartGetters.productHasSpecialPrice(product)
+                        ? getItemPrice(product).special &&
+                          $fc(cartGetters.getItemPrice(product).special)
+                        : ''
+                    "
+                    :link="
+                      localePath(
+                        `/p/${cartGetters.getItemSku(
+                          product
+                        )}${cartGetters.getSlug(product)}`
+                      )
+                    "
+                    class="collected-product"
+                    @input="delayedUpdateItemQty({ product, quantity: $event })"
+                  >
+                    <template #input>
+                      <div
+                        v-if="isInStock(product)"
+                        class="sf-collected-product__quantity-wrapper"
+                      >
+                        <AwQuantitySelector
+                          :disabled="loading"
+                          :qty="cartGetters.getItemQty(product)"
+                          class="sf-collected-product__quantity-selector"
+                          @input="
+                            delayedUpdateItemQty({ product, quantity: $event })
+                          "
+                        />
+                      </div>
 
-                    <AwBadge v-else class="color-danger sf-badge__absolute">
-                      <template #default>
-                        <span>{{ $t("Out of stock") }}</span>
-                      </template>
-                    </AwBadge>
-                  </template>
-                  <template #configuration>
-                    <div>
-                      <div v-if="getAttributes(product).length > 0">
-                      <AwProperty
-                        v-for="(attr, index) in getAttributes(product)"
-                        :key="index"
-                        :name="attr.option_label"
-                        :value="attr.value_label"
-                      />
-                    </div>
-                    <div v-if="getBundles(product).length > 0">
-                      <AwProperty
-                        v-for="(bundle, i) in getBundles(product)"
-                        :key="i"
-                        :name="`${bundle.quantity}x`"
-                        :value="bundle.label"
-                      />
-                    </div>
-                    <div v-else />
-                    </div>
-                    
-                    
-                   
-                  </template>
-                </AwCollectedProduct>
-                 <div class="extra">
-                     <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a>
-                          <a href="#" @click="sendToRemove({ product })"  style="float:right"><u>Remove from cart</u></a><br />
-                     
+                      <AwBadge v-else class="color-danger sf-badge__absolute">
+                        <template #default>
+                          <span>{{ $t("Out of stock") }}</span>
+                        </template>
+                      </AwBadge>
+                    </template>
+                    <template>
                       <div>
-                      <p style="font-weight:200 light">
+                        <div v-if="getAttributes(product).length > 0">
+                          <AwProperty
+                            v-for="(attr, index) in getAttributes(product)"
+                            :key="index"
+                            :name="attr.option_label"
+                            :value="attr.value_label"
+                          />
+                        </div>
+                        <div v-if="getBundles(product).length > 0">
+                          <AwProperty
+                            v-for="(bundle, i) in getBundles(product)"
+                            :key="i"
+                            :name="`${bundle.quantity}x`"
+                            :value="bundle.label"
+                          />
+                        </div>
+                        <div v-else />
+                      </div>
+                    </template>
+                  </AwCollectedProduct>
+                  <div class="extra">
+                    <!-- <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a> -->
+                    <a
+                      href="#"
+                      @click="
+                        sendToRemove({ product });
+                        editTextBox();
+                      "
+                      style="float: right"
+                      ><u>Remove from cart</u></a
+                    ><br />
+
+                    <div>
+                      <p>
                         Usually arrives in 5-13 business days. A shipping
                         timeline specific to your destinttion can be viewed in
                         Checkout.
                       </p>
                     </div>
-                    </div>
-                    
-              </div>
-            </transition-group>
+                  </div>
+                </div>
+              </transition-group>
+            </div>
           </div>
-        </div>
-        <div v-else key="empty-cart" class="empty-cart">
-          <div class="empty-cart__banner">
-            <nuxt-img
-              src="/icons/cart.png"
-              class="before-results__picture"
-              alt="cart"
-              width="250"
-              height="180"
-            />
-            <AwHeading
-              title="Your cart is empty"
-              :level="2"
-              class="empty-cart__heading"
-              :description="
-                $t(
-                  'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.'
-                )
-              "
-            />
+          <div v-else key="empty-cart" class="empty-cart">
+            <div class="empty-cart__banner">
+              <nuxt-img
+                src="/icons/cart.png"
+                class="before-results__picture"
+                alt="cart"
+                width="250"
+                height="180"
+              />
+              <AwHeading
+                title="Your cart is empty"
+                :level="2"
+                class="empty-cart__heading"
+                :description="
+                  $t(
+                    'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.'
+                  )
+                "
+              />
+            </div>
           </div>
-        </div>
-      </transition>
-    </AwLoader>
-     
-    <template>
-      <div>
-        <div class="highlighted">
-          <AwHeading
-            :level="3"
-            :title="$t('Total')"
-            class="sf-heading--left sf-heading--no-underline title"
-          />
-        </div>
-        <div class="highlighted">
-          <AwProperty
-            :name="$t('Products')"
-            :value="totalItems"
-            class="sf-property--full-width sf-property--large property"
-          />
-          <AwProperty
-            :name="$t('Subtotal')"
-            :value="$fc(totals.subtotal)"
-            :class="['sf-property--full-width', 'sf-property--large property']"
-          />
-          <AwProperty
-            v-if="hasDiscounts"
-            :name="$t('Discount')"
-            :value="$fc(discountsAmount)"
-            class="sf-property--full-width sf-property--small property"
-          />
-          <AwProperty
-            :name="$t('Shipping')"
-            :value="$t('free')"
-            class="sf-property--full-width sf-property--large property"
-          />
+        </transition>
+      </AwLoader>
 
-          <AwProperty
-            :name="$t('Total')"
-            :value="$fc(totals.total)"
-            class="sf-property--full-width sf-property--large property-total"
-          />
-        </div>
-        <div class="highlighted">
-          <a @click="goToCheckout">
-            <AwButton
-              v-e2e="'go-to-checkout-btn'"
-              class="sf-button--full-width check"
-             
-            >
-              {{ $t("Go to checkout") }}
-            </AwButton>
-          </a>
-          <AwButton
-            class="sf-button--full-width color-secondary"
-            @click="goToShopping"
-          >
-            {{ $t("Go back shopping") }}
-          </AwButton>
-          <a href="#" style="margin-left:77px" @click="sendToMsg()"> <u>Add message or gift wrap</u></a>
-          <div class="mail">
-            <SvgImage
-              icon="mail "
-              :label="$t('Mail')"
-              width="20"
-              height="20"
-              class="mail__image"
+      <template>
+        <div>
+          <div class="highlighted">
+            <AwHeading
+              :level="3"
+              :title="$t('Total')"
+              class="sf-heading--left sf-heading--no-underline title"
             />
-            <a href="#"> <u>send my basket to email</u></a>
           </div>
-          <div class="list">
-            <p>Helpful information:</p>
-            <ul>
-              <li>Questions? Chat with us or call 1.888.282.6060.</li>
-              <li>
-                Shipping internationally? Choose your destination and currency.
-              </li>
-              <li>Shipping methods and charges.</li>
-            </ul>
+          <div class="highlighted">
+            <AwProperty
+              :name="$t('Products')"
+              :value="totalItems"
+              class="sf-property--full-width sf-property--large property"
+            />
+            <AwProperty
+              :name="$t('Subtotal')"
+              :value="$fc(totals.subtotal)"
+              :class="[
+                'sf-property--full-width',
+                'sf-property--large property',
+              ]"
+            />
+
+            <AwProperty
+              :name="$t('Shipping')"
+              :value="$t('free')"
+              class="sf-property--full-width sf-property--large property"
+            />
+
+            <AwProperty
+              :name="$t('Total')"
+              :value="$fc(totals.total)"
+              class="sf-property--full-width sf-property--large property-total"
+            />
+          </div>
+          <div class="highlighted">
+            <a @click="goToCheckout">
+              <AwButton
+                v-e2e="'go-to-checkout-btn'"
+                class="sf-button--full-width check"
+              >
+                {{ $t("Go to checkout") }}
+              </AwButton>
+            </a>
+            <AwButton
+              class="sf-button--full-width color-secondary"
+              @click="goToShopping"
+            >
+              {{ $t("Go back shopping") }}
+            </AwButton>
+            <a
+              href="#"
+              style="margin-left: 77px"
+              @click="
+                sendToMsg();
+                editTextBox();
+              "
+            >
+              <u>Add message or gift wrap</u></a
+            >
+            <div class="mail">
+              <SvgImage
+                icon="mail "
+                :label="$t('Mail')"
+                width="20"
+                height="20"
+                class="mail__image"
+              />
+              <a href="#"> <u>send my basket to email</u></a>
+            </div>
+            <div class="list">
+              <p>Helpful information:</p>
+              <ul>
+                <li>Questions? Chat with us or call 1.888.282.6060.</li>
+                <li>
+                  Shipping internationally? Choose your destination and
+                  currency.
+                </li>
+                <li>Shipping methods and charges.</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -297,7 +303,6 @@ import stockStatusEnum from "~/enums/stockStatusEnum";
 // import CouponCode from './CouponCode.vue';
 import SvgImage from "~/components/General/SvgImage.vue";
 
-
 export default defineComponent({
   name: "CartSidebar",
   components: {
@@ -330,8 +335,9 @@ export default defineComponent({
 
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
-    const msg=ref(false);
-      const selectedShippingMethod = computed(() =>
+    const msg = ref(false);
+    // const bgpopup=ref(false);
+    const selectedShippingMethod = computed(() =>
       cartGetters.getSelectedShippingMethod(cart.value)
     );
 
@@ -353,15 +359,15 @@ export default defineComponent({
     const tempProduct = ref();
 
     const getModSlug = (sku, slug) => {
-      console.log(sku)
-      console.log(slug)
-      console.log(sku.match(/-/g).length)
-      if(sku.match(/-/g).length>1){
+      console.log(sku);
+      console.log(slug);
+      console.log(sku.match(/-/g).length);
+      if (sku.match(/-/g).length > 1) {
         const index = sku.indexOf("-");
-        const newSku = sku.slice(0,index)
-        
+        const newSku = sku.slice(0, index);
+
         router.push(`${app.localePath(`/p/${newSku}${slug}`)}`);
-      }else{
+      } else {
         router.push(`${app.localePath(`/p/${sku}${slug}`)}`);
       }
     };
@@ -372,18 +378,26 @@ export default defineComponent({
       }
     });
 
-    
+    const clear = async() => {
+      visible.value = true;
+     await products.value.forEach(async(item) => {
+      await  actionRemoveItem(item);
+      });
+       products.value=[];
+      console.log(products.value.length)
+    };
 
-   const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
+    const goToCheckout = async () => {
+      const redirectUrl = await initializeCheckout({
+        baseUrl: "/checkout/user-account",
+      });
       await router.push(`${app.localePath(redirectUrl)}`);
     };
- const goToShopping = async () => {
-      const redirectUrl = await initializeCheckout({ baseUrl: '/home' });
+    const goToShopping = async () => {
+      const redirectUrl = await initializeCheckout({ baseUrl: "/home" });
       await router.push(`${app.localePath(redirectUrl)}`);
     };
     const sendToRemove = ({ product }) => {
-      addhidebg();
       if (notifications.value.length > 0) {
         notifications.value[0].dismiss();
       }
@@ -392,10 +406,15 @@ export default defineComponent({
       tempProduct.value = product;
     };
 
-     const sendToMsg = () => {
-      addhidebg();
-      
+    const sendToMsg = () => {
       msg.value = true;
+    };
+    const editTextBox = () => {
+      console.log("adding class");
+      document.body.classList.add("bg-popup");
+    };
+    const editTxtBox = () => {
+      document.body.classList.remove("bg-popup");
     };
 
     const actionRemoveItem = async (product) => {
@@ -411,7 +430,7 @@ export default defineComponent({
         icon: "check",
         persist: false,
         title: "Product removed",
-        required: true
+        required: true,
       });
     };
     const delayedUpdateItemQty = _debounce(
@@ -421,20 +440,9 @@ export default defineComponent({
     const isInStock = (product) =>
       cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
-    const addhidebg = () => {
-      
-      if(document.getElementById('cart').style.opacity==0.5) 
-      {   
-        visible.value=false;
-      document.getElementById('cart').style.opacity=1;
-      }
-      else {
-      document.getElementById('cart').style.opacity=0.5;
-
-      }
-    };
     return {
       sendToRemove,
+      clear,
       actionRemoveItem,
       loading,
       isAuthenticated,
@@ -443,9 +451,12 @@ export default defineComponent({
       delayedUpdateItemQty,
       isCartSidebarOpen,
       notifications,
-      addhidebg,
       visible,
       msg,
+      cart,
+      editTextBox,
+      editTxtBox,
+      // bgpopup,
       sendToMsg,
       tempProduct,
       toggleCartSidebar,
@@ -510,22 +521,33 @@ export default defineComponent({
   --property-name-color: var(--c-text);
 }
 .extra {
-  margin-left: 460px;
+  margin-left: 400px;
   margin-top: -200px;
   width: 300px;
   float: left;
 }
+.sf-collected-product__quantity-selector
+  .sf-collected-product__quantity-wrapper {
+  height: 50px;
+  width: 108px;
+}
 
 #cart {
-  
   --sidebar-z-index: 3;
   --overlay-z-index: 3;
   display: flex;
-  &.notifictions{
-  opacity: .6 ;
+  &.notifictions {
+    opacity: 0.6;
+    background-color: white;
   }
 }
 
+p {
+  width: 366px;
+  height: 40px;
+  margin-top: 65px;
+  font-weight: 300, light;
+}
 
 .close-icon {
   position: fixed;
@@ -550,16 +572,16 @@ export default defineComponent({
     }
   }
 }
-.msg{
+.msg {
   background-color: #3c3c3c;
   width: 600px;
   padding: 1rem;
   border-radius: 1rem;
-      .button-wrap{
-        margin-top: 15px;
-      display: flex;
-      column-gap: 15px;
-      }
+  .button-wrap {
+    margin-top: 15px;
+    display: flex;
+    column-gap: 15px;
+  }
 }
 
 .check {
@@ -635,6 +657,7 @@ export default defineComponent({
 .collected-product {
   margin: 0 0 var(--spacer-sm) 0;
   width: 700px;
+  height: 203px;
 
   &__properties {
     margin: var(--spacer-xs) 0 0 0;
@@ -663,23 +686,22 @@ export default defineComponent({
     }
   }
 
-&__save {
-  opacity: var(--cp-save-opacity, 0);
-}
+  &__save {
+    opacity: var(--cp-save-opacity, 0);
+  }
 
-&__compare {
-  opacity: var(--cp-compare-opacity, 0);
-}
+  &__compare {
+    opacity: var(--cp-compare-opacity, 0);
+  }
 
-&:hover {
-  --cp-save-opacity: 0;
-  --cp-compare-opacity: 0;
-
-}
-.sf-badge__absolute {
-  position: absolute;
-  left: 0;
-}
+  &:hover {
+    --cp-save-opacity: 0;
+    --cp-compare-opacity: 0;
+  }
+  .sf-badge__absolute {
+    position: absolute;
+    left: 0;
+  }
 }
 .sf-property {
   height: 26px;
@@ -691,19 +713,13 @@ export default defineComponent({
   --collected-product-configuration-display: flex;
 }
 
-.sf-collected-product{
-  pointer-events:unset;
+.sf-collected-product {
+  pointer-events: unset;
   .sf-button::before {
     content: unset !important;
   }
-   &:hover {
-     box-shadow: unset !important;
-   }
-}
-
-.hidebg{
-  overflow: hidden;
-  opacity: .5;
-  background-color: #037ee6 !important;
+  &:hover {
+    box-shadow: unset !important;
+  }
 }
 </style>
