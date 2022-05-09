@@ -1,5 +1,9 @@
 <template>
   <div id="cart">
+   <!--  <p>{{products.length}}</p>
+    <p v-if="cart.items && cart.items.length">{{cart.items.length}}</p>
+    <p v-if="cart.items">{{cart.items}}</p> -->
+    
     <AwSidebar
       v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
@@ -62,6 +66,7 @@
             </template>
           </AwNotification>
         </div>
+      
       </transition>
       <template #content-top>
         <AwProperty
@@ -81,10 +86,11 @@
             key="my-cart"
             class="my-cart"
           >
-            <div class="collected-product-list">
+            <div class="collected-product-list" :key="testCart">
               <transition-group
                 name="sf-fade"
                 tag="div"
+                
               >
                 <AwCollectedProduct
                   v-for="product in products"
@@ -216,6 +222,11 @@
               </template>
             </AwProperty> 
             </div>
+          
+            <div v-if="totalItems"> 
+              <a href=""  @click="clear(products)" class="clear">Clear Cart</a>
+            </div>
+            
             <div v-if="totalItems">
             
             <a @click="goToCheckout">
@@ -292,6 +303,7 @@ export default defineComponent({
     SvgImage,
   },
   setup() {
+    const testCart = ref(false)
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const router = useRouter();
@@ -323,7 +335,23 @@ export default defineComponent({
         loadCart();
       }
     });
+   
+   const clear = async (prod) => {
+     products.value=[];
+     prod.forEach(async(item, index) => {
+          console.log(index)
+         await actionRemoveItem(item);
+         
+      })
 
+      testCart.value = !testCart.value;
+      
+      // const redirectUl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
+      // await router.push(`${app.localePath(redirectUl)}`);
+      // console.log(products.value.length)
+      // console.log('redirect ')
+   }
+    
     const goToCheckout = async () => {
       const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
       await router.push(`${app.localePath(redirectUrl)}`);
@@ -377,11 +405,14 @@ export default defineComponent({
       goToCheckout,
       view,
       totals,
+      cart,
+      clear,
       totalItems,
       cartGetters,
       getAttributes,
       getBundles,
       isInStock,
+      testCart
     };
   },
 });

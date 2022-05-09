@@ -312,7 +312,7 @@
             selected=""
             :required="false"
           />
-          <a href="#">Check</a>
+          <a href="#">Cheque</a>
           </div>
       </div>
       <template>
