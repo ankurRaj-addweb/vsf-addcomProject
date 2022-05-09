@@ -32,6 +32,13 @@ export function getRoutes(themeDir = __dirname) {
     path: '/my-account/:pageName?',
     component: path.resolve(themeDir, 'pages/MyAccount.vue'),
   },
+
+  {
+    name: 'help',
+    path: '/help/:pageName?',
+    component: path.resolve(themeDir, 'pages/Help.vue'),
+  },
+
   {
     name: 'checkout',
     path: '/checkout',
