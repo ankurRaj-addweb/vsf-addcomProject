@@ -51,13 +51,13 @@
                 <AwButton class="sf-button--text" @click="changeTab(2)">
                   {{ $t("Read all reviews") }}
                 </AwButton>
-                <!-- |
+                |
                 <AwButton
                   class="sf-button--text"
-                  @click="changeNewReview"
+                  @click="changeNewReview(); showrev=!showrev"
                 >
                   Add a review
-                </AwButton> -->
+                </AwButton>
               </div>
             </div>
             <div>
@@ -205,14 +205,14 @@
                     class="product__review"
                   />
 
-                  <!-- <div
-                    v-show="!reviewsLoading"
+                  <div
+                    v-show="showrev"
                     id="addReview"
                   >
                     <ProductAddReviewForm
                       @add-review="successAddReview"
                     />
-                  </div> -->
+                  </div>
                   <div>
                     <AwPagination
                       :total="4"
@@ -368,6 +368,7 @@ export default defineComponent({
     const { product, id } = productData();
     const route = useRoute();
     const router = useRouter();
+    const showrev = ref(false);
     const { search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
     const {
@@ -576,6 +577,7 @@ export default defineComponent({
       productShortDescription,
       productSpecialPrice,
       qty,
+      showrev,
       reviewGetters,
       reviews,
       reviewsLoading,
