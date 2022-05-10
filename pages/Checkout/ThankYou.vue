@@ -1,33 +1,33 @@
 <template>
   <div id="thank-you">
-    <AwCallToAction
+    <SfCallToAction
       v-e2e="'thank-you-banner'"
       class="banner"
       title="Thank you for your order!"
       :image="{
-        mobile: addBasePath('static/homepage/hero.png'),
+        mobile: addBasePath('/thankyou/bannerM.png'),
         desktop: addBasePath('/thankyou/bannerD.png'),
       }"
     >
       <template #description>
         <div class="banner__order-number">
-          <span>{{ $t("Order No.") }}</span>
+          <span>{{ $t('Order No.') }}</span>
           <strong>{{ orderNumber }}</strong>
         </div>
       </template>
-    </AwCallToAction>
+    </SfCallToAction>
     <section class="section">
       <div class="order">
-        <AwHeading
+        <SfHeading
           title="Your Purchase"
           class="order__heading heading sf-heading--left"
           :level="3"
         />
         <p class="order__paragraph paragraph">
-          {{ $t("Successful placed order") }}
+          {{ $t('Successful placed order') }}
         </p>
         <div class="order__contact">
-          <AwHeading
+          <SfHeading
             :level="6"
             class="heading sf-heading--left sf-heading--no-underline"
             title="Primary contacts for any questions"
@@ -47,74 +47,65 @@
             </p>
           </div>
         </div>
-        <AwButton class="order__notifications-button button-size">
-          {{ $t("Allow order notifications") }}
-        </AwButton>
+        <SfButton class="order__notifications-button button-size">
+          {{ $t('Allow order notifications') }}
+        </SfButton>
       </div>
       <div class="additional-info">
         <div>
-          <AwHeading
+          <SfHeading
             title="Your Account"
             class="heading sf-heading--left"
             :level="3"
           />
           <p class="paragraph">
-            {{ $t("Info after order") }}
+            {{ $t('Info after order') }}
           </p>
         </div>
         <div>
-          <AwHeading
+          <SfHeading
             title="What can we improve"
             class="heading sf-heading--left"
             :level="3"
           />
           <p class="paragraph">
-            {{ $t("Feedback") }}
+            {{ $t('Feedback') }}
           </p>
-          <AwButton
-            class="
-              feedback-button
-              color-secondary
-              sf-button--full-width
-              button-size
-            "
+          <SfButton
+            class="feedback-button color-secondary sf-button--full-width button-size"
           >
-            {{ $t("Send my feedback") }}
-          </AwButton>
+            {{ $t('Send my feedback') }}
+          </SfButton>
         </div>
       </div>
     </section>
-    <router-link to="/default">
-      <AwButton class="back-button color-secondary button-size">
-        {{ $t("Back to home page") }}
-      </AwButton>
-    </router-link>
+    <SfButton class="back-button color-secondary button-size">
+      {{ $t('Go back to shop') }}
+    </SfButton>
   </div>
 </template>
 
 <script>
-import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
-import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
-import { ref } from "@nuxtjs/composition-api";
-import { addBasePath } from "@vue-storefront/core";
+import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
+import { ref } from '@nuxtjs/composition-api';
+import { addBasePath } from '@vue-storefront/core';
 
 export default {
   components: {
-    AwHeading,
-    AwButton,
-    AwCallToAction,
+    SfHeading,
+    SfButton,
+    SfCallToAction,
   },
   setup(props, context) {
-    context.emit("changeStep", 4);
+    context.emit('changeStep', 4);
 
     const companyDetails = ref({
-      name: "Divante Headquarter",
-      street: "St. Dmowskiego 17, 53-534",
-      city: "Wroclaw, Poland",
-      email: "demo@vuestorefront.io",
+      name: 'Divante Headquarter',
+      street: 'St. Dmowskiego 17, 53-534',
+      city: 'Wroclaw, Poland',
+      email: 'demo@vuestorefront.io',
     });
-    const orderNumber = ref("80932031-030-00");
+    const orderNumber = ref('80932031-030-00');
 
     return {
       addBasePath,
@@ -280,9 +271,5 @@ export default {
   @include for-desktop {
     --button-width: 25rem;
   }
-}
-
-button.order__notifications-button.button-size.sf-button {
-  background-color: #037ee6;
 }
 </style>
