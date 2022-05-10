@@ -1,20 +1,16 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit, reset }">
-    <!-- <h1>{{getInvoiceCheck}}</h1> -->
-    <AwHeading
+    <SfHeading
       v-e2e="'heading-billing'"
       :level="3"
-      :title="$t('Billing Details')"
+      :title="$t('Billing address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-
-
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
-      <AwCheckbox
-
+      <SfCheckbox
         v-e2e="'copy-address'"
         :selected="sameAsShipping"
-        :label="$t('Copy address from shipping')"
+        :label="$t('My billing and shipping address are the same')"
         name="copyShippingAddress"
         class="form__element"
         @change="handleCheckSameAddress"
@@ -45,7 +41,7 @@
           rules="required|min:2"
           slim
         >
-          <AwInput
+          <SfInput
             v-e2e="'firstName'"
             :value="billingDetails.firstname"
             label="First name"
@@ -63,7 +59,7 @@
           rules="required|min:2"
           slim
         >
-          <AwInput
+          <SfInput
             v-e2e="'lastName'"
             :value="billingDetails.lastname"
             label="Last name"
@@ -81,18 +77,34 @@
           rules="required"
           slim
         >
-          <AwInput
+          <SfInput
             v-e2e="'streetName'"
             :value="billingDetails.street"
             label="Street name"
             name="streetName"
-
-            class="form__element form"
+            class="form__element form__element--half"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
             @input="(street) => changeBillingDetails('street', street)"
-
+          />
+        </ValidationProvider>
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="apartment"
+          rules="required|min:2"
+          slim
+        >
+          <SfInput
+            v-e2e="'apartment'"
+            :value="billingDetails.apartment"
+            label="House/Apartment number"
+            name="apartment"
+            class="form__element form__element--half form__element--half-even"
+            required
+            :valid="!errors[0]"
+            :error-message="$t(errors[0])"
+            @input="(apartment) => changeBillingDetails('apartment', apartment)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -101,7 +113,7 @@
           rules="required|min:2"
           slim
         >
-          <AwInput
+          <SfInput
             v-e2e="'city'"
             :value="billingDetails.city"
             label="City"
@@ -119,9 +131,7 @@
           :rules="!regionInformation ? null : 'required|min:2'"
           slim
         >
-
-          <AwInput
-
+          <SfInput
             v-if="
               !billingDetails.country_code || regionInformation.length === 0
             "
@@ -136,7 +146,7 @@
             class="form__element form__element--half form__element--half-even"
             @input="(region) => changeBillingDetails('region', region)"
           />
-          <AwSelect
+          <SfSelect
             v-else
             v-model="billingDetails.region"
             v-e2e="'state'"
@@ -154,14 +164,43 @@
             "
             @input="(state) => changeBillingDetails('region', state)"
           >
-            <AwSelectOption
+            <SfSelectOption
               v-for="regionOption in regionInformation"
               :key="regionOption.id"
               :value="regionOption.abbreviation"
             >
               {{ regionOption.label }}
-            </AwSelectOption>
-          </AwSelect>
+            </SfSelectOption>
+          </SfSelect>
+        </ValidationProvider>
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="country_code"
+          rules="required|min:2"
+          slim
+        >
+          <SfSelect
+            v-e2e="'country'"
+            :value="billingDetails.country_code"
+            label="Country"
+            name="country"
+            class="
+              form__element form__element--half form__select
+              sf-select--underlined
+            "
+            required
+            :valid="!errors[0]"
+            :error-message="$t(errors[0])"
+            @input="changeCountry"
+          >
+            <SfSelectOption
+              v-for="countryOption in countriesList"
+              :key="countryOption.id"
+              :value="countryOption.abbreviation"
+            >
+              {{ countryOption.label }}
+            </SfSelectOption>
+          </SfSelect>
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
@@ -169,12 +208,12 @@
           rules="required|min:2"
           slim
         >
-          <AwInput
+          <SfInput
             v-e2e="'zipcode'"
             :value="billingDetails.postcode"
             label="Zip-code"
             name="zipCode"
-            class="form__element form__element--half"
+            class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
@@ -183,45 +222,11 @@
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
-          name="country_code"
-          rules="required|min:2"
-          slim
-        >
-          <AwSelect
-            v-e2e="'country'"
-            :value="billingDetails.country_code"
-            label="Country"
-            name="country"
-            class="
-              form__element form__element--half form__select
-              sf-select--underlined
-
-              form__element--half-even
-
-            "
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="changeCountry"
-          >
-            <AwSelectOption
-              v-for="countryOption in countriesList"
-              :key="countryOption.id"
-              :value="countryOption.abbreviation"
-            >
-              {{ countryOption.label }}
-
-            </AwSelectOption>
-          </AwSelect>
-
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
           name="telephone"
           rules="required"
           slim
         >
-          <AwInput
+          <SfInput
             v-e2e="'phone'"
             :value="billingDetails.telephone"
             label="Phone number"
@@ -234,23 +239,6 @@
           />
         </ValidationProvider>
       </div>
-
-
-      <div>
-        <AwCheckbox
-          name="shipping"
-          label="I Want to generate invoice for the company"
-          hintMessage=""
-          :required="false"
-          infoMessage=""
-          errorMessage=""
-          valid
-          :disabled="false"
-          :selected="getInvoiceCheck"
-          @click="invoiceCheckToggle()"
-        />
-      </div>
-  
       <div class="pay">
         <p>Payment Methods</p>
       </div>
@@ -383,28 +371,23 @@
       </form>
       </template>
       <SfButton
-
         v-if="!sameAsShipping && !canAddNewAddress"
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
       >
         {{ $t("Add new address") }}
-
-      </AwButton>
-
+      </SfButton>
       <div class="form">
         <div class="form__action">
-          <AwButton
+          <SfButton
             v-e2e="'continue-to-payment'"
             class="form__action-button extend"
             type="submit"
             :disabled="!canMoveForward"
           >
-
-            {{ $t("Pay for Order") }}
-          </AwButton>
-
+            {{ $t("Continue to payment") }}
+          </SfButton>
           <nuxt-link
             to="localePath('/checkout/shipping')"
             class="
@@ -422,15 +405,14 @@
 </template>
 
 <script>
-
-import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
-import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
-import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
-import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import AwSelect from "@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
-import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
-
-
+import {
+  SfHeading,
+  SfInput,
+  SfButton,
+  SfRadio,
+  SfSelect,
+  SfCheckbox,
+} from "@storefront-ui/vue";
 import {
   useUserBilling,
   userBillingGetters,
@@ -461,7 +443,6 @@ import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
 const NOT_SELECTED_ADDRESS = "";
 
-
 extend("required", {
   ...required,
   message: "This field is required",
@@ -478,27 +459,22 @@ extend("digits", {
 export default defineComponent({
   name: "BillingStep",
   components: {
-
-    AwHeading,
-    AwInput,
-    AwSelect,
-    AwCheckbox,
-    AwButton,
+    SfHeading,
+    SfInput,
+    SfButton,
+    SfRadio,
+    SfSelect,
+    SfCheckbox,
     ValidationProvider,
     ValidationObserver,
-    AwRadio,
-
     UserBillingAddresses: () =>
       import("~/components/Checkout/UserBillingAddresses.vue"),
     UserAddressDetails,
   },
   setup() {
-    const invoiceCheck = ref(false);
-    const showForm = ref(false);
     const router = useRouter();
-
-    const { app } = useContext();
-
+   const showForm= ref(false);
+   const { app } = useContext();
     const { load, save, loading, billing: address } = useBilling();
     const {
       billing: userBilling,
@@ -543,13 +519,9 @@ export default defineComponent({
       addressGetter.countriesList(countries.value)
     );
 
-
     const regionInformation = computed(() =>
       addressGetter.regionList(country.value)
     );
-
-    const getInvoiceCheck = computed(() => invoiceCheck.value);
-
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
@@ -639,19 +611,15 @@ export default defineComponent({
       await searchCountry({ id });
     };
 
-    const invoiceCheckToggle = () => {
-      console.log(invoiceCheck.value);
-      invoiceCheck.value = !invoiceCheck.value;
-      console.log(invoiceCheck.value);
-    };
-
     watch(address, (addr) => {
       billingDetails.value = addressFromApiToForm(addr || {});
     });
 
     onMounted(async () => {
       const validStep = await isPreviousStepValid("shipping");
-
+      if (!validStep) {
+        await router.push(app.localePath("/checkout/user-account"));
+      }
 
       await Promise.all([loadCountries(), load()]);
 
@@ -703,12 +671,7 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
-
-      invoiceCheck,
-      invoiceCheckToggle,
-      getInvoiceCheck,
-      showForm,
-
+      showForm
     };
   },
 });

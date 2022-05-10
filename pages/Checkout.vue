@@ -2,13 +2,13 @@
   <div id="checkout">
     <div class="checkout">
       <div class="checkout__main">
-        <AwSteps
+        <SfSteps
           v-if="!isThankYou"
           :active="currentStepIndex"
           :class="{ 'checkout__steps': true }"
           @change="handleStepClick"
         >
-          <AwStep
+          <SfStep
             v-for="(step, key) in STEPS"
             :key="key"
             :name="$t(step.title)"
@@ -16,8 +16,8 @@
             can-go-back
           >
             <nuxt-child />
-          </AwStep>
-        </AwSteps>
+          </SfStep>
+        </SfSteps>
         <nuxt-child v-else />
       </div>
       <div
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import AwSteps from '@storefront-ui/root/packages/vue/src/components/molecules/AwSteps/AwSteps.vue';
+import { SfSteps } from '@storefront-ui/vue';
 import {
   useCart,
   cartGetters,
@@ -45,7 +45,7 @@ import CartPreview from '~/components/Checkout/CartPreview.vue';
 export default defineComponent({
   name: 'CheckoutPage',
   components: {
-    AwSteps,
+    SfSteps,
     CartPreview,
   },
   setup() {
@@ -59,8 +59,8 @@ export default defineComponent({
 
     const STEPS = ref(
       [
-         {
-          title:'Personal Details',
+        {
+          title: 'User Account',
           url: 'user-account',
         },
         {
@@ -68,11 +68,11 @@ export default defineComponent({
           url: 'shipping',
         },
         {
-          title: 'Payment',
+          title: 'Billing',
           url: 'billing',
         },
         {
-          title: 'Review Order',
+          title: 'Payment',
           url: 'payment',
         },
       ],
