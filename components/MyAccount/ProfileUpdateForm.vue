@@ -14,6 +14,8 @@
             v-model="form.firstname"
             name="firstName"
             :label="$t('First Name')"
+            @input="changeDisable()"
+            
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
@@ -31,6 +33,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+             @input="changeDisable()"
           />
         </ValidationProvider>
       </div>
@@ -47,6 +50,7 @@
           required
           :valid="!errors[0]"
           :error-message="$t(errors[0])"
+           @input="changeDisable()"
         />
       </ValidationProvider>
       <AwModal
@@ -92,11 +96,16 @@
         <AwButton
           class="form__button"
           @click="handleSubmit(submitForm(reset))"
+          
         >
           {{ $t('Save Changes') }}
         </AwButton>
       </div>
-      <AwButton v-if="!requirePassword" class="form__button">
+
+      <AwButton v-if="!requirePassword" class="form__button .color-primary. sf-button "
+       :class="$route.fullPath == '/default/checkout/user-account'? 'is-disabled--button':''"
+       @click="changeDisable()">
+
         {{ $t('Save Changes') }}
       </AwButton>
     </form>
@@ -104,13 +113,16 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, route } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
 import { useUser, userGetters } from '@vue-storefront/magento';
+
+
 import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwModal from "@storefront-ui/root/packages/vue/src/components/molecules/AwModal/AwModal.vue";
+
 
 import { useUiNotification } from '~/composables';
 
@@ -150,6 +162,10 @@ export default defineComponent({
     } = useUiNotification();
 
     const form = ref(resetForm());
+    const changeDisable = () => {
+    document.querySelector(".form__button").classList.remove("is-disabled--button")
+     document.querySelector(".form__button").classList.add("check")
+}
 
     const submitForm = (resetValidationFn) => () => {
       const onComplete = () => {
@@ -192,6 +208,8 @@ export default defineComponent({
       currentPassword,
       form,
       submitForm,
+      changeDisable,
+      route 
     };
   },
 });

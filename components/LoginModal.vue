@@ -34,7 +34,7 @@
                 name="email"
                 class="form__element"
               >
-                <template #error-message="{ errorMessage }">
+                <template #error-message="{ }">
                   <div>
                     <p v-if="setShowError">{{ errors[0] }}</p>
                   </div>
@@ -159,7 +159,7 @@
                 
                 class="form__element"
               >
-                <template #error-message="{ errorMessage }">
+                <template #error-message="{}">
                   <div>
                     <p v-if="setShowError">{{ errors[0] }}</p>
                   </div>

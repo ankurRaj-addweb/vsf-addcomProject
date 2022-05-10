@@ -1,6 +1,15 @@
 .extend{
     margin-top: 50px;
-  }
+
+}
+  .shipping-provider {
+    .sf-radio.sf-radio--transparent {
+        z-index: 1;
+    }
+    .accordion {
+        z-index: 999999;
+    }
+}
   .sf-radio{
     width: 40px;
     padding-bottom: 6px;
@@ -77,3 +86,4 @@
         font-weight: 400, regular;
     }
   }
+
