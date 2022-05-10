@@ -2,7 +2,7 @@
   <ValidationObserver v-slot="{ handleSubmit }">
     <form
       id="shipping-details-form"
-      class="form"
+      class="form profile"
       @submit.prevent="handleSubmit(submitForm)"
     >
       <div class="form__horizontal">
@@ -12,7 +12,7 @@
           name="firstname"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-model="form.firstname"
             name="firstname"
             :label="$t('First Name')"
@@ -27,7 +27,7 @@
           name="lastname"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-model="form.lastname"
             name="lastname"
             :label="$t('Last Name')"
@@ -43,7 +43,7 @@
         name="street"
         class="form__element"
       >
-        <SfInput
+        <AwInput
           v-model="form.street"
           name="street"
           :label="$t('Street Name')"
@@ -52,20 +52,14 @@
           :error-message="$t(errors[0])"
         />
       </ValidationProvider>
-      <SfInput
-        v-model="form.apartment"
-        name="apartment"
-        :label="$t('House/Apartment number')"
-        required
-        class="form__element"
-      />
+      
       <div class="form__horizontal">
         <ValidationProvider
           v-slot="{ errors }"
           rules="required|min:2"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-model="form.city"
             name="city"
             :label="$t('City')"
@@ -80,7 +74,7 @@
           :rules="!form.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-if="!form.country_code || regionInformation.length === 0"
             v-model="form.region.region"
             v-e2e="'shipping-state'"
@@ -90,7 +84,7 @@
             :valid="!!form.country_code"
             :error-message="!form.country_code ? $t('Please select a country first') : ''"
           />
-          <SfSelect
+          <AwSelect
             v-else
             v-model="form.region.region_code"
             v-e2e="'shipping-state'"
@@ -100,14 +94,14 @@
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
           >
-            <SfSelectOption
+            <AwSelectOption
               v-for="regionOption in regionInformation"
               :key="regionOption.id"
               :value="regionOption.abbreviation"
             >
               {{ regionOption.label }}
-            </SfSelectOption>
-          </SfSelect>
+            </AwSelectOption>
+          </AwSelect>
         </ValidationProvider>
       </div>
       <div class="form__horizontal">
@@ -117,7 +111,7 @@
           name="postcode"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-model="form.postcode"
             name="postcode"
             :label="$t('Zip-code')"
@@ -131,8 +125,9 @@
           name="country_code"
           rules="required|min:2"
           slim
+          class="form__element"
         >
-          <SfSelect
+          <AwSelect
             v-model="form.country_code"
             :label="$t('Country')"
             name="country"
@@ -142,14 +137,14 @@
             :error-message="$t(errors[0])"
             @input="searchCountry({ id:$event })"
           >
-            <SfSelectOption
+            <AwSelectOption
               v-for="countryOption in countriesList"
               :key="countryOption.id"
               :value="countryOption.abbreviation"
             >
               {{ countryOption.label }}
-            </SfSelectOption>
-          </SfSelect>
+            </AwSelectOption>
+          </AwSelect>
         </ValidationProvider>
       </div>
       <ValidationProvider
@@ -158,7 +153,7 @@
         name="telephone"
         class="form__element"
       >
-        <SfInput
+        <AwInput
           v-model="form.telephone"
           name="telephone"
           :label="$t('Phone number')"
@@ -167,32 +162,32 @@
           :error-message="$t(errors[0])"
         />
       </ValidationProvider>
-      <SfCheckbox
+      <AwCheckbox
         v-model="form.default_shipping"
         name="isDefaultShipping"
         :label="$t('Set as default shipping')"
         class="form__checkbox-isDefaultShipping"
       />
-      <SfCheckbox
+      <AwCheckbox
         v-model="form.default_billing"
         name="isDefaultBilling"
         :label="$t('Set as default billing')"
         class="form__checkbox-isDefaultBilling"
       />
-      <SfButton class="form__button">
+      <AwButton class="form__button">
         {{ isNew ? $t('Add the address') : $t('Update the address') }}
-      </SfButton>
+      </AwButton>
     </form>
   </ValidationObserver>
 </template>
 
 <script type="module">
-import {
-  SfInput,
-  SfButton,
-  SfSelect,
-  SfCheckbox,
-} from '@storefront-ui/vue';
+
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
+import AwSelect from "@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
+import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
+
 import {
   addressGetter,
   useAddresses,
@@ -231,10 +226,10 @@ export default defineComponent({
   name: 'AddressForm',
 
   components: {
-    SfInput,
-    SfButton,
-    SfSelect,
-    SfCheckbox,
+    AwInput,
+    AwButton,
+    AwSelect,
+    AwCheckbox,
     ValidationProvider,
     ValidationObserver,
   },

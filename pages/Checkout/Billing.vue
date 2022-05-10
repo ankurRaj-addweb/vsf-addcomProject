@@ -8,8 +8,10 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
 
+
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <AwCheckbox
+
         v-e2e="'copy-address'"
         :selected="sameAsShipping"
         :label="$t('Copy address from shipping')"
@@ -84,11 +86,13 @@
             :value="billingDetails.street"
             label="Street name"
             name="streetName"
+
             class="form__element form"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
             @input="(street) => changeBillingDetails('street', street)"
+
           />
         </ValidationProvider>
         <ValidationProvider
@@ -115,7 +119,9 @@
           :rules="!regionInformation ? null : 'required|min:2'"
           slim
         >
+
           <AwInput
+
             v-if="
               !billingDetails.country_code || regionInformation.length === 0
             "
@@ -189,7 +195,9 @@
             class="
               form__element form__element--half form__select
               sf-select--underlined
+
               form__element--half-even
+
             "
             required
             :valid="!errors[0]"
@@ -202,8 +210,10 @@
               :value="countryOption.abbreviation"
             >
               {{ countryOption.label }}
+
             </AwSelectOption>
           </AwSelect>
+
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
@@ -225,6 +235,7 @@
         </ValidationProvider>
       </div>
 
+
       <div>
         <AwCheckbox
           name="shipping"
@@ -239,45 +250,161 @@
           @click="invoiceCheckToggle()"
         />
       </div>
-      <!-- <div>
-        <AwHeading
-          :level="3"
-          :title="$t('Payment method')"
-          class="sf-heading--left sf-heading--no-underline title"
-        />
-      </div> -->
+  
+      <div class="pay">
+        <p>Payment Methods</p>
+      </div>
+      <div class="lii">
+        <div class="one" @click="showForm = true">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
 
-      <!-- <div>
-        <form v-if="showForm">
-         
-          <button class="btn btn-primary">Submit</button>
-        </form>
-      </div> -->
+          <nuxt-img
+            src="/icons/visa1.png"
+            class="pic"
+            alt="visa"
+            width="52"
+            height="34"
+          />
+        </div>
 
-      <!-- <div class="pay">
-        <VsfPaymentProvider 
-          @status="isPaymentReady = true"
-        />
-       </div>  -->
+         <div class="one" @click="showForm = true">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+        <nuxt-img
+          src="/icons/mas2.png"
+          class="pic"
+          alt="mas"
+          width="52"
+          height="34"
+        /></div>
 
-      <AwButton
+         <div class="one" @click="showForm = true">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+        <nuxt-img
+          src="/icons/visa3.png"
+          class="pic"
+          alt="visa"
+          width="75"
+          height="34"
+        /></div>
+
+         <div class="one" @click="showForm = false">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+          <a href="#">Cash On Delivery</a>
+          </div>
+
+          <div class="one" @click="showForm = false">
+          <SfRadio
+            name="visa"
+            value="store"
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+          <a href="#">Cheque</a>
+          </div>
+      </div>
+      <template>
+      <form class="bil" v-if="showForm">
+       <SfInput
+             
+            label="Card Number"
+            name="cardnumber"
+            class="form__control"
+            required
+          />
+          <SfInput
+            
+            label="Card Holder"
+            name="cardholder"
+            class="form__control"
+            required
+          />
+          <div class="dis">
+          <label id="ed">Expiry Date :</label>
+          <select class="form__control for">
+            <option value="23">MM</option>
+<option value="01">January</option>
+<option value="02">February </option>
+<option value="03">March</option>
+<option value="04">April</option>
+<option value="05">May</option>
+<option value="06">June</option>
+<option value="07">July</option>
+<option value="08">August</option>
+<option value="09">September</option>
+<option value="10">October</option>
+<option value="11">November</option>
+<option value="12">December</option>
+</select>
+          <select class="form__control for" name="yy">
+             <option value="22">YYYY</option>
+<option value="16"> 2021</option>
+<option value="17"> 2022</option>
+<option value="18"> 2023</option>
+<option value="19"> 2024</option>
+<option value="20"> 2025</option>
+<option value="21"> 2026</option>
+</select>
+</div>
+          <div class="dis">
+          <SfInput
+            
+            label="Code CVC "
+            name="cardnumber"
+            class="form__control for"
+            required
+          />
+          <a href="#"><u>Where I find CVC code?</u></a> </div>
+<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">Save this card for other purchases.
+      </form>
+      </template>
+      <SfButton
+
         v-if="!sameAsShipping && !canAddNewAddress"
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
       >
         {{ $t("Add new address") }}
+
       </AwButton>
+
       <div class="form">
         <div class="form__action">
           <AwButton
             v-e2e="'continue-to-payment'"
-            class="form__action-button"
+            class="form__action-button extend"
             type="submit"
             :disabled="!canMoveForward"
           >
+
             {{ $t("Pay for Order") }}
           </AwButton>
+
           <nuxt-link
             to="localePath('/checkout/shipping')"
             class="
@@ -295,12 +422,14 @@
 </template>
 
 <script>
+
 import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
 import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
 import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwSelect from "@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
 import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
+
 
 import {
   useUserBilling,
@@ -330,9 +459,8 @@ import {
 import { mergeItem } from "~/helpers/asyncLocalStorage";
 import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
-// import VsfPaymentProvider from "~/components/Checkout/VsfPaymentProvider.vue";
-
 const NOT_SELECTED_ADDRESS = "";
+
 
 extend("required", {
   ...required,
@@ -350,6 +478,7 @@ extend("digits", {
 export default defineComponent({
   name: "BillingStep",
   components: {
+
     AwHeading,
     AwInput,
     AwSelect,
@@ -358,7 +487,7 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
     AwRadio,
-    //  VsfPaymentProvider,
+
     UserBillingAddresses: () =>
       import("~/components/Checkout/UserBillingAddresses.vue"),
     UserAddressDetails,
@@ -367,7 +496,9 @@ export default defineComponent({
     const invoiceCheck = ref(false);
     const showForm = ref(false);
     const router = useRouter();
+
     const { app } = useContext();
+
     const { load, save, loading, billing: address } = useBilling();
     const {
       billing: userBilling,
@@ -412,11 +543,13 @@ export default defineComponent({
       addressGetter.countriesList(countries.value)
     );
 
+
     const regionInformation = computed(() =>
       addressGetter.regionList(country.value)
     );
 
     const getInvoiceCheck = computed(() => invoiceCheck.value);
+
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
@@ -518,9 +651,7 @@ export default defineComponent({
 
     onMounted(async () => {
       const validStep = await isPreviousStepValid("shipping");
-      // if (!validStep) {
-      //   await router.push(app.localePath("/checkout/user-account"));
-      // }
+
 
       await Promise.all([loadCountries(), load()]);
 
@@ -572,10 +703,12 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
+
       invoiceCheck,
       invoiceCheckToggle,
       getInvoiceCheck,
       showForm,
+
     };
   },
 });
@@ -691,9 +824,6 @@ export default defineComponent({
     }
   }
 }
+
 </style>
-<style lang = scss>
-.pay {
-  display: flex;
-}
-</style>
+
