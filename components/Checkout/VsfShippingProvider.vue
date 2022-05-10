@@ -161,7 +161,7 @@
           type="button"
           @click="$router.push(`${localePath('/checkout/billing')}`)"
         >
-          {{ $t("Go To Shiping") }}
+          {{ $t("Go To Shipping") }}
         </AwButton>
       </div>
     </div>
