@@ -10,10 +10,12 @@
           rules="required|min:2"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-model="form.firstname"
             name="firstName"
             :label="$t('First Name')"
+            @input="changeDisable()"
+            
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
@@ -24,13 +26,14 @@
           rules="required|min:2"
           class="form__element"
         >
-          <SfInput
+          <AwInput
             v-model="form.lastname"
             name="lastName"
             :label="$t('Last Name')"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+             @input="changeDisable()"
           />
         </ValidationProvider>
       </div>
@@ -39,7 +42,7 @@
         rules="required|email"
         class="form__element"
       >
-        <SfInput
+        <AwInput
           v-model="form.email"
           type="email"
           name="email"
@@ -47,9 +50,10 @@
           required
           :valid="!errors[0]"
           :error-message="$t(errors[0])"
+           @input="changeDisable()"
         />
       </ValidationProvider>
-      <SfModal
+      <AwModal
         :visible="requirePassword"
         :title="$t('Attention!')"
         cross
@@ -57,7 +61,7 @@
         @close="requirePassword = false"
       >
         {{ $t('Please type your current password to change your email address.') }}
-        <SfInput
+        <AwInput
           v-model="currentPassword"
           type="password"
           name="currentPassword"
@@ -67,19 +71,19 @@
           style="margin-top: 10px"
           @keypress.enter="handleSubmit(submitForm(reset))"
         />
-        <SfButton
+        <AwButton
           class="form__button"
           @click="handleSubmit(submitForm(reset))"
         >
           {{ $t('Save Changes') }}
-        </SfButton>
-      </SfModal>
+        </AwButton>
+      </AwModal>
       <div 
         v-if="requirePassword"
         class="smartphone-only"
       >
         {{ $t('Please type your current password to change your email address.') }}
-        <SfInput
+        <AwInput
           v-model="currentPassword"
           type="password"
           name="currentPassword"
@@ -89,30 +93,32 @@
           style="margin-top: 10px"
           @keypress.enter="handleSubmit(submitForm(reset))"
         />
-        <SfButton
+        <AwButton
           class="form__button"
           @click="handleSubmit(submitForm(reset))"
+          
         >
           {{ $t('Save Changes') }}
-        </SfButton>
+        </AwButton>
       </div>
-      <SfButton v-if="!requirePassword" class="form__button">
+      <AwButton v-if="!requirePassword" class="form__button .color-primary. sf-button "
+       :class="$route.fullPath == '/default/checkout/user-account'? 'is-disabled--button':''"
+       @click="changeDisable()">
         {{ $t('Save Changes') }}
-      </SfButton>
+      </AwButton>
     </form>
   </ValidationObserver>
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, route } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
 import { useUser, userGetters } from '@vue-storefront/magento';
-import {
-  SfInput,
-  SfButton,
-  SfModal,
-} from '@storefront-ui/vue';
+import AwInput from '@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue'
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue'
+import AwModal from '@storefront-ui/root/packages/vue/src/components/molecules/AwModal/AwModal.vue'
+
 import { useUiNotification } from '~/composables';
 
 extend('email', {
@@ -123,9 +129,9 @@ extend('email', {
 export default defineComponent({
   name: 'ProfileUpdateForm',
   components: {
-    SfInput,
-    SfButton,
-    SfModal,
+    AwInput,
+    AwButton,
+    AwModal,
     ValidationProvider,
     ValidationObserver,
   },
@@ -151,6 +157,10 @@ export default defineComponent({
     } = useUiNotification();
 
     const form = ref(resetForm());
+    const changeDisable = () => {
+    document.querySelector(".form__button").classList.remove("is-disabled--button")
+     document.querySelector(".form__button").classList.add("check")
+}
 
     const submitForm = (resetValidationFn) => () => {
       const onComplete = () => {
@@ -193,6 +203,8 @@ export default defineComponent({
       currentPassword,
       form,
       submitForm,
+      changeDisable,
+      route 
     };
   },
 });
