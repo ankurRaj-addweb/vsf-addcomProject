@@ -4,7 +4,7 @@
       class="form"
       @submit.prevent="handleSubmit(submitForm(reset))"
     >
-      <div class="form__horizontal">
+      <div class="form__horizontal profile">
         <ValidationProvider
           v-slot="{ errors }"
           rules="required|min:2"
@@ -40,7 +40,7 @@
       <ValidationProvider
         v-slot="{ errors }"
         rules="required|email"
-        class="form__element"
+        class="form__element profile"
       >
         <AwInput
           v-model="form.email"
@@ -101,9 +101,11 @@
           {{ $t('Save Changes') }}
         </AwButton>
       </div>
+
       <AwButton v-if="!requirePassword" class="form__button .color-primary. sf-button "
        :class="$route.fullPath == '/default/checkout/user-account'? 'is-disabled--button':''"
        @click="changeDisable()">
+
         {{ $t('Save Changes') }}
       </AwButton>
     </form>
@@ -115,9 +117,11 @@ import { defineComponent, ref, route } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
 import { useUser, userGetters } from '@vue-storefront/magento';
-import AwInput from '@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue'
-import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue'
-import AwModal from '@storefront-ui/root/packages/vue/src/components/molecules/AwModal/AwModal.vue'
+
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwModal from "@storefront-ui/root/packages/vue/src/components/molecules/AwModal/AwModal.vue";
+
 
 import { useUiNotification } from '~/composables';
 

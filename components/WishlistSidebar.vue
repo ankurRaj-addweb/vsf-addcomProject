@@ -117,16 +117,16 @@
           class="empty-wishlist"
         >
           <div class="empty-wishlist__banner">
-            <SvgImage
-              icon="empty_cart_image"
-              :label="$t('Empty bag')"
-              width="211"
-              height="143"
-              class="empty-wishlist__icon"
-            />
+           <nuxt-img
+            src="/icons/wish.png"
+            class="before-results__picture"
+            alt="wish"
+            width="250"
+            height="180" 
+          />
             <AwHeading
-              title="Your bag is empty"
-              description="Looks like you haven’t added any items to the Wishlist."
+              title="No favourites yet"
+              description="Tap any heart next to a product to favotite. We’ll save them for you here!"
               class="empty-wishlist__label"
             />
           </div>
@@ -259,6 +259,7 @@ export default defineComponent({
 .empty-wishlist {
   display: flex;
   flex: 1;
+  
   flex-direction: column;
   &__banner {
     flex: 1;
@@ -274,7 +275,8 @@ export default defineComponent({
   &__label {
     --heading-description-margin: 0 0 var(--spacer-xl) 0;
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
-    --heading-title-color: var(--c-primary);
+    // --heading-title-color: var(--c-primary);
+    --heading-title-color: #037EE6;
     --heading-title-font-weight: var(--font-weight--semibold);
       @include for-desktop {
       --heading-title-font-size: var(--font-size--xl);

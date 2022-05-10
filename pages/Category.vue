@@ -1,5 +1,15 @@
 <template>
   <div id="category">
+    <!-- <p>{{routeData}}</p> -->
+    <!-- <p>{{ breadcrumbs }}</p> -->
+    
+    <div class="sf-breadcrumbs__breadcrumb" v-if="routeData && routeData.relative_url">
+        <template v-for="head in routeData.relative_url.split('.').slice(0, 1)">
+          <router-link to="/default"> Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; </router-link> 
+          <router-link :to="'/default/c/'+head+'.html'"> {{ head.charAt(0).toUpperCase() + head.slice(1).replaceAll('/', '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;') }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;  </router-link> 
+        </template>
+    </div>
+    
     <SfBreadcrumbs
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
@@ -644,6 +654,8 @@ export default defineComponent({
     const isCategoriesLoading = ref(false);
     const selectedFilters = ref(getSelectedFilterValues());
 
+    // const breadUrl = routeData.relative_url.split('.').slice(0, 1);
+
     onSSR(async () => {
       isProductsLoading.value = true;
       isCategoriesLoading.value = true;
@@ -673,6 +685,8 @@ export default defineComponent({
 
     const { getMagentoImage, imageSizes } = useImage();
 
+     
+
     return {
       routeData,
       ...uiState,
@@ -699,6 +713,7 @@ export default defineComponent({
       uiHelpers,
       getMagentoImage,
       imageSizes,
+      // breadUrl,
     };
   },
 });
@@ -1103,4 +1118,28 @@ export default defineComponent({
     margin: var(--spacer-xs) 0 0 0;
   }
 }
+</style>
+
+<style lang=scss>
+
+.sf-breadcrumbs__breadcrumb {
+  width: 973px;
+height: 17px;
+left: 0px;
+top: 3px;
+
+/* font-family: 'Source Sans Pro'; */
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 20px;
+/* or 143% */
+
+
+/* Secondary Color Dark Version 1 */
+
+color: #3C3C3C;
+}
+
+
 </style>

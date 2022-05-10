@@ -1,6 +1,7 @@
 <template>
   <AwTabs :open-tab="1">
     <!-- Personal data update -->
+
     <AwTab
       :title="
         $route.fullPath == '/default/checkout/user-account'
@@ -8,6 +9,7 @@
           : $t('Personal details')
       "
     >
+
       <p class="message">
         {{
           $t(
@@ -16,15 +18,25 @@
         }}
       </p>
 
-      <ProfileUpdateForm :loading="loading" @submit="updatePersonalData" />
+
+      <ProfileUpdateForm
+        :loading="loading"
+        @submit="updatePersonalData"
+      />
+
+      <p class="notice">
+        {{ $t('Use your personal data') }}
+        <a href="">{{ $t('Privacy Policy') }}</a>
+      </p>
     </AwTab>
 
-    <!-- Password reset -->
+   <!-- Password reset -->
     <AwTab
       :title="$t('Password change')"
       v-if="route.fullPath != '/default/checkout/user-account'"
     >
       <p class="message">{{ $t("Change password your account") }}:<br /></p>
+
 
       <PasswordResetForm @submit="updatePassword" />
     </AwTab>
@@ -46,6 +58,7 @@ import {
 } from "../../helpers/customer/regex";
 
 extend("required", {
+
   ...required,
   message: "This field is required",
 });
@@ -57,7 +70,6 @@ extend("min", {
 
 extend("password", {
   message: invalidPasswordMsg,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -76,37 +88,41 @@ export default defineComponent({
   },
 
   setup() {
+
     const { changePassword, errors, load, loading, updateUser, error } =
       useUser();
     const route = useRoute();
 
+
     const formHandler = async (fn, onComplete, onError) => {
-      await fn();
-      const actionErr = error.value.changePassword || error.value.updateUser;
-      if (actionErr) {
-        onError(actionErr);
-      } else {
-        onComplete();
+      try {
+        const data = await fn();
+        if (!data) throw new Error('API Error');
+        await onComplete(data);
+      } catch (error) {
+        onError(error);
       }
     };
 
-    const updatePersonalData = ({ form, onComplete, onError }) =>
-      formHandler(
-        async () => updateUser({ user: form.value }),
-        onComplete,
-        onError
-      );
 
-    const updatePassword = ({ form, onComplete, onError }) =>
-      formHandler(
-        async () =>
-          changePassword({
-            current: form.value.currentPassword,
-            new: form.value.newPassword,
-          }),
-        onComplete,
-        onError
-      );
+    const updatePersonalData = ({
+      form,
+      onComplete,
+      onError,
+    }) => formHandler(
+      async () => updateUser({ user: form.value }),
+      onComplete,
+      onError,
+    );
+    const updatePassword = ({
+      form,
+      onComplete,
+      onError,
+    }) => formHandler(async () => changePassword({
+      currentPassword: form.value.currentPassword,
+      newPassword: form.value.newPassword,
+    }), onComplete, onError);
+
 
     onSSR(async () => {
       await load();
