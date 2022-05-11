@@ -119,7 +119,7 @@
           name="state"
           :rules="!regionInformation ? null : 'required|min:2'"
           slim
-
+>
           <AwInput
 
             v-if="
