@@ -1,10 +1,23 @@
 <template>
   <AwTabs :open-tab="1">
     <!-- Personal data update -->
-    <AwTab title="Personal data">
+
+    <AwTab
+      :title="
+        $route.fullPath == '/default/checkout/user-account'
+          ? $t('')
+          : $t('Personal details')
+      "
+    >
+
       <p class="message">
-        {{ $t('Feel free to edit') }}
+        {{
+          $t(
+            "you are able to change your personal details, after changed details please save the changes "
+          )
+        }}
       </p>
+
 
       <ProfileUpdateForm
         :loading="loading"
@@ -17,11 +30,13 @@
       </p>
     </AwTab>
 
-    <!-- Password reset -->
-    <AwTab title="Password change">
-      <p class="message">
-        {{ $t('Change password your account') }}:<br>
-      </p>
+   <!-- Password reset -->
+    <AwTab
+      :title="$t('Password change')"
+      v-if="route.fullPath != '/default/checkout/user-account'"
+    >
+      <p class="message">{{ $t("Change password your account") }}:<br /></p>
+
 
       <PasswordResetForm @submit="updatePassword" />
     </AwTab>
@@ -29,43 +44,42 @@
 </template>
 
 <script>
-import { extend } from 'vee-validate';
-import {
-  required,
-  min,
-  confirmed,
-} from 'vee-validate/dist/rules';
+import { extend } from "vee-validate";
+import { required, min, confirmed } from "vee-validate/dist/rules";
 import AwTabs from "@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
+import { onSSR } from "@vue-storefront/core";
+import { useUser } from "@vue-storefront/magento";
+import { defineComponent, useRoute, route } from "@nuxtjs/composition-api";
+import ProfileUpdateForm from "~/components/MyAccount/ProfileUpdateForm.vue";
+import PasswordResetForm from "~/components/MyAccount/PasswordResetForm.vue";
+import {
+  customerPasswordRegExp,
+  invalidPasswordMsg,
+} from "../../helpers/customer/regex";
 
-import { onSSR } from '@vue-storefront/core';
-import { useUser } from '@vue-storefront/magento';
-import { defineComponent } from '@nuxtjs/composition-api';
-import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
-import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
-import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
+extend("required", {
 
-extend('required', {
   ...required,
-  message: 'This field is required',
+  message: "This field is required",
 });
 
-extend('min', {
+extend("min", {
   ...min,
-  message: 'The field should have at least {length} characters',
+  message: "The field should have at least {length} characters",
 });
 
-extend('password', {
+extend("password", {
   message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
-extend('confirmed', {
+extend("confirmed", {
   ...confirmed,
-  message: 'Passwords don\'t match',
+  message: "Passwords don't match",
 });
 
 export default defineComponent({
-  name: 'PersonalDetails',
+  name: "PersonalDetails",
 
   components: {
     AwTabs,
@@ -74,13 +88,11 @@ export default defineComponent({
   },
 
   setup() {
-    const {
-      changePassword,
-      errors,
-      load,
-      loading,
-      updateUser,
-    } = useUser();
+
+    const { changePassword, errors, load, loading, updateUser, error } =
+      useUser();
+    const route = useRoute();
+
 
     const formHandler = async (fn, onComplete, onError) => {
       try {
@@ -91,6 +103,7 @@ export default defineComponent({
         onError(error);
       }
     };
+
 
     const updatePersonalData = ({
       form,
@@ -110,6 +123,7 @@ export default defineComponent({
       newPassword: form.value.newPassword,
     }), onComplete, onError);
 
+
     onSSR(async () => {
       await load();
     });
@@ -119,6 +133,7 @@ export default defineComponent({
       errors,
       updatePersonalData,
       updatePassword,
+      route,
     };
   },
 });
@@ -144,5 +159,4 @@ export default defineComponent({
   margin: var(--spacer-lg) 0 0 0;
   font-size: var(--font-size--sm);
 }
-
 </style>
