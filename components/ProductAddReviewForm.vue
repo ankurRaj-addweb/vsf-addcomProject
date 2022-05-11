@@ -10,7 +10,7 @@
     >
       <p>{{ error.addReview }}</p>
     </div>
-    <!-- <ValidationObserver
+    <ValidationObserver
       v-else
       v-slot="{ handleSubmit, reset }"
     >
@@ -108,7 +108,7 @@
           Add review
         </SfButton>
       </form>
-    </ValidationObserver> -->
+    </ValidationObserver>
   </div>
 </template>
 <script>
