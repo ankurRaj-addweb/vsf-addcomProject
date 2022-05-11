@@ -1,6 +1,6 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, dirty, reset }">
-    <SfHeading
+  <ValidationObserver v-slot="{ handleSubmit, reset }">
+    <AwHeading
       v-e2e="'shipping-heading'"
       :level="3"
       :title="$t('Shipping')"
@@ -25,7 +25,7 @@
           rules="required|min:2"
           slim
         >
-          <SfInput
+          <AwInput
             v-e2e="'shipping-firstName'"
             :value="shippingDetails.firstname"
             label="First name"
@@ -43,7 +43,7 @@
           rules="required|min:2"
           slim
         >
-          <SfInput
+          <AwInput
             v-e2e="'shipping-lastName'"
             :value="shippingDetails.lastname"
             label="Last name"
@@ -61,43 +61,26 @@
           rules="required"
           slim
         >
-          <SfInput
+          <AwInput
             v-e2e="'shipping-streetName'"
             :value="shippingDetails.street"
             label="Street name"
             name="streetName"
-            class="form__element form__element--half"
+            class="form__element "
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
             @input="street => changeShippingDetails('street', street)"
           />
         </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="apartment"
-          rules="required|min:2"
-          slim
-        >
-          <SfInput
-            v-e2e="'shipping-apartment'"
-            :value="shippingDetails.apartment"
-            label="House/Apartment number"
-            name="apartment"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="apartment => changeShippingDetails('apartment', apartment)"
-          />
-        </ValidationProvider>
+        
         <ValidationProvider
           v-slot="{ errors }"
           name="city"
           rules="required|min:2"
           slim
         >
-          <SfInput
+          <AwInput
             v-e2e="'shipping-city'"
             :value="shippingDetails.city"
             label="City"
@@ -115,7 +98,7 @@
           :rules="!shippingDetails.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
           slim
         >
-          <SfInput
+          <AwInput
             v-if="!shippingDetails.country_code || regionInformation.length === 0"
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
@@ -127,7 +110,7 @@
             :error-message="!shippingDetails.country_code ? $t('Please select a country first') : ''"
             @input="region => changeShippingDetails('region', region)"
           />
-          <SfSelect
+          <AwSelect
             v-else
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
@@ -138,66 +121,68 @@
             :error-message="$t(errors[0])"
             @input="region => changeShippingDetails('region', region)"
           >
-            <SfSelectOption
+            <AwSelectOption
               v-for="regionOption in regionInformation"
               :key="regionOption.id"
               :value="regionOption.abbreviation"
             >
               {{ regionOption.label }}
-            </SfSelectOption>
-          </SfSelect>
+            </AwSelectOption>
+          </AwSelect>
         </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="country"
-          rules="required|min:2"
-          slim
-        >
-          <SfSelect
-            v-e2e="'shipping-country'"
-            :value="shippingDetails.country_code"
-            label="Country"
-            name="country"
-            class="form__element form__element--half form__select sf-select--underlined"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="changeCountry"
-          >
-            <SfSelectOption
-              v-for="countryOption in countriesList"
-              :key="countryOption.id"
-              :value="countryOption.abbreviation"
-            >
-              {{ countryOption.label }}
-            </SfSelectOption>
-          </SfSelect>
-        </ValidationProvider>
-        <ValidationProvider
+         <ValidationProvider
           v-slot="{ errors }"
           name="zipCode"
           rules="required|min:2"
           slim
         >
-          <SfInput
+          <AwInput
             v-e2e="'shipping-zipcode'"
             :value="shippingDetails.postcode"
             label="Zip-code"
             name="zipCode"
-            class="form__element form__element--half form__element--half-even"
+            class="form__element form__element--half"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
             @input="postcode => changeShippingDetails('postcode', postcode)"
           />
         </ValidationProvider>
+
+        <ValidationProvider
+          v-slot="{ errors }"
+          name="country"
+          rules="required|min:2"
+          slim
+        >
+          <AwSelect
+            v-e2e="'shipping-country'"
+            :value="shippingDetails.country_code"
+            label="Country"
+            name="country"
+            class="form__element form__element--half form__select sf-select--underlined form__element--half-even"
+            required
+            :valid="!errors[0]"
+            :error-message="$t(errors[0])"
+            @input="changeCountry"
+          >
+            <AwSelectOption
+              v-for="countryOption in countriesList"
+              :key="countryOption.id"
+              :value="countryOption.abbreviation"
+            >
+              {{ countryOption.label }}
+            </AwSelectOption>
+          </AwSelect>
+        </ValidationProvider>
+      
         <ValidationProvider
           v-slot="{ errors }"
           name="phone"
           rules="required"
           slim
         >
-          <SfInput
+          <AwInput
             v-model="shippingDetails.telephone"
             v-e2e="'shipping-phone'"
             label="Phone number"
@@ -210,17 +195,17 @@
           />
         </ValidationProvider>
       </div>
-      <SfButton
+      <AwButton
         v-if="!canAddNewAddress"
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
       >
         {{ $t('Add new address') }}
-      </SfButton>
-      <div class="form">
+      </AwButton>
+      <!-- <div class="form">
         <div class="form__action">
-          <SfButton
+          <AwButton
             v-if="!(isShippingDetailsStepCompleted && !dirty)"
             v-e2e="'select-shipping'"
             :disabled="loading"
@@ -228,11 +213,11 @@
             type="submit"
           >
             {{ $t('Select shipping method') }}
-          </SfButton>
+          </AwButton>
         </div>
-      </div>
+      </div> -->
       <VsfShippingProvider
-        v-if="isShippingDetailsStepCompleted && !dirty"
+      
         @submit="$router.push(`${localePath('/checkout/billing')}`)"
       />
     </form>
@@ -240,12 +225,11 @@
 </template>
 
 <script>
-import {
-  SfHeading,
-  SfInput,
-  SfButton,
-  SfSelect,
-} from '@storefront-ui/vue';
+
+import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
+import AwInput from '@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue'
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwSelect from '@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue';
 import {
   ref,
   computed,
@@ -285,10 +269,10 @@ extend('digits', {
 export default defineComponent({
   name: 'ShippingStep',
   components: {
-    SfHeading,
-    SfInput,
-    SfButton,
-    SfSelect,
+    AwHeading,
+    AwInput,
+    AwButton,
+    AwSelect,
     ValidationProvider,
     ValidationObserver,
     UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses.vue'),
@@ -407,10 +391,10 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const validStep = await isPreviousStepValid('user-account');
-      if (!validStep) {
-        await router.push(app.localePath('/checkout/user-account'));
-      }
+      // const validStep = await isPreviousStepValid('user-account');
+      // if (!validStep) {
+      //   await router.push(app.localePath('/checkout/user-account'));
+      // }
 
       await Promise.all([
         loadCountries(),
@@ -562,5 +546,9 @@ export default defineComponent({
 
 .title {
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
+}
+.form__action-button {
+  background-color: #037ee6;
+  margin-top: 56px; 
 }
 </style>

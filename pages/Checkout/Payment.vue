@@ -1,55 +1,49 @@
 <template>
-  <div>
-    <SfHeading
-      :level="3"
-      title="Payment"
+  <div id="payment">
+    <AwHeading
+      :level="5"
+      title="Order Details"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <SfTable class="sf-table--bordered table desktop-only">
-      <SfTableHeading class="table__row">
-        <SfTableHeader class="table__header table__image">
+    <AwTable class="sf-table--bordered table desktop-only">
+      <AwTableHeading class="table__row">
+        <AwTableHeader class="table__header table__image">
           {{ $t('Item') }}
-        </SfTableHeader>
-        <SfTableHeader
+        </AwTableHeader>
+        <AwTableHeader
           v-for="tableHeader in tableHeaders"
           :key="tableHeader"
           class="table__header"
           :class="{ table__description: tableHeader === 'Description' }"
         >
           {{ tableHeader }}
-        </SfTableHeader>
-      </SfTableHeading>
-      <SfTableRow
+          
+        </AwTableHeader>
+      </AwTableHeading>
+      <AwTableRow
         v-for="(product, index) in products"
         :key="index"
         class="table__row"
       >
-        <SfTableData class="table__image">
-          <nuxt-img
+        <AwTableData class="table__image">
+           <nuxt-img
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
             :width="imageSizes.cartItem.width"
             :height="imageSizes.cartItem.height"
-          />
-        </SfTableData>
-        <SfTableData class="table__data table__description table__data">
+          /> 
+           </AwTableData>
+          
+            
+
+        <AwTableData class="table__data table__description table__data">
           <div class="product-title">
             {{ cartGetters.getItemName(product) }}
           </div>
           <div class="product-sku">
             {{ cartGetters.getItemSku(product) }}
           </div>
-          <template
-            v-if="getAttributes(product).length > 0"
-          >
-            <p
-              v-for="attr in getAttributes(product)"
-              :key="attr.option_label"
-              class="detail-information"
-            >
-              <strong>{{ `${attr.option_label}:` }}</strong>{{ `${attr.value_label}` }}
-            </p>
-          </template>
+          
           <template
             v-if="getBundles(product).length > 0"
           >
@@ -60,95 +54,83 @@
             >
               {{ `${bundle.quantity}x ${bundle.label}` }}
             </p>
+
           </template>
-        </SfTableData>
-        <SfTableData class="table__data">
+        </AwTableData>
+         <AwTableData>
+          <h5 v-if="(getAttributes(product))&&(getAttributes(product))[0] && (getAttributes(product))[0].value_label">{{(getAttributes(product))[0].value_label}}</h5>
+           
+            </AwTableData>
+             <AwTableData>
+          <h5 v-if="(getAttributes(product))&&(getAttributes(product))[1] && (getAttributes(product))[1].value_label">{{(getAttributes(product))[1].value_label}}</h5>
+           
+            </AwTableData>
+        <AwTableData class="table__data">
           {{ cartGetters.getItemQty(product) }}
-        </SfTableData>
-        <SfTableData class="table__data price">
-          <SfPrice
+        </AwTableData>
+        <AwTableData class="table__data price">
+          <AwPrice
             :regular="$fc(cartGetters.getItemPrice(product).regular)"
             :special="cartGetters.getItemPrice(product).special && $fc(cartGetters.getItemPrice(product).special)"
             class="product-price"
           />
-        </SfTableData>
-      </SfTableRow>
-    </SfTable>
+        </AwTableData>
+      </AwTableRow>
+    </AwTable>
     <div class="summary">
       <div class="summary__group">
         <div class="summary__total">
-          <SfProperty
+          <AwProperty
             name="Subtotal"
             :value="$fc(totals.subtotal)"
             class="sf-property--full-width property"
           />
-          <SfProperty
-            v-if="hasDiscounts"
-            :name="$t('Discount')"
-            :value="$fc(discountsAmount)"
-            class="sf-property--full-width sf-property--small property"
-          />
-        </div>
-        <div
-          v-if="selectedShippingMethod"
-          class="summary__total"
-        >
-          <SfProperty
-            :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
+           <AwProperty
+            name="Shipping"
+            value="free"
             class="sf-property--full-width property"
-          >
-            <template #name>
-              <span class="sf-property__name">
-                {{ selectedShippingMethod.carrier_title }} (<small>{{ selectedShippingMethod.method_title }}</small>)
-              </span>
-            </template>
-          </SfProperty>
+          />
+        
         </div>
+       
+       
 
-        <SfDivider />
+        <AwDivider />
 
-        <SfProperty
+        <AwProperty
           name="Total price"
           :value="$fc(totals.total)"
           class="sf-property--full-width sf-property--large summary__property-total"
         />
 
-        <VsfPaymentProvider
+         <!-- <VsfPaymentProvider
           @status="isPaymentReady = true"
-        />
+        />  -->
 
-        <SfCheckbox
+        <AwCheckbox
           v-model="terms"
           v-e2e="'terms'"
           name="terms"
           class="summary__terms"
         >
           <template #label>
-            <div class="sf-checkbox__label">
+            <div class="sf-checkbox__label" >
               {{ $t('I agree to') }}
-              <SfLink href="#">
+              <AwLink href="#">
                 {{ $t('Terms and conditions') }}
-              </SfLink>
+              </AwLink>
             </div>
           </template>
-        </SfCheckbox>
+        </AwCheckbox>
 
         <div class="summary__action">
-          <SfButton
-            type="button"
-            class="sf-button color-secondary summary__back-button"
-            @click="$router.push(`${localePath('/checkout/billing')}`)"
-          >
-            {{ $t('Go back') }}
-          </SfButton>
-          <SfButton
+          <AwButton
             v-e2e="'make-an-order'"
-            :disabled="loading || !isPaymentReady || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
-            {{ $t('Make an order') }}
-          </SfButton>
+            {{ $t('Pay for order') }}
+          </AwButton>
         </div>
       </div>
     </div>
@@ -156,16 +138,15 @@
 </template>
 
 <script>
-import {
-  SfHeading,
-  SfTable,
-  SfCheckbox,
-  SfButton,
-  SfDivider,
-  SfPrice,
-  SfProperty,
-  SfLink,
-} from '@storefront-ui/vue';
+
+import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
+import AwTable from '@storefront-ui/root/packages/vue/src/components/organisms/AwTable/AwTable.vue';
+import AwCheckbox from '@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwDivider from '@storefront-ui/root/packages/vue/src/components/atoms/AwDivider/AwDivider.vue';
+import AwPrice from '@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue';
+import AwProperty from '@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue'
+import AwLink from '@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue';
 import { useVSFContext } from '@vue-storefront/core';
 import {
   ref,
@@ -187,14 +168,14 @@ import { isPreviousStepValid } from '~/helpers/checkout/steps';
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
   components: {
-    SfHeading,
-    SfTable,
-    SfCheckbox,
-    SfButton,
-    SfDivider,
-    SfPrice,
-    SfProperty,
-    SfLink,
+    AwHeading,
+    AwTable,
+    AwCheckbox,
+    AwButton,
+    AwDivider,
+    AwPrice,
+    AwProperty,
+    AwLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
   },
   setup() {
@@ -232,7 +213,8 @@ export default defineComponent({
       $magento.config.state.setCartId();
       await load();
       await removeItem('checkout');
-      await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
+      // await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
+      router.push(`${app.localePath(`/checkout/thank-you?`)}`)
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
@@ -253,7 +235,7 @@ export default defineComponent({
       processOrder,
       products: computed(() => cartGetters.getItems(cart.value)),
       selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
-      tableHeaders: ['Description', 'Quantity', 'Amount'],
+      tableHeaders: ['Description','color','size', 'Quantity','Amount',],
       terms,
       totals: computed(() => cartGetters.getTotals(cart.value)),
       getAttributes,
@@ -406,5 +388,8 @@ export default defineComponent({
   &__label {
     font-weight: var(--font-weight--normal);
   }
+}
+.summary__action-button{
+  background-color: blue;
 }
 </style>
