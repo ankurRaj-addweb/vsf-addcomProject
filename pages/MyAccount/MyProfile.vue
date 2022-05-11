@@ -1,7 +1,7 @@
 <template>
   <AwTabs :open-tab="1">
     <!-- Personal data update -->
-    <AwTab title="Personal data">
+    <AwTab title="Personal Data">
       <p class="message">
         {{ $t('Feel free to edit') }}
       </p>
@@ -13,7 +13,7 @@
 
       <p class="notice">
         {{ $t('Use your personal data') }}
-        <a href="">{{ $t('Privacy Policy') }}</a>
+        <a class="policy" href="">{{ $t('Privacy Policy') }}</a>
       </p>
     </AwTab>
 
@@ -144,5 +144,8 @@ export default defineComponent({
   margin: var(--spacer-lg) 0 0 0;
   font-size: var(--font-size--sm);
 }
-
+.policy{
+  color: #037EE6;
+  text-decoration: underline;
+  }
 </style>
