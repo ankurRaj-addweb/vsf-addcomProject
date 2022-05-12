@@ -24,7 +24,7 @@ $t(
 @submit="updatePersonalData"
 />
 
-<p class="notice">
+<p class="notice" v-if=" $route.fullPath != '/default/checkout/user-account'">
 {{ $t('Use your personal data') }}
 <a class="policy" href="">{{ $t('Privacy Policy') }}</a>
 </p>
