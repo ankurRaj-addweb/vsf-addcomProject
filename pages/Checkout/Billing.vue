@@ -238,7 +238,7 @@
         <p>Payment Methods</p>
       </div>
       <div class="lii">
-        <div class="one" @click="showForm = true">
+        <div class="one select-payment" @click="showForm = true">
           <AwRadio
             name="visa"
             value="store"
@@ -249,14 +249,14 @@
 
           <nuxt-img
             src="/icons/visa1.png"
-            class="pic"
+            class="payment-method"
             alt="visa"
             width="52"
             height="34"
           />
         </div>
 
-         <div class="one" @click="showForm = true">
+         <div class="one select-payment"  @click="showForm = true">
           <AwRadio
             name="visa"
             value="store"
@@ -266,13 +266,13 @@
           />
         <nuxt-img
           src="/icons/mas2.png"
-          class="pic"
+          class="payment-method"
           alt="mas"
           width="52"
           height="34"
         /></div>
 
-         <div class="one" @click="showForm = true">
+         <div class="one select-payment" @click="showForm = true">
           <AwRadio
             name="visa"
             value="store"
@@ -282,13 +282,13 @@
           />
         <nuxt-img
           src="/icons/visa3.png"
-          class="pic"
+          class="payment-method"
           alt="visa"
           width="75"
           height="34"
         /></div>
 
-         <div class="one" @click="showForm = false">
+         <div class="one select-payment"  @click="showForm = false">
           <AwRadio
             name="visa"
             value="store"
@@ -296,10 +296,10 @@
             selected=""
             :required="false"
           />
-          <a href="#">Cash On Delivery</a>
+          <a href="#" class="payment-method">Cash On Delivery</a>
           </div>
 
-          <div class="one" @click="showForm = false">
+          <div class="one select-payment" @click="showForm = false">
           <AwRadio
             name="visa"
             value="store"
@@ -307,7 +307,7 @@
             selected=""
             :required="false"
           />
-          <a href="#">Cheque</a>
+          <a href="#" class="payment-method">Cheque</a>
           </div>
       </div>
       <template>
@@ -810,7 +810,18 @@ export default defineComponent({
     }
   }
 }
+.select-payment{
+  align-items: center !important;
 
+  .payment-method {
+    margin-left: 8px;
+  }
+  img.payment-method {
+    width: 52px;
+    height: 34px;
+    object-fit: contain;
+  }
+}
 </style>
 
 
