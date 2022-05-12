@@ -1,21 +1,21 @@
 <template>
   <AwTabs :open-tab="1">
     <!-- Personal data update -->
-    <AwTab title="Personal Data">
-      <p class="message">
-        {{ $t('Feel free to edit') }}
-      </p>
-
-      <ProfileUpdateForm
-        :loading="loading"
-        @submit="updatePersonalData"
-      />
-
-      <p class="notice">
-        {{ $t('Use your personal data') }}
-        <a class="policy" href="">{{ $t('Privacy Policy') }}</a>
-      </p>
-    </AwTab>
+    <AwTab title="Personal Data"> 
+      <p class="message"> 
+        {{ $t('Feel free to edit') }} 
+      </p> 
+ 
+      <ProfileUpdateForm 
+        :loading="loading" 
+        @submit="updatePersonalData" 
+      /> 
+ 
+      <p class="notice"> 
+        {{ $t('Use your personal data') }} 
+        <a class="policy" href="">{{ $t('Privacy Policy') }}</a> 
+      </p> 
+    </AwTab> 
 
     <!-- Password reset -->
     <AwTab title="Password change">
