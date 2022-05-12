@@ -74,6 +74,7 @@
     <template>
 
   <AwInput
+  v-if="!isAuthenticated"
     value=""
     name="email"
     placeholder="Your Email"
@@ -93,10 +94,20 @@
           "
   />
 </template>
+<div class="login"
+v-if="isAuthenticated">
+
     <LazyHydrate when-visible>
       <InstagramFeed />
     </LazyHydrate>
+</div>
+<div
+v-if="!isAuthenticated">
 
+    <LazyHydrate when-visible>
+      <InstagramFeed />
+    </LazyHydrate>
+</div>
     <LazyHydrate when-visible>
       <MobileStoreBanner />
     </LazyHydrate>
@@ -129,6 +140,7 @@ import {
 import {
 useProduct,
 productGetters,
+useUser
 } from '@vue-storefront/magento';
 
 export default defineComponent({
@@ -154,7 +166,7 @@ export default defineComponent({
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
-
+ const { isAuthenticated } = useUser();
     const {
       products: newProductsResult,
       search: newProductsSearch,
@@ -288,6 +300,7 @@ export default defineComponent({
     return {
       banners,
       heroes,
+      isAuthenticated,
       newProducts,
       newProductsLoading,
       productGetters,
@@ -326,6 +339,10 @@ export default defineComponent({
     padding: 0;
     margin: 0 auto;
   }
+
+  .login{.sf-section{
+    margin-top: 435px;
+}}
 }
 
 .hero {
@@ -426,6 +443,7 @@ export default defineComponent({
   @include for-desktop {
     margin: var(--spacer-l) 0 var(--spacer-2xl) 0;
   }
+
 }
 
 .carousel {
