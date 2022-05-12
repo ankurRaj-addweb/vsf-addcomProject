@@ -2,14 +2,6 @@
   <AwTabs :open-tab="1">
     <!-- Personal data update -->
 
-    <AwTab
-      :title="
-        $route.fullPath == '/default/checkout/user-account'
-          ? $t('')
-          : $t('Personal details')
-      "
-    >
-
       <p class="message">
         {{
           $t(
@@ -26,7 +18,7 @@
 
      <p class="notice" v-if=" $route.fullPath != '/default/checkout/user-account'">
         {{ $t('Use your personal data') }}
-        <a href="">{{ $t('Privacy Policy') }}</a>
+        <a class="policy" href="">{{ $t('Privacy Policy') }}</a>
       </p>
     </AwTab>
 
@@ -159,4 +151,5 @@ export default defineComponent({
   margin: var(--spacer-lg) 0 0 0;
   font-size: var(--font-size--sm);
 }
+
 </style>

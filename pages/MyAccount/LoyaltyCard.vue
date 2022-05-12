@@ -7,6 +7,8 @@ class="tab-orphan"
 <p class="message">
 This feature is not implemented yet! Please take a look at<br>
 <AwLink
+link="https://github.com/DivanteLtd/vue-storefront/issues"
+target="_blank"
 class="notice__link"
 href="#"
 >
@@ -23,9 +25,6 @@ for our Roadmap!
 import AwTabs from '@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue';
 import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
 import AwLink from '@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue';
-// import {
-// SfTabs, SfCheckbox, SfButton, SfLink,
-// } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/magento';
@@ -34,7 +33,6 @@ export default defineComponent({
 name: 'LoyalityCard',
 components: {
 AwTabs,
-
 AwButton,
 AwLink,
 },
