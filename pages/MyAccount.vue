@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
+// import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
 import AwContentPages from "@storefront-ui/root/packages/vue/src/components/organisms/AwContentPages/AwContentPages.vue";
 import AwBreadcrumbs from "@storefront-ui/root/packages/vue/src/components/atoms/AwBreadcrumbs/AwBreadcrumbs.vue";
 
