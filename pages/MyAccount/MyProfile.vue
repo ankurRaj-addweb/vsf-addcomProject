@@ -1,38 +1,46 @@
 <template>
   <AwTabs :open-tab="1">
-    <!-- Personal data update -->
+<!-- Personal data update -->
 
-      <p class="message">
-        {{
-          $t(
-            "you are able to change your personal details, after changed details please save the changes "
-          )
-        }}
-      </p>
+<AwTab
+:title="
+$route.fullPath == '/default/checkout/user-account'
+? $t('')
+: $t('Personal details')
+"
+>
 
-
-      <ProfileUpdateForm
-        :loading="loading"
-        @submit="updatePersonalData"
-      />
-
-     <p class="notice" v-if=" $route.fullPath != '/default/checkout/user-account'">
-        {{ $t('Use your personal data') }}
-        <a class="policy" href="">{{ $t('Privacy Policy') }}</a>
-      </p>
-    </AwTab>
-
-   <!-- Password reset -->
-    <AwTab
-      :title="$t('Password change')"
-      v-if="route.fullPath != '/default/checkout/user-account'"
-    >
-      <p class="message">{{ $t("Change password your account") }}:<br /></p>
+<p class="message">
+{{
+$t(
+"you are able to change your personal details, after changed details please save the changes "
+)
+}}
+</p>
 
 
-      <PasswordResetForm @submit="updatePassword" />
-    </AwTab>
-  </AwTabs>
+<ProfileUpdateForm
+:loading="loading"
+@submit="updatePersonalData"
+/>
+
+<p class="notice">
+{{ $t('Use your personal data') }}
+<a class="policy" href="">{{ $t('Privacy Policy') }}</a>
+</p>
+</AwTab>
+
+<!-- Password reset -->
+<AwTab
+:title="$t('Password change')"
+v-if="route.fullPath != '/default/checkout/user-account'"
+>
+<p class="message">{{ $t("Change password your account") }}:<br /></p>
+
+
+<PasswordResetForm @submit="updatePassword" />
+</AwTab>
+</AwTabs>
 </template>
 
 <script>
