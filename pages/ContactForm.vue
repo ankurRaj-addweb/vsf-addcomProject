@@ -59,7 +59,7 @@ import {
 
 // import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent,ref } from "@nuxtjs/composition-api";
 extend("required", {
   ...required,
   message: "This field is required",
@@ -85,7 +85,7 @@ extend("max", {
   message: "Mobile Number must be 10 digit only",
 });
 export default defineComponent({
-  name: "Contacts",
+  name: "ContactUs",
   components: {
     // AwInput,
     ValidationProvider,
@@ -93,6 +93,22 @@ export default defineComponent({
     extend,
     ValidationObserver,
   },
+
+  setup(){
+    const user =ref('');
+    const msg =ref('');
+    const email =ref('');
+    const mobile =ref('');
+
+    return{
+      msg,
+      email,
+      user,
+      mobile,
+    }
+  },
+
+
 });
 </script>
 
