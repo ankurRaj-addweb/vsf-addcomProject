@@ -37,6 +37,7 @@
         >
           <div class="my-wishlist__total-items">
             Total items: <strong>{{ totalItems }}</strong>
+            
           </div>
           <div class="collected-product-list">
             <AwCollectedProduct
@@ -83,6 +84,7 @@
                 <div
                   v-if="getBundles(product).length > 0"
                 >
+   
                   <AwProperty
                     v-for="(bundle, i) in getBundles(product)"
                     :key="i"
@@ -100,16 +102,9 @@
               </template>
             </AwCollectedProduct>
           </div>
-          <div class="sidebar-bottom">
-            <AwProperty class="sf-property--full-width my-wishlist__total-price">
-              <template #name>
-                <span class="my-wishlist__total-price-label">Total price:</span>
-              </template>
-              <template #value>
-                <AwPrice :regular="$fc(totals.subtotal)" />
-              </template>
-            </AwProperty>
-          </div>
+         
+            
+          
         </div>
         <div
           v-else
@@ -133,6 +128,27 @@
         </div>
       </AwLoader>
       <template #content-bottom>
+         <div class="wish">
+         
+            <AwProperty class="sf-property my-wishlist__total-price">
+              <template #name>
+                <span class="my-wishlist__total-price-label">Total price:</span>
+              </template>
+              <template #value>
+                <AwPrice :regular="$fc(totals.subtotal)" />
+                
+              </template>
+            </AwProperty>
+             <a @click="wish">
+              <AwButton
+                class="view-wish sf-button--text"
+                @click="toggleWishlistSidebar"
+              >
+                {{ $t('View Detail') }}
+              
+              </AwButton></a>
+        
+         </div>
         <AwButton
           class="sf-button--full-width color-secondary"
           @click="toggleWishlistSidebar"
@@ -163,12 +179,13 @@ import AwPrice from "../node_modules/@storefront-ui/root/packages/vue/src/compon
 import AwCollectedProduct from "../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwCollectedProduct/AwCollectedProduct.vue"
 import AwLink from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue"
 import AwLoader from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue"
-import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
+import { computed, defineComponent, useRouter, onMounted, useContext } from '@nuxtjs/composition-api';
 import {
   useWishlist,
   useUser,
   wishlistGetters,
   productGetters,
+  useExternalCheckout
 } from '@vue-storefront/magento';
 import { useUiState, useImage } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -187,6 +204,8 @@ export default defineComponent({
     SvgImage,
   },
   setup() {
+     const { initializeCheckout } = useExternalCheckout();
+     const { app } = useContext();
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
     const {
       wishlist, removeItem, load: loadWishlist, loading,
@@ -196,11 +215,16 @@ export default defineComponent({
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
     const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
-
+const router = useRouter();
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
 
     const { getMagentoImage, imageSizes } = useImage();
+
+     const wish = async () => {
+      const redirectUrl = await initializeCheckout({ baseUrl: '/default/wishlist' });
+      await router.push(`${app.localePath(redirectUrl)}`);
+    };
 
     onMounted(() => {
       if (wishlist.value === null) {
@@ -224,6 +248,8 @@ export default defineComponent({
       getMagentoImage,
       imageSizes,
       loading,
+      wish,
+
     };
   },
 });
@@ -311,6 +337,13 @@ export default defineComponent({
   &__properties {
     margin: var(--spacer-sm) 0 0 0;
   }
+}
+.wish{
+  display: flex;
+}
+.view-wish{
+  // float: right;
+  margin-left: 99px;
 }
 
 </style>
