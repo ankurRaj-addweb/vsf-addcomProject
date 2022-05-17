@@ -5,7 +5,7 @@
       :title="$t('Shipping method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
+    <div class="shipping-blogs">
       <AwLoader :loading="isLoading">
         <div v-if="errorUseGetShippingMethods.load">
           {{
@@ -29,9 +29,7 @@
           }}
         </div>
       </AwLoader>
-
-      <div class="info">
-        <div class="dcc">
+      <div class="shipping-method">
           <AwRadio
             class="sf-radio--transparent"
             name="Shipping"
@@ -43,7 +41,6 @@
             selected=""
             :required="false"
           />
-       
           <button
             class="accordion"
             :class="{ active: showCategoryA }"
@@ -54,7 +51,6 @@
           >
             info
           </button>
-        
           <ul class="category-list" v-show="showCategoryA">
             <li>
               <p>
@@ -66,9 +62,9 @@
               </p>
             </li>
           </ul>
-        </div>
-
-        <AwRadio
+      </div>
+      <div class="shipping-method">
+         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
           value="store"
@@ -78,9 +74,9 @@
           :disabled="false"
           selected=""
           :required="false"
-        />
-        
-        
+        />  
+      </div>
+      <div class="shipping-method">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -92,7 +88,8 @@
           selected=""
           :required="false"
         />
-
+      </div>
+      <div class="shipping-method">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -104,11 +101,8 @@
           selected=""
           :required="false"
         />
-
-           
-        
-       
-
+      </div>
+      <div class="shipping-method">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -120,9 +114,8 @@
           selected=""
           :required="false"
         />
-
-      
-
+      </div>
+      <div class="shipping-method">
         <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
@@ -152,9 +145,10 @@
               </div>
             </div>
           </template>
-        </AwRadio>
+        </AwRadio> 
       </div>
-      <div class="form__action">
+      </div>
+      <!-- <div class="form__action">
         <AwButton
           v-e2e="'continue-to-billing'"
           class="form__action-button"
@@ -163,11 +157,9 @@
         >
           {{ $t("Go To Shipping") }}
         </AwButton>
-      </div>
+      </div> -->
     </div>
-  </div>
 </template>
-
 <script>
 import {
   useCart,
@@ -381,7 +373,7 @@ button.accordion {
 } */
 </style>
 
-<style lang=scss>
+<style lang="scss" scoped>
 .dcc {
   display: flex;
   /* outline: dotted; */
@@ -390,5 +382,20 @@ button.accordion {
   width: 60px;
   margin-left: -75px;
   margin-top: 18px;
+}
+.shipping-method {
+  position: relative;
+  button.accordion {
+    position: absolute;
+    top: 0;
+    left: 38%;
+    background: transparent;
+    text-decoration: underline;
+    color: #282828;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+  }
 }
 </style>
