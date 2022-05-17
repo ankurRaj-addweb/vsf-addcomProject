@@ -1,6 +1,6 @@
 <template>
   <div id="thank-you">
-    <SfCallToAction
+    <AwCallToAction
       v-e2e="'thank-you-banner'"
       class="banner"
       title="Thank you for your order!"
@@ -15,10 +15,10 @@
           <strong>{{ orderNumber }}</strong>
         </div>
       </template>
-    </SfCallToAction>
+    </AwCallToAction>
     <section class="section">
       <div class="order">
-        <SfHeading
+        <AwHeading
           title="Your Purchase"
           class="order__heading heading sf-heading--left"
           :level="3"
@@ -27,7 +27,7 @@
           {{ $t('Successful placed order') }}
         </p>
         <div class="order__contact">
-          <SfHeading
+          <AwHeading
             :level="6"
             class="heading sf-heading--left sf-heading--no-underline"
             title="Primary contacts for any questions"
@@ -47,15 +47,15 @@
             </p>
           </div>
         </div>
-        <SfButton
+        <AwButton
           class="order__notifications-button button-size"
         >
           {{ $t('Allow order notifications') }}
-        </SfButton>
+        </AwButton>
       </div>
       <div class="additional-info">
         <div>
-          <SfHeading
+          <AwHeading
             title="Your Account"
             class="heading sf-heading--left"
             :level="3"
@@ -65,7 +65,7 @@
           </p>
         </div>
         <div>
-          <SfHeading
+          <AwHeading
             title="What can we improve"
             class="heading sf-heading--left"
             :level="3"
@@ -73,32 +73,35 @@
           <p class="paragraph">
             {{ $t('Feedback') }}
           </p>
-          <SfButton
+          <AwButton
             class="feedback-button color-secondary sf-button--full-width button-size"
           >
             {{ $t('Send my feedback') }}
-          </SfButton>
+          </AwButton>
         </div>
       </div>
     </section>
-    <SfButton
+    <AwButton
       class="back-button color-secondary button-size"
     >
       {{ $t('Go back to shop') }}
-    </SfButton>
+    </AwButton>
   </div>
 </template>
 
 <script>
-import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
+
+import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwCallToAction from '@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'ExternalCheckoutThankYou',
   components: {
-    SfHeading,
-    SfButton,
-    SfCallToAction,
+    AwHeading,
+    AwButton,
+    AwCallToAction,
   },
   setup(props, context) {
     context.emit('changeStep', 4);

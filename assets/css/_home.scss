@@ -9,3 +9,13 @@
         color: #3C3C3C;
     }
 }
+
+.sf-banner-grid__col.sf-banner-grid__col--medium,
+section.sf-banner.sf-banner--slim.desktop-only {
+    .sf-banner__wrapper-desktop {
+        span,
+        .sf-banner__subtitle {
+            color: #F9F9F9 !important;
+        }
+    }
+}

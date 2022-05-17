@@ -17,7 +17,7 @@
     <AwFooterColumn :title="$t('Help')" class="desktop-only">
       <AwList>
         <AwListItem v-for="item in help" :key="item" :style="{'--list-item-margin':'15px 0'}">
-          <AwMenuItem :label="$t(item)" />
+          <AwMenuItem :label="$t(item)" @click="handleClickOnHelp(item)"/>
         </AwListItem>
       </AwList>
     </AwFooterColumn>
@@ -78,6 +78,10 @@
 </template>
 
 <script>
+import {
+  useRouter,
+  useContext,
+} from "@nuxtjs/composition-api";
 import AwFooter from "@storefront-ui/root/packages/vue/src/components/organisms/AwFooter/AwFooter.vue";
 import AwFooterColumn from "@storefront-ui/root/packages/vue/src/components/organisms/AwFooter/_internal/AwFooterColumn.vue";
 import AwList from "@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue";
@@ -98,8 +102,16 @@ export default {
     AwFooterColumn,
   },
   setup() {
+    const router = useRouter();
+    const { app } = useContext();
+      const   handleClickOnHelp = async (title) => {
+      const slugifiedTitle = (title || "").toLowerCase().replace(" ", "-");
+      const transformedPath = `/help/${slugifiedTitle}`;
+      await router.push(`${app.localePath(transformedPath)}`);
+    };
     return {
       addBasePath,
+      handleClickOnHelp
     };
   },
   data() {

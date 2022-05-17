@@ -65,12 +65,14 @@
                 <AwButton class="sf-button--text" @click="changeTab(2)">
                   {{ $t("Read all reviews") }}
                 </AwButton>
-                |
                 <AwButton
+                v-if="isAuthenticated"
                   class="sf-button--text"
                   @click="changeNewReview(); showrev=!showrev"
                 >
-                  Add a review
+
+                 | Add a review
+
                 </AwButton>
               </div>
             </div>

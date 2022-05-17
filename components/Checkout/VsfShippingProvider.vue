@@ -1,44 +1,129 @@
 <template>
   <div class="shipping-provider">
-    <SfHeading
+    <AwHeading
       :level="3"
       :title="$t('Shipping method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
-      <SfLoader :loading="isLoading">
+    <div class="shipping-blogs">
+      <AwLoader :loading="isLoading">
         <div v-if="errorUseGetShippingMethods.load">
           {{
             $t(
-              'There was some error while trying to fetch shipping methods. We are sorry, please try with a different shipping details.'
+              "There was some error while trying to fetch shipping methods. We are sorry, please try with a different shipping details."
             )
           }}
         </div>
         <div v-else-if="errorShippingProvider.save">
           {{
             $t(
-              'There was some error while trying to select this shipping method. We are sorry, please try with a different shipping method.'
+              "There was some error while trying to select this shipping method. We are sorry, please try with a different shipping method."
             )
           }}
         </div>
-        <div v-else-if="shippingMethods.length === 0">
+        <div v-else-if="shippingMethods && shippingMethods.length === 0">
           {{
             $t(
-              'There are no shipping methods available for this country. We are sorry, please try with a different country.'
+              "There are no shipping methods available for this country. We are sorry, please try with a different country."
             )
           }}
         </div>
-      </SfLoader>
-      <div class="form__radio-group">
-        <SfRadio
+      </AwLoader>
+      <div class="shipping-method">
+          <AwRadio
+            class="sf-radio--transparent"
+            name="Shipping"
+            value="store"
+            label="Pickup in the store"
+            details="Delivery from 4-6 business days"
+            description=""
+            :disabled="false"
+            selected=""
+            :required="false"
+          />
+          <button
+            class="accordion"
+            :class="{ active: showCategoryA }"
+            :aria-disabled="false"
+            :link="null"
+            @click="showCategoryA = !showCategoryA"
+            type="link"
+          >
+            info
+          </button>
+          <ul class="category-list" v-show="showCategoryA">
+            <li>
+              <p>
+                A paragraph is a series of related sentences developing a
+                central idea, called the topic. Try to think about paragraphs in
+                terms of thematic unity: a paragraph is a sentence or a group of
+                sentences that supports one central, unified idea. Paragraphs
+                add one idea at a time to your broader argument.
+              </p>
+            </li>
+          </ul>
+      </div>
+      <div class="shipping-method">
+         <AwRadio
+          class="sf-radio--transparent"
+          name="Shipping"
+          value="store"
+          label="Delivery at home "
+          details="Delivery within 24 hours"
+          description=""
+          :disabled="false"
+          selected=""
+          :required="false"
+        />  
+      </div>
+      <div class="shipping-method">
+        <AwRadio
+          class="sf-radio--transparent"
+          name="Shipping"
+          value="store"
+          label="Paczkomaty InPost"
+          details="Novelty ! from now ."
+          description=""
+          :disabled="false"
+          selected=""
+          :required="false"
+        />
+      </div>
+      <div class="shipping-method">
+        <AwRadio
+          class="sf-radio--transparent"
+          name="Shipping"
+          value="store"
+          label="48 hours Coffee"
+          details="Delivery within 48 hours"
+          description=""
+          :disabled="false"
+          selected=""
+          :required="false"
+        />
+      </div>
+      <div class="shipping-method">
+        <AwRadio
+          class="sf-radio--transparent"
+          name="Shipping"
+          value="store"
+          label="Urgent24h "
+          details="Delivery within 24 hours"
+          description=""
+          :disabled="false"
+          selected=""
+          :required="false"
+        />
+      </div>
+      <div class="shipping-method">
+        <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
           v-e2e="'shipping-method-label'"
           :label="method.method_title"
           :value="method.method_code"
           :selected="
-            selectedShippingMethod &&
-              selectedShippingMethod.method_code
+            selectedShippingMethod && selectedShippingMethod.method_code
           "
           name="shippingMethod"
           :description="method.carrier_title"
@@ -60,48 +145,43 @@
               </div>
             </div>
           </template>
-        </SfRadio>
+        </AwRadio> 
       </div>
-      <div class="form__action">
-        <SfButton
+      </div>
+      <!-- <div class="form__action">
+        <AwButton
           v-e2e="'continue-to-billing'"
           class="form__action-button"
           type="button"
-          :disabled="
-            !isShippingMethodStepCompleted ||
-              isLoading ||
-              loadingShippingProvider.save
-          "
-          @click="$emit('submit')"
+          @click="$router.push(`${localePath('/checkout/billing')}`)"
         >
-          {{ $t('Continue to billing') }}
-        </SfButton>
-      </div>
+          {{ $t("Go To Shipping") }}
+        </AwButton>
+      </div> -->
     </div>
-  </div>
 </template>
-
 <script>
 import {
   useCart,
   useShippingProvider,
   cartGetters,
   useGetShippingMethods,
-} from '@vue-storefront/magento';
-import {
-  SfHeading, SfButton, SfRadio, SfLoader,
-} from '@storefront-ui/vue';
+} from "@vue-storefront/magento";
+import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
+import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 
-import { computed, defineComponent } from '@nuxtjs/composition-api';
-import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+import { computed, defineComponent } from "@nuxtjs/composition-api";
+import getShippingMethodPrice from "~/helpers/checkout/getShippingMethodPrice";
 
 export default defineComponent({
-  name: 'VsfShippingProvider',
+  name: "VsfShippingProvider",
   components: {
-    SfHeading,
-    SfButton,
-    SfRadio,
-    SfLoader,
+    AwHeading,
+    AwButton,
+    AwRadio,
+    AwLoader,
   },
   setup() {
     const {
@@ -120,10 +200,10 @@ export default defineComponent({
     const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const isLoading = computed(
-      () => loadingShippingMethods.value || loadingShippingProvider.value,
+      () => loadingShippingMethods.value || loadingShippingProvider.value
     );
     const isShippingMethodStepCompleted = computed(
-      () => state.value?.method_code && !isLoading.value,
+      () => state.value?.method_code && !isLoading.value
     );
     /**
      * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.
@@ -139,6 +219,7 @@ export default defineComponent({
       await saveShippingProvider({
         shippingMethod: shippingData,
       });
+      var app = ref(false);
     };
 
     return {
@@ -205,6 +286,116 @@ export default defineComponent({
     @include for-desktop {
       margin: 0 0 var(--spacer-2xl) 0;
     }
+  }
+}
+</style>
+
+<style lang=scss>
+.sf-radio input:checked ~ .sf-radio__checkmark {
+  box-sizing: border-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: solid #037ee6;
+  border-width: 9px;
+  border-radius: 100%;
+  transition: border 0.25s cubic-bezier(1, 0.5, 0.8, 1);
+  outline: #037ee6;
+}
+button.form__action-button.sf-button {
+  background-color: #037ee6;
+}
+
+.ppp {
+  margin-left: 645px;
+  margin-top: -55px;
+}
+</style>
+<style lang=scss>
+.collapsible {
+  collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: -18px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+}
+
+.categoryBrowser ul {
+  list-style-type: none;
+}
+
+.category-list > span {
+  padding: 1em;
+}
+
+.category-list > span:hover {
+  text-decoration: underline;
+}
+
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: -18px;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+.accordion:after {
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
+
+  color: #777;
+  float: left;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+button.accordion {
+  margin-left: 261px;
+  margin-top: -54px;
+}
+/* .info{
+  display: flex;
+} */
+</style>
+
+<style lang="scss" scoped>
+.dcc {
+  display: flex;
+  /* outline: dotted; */
+}
+button.accordion {
+  width: 60px;
+  margin-left: -75px;
+  margin-top: 18px;
+}
+.shipping-method {
+  position: relative;
+  button.accordion {
+    position: absolute;
+    top: 0;
+    left: 38%;
+    background: transparent;
+    text-decoration: underline;
+    color: #282828;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
   }
 }
 </style>
