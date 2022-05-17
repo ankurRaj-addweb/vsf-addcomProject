@@ -11,18 +11,18 @@
       :category-tree="categoryTree"
       :active-category="activeCategory"
     >
-      <SfAccordion
+      <AwAccordion
         :open="activeCategory"
         :show-chevron="true"
       >
-        <SfAccordionItem
+        <AwAccordionItem
           v-for="(cat, i) in categoryTree && categoryTree.items"
           :key="i"
           :header="cat.label"
         >
-          <SfList class="list">
-            <SfListItem class="list__item">
-              <SfMenuItem
+          <AwList class="list">
+            <AwListItem class="list__item">
+              <AwMenuItem
                 :count="cat.count || ''"
                 :label="cat.label"
               >
@@ -34,15 +34,16 @@
                     All
                   </nuxt-link>
                 </template>
-              </SfMenuItem>
-            </SfListItem>
-            <SfDivider v-if="cat.items.length> 0" />
-            <SfListItem
+              </AwMenuItem>
+            </AwListItem>
+            <AwDivider v-if="cat.items.length> 0" />
+            <AwListItem
               v-for="(subCat, j) in cat.items"
               :key="j"
               class="list__item"
             >
-              <SfMenuItem
+            
+              <AwMenuItem
                 :count="subCat.count || ''"
                 :label="subCat.label"
               >
@@ -54,8 +55,8 @@
                     {{ label }}
                   </nuxt-link>
                 </template>
-              </SfMenuItem>
-              <SfMenuItem
+              </AwMenuItem>
+              <AwMenuItem
                 v-for="(subSubCat, z) in subCat.items && subCat.items"
                 :key="z"
                 :count="subSubCat.count || ''"
@@ -70,23 +71,21 @@
                     {{ label }}
                   </nuxt-link>
                 </template>
-              </SfMenuItem>
-            </SfListItem>
-          </SfList>
-        </SfAccordionItem>
-      </SfAccordion>
+              </AwMenuItem>
+            </AwListItem>
+          </AwList>
+        </AwAccordionItem>
+      </AwAccordion>
     </slot>
   </div>
 </template>
 
 <script>
 import findDeep from 'deepdash/findDeep';
-import {
-  SfList,
-  SfMenuItem,
-  SfAccordion,
-  SfDivider,
-} from '@storefront-ui/vue';
+import AwList from '@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue';
+import AwMenuItem from '@storefront-ui/root/packages/vue/src/components/molecules/AwMenuItem/AwMenuItem.vue';
+import AwAccordion from '@storefront-ui/root/packages/vue/src/components/organisms/AwAccordion/AwAccordion.vue';
+import AwDivider from '@storefront-ui/root/packages/vue/src/components/atoms/AwDivider/AwDivider.vue';
 import {
   computed,
   defineComponent,
@@ -103,10 +102,10 @@ import { useUiHelpers } from '~/composables';
 export default defineComponent({
   name: 'CategorySidebarMenu',
   components: {
-    SfList,
-    SfMenuItem,
-    SfAccordion,
-    SfDivider,
+    AwList,
+    AwMenuItem,
+    AwAccordion,
+    AwDivider,
   },
   props: {
     resolveUrl: Boolean,
