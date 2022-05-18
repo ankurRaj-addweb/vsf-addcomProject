@@ -55,6 +55,7 @@ color: #3C3C3C;
         &__main {
           display: flex;
           align-items: center;
+          pointer-events: none;
           padding: var(--spacer-sm) 0;
         }
       
@@ -213,6 +214,9 @@ color: #3C3C3C;
         display: flex;
         flex-wrap: wrap;
     }
+    button.sf-button--pure.sf-product-card__wishlist-icon.sf-button {
+      display: none;
+  }
     
     .sf-collected-product {
         &:hover::after {

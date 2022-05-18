@@ -135,7 +135,7 @@
                 <span class="my-wishlist__total-price-label">Total price:</span>
               </template>
               <template #value>
-                <AwPrice :regular="$fc(totals.subtotal)" />
+                <AwPrice :regular="$fc(totals.subtotal)" v-if="totals && totals.subtotal"/>
                 
               </template>
             </AwProperty>

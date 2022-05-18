@@ -1,7 +1,7 @@
 <template>
   <div class="wishist">
     <!-- <div>{{ product }}</div> -->
-    <!-- <div v-if="products[3].product.reviews.items">{{ products[3].product.reviews.items}}</div> -->
+    <!-- <div v-if="products[0] ">{{ products[0]}}</div> -->
     <div class="sf-breadcrumbs__breadcrumb">
       <template>
         <router-link to="/default">
@@ -52,10 +52,9 @@
         </div>
 
         <div class="navbar__counter">
-          <span class="navbar__label desktop-only">{{ $t('Products :') }}</span>
-       
+          <span class="navbar__label desktop-only">{{ $t("Products :") }}</span>
+
           <strong>{{ totalItems }}</strong>
-         
         </div>
 
         <div class="navbar__view">
@@ -63,21 +62,17 @@
           <SvgImage
             icon="tiles"
             :label="$t('Change to grid view')"
-            :aria-pressed="isCategoryGridView"
             width="12"
             height="12"
             class="navbar__view-icon"
-            :class="{ 'navbar__view-icon--active': isCategoryGridView }"
             @click.native="changeToCategoryGridView"
           />
           <SvgImage
             icon="list"
             :label="$t('Change to list view')"
-            :aria-pressed="!isCategoryGridView"
             width="12"
             height="12"
             class="navbar__view-icon"
-            :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
             @click.native="changeToCategoryListView"
           />
         </div>
@@ -100,19 +95,6 @@
             Total items: <strong>{{ totalItems }}</strong>
           </div> -->
         <div class="collected-product-list">
-          <!-- <AwCollectedProduct
-              v-for="(product, item) in products"
-              :key="item"
-              :image="wishlistGetters.getItemImage(product)"
-              :title="wishlistGetters.getItemName(product)"
-              :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
-              :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
-              :special-price="wishlistGetters.getItemPrice(product).special && $fc(wishlistGetters.getItemPrice(product).special)"
-              :stock="99999"
-              class="collected-product"
-              @click:remove="removeItem({ product: product.product })"
-            > -->
-
           <!--card-->
           <AwProductCard
             v-for="(product, i) in products"
@@ -143,40 +125,16 @@
               $fc(wishlistGetters.getItemPrice(product).special)
             "
             :show-add-to-cart-button="true"
-            :colors="[
-              {
-                label: 'Sand',
-                value: 'sand',
-                color: '#EDCBB9',
-                selected: false,
-              },
-              {
-                label: 'Mint',
-                value: 'mint',
-                color: '#ABD9D8',
-                selected: false,
-              },
-              {
-                label: 'Vivid rose',
-                value: 'vivid rose',
-                color: '#DB5593',
-                selected: false,
-              },
-              {
-                label: 'Peach',
-                value: 'peach',
-                color: '#F59F93',
-                selected: false,
-              },
-              {
-                label: 'Citrus',
-                value: 'citrus',
-                color: '#FFEE97',
-                selected: false,
-              },
-            ]"
-            :wishlist-icon="isAuthenticated ? 'heart' : ''"
-            :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+            :is-added-to-cart="isInCart({ product :product.product })"
+            :colors="
+              product &&
+              product.product &&
+              product.product.configurable_options &&
+              product.product.configurable_options[0] &&
+              product.product.configurable_options[0].values
+                ? colorArray(product.product.configurable_options[0].values)
+                : []
+            "
             :link="
               localePath(
                 `/p/${wishlistGetters.getItemSku(
@@ -188,8 +146,18 @@
               )
             "
             @click:wishlist="addItemToWishlist(product)"
-            @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+            @click:add-to-cart="addItemToCart({ product:product.product, quantity: 1 })"
           >
+            <!-- <h1>haalo</h1>
+          <template > -->
+            <!-- <AwColor
+            v-for="(color, i) in product.product.configurable_options[0].values"
+            :key="i"
+             :color="productGetters.getSwatchData(color.swatch_data)"
+            :selected="color.selected"
+            class="sf-product-card__color"
+          /> -->
+            <!-- </template> -->
             <!--card-->
             <template #input>
               <div />
@@ -242,28 +210,16 @@
               <div />
             </template>
           </AwProductCard>
-          
         </div>
-           <div class="sidebar-bottom"
-             >
-                    <AwPagination
-                      :total="4"
-                      :visible="4"
-                      hasArrows
-                      :current="1"
-                      class="Pagignation"
-                    />
-                  </div>
-        <!-- <div class="sidebar-bottom">
-            <AwProperty class="sf-property--full-width my-wishlist__total-price">
-              <template #name>
-                <span class="my-wishlist__total-price-label">Total price:</span>
-              </template>
-              <template #value>
-                <AwPrice :regular="$fc(totals.subtotal)" />
-              </template>
-            </AwProperty>
-          </div> -->
+        <div class="sidebar-bottom">
+          <AwPagination
+            :total="4"
+            :visible="4"
+            hasArrows
+            :current="1"
+            class="Pagignation"
+          />
+        </div>
       </div>
       <div v-else key="empty-wishlist" class="empty-wishlist">
         <div class="empty-wishlist__banner">
@@ -281,9 +237,7 @@
           />
         </div>
       </div>
-     
     </AwLoader>
-    
   </div>
 </template>
 <script>
@@ -299,7 +253,7 @@ import { SfSelectOption, SfSelect, SfBreadcrumbs } from "@storefront-ui/vue";
 //   SfLoader,
 // } from '@storefront-ui/vue';
 // import AwBreadcrumbs from '@storefront-ui/root/packages/vue/src/components/atoms/AwBreadcrumbs/AwBreadcrumbs.vue';
-import AwPagination from '@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue';
+import AwPagination from "@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
 import AwSidebar from "../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwSidebar/AwSidebar.vue";
 import AwHeading from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
 import AwButton from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
@@ -309,7 +263,9 @@ import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organ
 import AwLink from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue";
 import AwLoader from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 import { computed, defineComponent, onMounted } from "@nuxtjs/composition-api";
-import LazyHydrate from 'vue-lazy-hydration';
+import AwColor from "@storefront-ui/root/packages/vue/src/components/atoms/AwColor/AwColor.vue";
+import LazyHydrate from "vue-lazy-hydration";
+import { useAddToCart } from "~/helpers/cart/addToCart";
 import {
   useWishlist,
   useUser,
@@ -324,6 +280,7 @@ export default defineComponent({
   components: {
     AwSidebar,
     AwButton,
+    AwColor,
     AwHeading,
     AwProperty,
     AwPagination,
@@ -338,7 +295,6 @@ export default defineComponent({
     SvgImage,
   },
   setup() {
-  
     const {
       wishlist,
       removeItem,
@@ -350,11 +306,12 @@ export default defineComponent({
     const products = computed(() =>
       wishlistGetters.getProducts(wishlist.value)
     );
-    const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
+
     const totalItems = computed(() =>
       wishlistGetters.getTotalItems(wishlist.value)
     );
 
+    const { addItemToCart, isInCart } = useAddToCart();
     const getAttributes = (product) =>
       product?.product?.configurable_options || [];
     const getBundles = (product) =>
@@ -371,6 +328,22 @@ export default defineComponent({
     const actionRemoveItem = async (product) => {
       await removeItem({ product: product.product });
     };
+
+    const colorArray = (colors) => {
+      const colorsToReturn = [];
+      colors.forEach((color) => {
+        const item = {
+          label: color.label,
+          value: color.label,
+          color: color.swatch_data.value,
+          selected: false,
+        };
+        colorsToReturn.push(item);
+      });
+      console.log(colorsToReturn);
+      return colorsToReturn;
+    };
+
     onMounted(() => {
       if (wishlist.value === null) {
         loadWishlist("GlobalWishlist");
@@ -385,14 +358,16 @@ export default defineComponent({
       removeItem,
       actionRemoveItem,
       totalItems,
-      totals,
+      addItemToCart,
       clear,
       wishlistGetters,
       wishlist,
       productGetters,
+      colorArray,
       getMagentoImage,
       imageSizes,
       loading,
+      isInCart,
     };
   },
 });
