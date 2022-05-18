@@ -24,6 +24,7 @@
           "
           @mouseleave.native="currentCategory = ''"
         >
+        <!-- <p>{{categoryTree}}</p> -->
           <AwMegaMenu
             :visible="currentCategory === category.label"
             :title="category.label"

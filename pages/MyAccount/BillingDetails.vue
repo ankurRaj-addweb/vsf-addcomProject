@@ -1,12 +1,12 @@
 <template>
   <transition name="fade">
-    <AwTabs
+    <SfTabs
       v-if="edittingAddress"
       key="edit-address"
       :open-tab="1"
       class="tab-orphan"
     >
-      <AwTab
+      <SfTab
         :title="isNewAddress ? 'Add the address' : 'Update the address'">
         <p class="message">
           {{ $t('Contact details updated') }}
@@ -16,15 +16,15 @@
           :address="activeAddress"
           :isNew="isNewAddress"
           @submit="saveAddress" />
-      </AwTab>
-    </AwTabs>
+      </SfTab>
+    </SfTabs>
 
-    <AwTabs
+    <SfTabs
       v-else
       :open-tab="1"
       key="address-list"
       class="tab-orphan">
-      <AwTab title="Billing details">
+      <SfTab title="Billing details">
         <p class="message">
           {{ $t('Manage billing addresses') }}
         </p>
@@ -39,7 +39,7 @@
               </div>
             </div>
             <div class="billing__actions">
-              <AwIcon
+              <SfIcon
                 icon="cross"
                 color="gray"
                 size="14px"
@@ -47,38 +47,29 @@
                 class="smartphone-only"
                 @click="removeAddress(address)"
               />
-              <AwButton
+              <SfButton
                 @click="changeAddress(address)">
                 {{ $t('Change') }}
-              </AwButton>
+              </SfButton>
 
-              <AwButton
+              <SfButton
                 class="color-light billing__button-delete desktop-only"
                 @click="removeAddress(address)">
                 {{ $t('Delete') }}
-              </AwButton>
+              </SfButton>
             </div>
           </div>
         </transition-group>
-        <AwButton
+        <SfButton
           class="action-button"
           @click="changeAddress()">
           {{ $t('Add new address') }}
-        </AwButton>
-      </AwTab>
-    </AwTabs>
+        </SfButton>
+      </SfTab>
+    </SfTabs>
   </transition>
 </template>
 <script>
-import {
-  SfTabs,
-  SfButton,
-  SfIcon
-} from '@storefront-ui/vue';
-import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import AwTabs from "@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
-import AwIcon from "@storefront-ui/root/packages/vue/src/components/atoms/AwIcon/AwIcon.vue";
-
 import UserBillingAddress from '~/components/UserBillingAddress';
 import BillingAddressForm from '~/components/MyAccount/BillingAddressForm';
 import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
@@ -88,9 +79,9 @@ import { onSSR } from '@vue-storefront/core';
 export default {
   name: 'BillingDetails',
   components: {
-    AwTabs,
-    AwButton,
-    AwIcon,
+    SfTabs,
+    SfButton,
+    SfIcon,
     UserBillingAddress,
     BillingAddressForm
   },
