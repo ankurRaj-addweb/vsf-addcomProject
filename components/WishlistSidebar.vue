@@ -133,27 +133,6 @@
         </div>
       </AwLoader>
       <template #content-bottom>
-         <div class="wish">
-         
-            <AwProperty class="sf-property my-wishlist__total-price">
-              <template #name>
-                <span class="my-wishlist__total-price-label">Total price:</span>
-              </template>
-              <template #value>
-                <AwPrice :regular="$fc(totals.subtotal)" v-if="totals && totals.subtotal"/>
-                
-              </template>
-            </AwProperty>
-             <a @click="wish">
-              <AwButton
-                class="view-wish sf-button--text"
-                @click="toggleWishlistSidebar"
-              >
-                {{ $t('View Detail') }}
-              
-              </AwButton></a>
-        
-         </div>
         <AwButton
           class="sf-button--full-width color-secondary"
           @click="toggleWishlistSidebar"
