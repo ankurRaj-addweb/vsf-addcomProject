@@ -253,7 +253,7 @@ import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwBu
 import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 import getShippingMethodPrice from "~/helpers/checkout/getShippingMethodPrice";
 
 export default defineComponent({
@@ -271,6 +271,11 @@ export default defineComponent({
       error: errorUseGetShippingMethods,
     } = useGetShippingMethods();
     const { cart } = useCart();
+    const showCategoryA = ref(false)
+    const showCategoryB = ref(false)
+    const showCategoryC = ref(false)
+    const showCategoryD = ref(false)
+    const showCategoryE = ref(false)
     const {
       state,
       save: saveShippingProvider,
@@ -315,6 +320,13 @@ export default defineComponent({
       shippingMethods,
       state,
       totals,
+    showCategoryA,
+    showCategoryB,
+    showCategoryC,
+    showCategoryD,
+    showCategoryE,
+
+
     };
   },
 });
