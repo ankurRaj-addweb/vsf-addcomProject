@@ -1,189 +1,221 @@
 <template>
   <div id="product">
+    <!-- <h1>{{arr}}</h1> -->
+    <!-- <p>{{product}}</p> -->
+    <!-- <p>{{compareItem}}</p> -->
+    <!-- <p>{{productGetters}}</p> -->
+    <!-- <h1>{{ productDescription }}</h1> -->
+    <!-- <h1>{{shortDescription}}</h1> -->
+    <!-- <p>{{setData}}</p> -->
+    <!-- <button @click="setData()">setData</button> -->
     <AwLoader
       :class="{ 'loading--product': productDataIsLoading }"
       :loading="productDataIsLoading"
     />
-      <div class="breadMain" v-if="result && urlsp && urlValue && arrOfBreadcrumb" >
-        <div class="bread">
-          <router-link to="/default"> Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; </router-link> 
-          <LazyHydrate never>
+    <div
+      class="breadMain"
+      v-if="result && urlsp && urlValue && arrOfBreadcrumb"
+    >
+      <div class="bread">
+        <router-link to="/default">
+          Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
+        </router-link>
+        <LazyHydrate never>
           <template v-for="breads in result">
-            <router-link :to="'/default/c/'+(breads)+'.html'">
-              <!-- {{ urlValue }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; -->  
-              {{breads +"&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;"}}    
+            <router-link :to="'/default/c/' + breads + '.html'">
+              <!-- {{ urlValue }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; -->
+              {{ breads + "&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;" }}
             </router-link>
           </template>
-          </LazyHydrate>
-        </div>
-          <div>
-            <AwBreadcrumbs
-              class="breadcrumbs desktop-only"
-              :breadcrumbs="breadcrumbs"
-            />
-          </div>
+        </LazyHydrate>
       </div>
-        <div class="product">
-          <LazyHydrate when-idle>
-            <AwLoader
-              :class="{ 'loading--product-gallery': productLoading }"
-              :loading="productLoading"
+      <div>
+        <AwBreadcrumbs
+          class="breadcrumbs desktop-only"
+          :breadcrumbs="breadcrumbs"
+        />
+      </div>
+    </div>
+    <div class="popup">
+      <p id="notification"></p>
+    </div>
+    <div class="product">
+      <LazyHydrate when-idle>
+        <AwLoader
+          :class="{ 'loading--product-gallery': productLoading }"
+          :loading="productLoading"
+        >
+          <AwGallery
+            :images="productGallery"
+            :enable-zoom="true"
+            class="product__gallery"
+          />
+        </AwLoader>
+      </LazyHydrate>
+      <div class="product__info">
+        <div class="product__header">
+          <AwHeading
+            :title="productGetters.getName(product)"
+            :level="3"
+            class="sf-heading--no-underline sf-heading--left"
+          />
+          <SvgImage
+            icon="drag"
+            width="40"
+            height="40"
+            class="product__drag-icon smartphone-only"
+          />
+        </div>
+        <div class="product__price-and-rating">
+          <AwPrice
+            :regular="$fc(productPrice)"
+            :special="productSpecialPrice && $fc(productSpecialPrice)"
+          />
+          <div>
+            <div class="product__rating">
+              <AwRating :score="averageRating" :max="5" />
+              <a v-if="!!totalReviews" href="#" class="product__count">
+                ({{ totalReviews }})
+              </a>
+            </div>
+            <AwButton class="sf-button--text" @click="changeTab(2)">
+              {{ $t("Read all reviews") }}
+            </AwButton>
+            |
+            <AwButton
+              class="sf-button--text"
+              @click="
+                changeNewReview();
+                showrev = !showrev;
+              "
             >
-              <AwGallery
-                :images="productGallery"
-                :enable-zoom="true"
-                class="product__gallery"
-              />
-            </AwLoader>
-          </LazyHydrate>
-          <div class="product__info">
-            <div class="product__header">
-              <AwHeading
-                :title="productGetters.getName(product)"
-                :level="3"
-                class="sf-heading--no-underline sf-heading--left"
-              />
-              <SvgImage
-                icon="drag"
-                width="40"
-                height="40"
-                class="product__drag-icon smartphone-only"
-              />
-            </div>
-            <div class="product__price-and-rating">
-              <AwPrice
-                :regular="$fc(productPrice)"
-                :special="productSpecialPrice && $fc(productSpecialPrice)"
-              />
-              <div>
-                <div class="product__rating">
-                  <AwRating :score="averageRating" :max="5" />
-                  <a v-if="!!totalReviews" href="#" class="product__count">
-                    ({{ totalReviews }})
-                  </a>
-                </div>
-                <AwButton class="sf-button--text" @click="changeTab(2)">
-                  {{ $t("Read all reviews") }}
-                </AwButton>
-                |
-                <AwButton
-                  class="sf-button--text"
-                  @click="changeNewReview(); showrev=!showrev"
-                >
-                  Add a review
-                </AwButton>
-              </div>
-            </div>
-            <div>
-              <HTMLContent
-                v-if="productShortDescription"
-                :content="productShortDescription"
-                tag="p"
-                class="product__description desktop-only"
-              />
-              <AwButton class="sf-button--text desktop-only product__guide">
-                {{ $t("Size guide") }}
-              </AwButton>
-              <template v-for="option in configurableOptions">
-                <div
-                  v-if="option.attribute_code === 'color'"
-                  :key="option.uid"
-                  class="product__colors desktop-only"
-                >
-                  <p class="product__color-label">{{ option.label }}:</p>
-                  <AwColor
-                    v-for="color in option.values"
-                    :key="color.uid"
-                    :color="productGetters.getSwatchData(color.swatch_data)"
-                    :selected="
-                      productConfiguration[option.attribute_uid] === color.uid
-                    "
-                    class="product__color"
-                    @click="
-                      () =>
-                        updateProductConfiguration(
-                          option.attribute_uid,
-                          color.uid
-                        )
-                    "
-                  />
-                </div>
-                <AwSelect
-                  v-else
-                  :key="option.uid"
-                  :value="productConfiguration[option.attribute_uid]"
-                  :label="option.label"
-                  class="sf-select--underlined product__select-size"
-                  :required="true"
-                  @input="
-                    ($event) =>
-                      updateProductConfiguration(option.attribute_uid, $event)
-                  "
-                >
-                  <AwSelectOption
-                    v-for="attribute in option.values"
-                    :key="attribute.uid"
-                    :value="attribute.uid"
-                  >
-                    {{ attribute.label }}
-                  </AwSelectOption>
-                </AwSelect>
-              </template>
-              <template v-if="product.__typename === 'GroupedProduct'">
-                <grouped-product-selector
-                  :can-add-to-cart="canAddToCart"
-                  @update-price="basePrice = $event"
-                />
-              </template>
-              <template v-else-if="product.__typename === 'BundleProduct'">
-                <BundleProductSelector
-                  :can-add-to-cart="canAddToCart"
-                  @update-price="basePrice = $event"
-                />
-              </template>
-              <AwAddToCart
-                v-else
-                v-model="qty"
-                v-e2e="'product_add-to-cart'"
-                :disabled="(routePathWB != -1 || routePathWG != -1 || routePathMG != -1) || (routePathOTM == -1 || routePathMTQ == -1) ||loading || productLoading"
-                class="product__add-to-cart"
-                @click="addItem({ product, quantity: parseInt(qty) })"
-              />
-              <div class="wishlist">
-              <div class="product__additional-actions">
-                <AddToWishlist
-                  :is-in-wishlist="isInWishlist"
-                  :is-show="isAuthenticated"
-                  @addToWishlist="addItemToWishlist({ product })"
-                />
-                </div>
-                <div class="compare">
-                <AwButton class="sf-button--text" @click="changeNewReview">
-                Add to Compare
-              </AwButton>
-              </div>
-              </div>
-            </div>
-            
-              
-            
+              Add a review
+            </AwButton>
+          </div>
+        </div>
+        <div>
+          <LazyHydrate never>
+            <template>
+              <!-- <LazyHydrate when-idle> -->
+              <!-- <div v-if="indexOfShortDescription && productDescription && shortDescription"> -->
 
-            <LazyHydrate when-idle>
-              <AwTabs
-                id="tabs"
-                :open-tab="openTab"
-                class="product__tabs"
-                @click:tab="changeTab"
+              <HTMLContent
+                :content="shortDescription"
+                tag="div"
+                class="product__description"
+              />
+
+              <!-- </div> -->
+              <!-- </LazyHydrate> -->
+            </template>
+          </LazyHydrate>
+          <AwButton class="sf-button--text desktop-only product__guide">
+            {{ $t("Size guide") }}
+          </AwButton>
+          <template v-for="option in configurableOptions">
+            <div
+              v-if="option.attribute_code === 'color'"
+              :key="option.uid"
+              class="product__colors desktop-only"
+            >
+              <p class="product__color-label">{{ option.label }}:</p>
+              <AwColor
+                v-for="color in option.values"
+                :key="color.uid"
+                :color="productGetters.getSwatchData(color.swatch_data)"
+                :selected="
+                  productConfiguration[option.attribute_uid] === color.uid
+                "
+                class="product__color"
+                @click="
+                  () =>
+                    updateProductConfiguration(option.attribute_uid, color.uid)
+                "
+              />
+            </div>
+            <AwSelect
+              v-else
+              :key="option.uid"
+              :value="productConfiguration[option.attribute_uid]"
+              :label="option.label"
+              class="sf-select--underlined product__select-size"
+              :required="true"
+              @input="
+                ($event) =>
+                  updateProductConfiguration(option.attribute_uid, $event)
+              "
+            >
+              <AwSelectOption
+                v-for="attribute in option.values"
+                :key="attribute.uid"
+                :value="attribute.uid"
               >
-                <AwTab title="Description">
-                  <HTMLContent
-                    v-if="productDescription"
-                    :content="productDescription"
-                    tag="div"
-                    class="product__description"
-                  />
-                  <!-- @TODO: Check Property in Configurable Products              -->
-                  <!--              <AwProperty
+                {{ attribute.label }}
+              </AwSelectOption>
+            </AwSelect>
+          </template>
+          <template v-if="product.__typename === 'GroupedProduct'">
+            <grouped-product-selector
+              :can-add-to-cart="canAddToCart"
+              @update-price="basePrice = $event"
+            />
+          </template>
+          <template v-else-if="product.__typename === 'BundleProduct'">
+            <BundleProductSelector
+              :can-add-to-cart="canAddToCart"
+              @update-price="basePrice = $event"
+            />
+          </template>
+          <AwAddToCart
+            v-else
+            v-model="qty"
+            v-e2e="'product_add-to-cart'"
+            :disabled="
+              newUrl == -1
+                ? routePathOTM == -1 ||
+                  routePathMTQ == -1 ||
+                  loading ||
+                  productLoading
+                : false
+            "
+            class="product__add-to-cart"
+            @click="addItem({ product, quantity: parseInt(qty) })"
+          />
+          <div class="wishlist">
+            <div class="product__additional-actions">
+              <AddToWishlist
+                :is-in-wishlist="isInWishlist"
+                :is-show="isAuthenticated"
+                @addToWishlist="addItemToWishlist({ product })"
+              />
+            </div>
+            <div class="compare">
+              <AwButton
+                class="sf-button--text"
+                @click="addItemToCompare({ product })"
+              >
+                {{ $t("Add to compare") }}
+              </AwButton>
+            </div>
+          </div>
+        </div>
+
+        <LazyHydrate when-idle>
+          <AwTabs
+            id="tabs"
+            :open-tab="openTab"
+            class="product__tabs"
+            @click:tab="changeTab"
+          >
+            <AwTab title="Description">
+              <HTMLContent
+                v-if="productDescription"
+                :content="productDescription"
+                tag="div"
+                class="product__description"
+              />
+              <!-- @TODO: Check Property in Configurable Products              -->
+              <!--              <AwProperty
                     v-for="(property, i) in properties"
                     :key="i"
                     :name="property.name"
@@ -199,44 +231,39 @@
                       </AwButton>
                     </template>
                   </AwProperty>-->
-                </AwTab>
-                <AwTab title="Read reviews">
-                  <div v-show="reviewsLoading">
-                    <AwLoader />
-                  </div>
-                  <AwReview
-                    v-for="review in reviews"
-                    v-show="!reviewsLoading"
-                    :key="reviewGetters.getReviewId(review)"
-                    :author="reviewGetters.getReviewAuthor(review)"
-                    :date="reviewGetters.getReviewDate(review)"
-                    :message="reviewGetters.getReviewMessage(review)"
-                    :max-rating="5"
-                    :rating="reviewGetters.getReviewRating(review)"
-                    :char-limit="250"
-                    read-more-text="Read more"
-                    hide-full-text="Read less"
-                    class="product__review"
-                  />
+            </AwTab>
+            <AwTab title="Read reviews">
+              <div v-show="reviewsLoading">
+                <AwLoader />
+              </div>
+              <AwReview
+                v-for="review in reviews"
+                v-show="!reviewsLoading"
+                :key="reviewGetters.getReviewId(review)"
+                :author="reviewGetters.getReviewAuthor(review)"
+                :date="reviewGetters.getReviewDate(review)"
+                :message="reviewGetters.getReviewMessage(review)"
+                :max-rating="5"
+                :rating="reviewGetters.getReviewRating(review)"
+                :char-limit="250"
+                read-more-text="Read more"
+                hide-full-text="Read less"
+                class="product__review"
+              />
 
-                  <div
-                    v-show="showrev"
-                    id="addReview"
-                  >
-                    <ProductAddReviewForm
-                      @add-review="successAddReview"
-                    />
-                  </div>
-                  <div>
-                    <AwPagination
-                      :total="4"
-                      :visible="4"
-                      hasArrows
-                      :current="1"
-                      class="Pagignation"
-                    />
-                  </div>
-                  <!-- <LazyHydrate on-interaction>
+              <div v-show="showrev" id="addReview">
+                <ProductAddReviewForm @add-review="successAddReview" />
+              </div>
+              <div>
+                <AwPagination
+                  :total="4"
+                  :visible="4"
+                  hasArrows
+                  :current="1"
+                  class="Pagignation"
+                />
+              </div>
+              <!-- <LazyHydrate on-interaction>
                     <AwPagination
                       v-if="!loading"
                       v-show="pagination.totalPages > 1"
@@ -246,34 +273,34 @@
                       :visible="5"
                     />
                   </LazyHydrate> -->
-                </AwTab>
-                <AwTab
-                  title="Additional Information"
-                  class="product__additional-info"
-                >
-                  <div class="product__additional-info">
-                    <p class="product__additional-info__title">
-                      {{ $t("Instruction1") }}
-                    </p>
-                    <p class="product__additional-info__paragraph">
-                      {{ $t("Instruction2") }}
-                    </p>
-                    <p class="product__additional-info__paragraph">
-                      {{ $t("Instruction3") }}
-                    </p>
-                  </div>
-                </AwTab>
-              </AwTabs>
-            </LazyHydrate>
-          </div>
-        </div>
-        <LazyHydrate when-visible>
-          <RelatedProducts />
-        </LazyHydrate>
-        <LazyHydrate when-visible>
-          <UpsellProducts />
+            </AwTab>
+            <AwTab
+              title="Additional Information"
+              class="product__additional-info"
+            >
+              <div class="product__additional-info">
+                <p class="product__additional-info__title">
+                  {{ $t("Instruction1") }}
+                </p>
+                <p class="product__additional-info__paragraph">
+                  {{ $t("Instruction2") }}
+                </p>
+                <p class="product__additional-info__paragraph">
+                  {{ $t("Instruction3") }}
+                </p>
+              </div>
+            </AwTab>
+          </AwTabs>
         </LazyHydrate>
       </div>
+    </div>
+    <LazyHydrate when-visible>
+      <RelatedProducts />
+    </LazyHydrate>
+    <LazyHydrate when-visible>
+      <UpsellProducts />
+    </LazyHydrate>
+  </div>
 </template>
 <script>
 import LazyHydrate from "vue-lazy-hydration";
@@ -323,6 +350,7 @@ import {
   useRoute,
   useRouter,
   defineComponent,
+  onMounted,
 } from "@nuxtjs/composition-api";
 import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
 import { productData } from "~/helpers/product/productData";
@@ -339,6 +367,7 @@ import AddToWishlist from "~/components/AddToWishlist";
 import SvgImage from "~/components/General/SvgImage.vue";
 
 // import productDetailLayout from '../layouts/productDetailLayout.vue';
+import store from "./store";
 
 export default defineComponent({
   name: "ProductPage",
@@ -516,12 +545,12 @@ export default defineComponent({
         },
       });
       // console.log(route.value)
-
     };
 
-     // ==============================Breadcrumb -start =====================================
+    // ==============================Breadcrumb -start =====================================
 
-    const urlsp = route.value.fullPath.split('/').slice(3,4)
+    const urlsp = route.value.fullPath.split("/").slice(3, 4);
+    console.log(route.value.fullPath);
     // if(urlsp[0][0]=="M") {
     //   console.log("man")
     // }
@@ -532,11 +561,12 @@ export default defineComponent({
     //   console.log("gear")
     // }
     // console.log(urlsp)
-    const urlValue = urlsp[0][0]=="M"?"Men":urlsp[0][0]=="W"?"Women":"Gear"
+    const urlValue =
+      urlsp[0][0] == "M" ? "Men" : urlsp[0][0] == "W" ? "Women" : "Gear";
     // console.log(urlValue)
     // const breadLength = breadcrumbs.value.length;
-    const arrOfBreadcrumb = [urlValue]
-    breadcrumbs.value.map((val)=>arrOfBreadcrumb.push(val.text))
+    const arrOfBreadcrumb = [urlValue];
+    breadcrumbs.value.map((val) => arrOfBreadcrumb.push(val.text));
     // arrOfBreadcrumb.push(urlValue,"Home")
     // console.log(breadLength)
     // const breadFirstvalue = breadcrumbs.value[0].text
@@ -546,25 +576,65 @@ export default defineComponent({
     // console.log(breadcrumbs.value[3].text)
     // console.log(arrOfBreadcrumb)
     // const breadcrumbsList = Array.from(new Set(arrOfBreadcrumb.split(','))).toString();
-    const result = arrOfBreadcrumb.filter((val,index)=>arrOfBreadcrumb[index]!= arrOfBreadcrumb[index-1]);
+    const result = arrOfBreadcrumb.filter(
+      (val, index) => arrOfBreadcrumb[index] != arrOfBreadcrumb[index - 1]
+    );
     //console.log(result)
     // console.log(breadcrumbsList)
 
     // ==============================Breadcrumb -end =====================================
 
     // ==============================cart Button disable -start =====================================
-    const routePathOTM = route.value.fullPath.indexOf('OTM')
-    const routePathMTQ = route.value.fullPath.indexOf('MTQ') 
-    const routePathWG = route.value.fullPath.indexOf('WG')
-    const routePathMG = route.value.fullPath.indexOf('MG')
-    const routePathWB = route.value.fullPath.indexOf('WB')
+    const routePathOTM = route.value.fullPath.indexOf("OTM");
+    const routePathMTQ = route.value.fullPath.indexOf("MTQ");
+    const routePathWG = route.value.fullPath.indexOf("WG");
+    const routePathMG = route.value.fullPath.indexOf("MG");
+    const routePathWB = route.value.fullPath.indexOf("WB");
     // console.log(route.value.fullPath)
     // console.log(routePathWG)
     // console.log(routePathMG)
     // console.log(routePathWB)
+    const newUrl = route.value.fullPath.indexOf("24");
 
     // ==============================cart Button disable -end =====================================
 
+    const indexOfShortDescription = productDescription.value.indexOf("</p>");
+    const shortDescription = productDescription.value.slice(
+      3,
+      indexOfShortDescription
+    );
+
+    // const setData = shortDescription.getProducts(products => {
+    //   store.commit('setProducts' , products)
+    // })
+
+    const setData = () => {
+      const shortDescription = productDescription.value.slice(
+        3,
+        indexOfShortDescription
+      );
+      console.log(shortDescription);
+      store.commit("setProducts", shortDescription);
+    };
+
+    // const arr = []
+    // arr.push(product)
+    const addItemToCompare = async ({ product }) => {
+      const rout = `${router.push(`${app.localePath("/addToCompare")}`)}`;
+      document.getElementById("notification").innerHTML =
+        "You added product" +
+        " " +
+        `${product.name}` +
+        " " +
+        "to the" +
+        " " +
+        `<a href= ${rout}>Comparision List</a>`;
+      // console.log(product);
+      // const compareItem = product;
+      // console.log(compareItem);
+      store.commit("addToCompare", product);
+      // await router.push(`${app.localePath("/addToCompare")}`);
+    };
 
     onSSR(async () => {
       const baseSearchQuery = {
@@ -581,6 +651,11 @@ export default defineComponent({
             }
           : {}),
       };
+
+      onMounted(() => {
+        // console.log('haalo')
+        setData();
+      });
 
       await search({
         queryType: "DETAIL",
@@ -655,7 +730,17 @@ export default defineComponent({
       routePathOTM,
       routePathWG,
       routePathMG,
-      routePathWB
+      routePathWB,
+      newUrl,
+
+      indexOfShortDescription,
+      shortDescription,
+
+      setData,
+
+      addItemToCompare,
+      // compareItem,
+      // arr
     };
   },
 });
@@ -999,9 +1084,9 @@ export default defineComponent({
 .sf-button.color-primary:hover {
   --button-background: #037ee6;
 }
-.wishlist{
+.wishlist {
   display: flex;
-  .compare{
+  .compare {
     margin-top: 20px;
     margin-left: 230px;
   }
@@ -1009,27 +1094,40 @@ export default defineComponent({
 </style>
 
 <style lang=scss>
-.breadMain{
+.breadMain {
   display: flex;
   margin-bottom: 20px;
 }
 .bread {
   margin-top: 24px;
-   /* width: 973px;
+  /* width: 973px;
 height: 17px;
 left: 0px;
 top: 3px; */
 
-/* font-family: 'Source Sans Pro'; */
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 20px;
-/* or 143% */
+  /* font-family: 'Source Sans Pro'; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 143% */
 
+  /* Secondary Color Dark Version 1 */
 
-/* Secondary Color Dark Version 1 */
+  color: #3c3c3c;
+}
+/* .popup{
+    display: none;
 
-color: #3C3C3C;
+} */
+.popup:target {
+  margin: 0 0 10px;
+  padding: 12px 20px 12px 25px;
+  display: block;
+  font-size: 1.3rem;
+  background: #e5efe5;
+  color: #006400;
+  padding-left: 45px;
+  position: relative;
 }
 </style>

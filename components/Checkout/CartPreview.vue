@@ -3,13 +3,39 @@
 
     <div  class="highlighted" v-if="route.fullPath === '/default/checkout/payment'">
       <h1>Order Review </h1>
-      <div class="highlighted" >
-       <!-- <billing/>  -->
-            <!-- <UserBillingAddresses/> -->
-            <!-- <UserAddressDetails/> -->
+      <!-- <p>{{userDetail}}</p> -->
+      <!-- <p>{{shippingDetail}}</p> -->
+      <!-- <p>{{billingDetail}}</p> -->
+    </div>
+    <div  class="highlighted" v-if="route.fullPath === '/default/checkout/payment'">
+      <AwProperty v-for="personal in userDetail"
+        :name="$t('Personal detail')"
+        :value="personal.value"     
+        class="sf-property--full-width sf-property--large property"
+      />
+      <AwProperty
+        :name="$t('shipping detail')"
+        :value="shippingDetail"
+                
+        class="sf-property--full-width sf-property--large property"
+      />
+      <AwProperty
+        :name="$t('billing detail')"
+        :value="billingDetail"
+                
+              
+        class="sf-property--full-width sf-property--large property"
+      />
+      <AwProperty
+        :name="$t('Payment method')"
+        :value="selectedMethod"
+        class="sf-property--full-width sf-property--large property"
+      />
+      <!-- <billingAddresses /> -->
 
-      </div>
-       </div>
+      <!-- <BillingStep /> -->
+      <!-- <ShippingStep /> -->
+    </div>
 
     <div class="highlighted" v-if="route.fullPath !== '/default/checkout/payment'">
       <AwHeading
@@ -70,10 +96,29 @@ import { computed, ref, defineComponent, useRoute } from '@nuxtjs/composition-ap
 import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import CouponCode from '../../components/CouponCode.vue';
-// import UserAccount from '../../pages/Checkout/UserAccount.vue'
-import billing from '../../pages/Checkout/Billing.vue'
-import UserBillingAddresses from '../../components/Checkout/UserBillingAddresses.vue'
 
+// import UserAccount from '../../pages/Checkout/UserAccount.vue'
+// import billing from '../../pages/Checkout/Billing.vue'
+// import UserBillingAddresses from '../../components/Checkout/UserBillingAddresses.vue'
+// import { form } from '../../pages/Checkout/UserAccount.vue';
+
+import { useUser, userGetters } from '@vue-storefront/magento';
+import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
+import { useUserShipping, userShippingGetters } from '@vue-storefront/magento';
+import { selectedMethod } from './VsfPaymentProvider.vue'
+import {useBilling, useShipping } from '@vue-storefront/magento'
+import { email } from 'vee-validate/dist/rules';
+// import { userAddressesGetters } from '@vue-storefront/magento';
+// import {
+//   // useBilling,
+//   // useShipping,
+//   addressGetter,
+// } from "@vue-storefront/magento";
+
+// import { billingAddresses } from './UserBillingAddresses.vue'
+
+// import { BillingStep } from '../../pages/Checkout/Billing.vue'
+// import { ShippingStep } from '../../pages/Checkout/Shipping.vue'
 
 
 const CHARACTERISTICS = [
@@ -96,17 +141,32 @@ const CHARACTERISTICS = [
 
 export default defineComponent({
   name: 'CartPreview',
+ 
   components: {
     AwHeading,
     AwProperty,
-    UserBillingAddresses,
     AwCharacteristic,
     CouponCode,
-    // UserAccount
-    billing
+    // UserBillingAddresses,
+    // UserAccount,
+    // billing,
+    // address,
+    selectedMethod,
+
+    // billingAddresses,
+
+    // BillingStep,
+    // ShippingStep
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();
+    const user = useUser();
+    const billing = useUserBilling();
+    const shipping = useUserShipping();
+
+    const billing1 = useBilling();
+    const shipping1 = useShipping();
+
     const route = useRoute();
     const listIsHidden = ref(false);
 
@@ -119,6 +179,40 @@ export default defineComponent({
       () => -1 * discounts.value.reduce((a, el) => el.value + a, 0),
     );
     const selectedShippingMethod = computed(() => cartGetters.getSelectedShippingMethod(cart.value));
+
+    // const personaldetail = computed(()=> form.value.firstname);
+    // console.log(personaldetail)
+    // const personaldetail = computed(()=> addressGetter);
+    // console.log(personaldetail)
+    // const userAddress = computed(() => ({
+    //   firstName: userAddressesGetters.getFirstName,
+    //   lastName: userAddressesGetters.getLastName,
+    //   street: userAddressesGetters.getStreetName,
+    //   streetNumber: userAddressesGetters.getApartmentNumber,
+    //   postalCode: userAddressesGetters.getPostCode,
+    //   city: userAddressesGetters.getCity,
+    //   province: userAddressesGetters.getProvince,
+    //   country: userAddressesGetters.getCountry,
+    //   phone: userAddressesGetters.getPhone,
+    // }));
+    // console.log(userAddress)
+
+    // const userDetail = computed(() => userGetters.getFirstName(user));
+    // console.log(userDetail);
+    // const shippingDetail = computed(() => userShippingGetters.getAddresses(shipping));
+    // console.log(shippingDetail);
+    // const billingDetail = computed(() => userBillingGetters.getAddresses(billing));
+    // console.log(billingDetail);
+
+    const userDetail = {
+      name:user.user.value.firstname + " " + user.user.value.lastname ,
+      email:user.user.value.email
+    };
+    console.log(userDetail);
+    const shippingDetail = computed(() => shipping1);
+    console.log(shippingDetail);
+    const billingDetail = computed(() => billing1);
+    console.log(billingDetail);
 
     return {
       cart,
@@ -136,8 +230,21 @@ export default defineComponent({
       characteristics: CHARACTERISTICS,
       selectedShippingMethod,
       route,
-      // UserAccount
-      billing
+
+      // UserAccount,
+      // billing,
+      // userAddress,
+
+      userDetail,
+      shippingDetail,
+      billingDetail,
+
+      user,
+      shipping,
+      billing,
+
+      billing1,
+      shipping1
     };
   },
 });

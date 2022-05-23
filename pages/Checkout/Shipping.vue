@@ -6,6 +6,7 @@
       :title="$t('Shipping')"
       class="sf-heading--left sf-heading--no-underline title"
     />
+    <p>{{shippingDetails}}</p>
 
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <UserShippingAddresses
