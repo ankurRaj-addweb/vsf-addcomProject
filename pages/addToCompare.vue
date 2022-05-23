@@ -23,7 +23,7 @@
           <td></td>  
         </tr>
       </table>
-      <table v-for="product in data">
+      <table v-for="product in data" :key="product">
         <tr>
           <td>
             <SfProductCard
