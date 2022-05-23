@@ -126,7 +126,7 @@
             tag="div"
             class="products__grid"
           >
-            <SfProductCard
+            <AwProductCardQuantitySelector
               v-for="(product, i) in products"
               :key="productGetters.getSlug(product)"
               v-e2e="'category-product-card'"
@@ -138,6 +138,8 @@
               :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
               :regular-price="$fc(productGetters.getPrice(product).regular)"
               :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
+              badgeColor=""
+              :colors='[{"label":"Sand","value":"sand","color":"#EDCBB9","selected":false},{"label":"Mint","value":"mint","color":"#ABD9D8","selected":false},{"label":"Vivid rose","value":"vivid rose","color":"#DB5593","selected":false},{"label":"Peach","value":"peach","color":"#F59F93","selected":false},{"label":"Citrus","value":"citrus","color":"#FFEE97","selected":false}]'
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :show-add-to-cart-button="true"
@@ -184,7 +186,7 @@
                   />
                 </SfButton>
               </template>
-            </SfProductCard>
+            </AwProductCardQuantitySelector>
           </transition-group>
           <transition-group
             v-else
@@ -193,7 +195,7 @@
             tag="div"
             class="products__list"
           >
-            <SfProductCardHorizontal
+            <AwProductCardHorizontal
               v-for="(product, i) in products"
               :key="productGetters.getSlug(product)"
               class="products__product-card-horizontal"
@@ -271,7 +273,7 @@
                   {{ isInWishlist({ product }) ? $t('Remove from Wishlist') : $t('Save for later') }}
                 </SfButton>
               </template>
-            </SfProductCardHorizontal>
+            </AwProductCardHorizontal>
           </transition-group>
           <div class="products__display-opt">
             <LazyHydrate on-interaction>
@@ -311,7 +313,6 @@
         </div>
       </SfLoader>
     </div>
-
     <LazyHydrate when-idle>
       <SfSidebar
         :visible="isFilterSidebarOpen"
@@ -423,6 +424,10 @@
 </template>
 
 <script>
+import AwProductCardHorizontal from '@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardHorizontal/AwProductCardHorizontal.vue';
+// import AwProductCard from '@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue';
+import AwProductCardQuantitySelector from '@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardQuantitySelector/AwProductCardQuantitySelector.vue';
+import AwQuantitySelector from '@storefront-ui/root/packages/vue/src/components/atoms/AwQuantitySelector/AwQuantitySelector.vue';
 import findDeep from 'deepdash/findDeep';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
@@ -431,8 +436,8 @@ import {
   SfHeading,
   SfFilter,
   SfRadio,
-  SfProductCard,
-  SfProductCardHorizontal,
+  // SfProductCard,
+  // SfProductCardHorizontal,
   SfPagination,
   SfAccordion,
   SfSelect,
@@ -475,8 +480,10 @@ export default defineComponent({
     SfSidebar,
     SfFilter,
     SfRadio,
-    SfProductCard,
-    SfProductCardHorizontal,
+    // SfProductCard,
+    // SfProductCardHorizontal,
+    AwProductCardHorizontal,
+    // AwProductCard,
     SfPagination,
     SfAccordion,
     SfSelect,
@@ -487,6 +494,8 @@ export default defineComponent({
     SfProperty,
     SfLink,
     LazyHydrate,
+    AwQuantitySelector,
+    AwProductCardQuantitySelector
   },
   middleware: cacheControl({
     'max-age': 60,
