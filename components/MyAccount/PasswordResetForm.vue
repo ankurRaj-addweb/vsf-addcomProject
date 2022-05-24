@@ -7,9 +7,9 @@
       <ValidationProvider
         v-slot="{ errors }"
         rules="required"
-        class="form__element"
+        class="form__element profile"
       >
-        <zInput
+        <AwInput
           v-model="form.currentPassword"
           type="password"
           name="currentPassword"
