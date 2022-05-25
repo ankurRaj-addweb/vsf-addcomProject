@@ -2,9 +2,41 @@
   <AwTopBar class="topbar">
     <template #left>
       <AwButton class="sf-button--text" style="width: 82px; color: #037ee6">
-        <router-link to="default/help">
-          {{ $t("Help & FAQs") }}
-        </router-link>
+        <div
+          v-if="
+            $route.fullPath == '/default/checkout/user-account' ||
+            $route.fullPath == '/default/checkout/shipping' ||
+            $route.fullPath == '/default/checkout/billing' ||
+            $route.fullPath == '/default/checkout/payment' ||
+            $route.fullPath == '/default/checkout/thank-you'
+          "
+        >
+          <router-link
+            to="/default/checkout/billing"
+            v-if="$route.fullPath == '/default/checkout/payment'"
+            >Go Back</router-link
+          >
+          <router-link
+            to="/default/checkout/shipping"
+            v-if="$route.fullPath == '/default/checkout/billing'"
+            >Go Back</router-link
+          >
+          <router-link
+            to="/default/checkout/user-account"
+            v-if="$route.fullPath == '/default/checkout/shipping'"
+            >Go Back</router-link
+          >
+          <router-link
+            to="/default"
+            v-if="$route.fullPath == '/default/checkout/user-account'"
+            >Go Back</router-link
+          >
+        </div>
+        <div v-else>
+          <router-link to="default/help">
+            {{ $t("Help & FAQs") }}
+          </router-link>
+        </div>
       </AwButton>
     </template>
     <template #center>
@@ -14,7 +46,6 @@
       </AwButton>
     </template>
     <template #right>
-     
       <CurrencySelector />
       <StoreSwitcher />
     </template>
