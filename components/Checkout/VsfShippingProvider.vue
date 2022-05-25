@@ -29,9 +29,10 @@
           }}
         </div>
       </AwLoader>
-      <div class="shipping-method">
+      <div class="shipping-method"   :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <div class="free-shipping">
-          <AwRadio
+          
+          <AwRadio  
             class="sf-radio--transparent"
             name="Shipping"
             value="store"
@@ -41,6 +42,7 @@
             :disabled="false"
             selected=""
             :required="false"
+            
           />
            <div><p class="free">Free</p></div>
           </div>
@@ -66,7 +68,7 @@
           </ul>
       </div>
      
-      <div class="shipping-method">
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = true">
          <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -77,6 +79,8 @@
           :disabled="false"
           selected=""
           :required="false"
+          @click="isDisable = false"
+
         />  
          <button
             class="accordion"
@@ -98,7 +102,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method"    :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -130,7 +134,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -162,7 +166,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -196,7 +200,7 @@
           
       </div>
       
-      <div class="shipping-method">
+      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
@@ -229,11 +233,12 @@
         </AwRadio> 
       </div>
       </div>
-      <div class="form__action">
-        <AwButton
+      <div class="form__action " >
+        <AwButton 
           v-e2e="'continue-to-billing'"
           class="form__action-button"
           type="button"
+           :disabled="isDisable"
           @click="$router.push(`${localePath('/checkout/billing')}`)"
         >
           {{ $t("Go To Shipping") }}
@@ -270,12 +275,14 @@ export default defineComponent({
       loading: loadingShippingMethods,
       error: errorUseGetShippingMethods,
     } = useGetShippingMethods();
+
     const { cart } = useCart();
     const showCategoryA = ref(false)
     const showCategoryB = ref(false)
     const showCategoryC = ref(false)
     const showCategoryD = ref(false)
     const showCategoryE = ref(false)
+    const isDisable = ref(false)
     const {
       state,
       save: saveShippingProvider,
@@ -325,8 +332,8 @@ export default defineComponent({
     showCategoryC,
     showCategoryD,
     showCategoryE,
-
-
+    isDisable 
+     
     };
   },
 });
@@ -441,6 +448,7 @@ button.form__action-button.sf-button {
   border: none;
   outline: none;
   transition: 0.4s;
+   margin-left: 50px;
 }
 
 .active,
@@ -476,9 +484,12 @@ button.accordion {
 }
 button.accordion {
   width: 60px;
-  margin-left: -75px;
+  margin-left:5px;
   margin-top: 18px;
 }
+// button.accordion {
+//     margin-left: 50px;
+// }
 .shipping-method {
   position: relative;
   button.accordion {
@@ -493,10 +504,13 @@ button.accordion {
     font-size: 14px;
     line-height: 18px;
   }
-  .free-shipping{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  // .free-shipping{
+  //   // display: flex;
+  //   // align-items: center;
+  //   // justify-content: space-between;
+  // }
+}
+.ShippingClass{
+  background-color:#F9F9F9;
 }
 </style>
