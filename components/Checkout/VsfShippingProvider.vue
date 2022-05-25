@@ -29,7 +29,7 @@
           }}
         </div>
       </AwLoader>
-      <div class="shipping-method"  @click="isDisable = !isDisable">
+      <div class="shipping-method"   :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <div class="free-shipping">
           
           <AwRadio  
@@ -102,7 +102,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method"    @click="isDisable = false">
+      <div class="shipping-method"    :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -134,7 +134,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method"  @click="isDisable = false">
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -166,7 +166,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method"  @click="isDisable = false">
+      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -200,7 +200,7 @@
           
       </div>
       
-      <div class="shipping-method"  @click="isDisable = false">
+      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
@@ -511,6 +511,6 @@ button.accordion {
   // }
 }
 .ShippingClass{
-  background-color: blue;
+  background-color:pink;
 }
 </style>
