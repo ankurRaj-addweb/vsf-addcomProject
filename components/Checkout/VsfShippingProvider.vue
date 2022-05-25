@@ -29,7 +29,7 @@
           }}
         </div>
       </AwLoader>
-      <div class="shipping-method"  @click="isDisable = false">
+      <div class="shipping-method"  @click="isDisable = !isDisable">
         <div class="free-shipping">
           
           <AwRadio  
@@ -68,7 +68,7 @@
           </ul>
       </div>
      
-      <div class="shipping-method"  @click="isDisable = false">
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
          <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -282,7 +282,7 @@ export default defineComponent({
     const showCategoryC = ref(false)
     const showCategoryD = ref(false)
     const showCategoryE = ref(false)
-    const isDisable = ref(true)
+    const isDisable = ref(false)
     const {
       state,
       save: saveShippingProvider,
@@ -509,5 +509,8 @@ button.accordion {
   //   // align-items: center;
   //   // justify-content: space-between;
   // }
+}
+.ShippingClass{
+  background-color: blue;
 }
 </style>
