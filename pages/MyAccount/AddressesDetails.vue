@@ -7,7 +7,7 @@
       class="tab-orphan"
     >
       <AwTab
-        :title="isNewAddress ? $t('Add the address') : $t('Update the address')"
+        :title="isNewAddress ? $t('Add the address') : $t('Shipping address')"
       >
         <!-- <p class="message">
           {{ $t('Contact details updated') }}
