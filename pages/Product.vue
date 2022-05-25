@@ -188,6 +188,28 @@
                 :is-show="isAuthenticated"
                 @addToWishlist="addItemToWishlist({ product })"
               />
+
+              <div>
+                <div class="product__rating">
+                  <AwRating :score="averageRating" :max="5" />
+                  <a v-if="!!totalReviews" href="#" class="product__count">
+                    ({{ totalReviews }})
+                  </a>
+                </div>
+                <AwButton class="sf-button--text" @click="changeTab(2)">
+                  {{ $t("Read all reviews") }}
+                </AwButton>
+                <AwButton
+                v-if="isAuthenticated"
+                  class="sf-button--text"
+                  @click="changeNewReview(); showrev=!showrev"
+                >
+
+                 | Add a review
+
+                </AwButton>
+              </div>
+
             </div>
             <div class="compare">
               <AwButton

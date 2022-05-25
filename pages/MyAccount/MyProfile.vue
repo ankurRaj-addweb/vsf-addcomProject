@@ -3,40 +3,41 @@
     <!-- Personal data update -->
 
     <AwTab
+      class="fontpersonal"
       :title="
-        $route.fullPath == '/default/checkout/user-account'
-          ? $t('')
-          : $t('Personal details')
+      $route.fullPath == '/default/checkout/user-account'
+      ? $t('')
+      : $t('Personal Data')
       "
-    >
+      >
 
-      <p class="message">
-        {{
-          $t(
-            "you are able to change your personal details, after changed details please save the changes "
-          )
-        }}
+      <p class="message fontfeel">
+      {{
+      $t(
+      "Feel free to edit any of your details below so your account is always up to date "
+      )
+      }}
       </p>
 
 
       <ProfileUpdateForm
-        :loading="loading"
-        @submit="updatePersonalData"
+      :loading="loading"
+      @submit="updatePersonalData"
       />
 
-      <p class="notice">
-        {{ $t('Use your personal data') }}
-        <a href="">{{ $t('Privacy Policy') }}</a>
+      <p class="notice fontAt" v-if=" $route.fullPath != '/default/checkout/user-account'">
+      {{ $t('Use your personal data') }}
+      <a class="policy linkcolor" href="">{{ $t('Privacy Policy') }}</a>
       </p>
     </AwTab>
 
-   <!-- Password reset -->
+    <!-- Password reset -->
     <AwTab
+      class="fontpersonal"
       :title="$t('Password change')"
       v-if="route.fullPath != '/default/checkout/user-account'"
-    >
-      <p class="message">{{ $t("Change password your account") }}:<br /></p>
-
+      >
+      <p class="message fontif">{{ $t("If you want to change the password to access your account, enter the following information:") }}<br/> {{ $t("Your current email address is example@email.com") }}</p>
 
       <PasswordResetForm @submit="updatePassword" />
     </AwTab>
@@ -159,4 +160,5 @@ export default defineComponent({
   margin: var(--spacer-lg) 0 0 0;
   font-size: var(--font-size--sm);
 }
+
 </style>

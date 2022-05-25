@@ -3,18 +3,20 @@
 :open-tab="1"
 class="tab-orphan"
 >
-<AwTab :title="$t('My Loyalty Card')">
-<p class="message">
-This feature is not implemented yet! Please take a look at<br>
-<AwLink
-class="notice__link"
-href="#"
->
-https://github.com/DivanteLtd/vue-storefront/issues
-</AwLink>
-for our Roadmap!
-</p>
-</AwTab>
+    <AwTab :title="$t('My Loyalty Card')">
+        <p class="message">
+        This feature is not implemented yet! Please take a look at<br>
+            <AwLink
+            link="https://github.com/DivanteLtd/vue-storefront/issues"
+            target="_blank"
+            class="notice__link"
+            href="#"
+            >
+            https://github.com/DivanteLtd/vue-storefront/issues
+            </AwLink>
+        for our Roadmap!
+        </p>
+    </AwTab>
 </AwTabs>
 </template>
 
@@ -23,9 +25,6 @@ for our Roadmap!
 import AwTabs from '@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue';
 import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
 import AwLink from '@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue';
-// import {
-// SfTabs, SfCheckbox, SfButton, SfLink,
-// } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/magento';
@@ -34,7 +33,6 @@ export default defineComponent({
 name: 'LoyalityCard',
 components: {
 AwTabs,
-
 AwButton,
 AwLink,
 },
@@ -76,6 +74,11 @@ isSubscribed,
 .message {
 margin: 0 0 var(--spacer-xl) 0;
 color: var(--c-dark-variant);
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
 }
 
 .notice {

@@ -7,7 +7,7 @@
       class="tab-orphan"
     >
       <AwTab
-        :title="isNewAddress ? $t('Billing Address') : $t('Shipping Address')"
+        :title="isNewAddress ? $t('Add the address') : $t('Shipping address')"
       >
         <!-- <p class="message">
           {{ $t('Contact details updated') }}
@@ -77,7 +77,7 @@
 
               <AwButton
                 v-if="!userAddressesGetters.isDefault(address)"
-                class="color-light addresses__button-delete "
+                class="color-light addresses__button-delete desktop-only"
                 @click="removeAddress(address)"
               >
                 {{ $t('Delete') }}
@@ -139,7 +139,7 @@ export default defineComponent({
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Shipping & Payment Details')}`, query: { id: addressId } })}`);
+      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Shipping & payment details')}`, query: { id: addressId } })}`);
     };
 
     const removeAddress = async (address) => {
@@ -155,7 +155,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Shipping & Payment Details')}`));
+        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Addresses details')}`));
       } catch (error) {
         onError(error);
       }

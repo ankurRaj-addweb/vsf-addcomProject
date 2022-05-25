@@ -5,7 +5,7 @@
       :title="$t('Shipping method')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
+    <div class="shipping-blogs">
       <AwLoader :loading="isLoading">
         <div v-if="errorUseGetShippingMethods.load">
           {{
@@ -29,10 +29,10 @@
           }}
         </div>
       </AwLoader>
-
-      <div class="info">
-        <div class="dcc">
-          <AwRadio
+      <div class="shipping-method"   :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
+        <div class="free-shipping">
+          
+          <AwRadio  
             class="sf-radio--transparent"
             name="Shipping"
             value="store"
@@ -42,8 +42,10 @@
             :disabled="false"
             selected=""
             :required="false"
+            
           />
-       
+           <div><p class="free">Free</p></div>
+          </div>
           <button
             class="accordion"
             :class="{ active: showCategoryA }"
@@ -52,11 +54,10 @@
             @click="showCategoryA = !showCategoryA"
             type="link"
           >
-            info
+            info   
+            
           </button>
-        
           <ul class="category-list" v-show="showCategoryA">
-            <li>
               <p>
                 A paragraph is a series of related sentences developing a
                 central idea, called the topic. Try to think about paragraphs in
@@ -64,11 +65,11 @@
                 sentences that supports one central, unified idea. Paragraphs
                 add one idea at a time to your broader argument.
               </p>
-            </li>
           </ul>
-        </div>
-
-        <AwRadio
+      </div>
+     
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = true">
+         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
           value="store"
@@ -78,9 +79,30 @@
           :disabled="false"
           selected=""
           :required="false"
-        />
-        
-        
+          @click="isDisable = false"
+
+        />  
+         <button
+            class="accordion"
+            :class="{ active: showCategoryB }"
+            :aria-disabled="false"
+            :link="null"
+            @click="showCategoryB = !showCategoryB"
+            type="link"
+          >
+            info
+          </button>
+          <ul class="category-list" v-show="showCategoryB">
+              <p>
+                A paragraph is a series of related sentences developing a
+                central idea, called the topic. Try to think about paragraphs in
+                terms of thematic unity: a paragraph is a sentence or a group of
+                sentences that supports one central, unified idea. Paragraphs
+                add one idea at a time to your broader argument.
+              </p>
+          </ul>
+      </div>
+      <div class="shipping-method"    :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -92,7 +114,27 @@
           selected=""
           :required="false"
         />
-
+         <button
+            class="accordion"
+            :class="{ active: showCategoryC }"
+            :aria-disabled="false"
+            :link="null"
+            @click="showCategoryC = !showCategoryC"
+            type="link"
+          >
+            info
+          </button>
+            <ul class="category-list" v-show="showCategoryC">
+              <p>
+                A paragraph is a series of related sentences developing a
+                central idea, called the topic. Try to think about paragraphs in
+                terms of thematic unity: a paragraph is a sentence or a group of
+                sentences that supports one central, unified idea. Paragraphs
+                add one idea at a time to your broader argument.
+              </p>
+          </ul>
+      </div>
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -104,11 +146,27 @@
           selected=""
           :required="false"
         />
-
-           
-        
-       
-
+         <button
+            class="accordion"
+            :class="{ active: showCategoryD }"
+            :aria-disabled="false"
+            :link="null"
+            @click="showCategoryD = !showCategoryD"
+            type="link"
+          >
+            info
+          </button>
+          <ul class="category-list" v-show="showCategoryD">
+              <p>
+                A paragraph is a series of related sentences developing a
+                central idea, called the topic. Try to think about paragraphs in
+                terms of thematic unity: a paragraph is a sentence or a group of
+                sentences that supports one central, unified idea. Paragraphs
+                add one idea at a time to your broader argument.
+              </p>
+          </ul>
+      </div>
+      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -120,9 +178,29 @@
           selected=""
           :required="false"
         />
-
+         <button
+            class="accordion"
+            :class="{ active: showCategoryE }"
+            :aria-disabled="false"
+            :link="null"
+            @click="showCategoryE = !showCategoryE"
+            type="link"
+          >
+            info
+          </button>
+           <ul class="category-list" v-show="showCategoryE">
+              <p>
+                A paragraph is a series of related sentences developing a
+                central idea, called the topic. Try to think about paragraphs in
+                terms of thematic unity: a paragraph is a sentence or a group of
+                sentences that supports one central, unified idea. Paragraphs
+                add one idea at a time to your broader argument.
+              </p>
+          </ul>
+          
+      </div>
       
-
+      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
         <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
@@ -152,22 +230,22 @@
               </div>
             </div>
           </template>
-        </AwRadio>
+        </AwRadio> 
       </div>
-      <div class="form__action">
-        <AwButton
+      </div>
+      <div class="form__action " >
+        <AwButton 
           v-e2e="'continue-to-billing'"
           class="form__action-button"
           type="button"
+           :disabled="isDisable"
           @click="$router.push(`${localePath('/checkout/billing')}`)"
         >
           {{ $t("Go To Shipping") }}
         </AwButton>
       </div>
     </div>
-  </div>
 </template>
-
 <script>
 import {
   useCart,
@@ -180,7 +258,7 @@ import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwBu
 import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 import getShippingMethodPrice from "~/helpers/checkout/getShippingMethodPrice";
 
 export default defineComponent({
@@ -197,7 +275,14 @@ export default defineComponent({
       loading: loadingShippingMethods,
       error: errorUseGetShippingMethods,
     } = useGetShippingMethods();
+
     const { cart } = useCart();
+    const showCategoryA = ref(false)
+    const showCategoryB = ref(false)
+    const showCategoryC = ref(false)
+    const showCategoryD = ref(false)
+    const showCategoryE = ref(false)
+    const isDisable = ref(false)
     const {
       state,
       save: saveShippingProvider,
@@ -242,6 +327,13 @@ export default defineComponent({
       shippingMethods,
       state,
       totals,
+    showCategoryA,
+    showCategoryB,
+    showCategoryC,
+    showCategoryD,
+    showCategoryE,
+    isDisable 
+     
     };
   },
 });
@@ -331,7 +423,10 @@ button.form__action-button.sf-button {
     font-size: 15px;
   }
 }
-
+.free {
+    margin-left: 650px;
+    margin-top: -50px;
+}
 .categoryBrowser ul {
   list-style-type: none;
 }
@@ -353,6 +448,7 @@ button.form__action-button.sf-button {
   border: none;
   outline: none;
   transition: 0.4s;
+   margin-left: 50px;
 }
 
 .active,
@@ -381,14 +477,40 @@ button.accordion {
 } */
 </style>
 
-<style lang=scss>
+<style lang="scss" scoped>
 .dcc {
   display: flex;
   /* outline: dotted; */
 }
 button.accordion {
   width: 60px;
-  margin-left: -75px;
+  margin-left:5px;
   margin-top: 18px;
+}
+// button.accordion {
+//     margin-left: 50px;
+// }
+.shipping-method {
+  position: relative;
+  button.accordion {
+    position: absolute;
+    top: 0;
+    left: 27%;
+    background: transparent;
+    text-decoration: underline;
+    color: #282828;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  // .free-shipping{
+  //   // display: flex;
+  //   // align-items: center;
+  //   // justify-content: space-between;
+  // }
+}
+.ShippingClass{
+  background-color:#F9F9F9;
 }
 </style>
