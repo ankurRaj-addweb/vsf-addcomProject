@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit, reset }">
     <form
-      class="form"
+      class="form profile"
       @submit.prevent="handleSubmit(submitForm(reset))"
     >
       <ValidationProvider
@@ -13,7 +13,7 @@
           v-model="form.currentPassword"
           type="password"
           name="currentPassword"
-          :label="$t('Current Password')"
+          :label="$t('Your Current Password')"
           required
           :valid="!errors[0]"
           :error-message="$t(errors[0])"
@@ -30,6 +30,7 @@
             v-model="form.newPassword"
             type="password"
             name="newPassword"
+            class="newpass"
             :label="$t('New Password')"
             required
             :valid="!errors[0]"
@@ -45,7 +46,7 @@
             v-model="form.repeatPassword"
             type="password"
             name="repeatPassword"
-            :label="$t('Repeat Password')"
+            :label="$t('Confirm new password')"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
@@ -53,7 +54,7 @@
         </ValidationProvider>
       </div>
       <AwButton class="form__button">
-        {{ $t('Update password') }}
+        {{ $t('SAVE CHANGES') }}
       </AwButton>
     </form>
   </ValidationObserver>
