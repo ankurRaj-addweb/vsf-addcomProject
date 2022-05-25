@@ -2,6 +2,7 @@
   <AwTopBar class="topbar">
     <template #left>
       <AwButton class="sf-button--text" style="width: 82px; color: #037ee6">
+
         <div
           v-if="
             $route.fullPath == '/default/checkout/user-account' ||
@@ -37,12 +38,18 @@
             {{ $t("Help & FAQs") }}
           </router-link>
         </div>
+        <router-link to="default/help" class="help_link">
+          {{ $t("Help & FAQs") }}
+        </router-link>
+
       </AwButton>
     </template>
     <template #center>
       <p>{{ $t("Download our application. ") }}</p>
       <AwButton class="topbar__button sf-button--text">
+        <router-link to="default/help" class="help_link">
         {{ $t("Find out more") }}
+        </router-link>
       </AwButton>
     </template>
     <template #right>
@@ -82,6 +89,7 @@ export default {
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
+  color:black;
   // font-family: Source Sans Pro;
   &:hover {
     color: rgb(20, 115, 223);

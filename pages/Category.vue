@@ -299,7 +299,7 @@
               tag="div"
               class="products__grid"
             >
-              <AwProductCard
+              <AwProductCardQuantitySelector
                 v-for="(product, i) in products"
                 :key="productGetters.getSlug(product)"
                 v-e2e="'category-product-card'"
@@ -312,7 +312,8 @@
                 getMagentoImage(
                   productGetters.getProductThumbnailImage(product)
                 )
-              "
+              "  badgeColor=""
+                :colors='[{"label":"Sand","value":"sand","color":"#EDCBB9","selected":false},{"label":"Mint","value":"mint","color":"#ABD9D8","selected":false},{"label":"Vivid rose","value":"vivid rose","color":"#DB5593","selected":false},{"label":"Peach","value":"peach","color":"#F59F93","selected":false},{"label":"Citrus","value":"citrus","color":"#FFEE97","selected":false}]'
                 :regular-price="$fc(productGetters.getPrice(product).regular)"
                 :special-price="
                 productGetters.getPrice(product).special &&
@@ -364,7 +365,7 @@
                     />
                     </AwButton>
                 </template>
-                </AwProductCard>
+                </AwProductCardQuantitySelector>
                 </transition-group>
                 <transition-group
                   v-else
@@ -638,7 +639,7 @@ import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwBu
 import AwSidebar from "@storefront-ui/root/packages/vue/src/components/organisms/AwSidebar/AwSidebar.vue";
 import AwFilter from "@storefront-ui/root/packages/vue/src/components/molecules/AwFilter/AwFilter.vue";
 import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
-import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
+// import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
 import AwProductCardHorizontal from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardHorizontal/AwProductCardHorizontal.vue";
 import AwPagination from "@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
 import AwAccordion from "@storefront-ui/root/packages/vue/src/components/organisms/AwAccordion/AwAccordion.vue";
@@ -647,6 +648,7 @@ import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 import AwColor from "@storefront-ui/root/packages/vue/src/components/atoms/AwColor/AwColor.vue";
 import AwProperty from "@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue";
+import AwProductCardQuantitySelector from '@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardQuantitySelector/AwProductCardQuantitySelector.vue';
 import {
   ref,
   computed,
@@ -684,7 +686,8 @@ export default defineComponent({
     AwSidebar,
     AwFilter,
     AwRadio,
-    AwProductCard,
+    // AwProductCard,
+    AwProductCardQuantitySelector,
     AwProductCardHorizontal,
     AwPagination,
     AwAccordion,

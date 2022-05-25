@@ -203,9 +203,11 @@ export default defineComponent({
   right: 20px;
   bottom: 0;
 }
+
 .sf-header__search
 {
-  color:#3C3C3C;
-  border-bottom: 274px ;
+height: 2px;
+width:274px;
+
 }
 </style>
