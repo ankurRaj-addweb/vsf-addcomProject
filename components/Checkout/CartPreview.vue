@@ -29,12 +29,12 @@
         :value="$fc(totals.subtotal)"
         :class="['sf-property--full-width', 'sf-property--large property']"
       />
-      <AwProperty
+      <!-- <AwProperty
         v-if="hasDiscounts"
         :name="$t('Discount')"
         :value="$fc(discountsAmount)"
         class="sf-property--full-width sf-property--small property"
-      />
+      /> -->
       <AwProperty
         v-if="selectedShippingMethod"
         :name="$t('Shipping')"

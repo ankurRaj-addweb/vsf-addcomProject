@@ -3,7 +3,7 @@
     <AwHeading
       v-e2e="'shipping-heading'"
       :level="3"
-      :title="$t('Shipping')"
+      :title="$t('Shipping Details')"
       class="sf-heading--left sf-heading--no-underline title"
     />
 

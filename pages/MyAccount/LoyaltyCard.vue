@@ -3,20 +3,20 @@
 :open-tab="1"
 class="tab-orphan"
 >
-<AwTab :title="$t('My Loyalty Card')">
-<p class="message">
-This feature is not implemented yet! Please take a look at<br>
-<AwLink
-link="https://github.com/DivanteLtd/vue-storefront/issues"
-target="_blank"
-class="notice__link"
-href="#"
->
-https://github.com/DivanteLtd/vue-storefront/issues
-</AwLink>
-for our Roadmap!
-</p>
-</AwTab>
+    <AwTab :title="$t('My Loyalty Card')">
+        <p class="message">
+        This feature is not implemented yet! Please take a look at<br>
+            <AwLink
+            link="https://github.com/DivanteLtd/vue-storefront/issues"
+            target="_blank"
+            class="notice__link"
+            href="#"
+            >
+            https://github.com/DivanteLtd/vue-storefront/issues
+            </AwLink>
+        for our Roadmap!
+        </p>
+    </AwTab>
 </AwTabs>
 </template>
 
@@ -74,6 +74,11 @@ isSubscribed,
 .message {
 margin: 0 0 var(--spacer-xl) 0;
 color: var(--c-dark-variant);
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 22px;
 }
 
 .notice {
