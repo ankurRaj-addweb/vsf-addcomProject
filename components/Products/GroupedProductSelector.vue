@@ -2,8 +2,8 @@
   <div
     v-if="!productLoading"
   >
-    <SfList class="grouped_items">
-      <SfListItem
+    <AwList class="grouped_items">
+      <AwListItem
         v-for="(groupedItem, index) in groupedItems"
         :key="index"
         class="grouped_items--item"
@@ -11,39 +11,39 @@
         <nuxt-img
           :src="getMagentoImage(productGetters.getProductThumbnailImage(groupedItem.product))"
           :alt="productGetters.getName(groupedItem.product)"
-          :width="60"
-          :height="60"
+          :width="151"
+          :height="119"
         />
         <div>
           <p>{{ productGetters.getName(groupedItem.product) }}</p>
-          <SfPrice
+          <AwPrice
             :regular="$fc(productGetters.getPrice(groupedItem.product).regular)"
             :special="productGetters.getPrice(groupedItem.product).special && $fc(productGetters.getPrice(groupedItem.product).special)"
           />
         </div>
-        <SfQuantitySelector
+        <AwQuantitySelector
           v-model="groupedItem.qty"
           :disabled="loading || !canAddToCart"
         />
-      </SfListItem>
-    </SfList>
-    <SfButton
+      </AwListItem>
+    </AwList>
+    <AwButton
       v-e2e="'product_add-to-cart'"
       :disabled="loading || !canAddToCart"
       class="color-primary sf-button grouped_items--add-to-cart"
       @click="addToCart"
     >
       Add to Cart
-    </SfButton>
+    </AwButton>
   </div>
 </template>
 <script>
-import {
-  SfList,
-  SfPrice,
-  SfButton,
-  SfQuantitySelector,
-} from '@storefront-ui/vue';
+
+import AwList from '@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue';
+import AwPrice from '@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue';
+import AwQuantitySelector from '@storefront-ui/root/packages/vue/src/components/atoms/AwQuantitySelector/AwQuantitySelector.vue';
+
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
   computed, watch, ref, defineComponent,
@@ -54,10 +54,10 @@ import { useImage } from '~/composables';
 export default defineComponent({
   name: 'GroupedProductSelector',
   components: {
-    SfList,
-    SfPrice,
-    SfButton,
-    SfQuantitySelector,
+    AwList,
+    AwPrice,
+    AwButton,
+    AwQuantitySelector,
   },
   props: {
     canAddToCart: {
