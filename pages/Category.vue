@@ -687,7 +687,7 @@ export default defineComponent({
     AwFilter,
     AwRadio,
     // AwProductCard,
-    AwProductCardQuantitySelector,
+    // AwProductCardQuantitySelector,
     AwProductCardHorizontal,
     AwPagination,
     AwAccordion,

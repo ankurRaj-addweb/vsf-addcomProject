@@ -38,9 +38,9 @@
             {{ $t("Help & FAQs") }}
           </router-link>
         </div>
-        <router-link to="default/help" class="help_link">
+        <!-- <router-link to="default/help" class="help_link">
           {{ $t("Help & FAQs") }}
-        </router-link>
+        </router-link> -->
 
       </AwButton>
     </template>
