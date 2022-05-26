@@ -83,7 +83,7 @@
           <p class="bottom__paragraph">
             {{ $t("No account") }}
           </p>
-          <AwButton class="sf-button--text" @click="setIsLoginValue(false)">
+          <AwButton class="sf-button--text register" @click="setIsLoginValue(false)">
             {{ $t("Register today") }}
           </AwButton>
         </div>
@@ -613,5 +613,8 @@ export default defineComponent({
 .login-loader {
   margin-top: 20px;
   margin-bottom: 50px;
+}
+.register{
+display: contents;
 }
 </style>

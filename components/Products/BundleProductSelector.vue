@@ -2,21 +2,21 @@
   <div
     v-if="!productLoading"
   >
-    <SfList class="bundle_products">
-      <SfListItem
+    <AwList class="grouped_items">
+      <AwListItem
         v-for="(bundle) in bundleProduct"
         :key="`${bundle.uid}`"
-        class="bundle_products--item"
+        class="grouped_items--item"
       >
         <p
           :class="{'bundle_products--item-required': bundle.required }"
         >
           {{ bundle.title }}
         </p>
-        <SfList
+        <AwList
           class="bundle_products--options"
         >
-          <SfListItem
+          <AwListItem
             v-for="(option) in bundle.options"
             :key="`${option.uid}`"
             class="bundle_products--options-option"
@@ -26,7 +26,7 @@
             >
               <div class="bundle_products--options-option__container">
                 <p>{{ productGetters.getName(option.product) }}</p>
-                <SfPrice
+                <AwPrice
                   :regular="$fc(productGetters.getPrice(option.product).regular)"
                   :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
                 />
@@ -35,7 +35,7 @@
             <template
               v-else
             >
-              <SfRadio
+              <AwRadio
                 v-if="selectedOptions[bundle.uid]"
                 v-model="selectedOptions[bundle.uid].uid"
                 :name="bundle.uid"
@@ -44,43 +44,42 @@
                 @change="selectedOptions[bundle.uid].price = productGetters.getPrice(option.product).regular"
               >
                 <template #description>
-                  <SfPrice
+                  <AwPrice
                     :regular="$fc(productGetters.getPrice(option.product).regular)"
                     :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
                   />
                 </template>
-              </SfRadio>
+              </AwRadio>
             </template>
-          </SfListItem>
-        </SfList>
-        <p>
-          Quantity
-        </p>
-        <SfQuantitySelector
+          </AwListItem>
+        </AwList>
+      
+        <AwQuantitySelector
           v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
           :disabled="!canChangeQuantity || !canAddToCart"
         />
-      </SfListItem>
-    </SfList>
-    <SfButton
+      </AwListItem>
+    </AwList>
+    <AwButton
       v-e2e="'product_add-to-cart'"
       :disabled="loading || !canAddToCart"
       class="color-primary bundle_products--add-to-cart"
       @click="addToCart"
     >
       Add to Cart
-    </SfButton>
+    </AwButton>
   </div>
 </template>
 <script>
-import {
-  SfList,
-  SfPrice,
-  SfQuantitySelector,
-  SfRadio,
-  SfButton,
-} from '@storefront-ui/vue';
+import AwList from '@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue';
+import AwPrice from '@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue';
+import AwQuantitySelector from '@storefront-ui/root/packages/vue/src/components/atoms/AwQuantitySelector/AwQuantitySelector.vue';
+
+import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
+import AwRadio from '@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue';
+
+
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
   computed,
@@ -94,11 +93,11 @@ import { productData } from '~/helpers/product/productData';
 export default defineComponent({
   name: 'BundleProductSelector',
   components: {
-    SfButton,
-    SfList,
-    SfPrice,
-    SfQuantitySelector,
-    SfRadio,
+    AwButton,
+    AwList,
+    AwPrice,
+    AwQuantitySelector,
+    AwRadio,
   },
   props: {
     canAddToCart: {

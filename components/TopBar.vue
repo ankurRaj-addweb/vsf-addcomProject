@@ -34,14 +34,12 @@
           >
         </div>
         <div v-else>
-          <router-link to="default/help">
-            {{ $t("Help & FAQs") }}
-          </router-link>
-        </div>
+          
+      
         <router-link to="default/help" class="help_link">
           {{ $t("Help & FAQs") }}
         </router-link>
-
+  </div>
       </AwButton>
     </template>
     <template #center>
