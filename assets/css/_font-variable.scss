@@ -1,10 +1,102 @@
-button.sf-hero-item__button.sf-button {
+button.sf-hero-item__button.sf-button,
+button.sf-banner__call-to-action.color-secondary.sf-button,
+button.sf-call-to-action__button.sf-button,
+.footer__subscribe button.sf-button,
+button.sf-button--full-width.form__button.sf-button,
+button.action-button.sf-button,
+button.form__button,
+button.no-orders__button.sf-button {
     background: #037EE6;
 }
 
-button.sf-button--pure.sf-bullet.sf-button {
-    border-color: #037EE6;
-    &::before {
-        background: #037EE6;
+.sf-top-bar__left {
+    button.sf-button--text.sf-button {
+        a {
+            color: #037EE6;
+        }
     }
+}
+
+.sf-menu-item.is-active {
+    --menu-item-label-color: #037EE6;
+}
+
+a.sf-link.notice__link,
+a.sf-link.message__link.nuxt-link-exact-active.nuxt-link-active {
+    color: #037EE6;
+}
+
+.sf-menu-item__label {
+    &:hover {
+        color: #037EE6;
+    }
+}
+
+.sf-menu-item:hover {
+    --menu-item-label-color: #037EE6;
+}
+
+.sf-checkbox.is-active {
+    --checkbox-border-color: #037EE6;
+    --checkbox-background: #037EE6;
+}
+
+.sf-circle-icon {
+    background: #037EE6;
+}
+
+.sf-header-navigation-item.nav-item {
+    .sf-header-navigation-item__item--desktop> :not(.sf-mega-menu) {
+        &:hover {
+            color: #037EE6;
+            border-color: #037EE6;
+        }
+    }
+}
+
+.sf-footer {
+    border-top: var(--spacer-xs) solid #037EE6;
+}
+
+.sf-header-navigation-item:hover>*:not(.sf-mega-menu) {
+    --header-navigation-item-color: #037EE6;
+    --header-navigation-item-border-color: #037EE6;
+}
+
+.sf-hero__control--left,
+.sf-hero__control--right {
+    opacity: 0;
+}
+
+.sf-bullet {
+    --bullet-background: #EFEFEF;
+    cursor: default;
+}
+
+.sf-bullet.is-active {
+    --bullet-background: #037EE6;
+    cursor: default;
+}
+
+button.sf-arrow.sf-button {
+    background-color: #282828;
+}
+
+.carousel .sf-arrow {
+    --button-color: #FFFFFF !important;
+}
+
+.bottom__paragraph {
+    color: #3C3C3C !important;
+}
+
+.sf-button:active {
+    span.sf-input__password-icon.sf-icon.hidden {
+        fill: #037EE6;
+        color: #037EE6;
+    }
+}
+
+.sf-input input:focus~* {
+    --icon-color: #037EE6;
 }
