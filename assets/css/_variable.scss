@@ -9,20 +9,19 @@ body {
     font-family: $source-sans !important;
 }
 
-.sf-mega-menu__content {
-    position: relative;
-    &::after {
-        content: '';
-        position: absolute;
-        right: -200px;
-        top: 0;
-        background-color: #F9F9F9;
-        width: 300px;
-        height: 450px;
-        z-index: -1;
-    }
-}
-
+// .sf-mega-menu__content {
+//     position: relative;
+//     &::after {
+//         content: '';
+//         position: absolute;
+//         right: -200px;
+//         top: 0;
+//         background-color: #F9F9F9;
+//         width: 300px;
+//         height: 450px;
+//         z-index: -1;
+//     }
+// }
 // .sf-mega-menu.is-absolute {
 //     display: block !important;
 // }

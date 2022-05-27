@@ -1,8 +1,18 @@
-#payment{
-tr.sf-table__heading {
-    border-bottom-color: #037EE6;
+#payment {
+    tr.sf-table__heading {
+        border-bottom-color: #037EE6;
+    }
+    hr.sf-divider {
+        border-bottom-color: #037EE6;
+    }
 }
-hr.sf-divider {
-    border-bottom-color: #037EE6;
-}
+
+.sf-input input {
+    border: unset;
+    border-bottom: 1px black solid;
+    border-radius: unset;
+    &:focus-visible {
+        border: unset;
+        border-bottom: 1px black solid;
+    }
 }

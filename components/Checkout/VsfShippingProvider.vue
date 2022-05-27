@@ -29,7 +29,7 @@
           }}
         </div>
       </AwLoader>
-      <div class="shipping-method"   :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
+      <div class="shipping-method" :class="infoVisible ? 'method-active' : ''"  >
         <div class="free-shipping">
           
           <AwRadio  
@@ -51,7 +51,7 @@
             :class="{ active: showCategoryA }"
             :aria-disabled="false"
             :link="null"
-            @click="showCategoryA = !showCategoryA"
+            @click="infoFunction"
             type="link"
           >
             info   
@@ -102,7 +102,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method"    :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
+      <div class="shipping-method">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -134,7 +134,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
+      <div class="shipping-method">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -166,7 +166,7 @@
               </p>
           </ul>
       </div>
-      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
+      <div class="shipping-method" >
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -199,8 +199,7 @@
           </ul>
           
       </div>
-      
-      <div class="shipping-method"  :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = !isDisable">
+      <div class="shipping-method" >
         <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
@@ -243,7 +242,7 @@
         >
           {{ $t("Go To Shipping") }}
         </AwButton>
-      </div>
+      </div> 
     </div>
 </template>
 <script>
@@ -282,6 +281,7 @@ export default defineComponent({
     const showCategoryC = ref(false)
     const showCategoryD = ref(false)
     const showCategoryE = ref(false)
+    const infoVisible = ref(false)
     const isDisable = ref(false)
     const {
       state,
@@ -298,6 +298,11 @@ export default defineComponent({
     const isShippingMethodStepCompleted = computed(
       () => state.value?.method_code && !isLoading.value
     );
+
+    const infoFunction = ()=> {
+      showCategoryA.value = !showCategoryA.value;
+      infoVisible.value = !infoVisible.value;
+    }
     /**
      * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.
      * Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
@@ -332,7 +337,9 @@ export default defineComponent({
     showCategoryC,
     showCategoryD,
     showCategoryE,
-    isDisable 
+    isDisable,
+    infoVisible,
+    infoFunction, 
      
     };
   },
@@ -390,7 +397,7 @@ export default defineComponent({
 }
 </style>
 
-<style lang=scss>
+<style lang="scss">
 .sf-radio input:checked ~ .sf-radio__checkmark {
   box-sizing: border-box;
   width: 1.5rem;
@@ -410,7 +417,7 @@ button.form__action-button.sf-button {
   margin-top: -55px;
 }
 </style>
-<style lang=scss>
+<style lang="scss">
 .collapsible {
   collapsible {
     background-color: #eee;
@@ -433,6 +440,7 @@ button.form__action-button.sf-button {
 
 .category-list > span {
   padding: 1em;
+
 }
 
 .category-list > span:hover {
@@ -509,6 +517,19 @@ button.accordion {
   //   // align-items: center;
   //   // justify-content: space-between;
   // }
+}
+// .ShippingClass{
+//   background-color:pink;
+// }
+.method-active {
+  background: #F9F9F9;
+  padding: 0 10px 10px 10px;
+}
+.category-list {
+  p {
+    padding-left: 16px;
+    padding-right: 100px;
+  }
 }
 .ShippingClass{
   background-color:#F9F9F9;
