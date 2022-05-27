@@ -317,8 +317,8 @@
                 :regular-price="$fc(productGetters.getPrice(product).regular)"
                 :special-price="
                 productGetters.getPrice(product).special &&
-                $fc(productGetters.getPrice(product).special)
-              "
+                $fc(productGetters.getPrice(product).special)"
+                :badge-label="productGetters.getPrice(product).special ? '-'+productGetters.getPrice(product).regular/ (productGetters.getPrice(product).regular - productGetters.getPrice(product).special)+'%' : ''"
                 :score-rating="productGetters.getAverageRating(product)"
                 :reviews-count="productGetters.getTotalReviews(product)"
                 :show-add-to-cart-button="true"
