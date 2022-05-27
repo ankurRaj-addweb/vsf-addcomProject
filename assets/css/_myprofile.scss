@@ -1,0 +1,37 @@
+.fontfeel,.fontif{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #3C3C3C;
+    width: 768px;
+height: 48px;
+}
+.fontAt{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    width: 762px;
+    height: 40px; 
+}
+.linkcolor{
+    color: #037EE6;
+}
+.sf-button{
+    font-size: 18px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+}
+.sf-input input:required ~ *{
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    // font-weight: 400;
+    // font-size: 16px;
+    // line-height: 24px;
+}

@@ -15,7 +15,7 @@
         <AboutUs />
       </AwContentPage>
 
-      <AwContentPage :title="$t('Customer Service')">
+      <AwContentPage :title="$t('Addweb Customer Service')">
         <CustomerService />
       </AwContentPage>
 
@@ -139,11 +139,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 #help {
-  box-sizing: border-box;
-  @include for-desktop {
-    max-width: 1240px;
-    margin: 0 auto;
-  }
+  // box-sizing: border-box;
+  // @include for-desktop {
+  //   max-width: 1240px;
+  //   margin: 0 auto;
+  // }
 }
 .help {
   @include for-mobile {
@@ -172,11 +172,15 @@ export default defineComponent({
 }
 .sf-content-pages {
   height: auto;
+  
+  
 }
 ::v-deep .sf-content-pages__content {
   height: auto;
+  
 }
 .sf-content-pages__content {
   height: auto;
+  
 }
 </style>

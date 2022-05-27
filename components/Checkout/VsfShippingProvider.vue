@@ -67,7 +67,8 @@
               </p>
           </ul>
       </div>
-       <div class="shipping-method">
+     
+      <div class="shipping-method" :class="isDisable ? 'ShippingClass': ' '" @click="isDisable = true">
          <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -529,5 +530,8 @@ button.accordion {
     padding-left: 16px;
     padding-right: 100px;
   }
+}
+.ShippingClass{
+  background-color:#F9F9F9;
 }
 </style>

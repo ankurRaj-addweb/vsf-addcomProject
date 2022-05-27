@@ -87,10 +87,9 @@
           />
            <AwProperty
             name="Shipping"
-            value="free"
+            :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
             class="sf-property--full-width property"
           />
-        
         </div>
        
        
@@ -113,10 +112,10 @@
           name="terms"
           class="summary__terms"
         >
-          <template #label>
+          <template>
             <div class="sf-checkbox__label" >
               {{ $t('I agree to') }}
-              <AwLink href="#">
+              <AwLink href='#'>
                 {{ $t('Terms and conditions') }}
               </AwLink>
             </div>
@@ -129,7 +128,7 @@
             class="summary__action-button"
             @click="processOrder"
           >
-            {{ $t('Pay for order') }}
+            {{ $t('CONFIRM AND PAY') }}
           </AwButton>
         </div>
       </div>
