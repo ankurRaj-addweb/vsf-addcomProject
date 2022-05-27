@@ -1,0 +1,10 @@
+button.sf-hero-item__button.sf-button {
+    background: #037EE6;
+}
+
+button.sf-button--pure.sf-bullet.sf-button {
+    border-color: #037EE6;
+    &::before {
+        background: #037EE6;
+    }
+}
