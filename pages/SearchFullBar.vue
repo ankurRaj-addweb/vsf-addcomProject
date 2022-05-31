@@ -1,8 +1,7 @@
 <template>
-
+<div class="fullBar">
   <AwSearchBar
     v-click-outside="closeSearch"
-    :placeholder="$t('Search for items and promotions')"
     aria-label="Search"
     class="sf-header__search"
     :value="term"
@@ -49,6 +48,7 @@
       </AwButton>
     </template>
   </AwSearchBar>
+  </div>
 </template>
 
 <script>
@@ -207,11 +207,9 @@ export default defineComponent({
   right: 20px;
   bottom: 0;
 }
-
 .sf-header__search
 {
-height: 2px;
-width:274px;
-
+  color:#3C3C3C;
+  border-bottom: 274px ;
 }
 </style>
