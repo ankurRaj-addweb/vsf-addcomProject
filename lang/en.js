@@ -19,7 +19,7 @@ export default {
   "Cart": "Cart",
   "Categories": "Categories",
   "Change": "Change",
-  "Change password your account": "If you want to change the password to access your account, enter the following information",
+  "Change password your account": "FIf you want to change the password to access your account, enter the following information: Your current email address is example@email.com",
   "Clear all": "Clear all",
   "Color": "Color",
   "Commercial information": "and agree to receive personalized commercial information from Brand name by email",

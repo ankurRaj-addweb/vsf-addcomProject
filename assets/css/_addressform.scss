@@ -1,0 +1,17 @@
+.checkbox{
+    margin-top: -5px;
+}
+.cardbox{
+    margin-top: 41px;
+}
+.sf-input input:required ~ *{
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    margin-top: 15px;
+}
+.sf-input input:focus{
+    outline: none;
+}
+.sf-select__label{
+    // margin-top: 20px;
+}

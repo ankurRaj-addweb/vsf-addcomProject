@@ -25,10 +25,10 @@
         v-if="!isAuthenticated"
       >
         <div class="form">
-          <ValidationProvider
+          <ValidationProvider 
             v-slot="{ errors }"
             name="firstname"
-            :rules="loginUserAccount ? '' : 'required|min:2'"
+            :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -46,7 +46,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="lastname"
-            :rules="loginUserAccount ? '' : 'required|min:2'"
+            :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -250,13 +250,14 @@ import {
   onMounted,
 } from "@nuxtjs/composition-api";
 import { useUser, useGuestUser } from "@vue-storefront/magento";
-import { required, min, email } from "vee-validate/dist/rules";
+import { required, min, email,alpha } from "vee-validate/dist/rules";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { useUiNotification } from "~/composables";
 import { getItem, mergeItem } from "~/helpers/asyncLocalStorage";
 import {
   customerPasswordRegExp,
   invalidPasswordMsg,
+  
 } from "../../helpers/customer/regex";
 
 import { useUiState } from "~/composables";
@@ -264,6 +265,10 @@ import { useUiState } from "~/composables";
 extend("required", {
   ...required,
   message: "This field is required",
+});
+extend("alpha", {
+  ...alpha,
+  message: "Name should contain alphabetic characters only",
 });
 extend("min", {
   ...min,
@@ -545,7 +550,20 @@ export default defineComponent({
 
 </style>
 
-     
+     <style>
+     .sf-input input {
+   /* outline: none !important; */
+   /* outline: dotted !important; */
+  /* border-bottom: initial !important;
+  border-top: initial !important;
+  border-right: initial !important;
+  border-left: initial !important;
+  border-block-style: initial; */
+  border: none !important;
+  border-bottom: 1px solid #3C3C3C !important;
+  border-radius: 0px !important;
+     }
+     </style>
    
 
   

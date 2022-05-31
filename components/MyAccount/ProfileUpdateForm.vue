@@ -13,6 +13,7 @@
           <AwInput
             v-model="form.firstname"
             name="firstName"
+            class="fontdetails"
             :label="$t('First Name')"
             @input="changeDisable()"
             
@@ -245,3 +246,4 @@ export default defineComponent({
   }
 }
 </style>
+
