@@ -1,6 +1,5 @@
 <template>
   <div id="category">
-     <!-- <div>{{products}}</div> -->
     <!-- <p>{{routeData}}</p> -->
     <!-- <p>{{ breadcrumbs }}</p> -->
 
@@ -272,21 +271,6 @@
           </LazyHydrate>
         </div>
       </div>
-    </div>
-
-    <div class="main section">
-     
-      <div class="sidebar desktop-only">
-        <SfLoader
-          :class="{ loading: isCategoriesLoading }"
-          :loading="isCategoriesLoading"
-        >
-          <LazyHydrate when-visible>
-            <category-sidebar-menu
-              :no-fetch="true"
-            />
-          </LazyHydrate>
-        </SfLoader>
       </div>
 
       <div class="main section">
@@ -643,7 +627,6 @@
           </AwSidebar>
       </LazyHydrate>
       </div>
-  </div>
 </template>
 
 <script>

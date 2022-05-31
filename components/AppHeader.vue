@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <div>{{ searchTerm }}</div> -->
     <AwHeader
       class="sf-header--has-mobile-search"
       :class="{ 'header-on-top': isSearchOpen, currentCategory }"
@@ -24,8 +23,8 @@
             }
           "
           @mouseleave.native="currentCategory = ''"
-        > 
-          <!-- <p>{{categoryTree}}</p> -->
+        >
+        <!-- <p>{{categoryTree}}</p> -->
           <AwMegaMenu
             :visible="currentCategory === category.label"
             :title="category.label"
@@ -52,8 +51,8 @@
                 </AwListItem>
               </AwList>
             </AwMegaMenuColumn>
-            <AwMegaMenuColumn
-              class="subCategories-header"
+            <AwMegaMenuColumn 
+            class="subCategories-header"
               v-for="(subcategory, subIndex) in category.items"
               :key="subIndex"
               :title="subcategory.label"
@@ -164,26 +163,15 @@
       <template #search>
         <SearchBar
           @SearchBar:toggle="isSearchOpen = $event"
-          @SearchBar:searchTerm="searchTerm = $event"
           @SearchBar:result="result = $event"
         />
-        <!-- <h1>{{ result.products[0].categories[0].name }}</h1> -->
       </template>
     </AwHeader>
 
     <SearchResults
-      v-if="isSearchOpen && toggleSearch && result != null"
+      v-if="isSearchOpen"
       :visible="isSearchOpen"
       :result="result"
-      @SearchResults:toggeSearchPage="toggleDefaultSearch"
-    />
-
-    <Search
-      v-show="isSearchOpen && !toggleSearch"
-      :visible="isSearchOpen"
-      :result="result"
-      :categoryTree="categoryTree"
-      :searchTerm="searchTerm"
     />
     <AwOverlay :visible="isSearchOpen" />
     <!-- <AwOverlay :visible="!!currentCategory" /> -->
@@ -199,7 +187,7 @@ import AwMegaMenu from "@storefront-ui/root/packages/vue/src/components/organism
 import AwMenuItem from "@storefront-ui/root/packages/vue/src/components/molecules/AwMenuItem/AwMenuItem.vue";
 import AwList from "@storefront-ui/root/packages/vue/src/components/organisms/AwList/AwList.vue";
 import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue";
-import Search from "../pages/Search.vue";
+
 import {
   categoryGetters,
   useCart,
@@ -233,7 +221,6 @@ export default defineComponent({
     AwMegaMenu,
     AwMenuItem,
     AwList,
-    Search,
     AwLink,
     CurrencySelector,
     HeaderLogo,
@@ -245,9 +232,7 @@ export default defineComponent({
         /* webpackPrefetch: true */ "~/components/Header/SearchBar/SearchResults.vue"
       ),
   },
-  emits: ['AppHeader:defaultSearchBar'],
-  setup(_, { emit }) {
-    const toggleSearch = ref(true);
+  setup() {
     const router = useRouter();
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } =
@@ -260,7 +245,7 @@ export default defineComponent({
       itemsCount: wishlistItemsQty,
       loadItemsCount: loadWishlistItemsCount,
     } = useWishlist("GlobalWishlist");
-    const searchTerm = ref("");
+
     const { categories: categoryList, search: categoriesListSearch } =
       useCategory("AppHeader:CategoryList");
 
@@ -276,11 +261,6 @@ export default defineComponent({
     const categoryTree = categoryGetters
       .getCategoryTree(categoryList.value?.[0])
       ?.items.filter((c) => c.count > 0);
-
-    const toggleDefaultSearch = () =>{
-          toggleSearch.value = false;
-          emit('defaultSearchBar', toggleSearch.value )
-    }
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
@@ -310,10 +290,7 @@ export default defineComponent({
       isAuthenticated,
       isSearchOpen,
       result,
-      toggleDefaultSearch,
-      toggleSearch,
       setTermForUrl,
-      searchTerm,
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
