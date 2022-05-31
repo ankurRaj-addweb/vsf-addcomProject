@@ -77,7 +77,7 @@ export default defineComponent({
       stores,
       change: changeStore,
       load: loadStores,
-    } = useStore('header-stores'); 
+    } = useStore('header-stores');
 
     const availableStores = computed(() => stores.value ?? []);
 

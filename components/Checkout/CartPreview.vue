@@ -1,5 +1,4 @@
 <template>
-
   <div class="mainClas">
 
     <div  class="highlighted" v-if="route.fullPath === '/default/checkout/payment'">
@@ -14,35 +13,35 @@
     <div class="highlighted" v-if="route.fullPath !== '/default/checkout/payment'">
       <AwHeading
         :level="3"
-        :title="$t('Order summary')"
+        :title="$t('Totals')"
         class="sf-heading--left sf-heading--no-underline title"
       />
     </div>
-    <div class="highlighted">
-      <SfProperty
+    <div class="highlighted" v-if="route.fullPath !== '/default/checkout/payment'">
+      <AwProperty
         :name="$t('Products')"
         :value="totalItems"
         class="sf-property--full-width sf-property--large property"
       />
-      <SfProperty
+      <AwProperty
         :name="$t('Subtotal')"
         :value="$fc(totals.subtotal)"
         :class="['sf-property--full-width', 'sf-property--large property']"
       />
-      <SfProperty
+      <!-- <AwProperty
         v-if="hasDiscounts"
         :name="$t('Discount')"
         :value="$fc(discountsAmount)"
         class="sf-property--full-width sf-property--small property"
-      />
-      <SfProperty
+      /> -->
+      <AwProperty
         v-if="selectedShippingMethod"
         :name="$t('Shipping')"
         :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
         class="sf-property--full-width sf-property--large property"
       />
 
-      <SfProperty
+      <AwProperty
         :name="$t('Total')"
         :value="$fc(totals.total)"
         class="sf-property--full-width sf-property--large property-total"
@@ -50,7 +49,7 @@
     </div>
     <CouponCode class="highlighted" />
     <div class="highlighted">
-      <SfCharacteristic
+      <AwCharacteristic
         v-for="characteristic in characteristics"
         :key="characteristic.title"
         :title="characteristic.title"
@@ -62,11 +61,19 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
-import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
+import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
+import AwProperty from '@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue';
+import AwCharacteristic from '@storefront-ui/root/packages/vue/src/components/molecules/AwCharacteristic/AwCharacteristic.vue';
+
+import { computed, ref, defineComponent, useRoute } from '@nuxtjs/composition-api';
 import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import CouponCode from '../CouponCode.vue';
+import CouponCode from '../../components/CouponCode.vue';
+// import UserAccount from '../../pages/Checkout/UserAccount.vue'
+import billing from '../../pages/Checkout/Billing.vue'
+import UserBillingAddresses from '../../components/Checkout/UserBillingAddresses.vue'
+
+
 
 const CHARACTERISTICS = [
   {
@@ -89,14 +96,17 @@ const CHARACTERISTICS = [
 export default defineComponent({
   name: 'CartPreview',
   components: {
-    SfHeading,
-    SfProperty,
-    SfCharacteristic,
+    AwHeading,
+    AwProperty,
+    UserBillingAddresses,
+    AwCharacteristic,
     CouponCode,
+    // UserAccount
+    billing
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();
-
+    const route = useRoute();
     const listIsHidden = ref(false);
 
     const products = computed(() => cartGetters.getItems(cart.value));
@@ -124,6 +134,9 @@ export default defineComponent({
       getShippingMethodPrice,
       characteristics: CHARACTERISTICS,
       selectedShippingMethod,
+      route,
+      // UserAccount
+      billing
     };
   },
 });

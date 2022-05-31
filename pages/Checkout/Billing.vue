@@ -1,7 +1,6 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit, reset }">
-    <h1>{{ billingDetails }}</h1>
-    <h1>{{handleCheckSameAddress}}</h1>
+    <!-- <h1>{{getInvoiceCheck}}</h1> -->
     <AwHeading
       v-e2e="'heading-billing'"
       :level="3"
@@ -149,13 +148,7 @@
             :value="billingDetails.country_code"
             label="Country"
             name="country"
-
-            class="
-              form__element form__element--half form__select
-              sf-select--underlined
-              form__element--half-even
-            "
-
+            class="form__element form__element--half form__select sf-select--underlined form__element--half-even"
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
@@ -165,11 +158,7 @@
               v-for="countryOption in countriesList"
               :key="countryOption.id"
               :value="countryOption.abbreviation"
-
-            >
-              {{ countryOption.label }}
-            </AwSelectOption>
-
+            >{{ countryOption.label }}</AwSelectOption>
           </AwSelect>
         </ValidationProvider>
         <ValidationProvider v-slot="{ errors }" name="telephone" rules="required" slim>
@@ -203,78 +192,36 @@
           />
         </div>
 
-        <div class="one" @click="showForm = true">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-          <nuxt-img
-            src="/icons/mas2.png"
-            class="pic"
-            alt="mas"
-            width="52"
-            height="34"
-          />
+        <div class="one select-payment" @click="showForm = true">
+          <AwRadio name="visa" value="store" :disabled="false" selected :required="false" />
+          <nuxt-img src="/icons/mas2.png" class="payment-method" alt="mas" width="52" height="34" />
         </div>
 
-        <div class="one" @click="showForm = true">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
+        <div class="one select-payment" @click="showForm = true">
+          <AwRadio name="visa" value="store" :disabled="false" selected :required="false" />
           <nuxt-img
             src="/icons/visa3.png"
-            class="pic"
+            class="payment-method"
             alt="visa"
             width="75"
             height="34"
           />
         </div>
 
-        <div class="one" @click="showForm = false">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-          <a href="#">Cash On Delivery</a>
+        <div class="one select-payment" @click="showForm = false">
+          <AwRadio name="visa" value="store" :disabled="false" selected :required="false" />
+          <a href="#" class="payment-method">Cash On Delivery</a>
         </div>
 
-        <div class="one" @click="showForm = false">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-          <a href="#">Cheque</a>
-
+        <div class="one select-payment" @click="showForm = false">
+          <AwRadio name="visa" value="store" :disabled="false" selected :required="false" />
+          <a href="#" class="payment-method">Cheque</a>
         </div>
       </div>
       <template>
         <form class="bil" v-if="showForm">
-
-          <AwInput
-            label="Card Number"
-            name="cardnumber"
-            class="form__control"
-            required
-          />
-          <AwInput
-            label="Card Holder"
-            name="cardholder"
-            class="form__control"
-            required
-          />
+          <AwInput label="Card Number" name="cardnumber" class="form__control" required />
+          <AwInput label="Card Holder" name="cardholder" class="form__control" required />
           <div class="dis">
             <label id="ed">Expiry Date :</label>
             <select class="form__control for">
@@ -303,22 +250,12 @@
             </select>
           </div>
           <div class="dis">
-
-            <AwInput
-              label="Code CVC "
-              name="cardnumber"
-              class="form__control for"
-              required
-            />
-            <a href="#"><u>Where I find CVC code?</u></a>
+            <AwInput label="Code CVC " name="cardnumber" class="form__control for" required />
+            <a href="#">
+              <u>Where I find CVC code?</u>
+            </a>
           </div>
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />Save this card for other purchases.
-
+          <input class="form-check-input" type="checkbox" value id="flexCheckDefault" />Save this card for other purchases.
         </form>
       </template>
       <AwButton
@@ -326,11 +263,7 @@
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
-
-      >
-        {{ $t("Add new address") }}
-      </AwButton>
-
+      >{{ $t("Add new address") }}</AwButton>
 
       <div class="form">
         <div class="form__action">
@@ -339,11 +272,7 @@
             class="form__action-button extend"
             type="submit"
             :disabled="!canMoveForward"
-
-          >
-            {{ $t("Pay for Order") }}
-          </AwButton>
-
+          >{{ $t("Pay for Order") }}</AwButton>
 
           <nuxt-link
             to="localePath('/checkout/shipping')"
@@ -478,9 +407,7 @@ export default defineComponent({
 
     const getInvoiceCheck = computed(() => invoiceCheck.value);
 
-
     const handleAddressSubmit = reset => async () => {
-
       const addressId = currentAddressId.value;
       const billingDetailsData = {
         billingDetails: {
@@ -639,9 +566,7 @@ export default defineComponent({
       invoiceCheck,
       invoiceCheckToggle,
       getInvoiceCheck,
-
-      showForm,
-
+      showForm
     };
   }
 });
@@ -757,7 +682,6 @@ export default defineComponent({
     }
   }
 }
-
 .select-payment {
   align-items: center !important;
 
@@ -770,7 +694,6 @@ export default defineComponent({
     object-fit: contain;
   }
 }
-
 </style>
 
 
