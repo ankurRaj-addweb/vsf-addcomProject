@@ -51,13 +51,18 @@ export default {
 
 
 
-<style scoped>
+<style lang="scss" scoped>
 
   *{
     box-sizing: border-box;
   }
   .outer {
     width: 100%;
+    .main {
+      @media screen and (max-width: 1024px) {
+          overflow: scroll;
+      }
+}
   }
 
   h1 {

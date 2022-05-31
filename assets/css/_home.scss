@@ -10,6 +10,22 @@
     }
 }
 
+.sf-banner-grid__col.sf-banner-grid__col--medium {
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+
+.sf-banner-grid.banner-grid {
+    .sf-banner-grid__row {
+        .sf-banner-grid__col {
+            @media (max-width: 767px) {
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
 .sf-banner-grid__col.sf-banner-grid__col--medium,
 section.sf-banner.sf-banner--slim.desktop-only {
     .sf-banner__wrapper-desktop {
@@ -21,9 +37,66 @@ section.sf-banner.sf-banner--slim.desktop-only {
 }
 
 section.sf-section.section {
-    li.sf-carousel-item.glide__slide.carousel__item {
-        .sf-product-card {
-            padding: 20px;
+    @media (max-width: 767px) {
+        margin-top: 35px;
+    }
+    .sf-section__content {
+        @media (max-width: 767px) {
+            margin-top: 0;
         }
+    }
+    .sf-heading {
+        @media (max-width: 767px) {
+            text-align: unset;
+        }
+        h2.sf-heading__title.h2 {
+            color: #282828;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 24px;
+            @media (max-width: 767px) {
+                font-size: 18px !important;
+            }
+        }
+    }
+    li.sf-carousel-item.glide__slide.carousel__item {
+        @media (max-width: 767px) {
+            margin: 0;
+        }
+        .sf-product-card__image-wrapper {
+            a.sf-link.sf-button--pure.sf-product-card__link.sf-button {
+                max-width: unset !important;
+            }
+        }
+        a.sf-link.sf-button--pure.sf-product-card__link.sf-button {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 109px;
+        }
+        .sf-product-card {
+            @media (min-width: 768px) {
+                padding: 20px;
+            }
+            img.sf-product-card__image.lol {
+                width: 100%;
+                @media (max-width: 767px) {
+                    height: 173px;
+                    object-fit: fill;
+                }
+            }
+        }
+    }
+}
+
+section.sf-call-to-action.call-to-action {
+    @media (max-width: 1024px) {
+        margin-bottom: 65px;
+    }
+}
+
+.sf-input.sf-input--outline {
+    @media (max-width: 1024px) {
+        // display: none;
     }
 }

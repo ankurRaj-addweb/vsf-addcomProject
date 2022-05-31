@@ -5,7 +5,7 @@
       :class="{ 'header-on-top': isSearchOpen, currentCategory }"
     >
       <template #logo>
-        <HeaderLogo />
+        <HeaderLogo class="desktop-only" />
       </template>
 
       <!-- HeaderNavigation Section Start-->
@@ -85,9 +85,15 @@
       <!-- HeaderNavigation Section End-->
 
       <template #aside>
-        <div class="sf-header__switchers">
-          <CurrencySelector class="smartphone-only" />
-          <StoreSwitcher class="smartphone-only" />
+        <div class="smartphone-topheader">
+          <router-link to="default/help" class="smartphone-only help-faq">
+              {{ $t("Help & FAQs") }}
+          </router-link>
+          <HeaderLogo  class="smartphone-only" />
+          <div class="sf-header__switchers">
+            <CurrencySelector class="smartphone-only" />
+            <StoreSwitcher class="smartphone-only" />
+          </div>
         </div>
       </template>
       <template #header-icons="{ activeIcon }">
