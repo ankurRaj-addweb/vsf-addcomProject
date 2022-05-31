@@ -1,7 +1,7 @@
 <template>
   <div class="wishist">
     <!-- <div>{{ product }}</div> -->
-    <!-- <div v-if="products[0] ">{{ products[0].product.categories[0]}}</div> -->
+    <!-- <div v-if="products[0] ">{{ products[0]}}</div> -->
     <div class="sf-breadcrumbs__breadcrumb">
       <template>
         <router-link to="/default">
@@ -128,7 +128,7 @@
             "
             :show-add-to-cart-button="true"
             :is-added-to-cart="isInCart({ product :product.product})"
-            :colors=" product && product.product && product.product.configurable_options && product.product.configurable_options[0] && product.product.configurable_options[0].values ? colorArray(product.product.configurable_options[0].values, product) : []"
+            :colors=" product && product.product && product.product.configurable_options && product.product.configurable_options[0] && product.product.configurable_options[0].values ? colorArray(product.product.configurable_options[0].values) : []"
             :link="
               localePath(
                 `/p/${wishlistGetters.getItemSku(
@@ -263,7 +263,6 @@ import { useAddToCart } from "~/helpers/cart/addToCart";
 import {
   useWishlist,
   useUser,
-  useCart,
   wishlistGetters,
   productGetters,
 } from "@vue-storefront/magento";
@@ -271,7 +270,7 @@ import { useUiState, useImage } from "~/composables";
 import SvgImage from "~/components/General/SvgImage.vue";
 
 export default defineComponent({
-  name: "Wishlist",
+  name: "WishlistSidebar",
   components: {
     AwSidebar,
     AwButton,
@@ -290,7 +289,6 @@ export default defineComponent({
     SvgImage,
   },
   setup() {
-    const { addItem } = useCart();
     const {
       wishlist,
       removeItem,
@@ -298,6 +296,7 @@ export default defineComponent({
       loading,
     } = useWishlist("GlobalWishlist");
     const { isAuthenticated } = useUser();
+    console.log("VALUE", wishlist.value);
     const products = computed(() =>
       wishlistGetters.getProducts(wishlist.value)
     );
@@ -324,11 +323,10 @@ export default defineComponent({
       await removeItem({ product: product.product });
     };
 
-    const colorArray = (colors, product) => {
+    const colorArray = (colors) => {
       const colorsToReturn = []
       colors.forEach((color) => {
         const item = {
-          product,
           label: color.label,
           value: color.label,
           color: color.swatch_data.value,
@@ -336,6 +334,7 @@ export default defineComponent({
         }
         colorsToReturn.push(item)
       })
+      console.log(colorsToReturn)
       return colorsToReturn
     };
 
@@ -355,8 +354,6 @@ export default defineComponent({
       totalItems,
       addItemToCart,
       clear,
-      addItem,
-      
       wishlistGetters,
       wishlist,
       productGetters,

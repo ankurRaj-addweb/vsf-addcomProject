@@ -1,5 +1,4 @@
 <template>
-
   <AwSearchBar
     v-click-outside="closeSearch"
     :placeholder="$t('Search for items and promotions')"
@@ -118,7 +117,6 @@ export default defineComponent({
         isSearchOpen.value = false;
         emit('SearchBar:toggle', false);
         emit('SearchBar:result', {});
-        
         if (document) {
           document.body.classList.remove('no-scroll');
         }
@@ -163,7 +161,6 @@ export default defineComponent({
         categories: (categories?.value ?? [])
           .map((element) => categoryGetters.getCategoryTree(element)),
       };
-      console.log(result.value);
       let searchResultArray = []
       for (var i=0; i < result.value.products.length; i++) {
         // console.log(result.value.products[i].name)
@@ -179,7 +176,6 @@ export default defineComponent({
       console.log(searchResultArray)
       result.value.products = searchResultArray;
       emit('SearchBar:result', result.value);
-      emit('SearchBar:searchTerm', term.value);
     }, 1000);
 
     watch(route, () => {
