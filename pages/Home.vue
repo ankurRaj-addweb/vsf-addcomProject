@@ -1,7 +1,5 @@
 <template>
   <div id="home">
-    <!-- <p>{{productGetters}}</p> -->
-    <!-- <p>{{useProduct}}</p> -->
     <AwHero class="hero">
       <AwHeroItem
         v-for="(hero, i) in heroes"
@@ -306,7 +304,6 @@ export default defineComponent({
       newProducts,
       newProductsLoading,
       productGetters,
-      useProduct,
     };
   },
 });

@@ -88,10 +88,5 @@ export function getRoutes(themeDir = __dirname) {
     path: '/:slug+',
     component: path.resolve(themeDir, 'pages/Page.vue'),
   },
-  {
-    name: 'addToCompare',
-    path: '/addToCompare',
-    component: path.resolve(themeDir, 'pages/addToCompare.vue'),
-  },
   ];
 }
