@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <SfMegaMenu
       :visible="isSearchOpen"
       :title="$t('Search results')"
@@ -73,8 +73,8 @@
                   :max-rating="5"
                   :score-rating="productGetters.getAverageRating(product)"
                   :reviews-count="productGetters.getTotalReviews(product)"
-                  :image-width="imageSizes.productCard.width"
-                  :image-height="imageSizes.productCard.height"
+                  image-width="200px"
+                  image-height="50px"
                   :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
@@ -99,8 +99,8 @@
                           class="sf-product-card__picture"
                           :src="picture"
                           :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
+                          width="200px"
+                          height="50px"
                         />
                       </template>
                       <nuxt-img
@@ -108,8 +108,8 @@
                         class="sf-product-card__image lol"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
+                        width="200px"
+                          height="50px"
                       />
                     </SfButton>
                   </template>
@@ -125,8 +125,8 @@
                 :max-rating="5"
                 :score-rating="productGetters.getAverageRating(product)"
                 :reviews-count="productGetters.getTotalReviews(product)"
-                :image-width="imageSizes.productCardHorizontal.width"
-                :image-height="imageSizes.productCardHorizontal.height"
+                 width="200px"
+                          height="50px"
                 :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
@@ -151,8 +151,8 @@
                         class="sf-product-card__picture"
                         :src="picture"
                         :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
+                        width="200px"
+                          height="50px"
                       />
                     </template>
                     <nuxt-img
@@ -160,8 +160,8 @@
                       class="sf-product-card__image lol"
                       :src="imageSlotProps.image"
                       :alt="imageSlotProps.title"
-                      :width="imageSlotProps.imageWidth"
-                      :height="imageSlotProps.imageHeight"
+                      width="200px"
+                          height="50px"
                     />
                   </SfButton>
                 </template>
@@ -397,4 +397,6 @@ export default defineComponent({
     width: 100%;
   }
 }
+
+
 </style>

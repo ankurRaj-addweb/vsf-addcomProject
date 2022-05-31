@@ -1,5 +1,20 @@
 <template>
   <div>
+    <div
+      class="breadMain"
+    >
+      <div class="bread">
+        <router-link to="/default">
+          Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; Cart
+        </router-link>
+      </div>
+      <div>
+        <AwBreadcrumbs
+          class="breadcrumbs desktop-only"
+          :breadcrumbs="breadcrumbs"
+        />
+      </div>
+    </div>
     <transition name="sf-collapse-top" mode="out-in">
       <div class="notifications">
         <AwNotification
@@ -134,6 +149,10 @@
                     <!-- <a href="#" @click="getModSlug(cartGetters.getItemSku(product),cartGetters.getSlug(product)) "><u>Edit</u></a> -->
                     <a
                       href="#"
+                      ><u>Save for Later</u></a
+                    >
+                    <a
+                      href="#"
                       @click="
                         sendToRemove({ product });
                         editTextBox();
@@ -141,7 +160,10 @@
                       style="float: right"
                       ><u>Remove from cart</u></a
                     ><br />
-
+ <a
+                      href="#"
+                      ><u>Add to Compare</u></a
+                    ><br />
                     <div>
                       <p>
                         Usually arrives in 5-13 business days. A shipping
@@ -160,8 +182,8 @@
                 src="/icons/cart.png"
                 class="before-results__picture"
                 alt="cart"
-                width="250"
-                height="180"
+                width="350"
+                height="280"
               />
               <AwHeading
                 title="Your cart is empty"
@@ -173,13 +195,19 @@
                   )
                 "
               />
+              <AwButton
+                class="sf-button--full-width check"
+                @click="goToShopping"
+              >
+                {{ $t(" Start Shopping") }}
+              </AwButton>
             </div>
           </div>
         </transition>
       </AwLoader>
 
       <template>
-        <div>
+        <div class="box">
           <div class="highlighted">
             <AwHeading
               :level="3"
@@ -224,6 +252,7 @@
               </AwButton>
             </a>
             <AwButton
+            style="margin-bottom:20px"
               class="sf-button--full-width color-secondary"
               @click="goToShopping"
             >
@@ -231,7 +260,8 @@
             </AwButton>
             <a
               href="#"
-              style="margin-left: 77px"
+              class="mmssgg"
+               
               @click="
                 sendToMsg();
                 editTextBox();
@@ -247,7 +277,7 @@
                 height="20"
                 class="mail__image"
               />
-              <a href="#"> <u>send my basket to email</u></a>
+              <a href="#" > <u>send my basket to email</u></a>
             </div>
             <div class="list">
               <p>Helpful information:</p>
@@ -269,6 +299,9 @@
 
 <script>
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+import AwBreadcrumbs from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwBreadcrumbs/AwBreadcrumbs.vue";
+
+import LazyHydrate from "vue-lazy-hydration";
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 import AwNotification from "@storefront-ui/root/packages/vue/src/components/molecules/AwNotification/AwNotification.vue";
 import AwSidebar from "@storefront-ui/root/packages/vue/src/components/organisms/AwSidebar/AwSidebar.vue";
@@ -309,6 +342,8 @@ export default defineComponent({
     AwCharacteristic,
     AwIcon,
     AwLoader,
+    LazyHydrate,
+    AwBreadcrumbs,
     AwNotification,
     AwSidebar,
     AwButton,
@@ -378,13 +413,13 @@ export default defineComponent({
       }
     });
 
-    const clear = async() => {
+    const clear = async () => {
       visible.value = true;
-     await products.value.forEach(async(item) => {
-      await  actionRemoveItem(item);
+      await products.value.forEach(async (item) => {
+        await actionRemoveItem(item);
       });
-       products.value=[];
-      console.log(products.value.length)
+      products.value = [];
+      console.log(products.value.length);
     };
 
     const goToCheckout = async () => {
@@ -487,26 +522,14 @@ export default defineComponent({
     padding-bottom: var(--spacer-xl);
   }
 }
-.mail {
-  // text-align: center;
-  margin-left: 65px;
-  margin-top: 20px;
-  padding: 0.5rem;
-  height: 18px;
-  display: flex;
-}
+
 .total-items {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacer-xl);
 }
-.list {
-  width: 400px;
-  height: 146px;
-  font-weight: 70;
-  // padding: 1em;
-}
+
 
 .property {
   margin-bottom: var(--spacer-base);
