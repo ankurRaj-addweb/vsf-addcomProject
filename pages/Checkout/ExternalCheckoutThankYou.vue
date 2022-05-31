@@ -9,7 +9,7 @@
         desktop: '/thankyou/bannerD.png',
       }"
     >
-      <template #description>
+      <template>
         <div class="banner__order-number">
           <span>{{ $t('Order No.') }}</span>
           <strong>{{ orderNumber }}</strong>

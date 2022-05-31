@@ -438,13 +438,14 @@ export default defineComponent({
 }
 
 .call-to-action {
-  width: 1240px;
-
+  max-width: 1240px;
+  width: 92%;
+  margin: 8px auto;
   position: absolute;
   background-position: right;
-  margin: var(--spacer-xs) 0;
   @include for-desktop {
     margin: var(--spacer-l) 0 var(--spacer-2xl) 0;
+    width: 99%;
   }
 
 }

@@ -1,7 +1,18 @@
 <template>
-  <div>
-    <div class="highlighted">
-      <SfHeading
+
+  <div class="mainClas">
+
+    <div  class="highlighted" v-if="route.fullPath === '/default/checkout/payment'">
+      <h1>Order Review </h1>
+      <div class="highlighted" >
+       <!-- <billing/>  -->
+            <!-- <UserBillingAddresses/> -->
+            <!-- <UserAddressDetails/> -->
+      </div>
+       </div>
+
+    <div class="highlighted" v-if="route.fullPath !== '/default/checkout/payment'">
+      <AwHeading
         :level="3"
         :title="$t('Order summary')"
         class="sf-heading--left sf-heading--no-underline title"
@@ -118,15 +129,23 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.mainClas {
+  margin-top: 45px; 
+  margin-right: 40px;
+}
+
 .highlighted {
   box-sizing: border-box;
   width: 100%;
+  
+  
   background-color: var(--c-light);
   padding: var(--spacer-xl) var(--spacer-xl) 0;
 
   &:last-child {
     padding-bottom: var(--spacer-xl);
+        margin-top: 29px;
   }
 }
 
@@ -154,5 +173,9 @@ export default defineComponent({
   &:not(:last-child) {
     margin-bottom: var(--spacer-base);
   }
+}
+.highlighted:last-child {
+    // padding-bottom: var(--spacer-xl);
+    margin-top: 0px;
 }
 </style>

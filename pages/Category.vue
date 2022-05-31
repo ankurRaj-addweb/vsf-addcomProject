@@ -898,11 +898,11 @@
               name="filter__price"
               @change="() => selectFilter(facet, option)"
             />
-            <!-- <h2>{{ facet.options[0].attrName }}</h2>
+            <h2>{{ facet.options[0].attrName }}</h2>
                <h2>{{ facet.options[1].attrName }}</h2>
               <h2>{{ facet.options[2].attrName }}</h2>
               <h2>{{ facet.options[3].attrName }}</h2>
-              <h2>{{ facet.options[4].attrName }}</h2>  -->
+              <h2>{{ facet.options[4].attrName }}</h2> 
 
 
           </div>
@@ -1056,7 +1056,7 @@ export default defineComponent({
     AwFilter,
     AwRadio,
     // AwProductCard,
-    AwProductCardQuantitySelector,
+     AwProductCardQuantitySelector,
     AwProductCardHorizontal,
     AwPagination,
     AwAccordion,

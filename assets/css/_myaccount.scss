@@ -1,4 +1,4 @@
-.sf-menu-item__label{
+.sf-menu-item__label {
     color: var(--menu-item-label-color, var(--c-dark-variant));
     text-align: left;
     font-family: 'Source Sans Pro';
@@ -7,4 +7,12 @@
     font-size: 20px;
     line-height: 26px;
     // color: #3C3C3C;
+}
+
+#my-account {
+    section.sf-content-pages__section.is-active {
+        .main.section {
+            padding-top: 40px;
+        }
+    }
 }

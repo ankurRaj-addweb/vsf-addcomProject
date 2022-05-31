@@ -70,14 +70,14 @@ export default defineComponent({
   margin-bottom: 1rem;
   &__content {
     margin-left: 5px;
-    display: flex;
+    
+     display: flex;
   }
 }
 </style>
 <style lang="scss">
 .sf-product-card__wishlist-icon {
-      --icon-color: red;
-      // background-color: red;
+    
       --icon-border: 1px !important;
 
       --icon-border-color:  black !important; 
