@@ -1,8 +1,7 @@
 <template>
-
+<div class="fullBar">
   <AwSearchBar
     v-click-outside="closeSearch"
-    :placeholder="$t('Search for items and promotions')"
     aria-label="Search"
     class="sf-header__search"
     :value="term"
@@ -49,6 +48,7 @@
       </AwButton>
     </template>
   </AwSearchBar>
+  </div>
 </template>
 
 <script>
@@ -166,12 +166,14 @@ export default defineComponent({
       console.log(result.value);
       let searchResultArray = []
       for (var i=0; i < result.value.products.length; i++) {
+        // console.log(result.value.products[i].name)
         var match_var = RegExp(term.value, "ig");
         if (result.value.products[i].name.match(match_var)!==null){
          console.log(result.value.products[i].name.match(term.value))
          searchResultArray.push(result.value.products[i]);
         }
       } 
+      // console.log(result.value);
       console.log('productstest')
       console.log(result.value.products);
       console.log(searchResultArray)
@@ -205,11 +207,9 @@ export default defineComponent({
   right: 20px;
   bottom: 0;
 }
-
 .sf-header__search
 {
-height: 2px;
-width:274px;
-
+  color:#3C3C3C;
+  border-bottom: 274px ;
 }
 </style>
