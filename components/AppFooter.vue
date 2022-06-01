@@ -7,7 +7,7 @@
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Departments')" class="desktop-only department" >
+    <AwFooterColumn :title="$t('Departments')"  >
       <AwList>
         <AwListItem v-for="item in departments" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
@@ -56,7 +56,7 @@
         <span style="margin-top:20px;">English</span>
       </AwButton>
     </AwFooterColumn>
-    <AwFooterColumn class="desktop-only">
+    <AwFooterColumn >
       <div class="footer__subscribe">
         <AwInput
           class="sf-input--outline text_to"
