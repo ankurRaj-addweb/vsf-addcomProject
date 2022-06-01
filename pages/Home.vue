@@ -30,33 +30,32 @@
         </AwButton>
       </template>
     </AwHero>
-<template>
-<popular-categories/>
-</template>
-    
-    <LazyHydrate when-visible>
-      <AwBannerGrid :banner-grid="1" class="banner-grid">
-        <template v-for="item in banners" #[item.slot]>
-          <AwBanner
-            :key="item.slot"
-            :title="item.title"
-            :subtitle="item.subtitle"
-            :description="item.description"
-            :button-text="item.buttonText"
-            :image="item.image"
-            :class="item.class"
-          /> 
-        </template>
-      </AwBannerGrid>
-    </LazyHydrate>
+  <template>
+   <popular-categories/>
+  </template> 
+  <LazyHydrate when-visible>
+    <AwBannerGrid :banner-grid="1" class="banner-grid">
+      <template v-for="item in banners" #[item.slot]>
+        <AwBanner
+        :key="item.slot"
+        :title="item.title"
+        :subtitle="item.subtitle"
+        :description="item.description"
+        :button-text="item.buttonText"
+        :image="item.image"
+        :class="item.class"
+        />
+      </template>
+  </AwBannerGrid>
+  </LazyHydrate>
     <LazyHydrate when-visible>
       <ProductsCarousel
         :products="newProducts"
         :loading="newProductsLoading"
         :title="$t('Match it with')"
+        class="match_with"
       />
     </LazyHydrate>
-
     <LazyHydrate when-visible>
         <AwCallToAction
           :title="$t('Subscribe to Newsletters')"
@@ -72,76 +71,68 @@
         />
     </LazyHydrate>
     <template>
-
-  <AwInput
-  v-if="!isAuthenticated"
-    value=""
-    name="email"
-    placeholder="Your Email"
-    type="text"
-    class="sf-input--outline"
-    style="
+      <AwInput
+        v-if="!isAuthenticated"
+          value=""
+          name="email"
+          placeholder="Your Email"
+          type="text"
+          class="sf-input--outline"
+          style="
             position: relative;
             width: 300px;
             top: 0%;
-            height:53px;
+            height:51px;
             font-size: 12px;
             color: #43464e;
             background-color: white;
             margin-left: 710px; 
-            margin-top: 235px;
+            margin-top: 236px;
             margin-bottom: 150px;
           "
-  />
-</template>
-<div class="login"
-v-if="isAuthenticated">
-
-    <LazyHydrate when-visible>
-      <InstagramFeed />
-    </LazyHydrate>
-</div>
-<div
-v-if="!isAuthenticated">
-
-    <LazyHydrate when-visible>
-      <InstagramFeed />
-    </LazyHydrate>
-</div>
-    <LazyHydrate when-visible>
-      <MobileStoreBanner />
-    </LazyHydrate>
-
-    
-  </div>
+      />
+    </template>
+    <div class="login" v-if="isAuthenticated">
+      <LazyHydrate when-visible>
+        <InstagramFeed />
+      </LazyHydrate>
+    </div>
+    <div v-if="!isAuthenticated">
+      <LazyHydrate when-visible>
+        <InstagramFeed />
+      </LazyHydrate>
+    </div>
+      <LazyHydrate when-visible>
+        <MobileStoreBanner />
+      </LazyHydrate> 
+    </div>
 </template>
 <script type="module">
-
-import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
-import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
-import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue"
-import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
-import PopularCategories from '../components/PopularCategories.vue';
-import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
-import { onSSR } from "@vue-storefront/core";
-import LazyHydrate from "vue-lazy-hydration";
-import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
-import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
-import InstagramFeed from "~/components/InstagramFeed.vue";
-import ProductsCarousel from "~/components/ProductsCarousel.vue";
-import SvgImage from "~/components/General/SvgImage.vue";
-import {
-  computed,
-  defineComponent,
-  ref,
-  useContext,
-} from "@nuxtjs/composition-api";
-import {
-useProduct,
-productGetters,
-useUser
-} from '@vue-storefront/magento';
+  import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
+  import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
+  import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue"
+  import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+  import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
+  import PopularCategories from '../components/PopularCategories.vue';
+  import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
+  import { onSSR } from "@vue-storefront/core";
+  import LazyHydrate from "vue-lazy-hydration";
+  import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
+  import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
+  import InstagramFeed from "~/components/InstagramFeed.vue";
+  import ProductsCarousel from "~/components/ProductsCarousel.vue";
+  import SvgImage from "~/components/General/SvgImage.vue";
+  import {
+    computed,
+    defineComponent,
+    ref,
+    useContext,
+  } from "@nuxtjs/composition-api";
+  import {
+  useProduct,
+  productGetters,
+  useUser
+  } from '@vue-storefront/magento';
 
 export default defineComponent({
   name: "HomePage",
@@ -184,7 +175,7 @@ export default defineComponent({
           desktop:
             require('../static/homepage/hero.png'),
         },
-        link: "/c/women/women-clothing-shirts",
+        link: "/default",
       },
       {
         title: app.i18n.t("Colorful summer dresses are already in store"),
@@ -247,7 +238,7 @@ export default defineComponent({
           desktop:
              require('../static/homepage/2.jpg'),
         },
-        class: "sf-banner--slim banner-central desktop-only",
+        class: "sf-banner--slim banner-central desktop-only Slot_b",
         link: "/c/women/women-clothing-dresses",
       },
       {

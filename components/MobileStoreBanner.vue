@@ -3,7 +3,7 @@
     image="/homepage/bannerD.png"
     :subtitle="$t('Fashion to take away')"
     :title="$t('Download our application to your mobile')"
-    class="sf-banner--left desktop-only banner-app"
+    class="sf-banner--left desktop-only banner-app part_two"
   >
     <template #call-to-action>
       <div class="banner-app__call-to-action">
@@ -97,15 +97,3 @@ export default defineComponent({
 
 </style>
 
-<style lang=scss scoped>
-.sf-banner__title{
-  width: 400px;
-  font-family: Source Sans Pro;
-  font-size: 36px;
-  font-weight: 600, semi bold;
-  line-height: 48px;
-  letter-spacing: 0px;
-  text-align: left;
-  
-}
-</style>

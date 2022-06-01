@@ -8,6 +8,13 @@
         line-height: 22px;
         color: #3C3C3C;
     }
+    .sf-banner__title{
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 48px;
+    }
 }
 
 .sf-banner-grid__col.sf-banner-grid__col--medium {
@@ -86,23 +93,5 @@ section.sf-section.section {
                 }
             }
         }
-    }
-}
-
-section.sf-call-to-action.call-to-action {
-    @media (max-width: 1024px) {
-        margin-bottom: 65px;
-    }
-}
-
-section.sf-section.title {
-    @media (max-width: 1024px) {
-        margin-top: 320px;
-    }
-}
-
-.sf-input.sf-input--outline {
-    @media (max-width: 1024px) {
-        display: none;
     }
 }
