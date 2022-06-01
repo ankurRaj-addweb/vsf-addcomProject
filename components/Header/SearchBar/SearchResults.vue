@@ -6,6 +6,7 @@
       :title="$t('Search results')"
       class="search"
     >
+
       <transition name="sf-fade" mode="out-in">
         <div
           v-if="products && products.length > 0"
@@ -34,7 +35,7 @@
                 </AwMenuItem>
               </AwListItem>
             </AwList>
-            <AwList v-if=" result && result.products">
+            <!-- <AwList v-if=" result && result.products">
               <AwListItem v-for="(product, index) in result.products" :key="index">
                 <AwMenuItem
                 v-for="(category,i) in product.categories"
@@ -45,8 +46,8 @@
                   <template #mobile-nav-icon> &#8203; </template>
                 </AwMenuItem>
               </AwListItem>
-            </AwList>
-            
+            </AwList> -->
+            <category-sidebar-menu />
           </AwMegaMenuColumn>
           <AwMegaMenuColumn
             :title="$t('Product suggestions')"
@@ -349,7 +350,7 @@ import { productGetters, useUser, useWishlist,useExternalCheckout, categoryGette
 import { useUiHelpers, useImage } from '~/composables';
 import { keyboardImplementationWrapper } from '@testing-library/user-event/dist/keyboard';
 import category from '~/tests/e2e/pages/category';
-
+import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 export default defineComponent({
   name: 'SearchResults',
   components: {
@@ -361,6 +362,7 @@ export default defineComponent({
     AwButton,
     AwMenuItem,
     SfList,
+    CategorySidebarMenu,
     AwScrollable,
     SfProductCard,
     AwProductCard,
@@ -582,4 +584,8 @@ export default defineComponent({
     color: #000000;
   }
 }
+// .sf-button--pure.sf-accordion-item__header.sf-button {
+//     display: unset !important;
+ 
+// }
 </style>
