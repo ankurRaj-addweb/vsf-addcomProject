@@ -1,4 +1,7 @@
 .seeResult {
+    .sf-button--pure.sf-accordion-item__header.sf-button {
+        display: unset !important;
+    }
     box-sizing: border-box;
     span.sf-menu-item__label {
         font-size: 16px !important;
