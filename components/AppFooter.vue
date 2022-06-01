@@ -7,28 +7,28 @@
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Departments')" class="desktop-only" >
+    <AwFooterColumn :title="$t('Departments')"  >
       <AwList>
         <AwListItem v-for="item in departments" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Help')" class="desktop-only">
+    <AwFooterColumn :title="$t('Help')" >
       <AwList>
         <AwListItem v-for="item in help" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" @click="handleClickOnHelp(item)"/>
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Payment & Delivery')" class="desktop-only">
+    <AwFooterColumn :title="$t('Payment & Delivery')" >
       <AwList>
         <AwListItem v-for="item in paymentsDelivery" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn title="Social" class="desktop-only">
+    <AwFooterColumn title="Social" >
       <div class="footer__socials">
         <AwImage
           v-for="item in social"
@@ -41,7 +41,7 @@
         />
       </div>
     </AwFooterColumn>
-    <AwFooterColumn title="Language" class="desktop-only">
+    <AwFooterColumn title="Language" >
       <AwButton
         class="sf-button--pure"
         style="display: flex; align-self: end; color: white; margin-top: 15px"
@@ -56,7 +56,7 @@
         English
       </AwButton>
     </AwFooterColumn>
-    <AwFooterColumn class="desktop-only">
+    <AwFooterColumn >
       <div class="footer__subscribe">
         <AwInput
           class="sf-input--outline"
