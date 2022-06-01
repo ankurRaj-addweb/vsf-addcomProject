@@ -63,7 +63,7 @@
           type="text"
           placeholder="Type your email address"
         />
-        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px">
+        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px; height: 32px; ">
           Subscribe
         </AwButton>
       </div>

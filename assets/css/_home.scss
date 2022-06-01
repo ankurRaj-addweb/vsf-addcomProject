@@ -95,3 +95,52 @@ section.sf-section.section {
         }
     }
 }
+
+
+button.sf-hero-item__button.sf-button, button.sf-banner__call-to-action.color-secondary.sf-button, button.sf-call-to-action__button.sf-button, .footer__subscribe button.sf-button, button.sf-button--full-width.form__button.sf-button, button.action-button.sf-button, button.form__button, button.no-orders__button.sf-button {
+    background: #037EE6;
+    width: 168px;
+    height: 50px;
+}
+.sf-call-to-action__title {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+}
+.carousel .sf-arrow[data-v-bdde9382] {
+    --button-color: #282828;
+    width: 70px;
+    height: 40px;
+    background: #F9F9F9;
+    &:hover{
+        background: #282828;
+    }
+}
+
+element.style {
+}
+section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
+    color: rgb(40, 40, 40);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+}
+.sf-banner__wrapper-desktop .sf-banner__title {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 48px;
+}
