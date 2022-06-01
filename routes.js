@@ -21,7 +21,11 @@ export function getRoutes(themeDir = __dirname) {
     path: '/cart',
     component: path.resolve(themeDir, 'pages/Cart.vue'),
   },
-
+  {
+    name: 'search',
+    path: '/search',
+    component: path.resolve(themeDir, 'pages/SearchFullBar.vue'),
+  },
   {
     name: 'category',
     path: '/c/:slug_1/:slug_2?/:slug_3?/:slug_4?/:slug_5?',

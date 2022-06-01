@@ -52,39 +52,46 @@ export default {
 };
 </script>
 
-<style scoped>
 
-*{
-  box-sizing: border-box;
-}
-.outer {
-  width: 100%;
-}
 
-h1 {
-  /* outline: dotted; */
-  text-align: center;
-  left: 42.1%;
-  right: 42.1%;
-  top: 0%;
-  bottom: 84.24%;
-  /* font-family: 'Source Sans Pro'; */
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px; 
+<style lang="scss" scoped>
 
-  /* display: flex; */
-  color: #282828
+  *{
+    box-sizing: border-box;
+  }
+  .outer {
+    width: 100%;
+    .main {
+      @media screen and (max-width: 1024px) {
+          overflow: scroll;
+      }
 }
+  }
 
-.main {
-  display: flex
-}
+  h1 {
+    /* outline: dotted; */
+    text-align: center;
+    left: 42.1%;
+    right: 42.1%;
+    top: 0%;
+    bottom: 84.24%;
+    /* font-family: 'Source Sans Pro'; */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px; 
 
-.first {
-  margin: 0.8rem;
-}
+   /* display: flex; */
+    color: #282828
+  }
+
+  .main {
+    display: flex
+  }
+
+  .first {
+    margin: 0.8rem;
+  }
 
 </style>
 

@@ -385,7 +385,9 @@ export default defineComponent({
 
 .banner-grid {
   --banner-container-width: 50%;
-  margin: var(--spacer-xl) 0;
+  @include for-desktop {
+     margin: var(--spacer-xl) 0;
+  }
 
   ::v-deep .sf-link:hover {
     color: var(--c-white);
