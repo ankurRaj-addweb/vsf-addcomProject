@@ -1,6 +1,5 @@
 <template>
   <div class="wishist searchFull">
-  
     <AwMegaMenu
       :visible="isSearchOpen"
       :title="$t('Search results' )"
@@ -317,10 +316,6 @@
       </div>
       
     </AwMegaMenu>
-      
-  
-          
-          <!-- </div> -->
   </div>
   
 </template>
