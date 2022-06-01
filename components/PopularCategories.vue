@@ -1,40 +1,43 @@
 <template>
   <div class="outer">
-    <h1>Popular Categories</h1>
-  <div class="main">
-    <div class="popular">   
-      <AwCategoryCard class="first"
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      /> 
+    <h1 style="margin-top:80px; margin-bottom:40px; font-family: 'Source Sans Pro';
+      font-style: normal;font-weight: 600;font-size: 24px;line-height: 32px;">
+      Popular Categories
+    </h1>
+    <div class="main">
+      <div class="popular">   
+        <AwCategoryCard class="first"
+          label="Personal Care" 
+          count="32"
+          :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+          link="#"
+        /> 
+      </div>
+      <div class="popular">   
+        <AwCategoryCard class="first"
+          label="Personal Care" 
+          count="32"
+          :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+          link="#"
+        /> 
+      </div>
+      <div class="popular">   
+        <AwCategoryCard class="first"
+          label="Personal Care" 
+          count="32"
+          :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+          link="#"
+        /> 
+      </div>
+      <div class="popular">   
+        <AwCategoryCard class="first"
+          label="Personal Care" 
+          count="32"
+          :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
+          link="#"
+        /> 
+      </div>
     </div>
-    <div class="popular">   
-      <AwCategoryCard class="first"
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      /> 
-    </div>
-    <div class="popular">   
-      <AwCategoryCard class="first"
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      /> 
-    </div>
-    <div class="popular">   
-      <AwCategoryCard class="first"
-        label="Personal Care" 
-        count="32"
-        :background='{"mobile":require("../static/homepage/two-business-partners-working-office 2.png"),"desktop":require("../static/homepage/two-business-partners-working-office 2.png")}'
-        link="#"
-      /> 
-    </div>
-  </div>
   </div>
 </template>
 
@@ -49,42 +52,39 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
 
-  *{
-    box-sizing: border-box;
-  }
-  .outer {
-    width: 100%;
-  }
+*{
+  box-sizing: border-box;
+}
+.outer {
+  width: 100%;
+}
 
-  h1 {
-    /* outline: dotted; */
-    text-align: center;
-    left: 42.1%;
-    right: 42.1%;
-    top: 0%;
-    bottom: 84.24%;
-    /* font-family: 'Source Sans Pro'; */
-    font-style: normal;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px; 
+h1 {
+  /* outline: dotted; */
+  text-align: center;
+  left: 42.1%;
+  right: 42.1%;
+  top: 0%;
+  bottom: 84.24%;
+  /* font-family: 'Source Sans Pro'; */
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px; 
 
-   /* display: flex; */
-    color: #282828
-  }
+  /* display: flex; */
+  color: #282828
+}
 
-  .main {
-    display: flex
-  }
+.main {
+  display: flex
+}
 
-  .first {
-    margin: 0.8rem;
-  }
-
+.first {
+  margin: 0.8rem;
+}
 
 </style>
 

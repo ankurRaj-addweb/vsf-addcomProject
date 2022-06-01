@@ -1,5 +1,5 @@
 <template>
-  <AwFooter :column="4" multiple class="footer" >
+  <AwFooter :column="4" multiple class="footer foo" >
     <AwFooterColumn :title="$t('About us')">
       <AwList>
         <AwListItem v-for="item in aboutUs" :key="item" :style="{'--list-item-margin':'15px 0'}">
@@ -7,28 +7,28 @@
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Departments')" class="desktop-only" >
+    <AwFooterColumn :title="$t('Departments')" class="desktop-only department" >
       <AwList>
         <AwListItem v-for="item in departments" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Help')" class="desktop-only">
+    <AwFooterColumn :title="$t('Help')" class="desktop-only help">
       <AwList>
         <AwListItem v-for="item in help" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" @click="handleClickOnHelp(item)"/>
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Payment & Delivery')" class="desktop-only">
+    <AwFooterColumn :title="$t('Payment & Delivery')" class="desktop-only payment_delivery">
       <AwList>
         <AwListItem v-for="item in paymentsDelivery" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn title="Social" class="desktop-only">
+    <AwFooterColumn title="Social" class="desktop-only social">
       <div class="footer__socials">
         <AwImage
           v-for="item in social"
@@ -41,37 +41,31 @@
         />
       </div>
     </AwFooterColumn>
-    <AwFooterColumn title="Language" class="desktop-only">
+    <AwFooterColumn title="Language" class="desktop-only language">
       <AwButton
         class="sf-button--pure"
-        style="display: flex; align-self: end; color: white; margin-top: 15px"
+        style="display: flex; align-self: end; color: white; margin-top: 22px"
       >
         <AwImage
           :src="addBasePath('/icons/english.svg')"
           alt="flag of the USA"
           :width="20"
           :height="20"
-          style="margin-right: 10px"
+          style="margin-right: 10px; margin-top:20px;"
         />
-        English
+        <span style="margin-top:20px;">English</span>
       </AwButton>
     </AwFooterColumn>
     <AwFooterColumn class="desktop-only">
       <div class="footer__subscribe">
         <AwInput
-          class="sf-input--outline"
+          class="sf-input--outline text_to"
           type="text"
           placeholder="Type your email address"
-          style="
-            width: 242px;
-            min-height: auto;
-            font-size: 12px;
-            color: #43464e;
-            background-color: #f1f2f3;
-            --input-border-color: #f1f2f3;
-          "
         />
-        <AwButton style="width: 116px; font-size: 12px">Subscribe</AwButton>
+        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px">
+          Subscribe
+        </AwButton>
       </div>
     </AwFooterColumn>
   </AwFooter>

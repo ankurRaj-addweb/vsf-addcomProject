@@ -2,7 +2,7 @@
   <AwSection
     :title-heading="$t('Share Your Look')"
     subtitle-heading="#YOURLOOK"
-    class="title"
+    class="title font_change"
   >
     <div class="grid grid-images">
 
@@ -220,5 +220,12 @@ export default defineComponent({
   color: #FFFFFF;
   font-size: 16px;
   padding: 16px 32px;
+}
+.font_change{
+  font-family: 'Source Sans Pro';
+font-style: normal;
+font-weight: 600;
+font-size: 24px;
+line-height: 32px;
 }
 </style>

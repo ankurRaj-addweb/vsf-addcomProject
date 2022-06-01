@@ -382,29 +382,29 @@
                     :title="productGetters.getName(product)"
                     :description="productGetters.getDescription(product)"
                     :image="
-                getMagentoImage(
-                  productGetters.getProductThumbnailImage(product)
-                )
-              "
+                      getMagentoImage(
+                        productGetters.getProductThumbnailImage(product)
+                      )
+                    "
                     :image-width="imageSizes.productCardHorizontal.width"
                     :image-height="imageSizes.productCardHorizontal.height"
                     :regular-price="$fc(productGetters.getPrice(product).regular)"
                     :special-price="
-                productGetters.getPrice(product).special &&
-                $fc(productGetters.getPrice(product).special)
-              "
+                      productGetters.getPrice(product).special &&
+                      $fc(productGetters.getPrice(product).special)
+                    "
                     :score-rating="productGetters.getAverageRating(product)"
                     :reviews-count="productGetters.getTotalReviews(product)"
                     :is-in-wishlist="isInWishlist({ product })"
                     :is-in-wishlist-icon="isAuthenticated ? '' : ''"
                     :wishlist-icon="isAuthenticated ? '' : ''"
                     :link="
-                localePath(
-                  `/p/${productGetters.getProductSku(
-                    product
-                  )}${productGetters.getSlug(product, product.categories[0])}`
-                )
-              "
+                      localePath(
+                        `/p/${productGetters.getProductSku(
+                          product
+                        )}${productGetters.getSlug(product, product.categories[0])}`
+                      )
+                    "
                     @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
                     @click:wishlist="addItemToWishlist(product)"
                   >
@@ -435,12 +435,21 @@
                         </AwLink>
                     </template>
                     <template #configuration>
-
-                      <AwProperty
+                      <AwSelect>
+                        <AwSelectOption
+                          v-for="(product, i) in products"
+                          :key="productGetters.getSlug(product)"
+                          class="desktop-only"
+                          :title="productGetters.getName(product)"
+                        >
+                          {{productGetters.getName(product)}}
+                        </AwSelectOption>
+                      </AwSelect>
+                      <!-- <AwProperty
                         class="desktop-only"
                         name="Size"
                         value="XS"
-                      />
+                      /> -->
                       <AwProperty
                         class="desktop-only"
                         name="Color"

@@ -8,6 +8,13 @@
         line-height: 22px;
         color: #3C3C3C;
     }
+    .sf-banner__title{
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 48px;
+    }
 }
 
 .sf-banner-grid__col.sf-banner-grid__col--medium,
@@ -26,4 +33,75 @@ section.sf-section.section {
             padding: 20px;
         }
     }
+}
+
+.carousel .sf-arrow[data-v-bdde9382] {
+    background-color: #F9F9F9;
+    &:hover{
+        background-color:#282828;
+    }
+}
+.sf-heading__title h2{
+    margin-top: 20px;
+}   
+.sf-hero-item__button{
+    width: 168px;
+    background: rgb(3, 126, 230);
+    height: 50px;
+}
+.sf-call-to-action__button{
+    width: 168px;
+    height: 50px;
+}
+.sf-call-to-action__title{
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+}
+
+button.sf-hero-item__button.sf-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sf-banner__subtitle{
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+}
+.sf-banner__wrapper-desktop .sf-banner__title {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 48px;
+}
+.sf-banner__description {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    width: 240px;
+    height: 220px;
+}
+span.sf-banner__description .Slot_b {
+    top: 31.97%;
+    bottom: 45.45%;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    width: 337px;
+    height: 149px;
 }

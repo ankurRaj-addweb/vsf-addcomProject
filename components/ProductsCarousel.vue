@@ -1,6 +1,7 @@
 <template>
   <AwSection :title-heading="title" class="section">
     <AwLoader :class="{ loading }" :loading="loading">
+    
       <AwCarousel
         data-cy="related-products-carousel"
         :settings="{ peek: 16, breakpoints: { 103: { peek: 0, perView: 2 } } }"
@@ -12,6 +13,9 @@
           class="carousel__item"
         >
           <AwProductCard
+            wishlistIcon="heart"
+            badgeColor=""
+            :colors='[{"label":"Sand","value":"sand","color":"#EDCBB9","selected":false},{"label":"Mint","value":"mint","color":"#ABD9D8","selected":false},{"label":"Vivid rose","value":"vivid rose","color":"#DB5593","selected":false},{"label":"Peach","value":"peach","color":"#F59F93","selected":false},{"label":"Citrus","value":"citrus","color":"#FFEE97","selected":false}]'
             :title="productGetters.getName(product)"
             :image-width="imageSizes.productCard.width"
             :image-height="imageSizes.productCard.height"
@@ -61,7 +65,7 @@
                 </template>
                 <nuxt-img
                   v-else
-                  class="sf-product-card__image lol"
+                  class="sf-product-card__image"
                   :src="imageSlotProps.image"
                   :alt="imageSlotProps.title"
                   :width="imageSlotProps.imageWidth"
