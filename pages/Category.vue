@@ -1,7 +1,6 @@
 <template>
   <div id="category">
-    <!-- <p>{{routeData}}</p> -->
-    <!-- <p>{{ breadcrumbs }}</p> -->
+  
 
     <div
       class="sf-breadcrumbs__breadcrumb"
@@ -271,6 +270,21 @@
           </LazyHydrate>
         </div>
       </div>
+    </div>
+
+    <div class="main section">
+     
+      <div class="sidebar desktop-only">
+        <SfLoader
+          :class="{ loading: isCategoriesLoading }"
+          :loading="isCategoriesLoading"
+        >
+          <LazyHydrate when-visible>
+            <category-sidebar-menu
+              :no-fetch="true"
+            />
+          </LazyHydrate>
+        </SfLoader>
       </div>
 
       <div class="main section">
@@ -627,6 +641,7 @@
           </AwSidebar>
       </LazyHydrate>
       </div>
+  </div>
 </template>
 
 <script>
@@ -639,7 +654,6 @@ import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwBu
 import AwSidebar from "@storefront-ui/root/packages/vue/src/components/organisms/AwSidebar/AwSidebar.vue";
 import AwFilter from "@storefront-ui/root/packages/vue/src/components/molecules/AwFilter/AwFilter.vue";
 import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
-// import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
 import AwProductCardHorizontal from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCardHorizontal/AwProductCardHorizontal.vue";
 import AwPagination from "@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
 import AwAccordion from "@storefront-ui/root/packages/vue/src/components/organisms/AwAccordion/AwAccordion.vue";
@@ -686,7 +700,6 @@ export default defineComponent({
     AwSidebar,
     AwFilter,
     AwRadio,
-    // AwProductCard,
      AwProductCardQuantitySelector,
     AwProductCardHorizontal,
     AwPagination,
@@ -961,7 +974,6 @@ export default defineComponent({
       show_nav,
       router,
       route,
-      // breadUrl,
     };
   },
 });
