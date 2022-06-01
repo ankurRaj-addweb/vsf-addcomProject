@@ -22,7 +22,7 @@
   />
   <div
     class="navbar section"
-    v-if="Object.keys($route.query).length==0"
+    v-if=" Object.keys($route.query).length==0 || ($route.query.itemsPerPage && Object.keys($route.query).length==1) "
   >
     <div class="navbar__aside desktop-only">
       <LazyHydrate never>
@@ -108,7 +108,7 @@
 
     <div
       class="navbar section"
-      v-if="Object.keys($route.query).length!=0"
+      v-if="$route.query.itemsPerPage? (Object.keys($route.query).length>1?true:false) : (Object.keys($route.query).length!=0?true:false) "
     >
       <div class="navbar__aside desktop-only">
         <LazyHydrate never>
@@ -471,10 +471,10 @@
                         />
                       </LazyHydrate>
 
-                      <div v-show="pagination.totalPages > 1"
+                      <div
                         class="products__show-on-page"
                       >
-                        <span class="products__show-on-page__label">{{ $t("Show") }}
+                        <span class="products__show-on-page__label">{{ $t("Show on page") }}
                         </span>
                         <LazyHydrate on-interaction>
                           <AwSelect
@@ -483,12 +483,12 @@
                             @input="uiHelpers.changeItemsPerPage"
                           >
                             <AwSelectOption
-                              v-for="option in pagination.pageOptions"
+                              v-for="option in ['10','20','50','75']"
                               :key="option"
                               :value="option"
                               class="products__items-per-page__option"
                             >
-                              {{ option }}
+                              {{ option+' items' }}
                               </AwSelectOption>
                               </AwSelect>
                         </LazyHydrate>
