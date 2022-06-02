@@ -85,9 +85,9 @@ h5 {
 }
 
 .sf-footer-column__content.sf-footer-column__content--hidden-on-mobile {
-    @media (max-width: 1024px) {
-        display: block !important;
-    }
+    // @media (max-width: 1024px) {
+    //     display: block !important;
+    // }
 }
 
 .footer__subscribe {
