@@ -5,7 +5,8 @@ class="tab-orphan"
 >
 <AwTab :title="$t('My newsletter')">
 <p class="message">
-{{ $t('Set up newsletter') }}
+<!-- {{ $t('Set up newsletter') }}    -->
+Set up your newsletter and we will send you information about new products and trends from the sections  you selected every week.
 </p>
 <div class="form">
 <div class="form__checkbox-group">
@@ -33,7 +34,7 @@ class="form__element"
 />
 </div>
 <AwButton
-class="form__button"
+class="form__button save_Changes"
 @click="saveForm"
 >
 {{ $t('Save changes') }}
@@ -141,12 +142,17 @@ margin: 0 0 var(--spacer-base) 0;
 .message {
 margin: 0 0 var(--spacer-xl) 0;
 color: var(--c-dark-variant);
+width: 104%;
 }
 
 .notice {
 margin: var(--spacer-base) 0 0 0;
 font-size: var(--font-size--xs);
-
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 20px;
 &__link {
 color: var(--c-primary);
 text-decoration: none;
@@ -158,5 +164,11 @@ color: var(--c-text);
 }
 .checkbox{
 margin-top: 40px;
+}
+.form{
+    .save_Changes{
+        width: 280px;
+        height: 50px;
+    }
 }
 </style>

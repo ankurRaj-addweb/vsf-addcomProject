@@ -116,13 +116,12 @@
     .oquantity{
         margin-top: 20px;
     }
-    .oamount{
+    .Amount_price{
         margin-top: 20px;
-        margin-left: 40px;
-        
+        margin-right: -8px;
     }
     .descriptionfor{
-        margin-left: 100px;
+        margin-left: 115px;
     }
     .colorfor{
         margin-left: 318px;
@@ -133,10 +132,10 @@
         margin-top: 3px;
     }
     .qtyfor{
-        margin-left: 5px;
+        margin-left: 75px;
     }
     .pricefor{
-        margin-left: 50px;
+        margin-right: -70px;
     }
     .sf-table__row{
         height: 80px;
@@ -159,29 +158,32 @@
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 22px;
     }
-    .pdate{
-        margin-left: 52px;
+    .orders{
+        .pdate{
+            margin-left: 40px;
+        }
+        .pmethod{
+            margin-left: 43px;
+        }
+        .oamount{
+            margin-left: 40px;
+        }
+        .status{
+            margin-left: 43px;
+        }
+        .dall{
+            margin-left: 80px;
+        }
     }
-    .pmethod{
-        margin-left: 52px;
-    }
-    .amount{
-        margin-left: 52px;
-    }
-    .status{
-        margin-left: 52px;
-    }
-    .dall{
-        margin-left: 79px;
-    }
+    
     .getterid,.getterdate,.gettrsmethod,.getterprice,.getterstatus,.getterdownload{
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 22px;
         color: #3C3C3C;
     }
@@ -237,5 +239,11 @@
         margin-top: 16px;
     }
     
+}
+
+.sf-table{
+    .sf-table__heading {
+        margin-top: 40px;
+    }
 }
 
