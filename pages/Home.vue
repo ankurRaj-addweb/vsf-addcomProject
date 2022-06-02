@@ -100,7 +100,7 @@
     <div v-if="!isAuthenticated">
       <LazyHydrate when-visible>
         <InstagramFeed />
-      </LazyHydrate>
+      </LazyHydrate> 
     </div>
       <LazyHydrate when-visible>
         <MobileStoreBanner />
