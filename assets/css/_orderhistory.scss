@@ -116,6 +116,12 @@
     }
     .descriptionfor {
         margin-left: 100px;
+    .Amount_price{
+        margin-top: 20px;
+        margin-right: -8px;
+    }
+    .descriptionfor{
+        margin-left: 115px;
     }
     .colorfor {
         margin-left: 318px;
@@ -157,34 +163,32 @@
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 22px;
     }
-    .pdate {
-        margin-left: 52px;
+    .orders{
+        .pdate{
+            margin-left: 40px;
+        }
+        .pmethod{
+            margin-left: 43px;
+        }
+        .oamount{
+            margin-left: 40px;
+        }
+        .status{
+            margin-left: 43px;
+        }
+        .dall{
+            margin-left: 80px;
+        }
     }
-    .pmethod {
-        margin-left: 52px;
-    }
-    .amount {
-        margin-left: 52px;
-    }
-    .status {
-        margin-left: 52px;
-    }
-    .dall {
-        margin-left: 79px;
-    }
-    .getterid,
-    .getterdate,
-    .gettrsmethod,
-    .getterprice,
-    .getterstatus,
-    .getterdownload {
+    
+    .getterid,.getterdate,.gettrsmethod,.getterprice,.getterstatus,.getterdownload{
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 22px;
         color: #3C3C3C;
     }
@@ -237,4 +241,13 @@
     .property {
         margin-top: 16px;
     }
+    
+}
+
+.sf-table{
+    .sf-table__heading {
+        margin-top: 40px;
+    }
+}
+
 }

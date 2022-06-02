@@ -58,23 +58,32 @@
         <AwTable class="products">
           <AwTableHeading>
             <AwTableHeader class="oitem">
-              {{ $t("Item") }}
+              <!-- {{ $t("Item") }} -->
+              Item
             </AwTableHeader>
             <AwTableHeader class="odescription">
-              {{ $t("Description") }}
+              <!-- {{ $t("Description") }} -->
+              Description
             </AwTableHeader>
             <AwTableHeader class="ocolor">
-              {{ $t("Color") }}
+              <!-- {{ $t("Color") }} -->
+              Color
             </AwTableHeader>
             <AwTableHeader class="osize">
-              {{ $t("Size") }}
+              <!-- {{ $t("Size") }} -->
+              Size
             </AwTableHeader>
             <AwTableHeader class="oquantity">
-              {{ $t("Quantity") }}
+              <!-- {{ $t("Quantity") }} -->
+              Quantity
             </AwTableHeader>
-            <AwTableHeader class="oamount">
-              {{ $t("Amount") }}
+            <div class="Amount_price">
+              <AwTableHeader class="oamount">
+              <!-- {{ $t("Amount") }} -->
+              Amount
             </AwTableHeader>
+            </div>
+            
           </AwTableHeading>
           <AwTableRow
             v-for="(item, i) in orderGetters.getItems(currentOrder)"
@@ -174,7 +183,7 @@
               <span class="oid">Order Id</span>
               <span class="pdate">Payment Date</span>
               <span class="pmethod">Payment Method</span>
-              <span class="amount">Amount</span>
+              <span class="oamount">Amount</span>
               <span class="status">Status</span>
               <span class="dall">Download All</span>
             </AwTableHeader>
