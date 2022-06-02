@@ -1,34 +1,34 @@
 <template>
-  <AwFooter :column="4" multiple class="footer foo" >
-    <AwFooterColumn :title="$t('About us')">
+    <AwFooter :column="4" multiple class="footer foo" >
+    <AwFooterColumn :title="$t('About us')" class="about_us">
       <AwList>
         <AwListItem v-for="item in aboutUs" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Departments')"  >
+    <AwFooterColumn :title="$t('Departments')" class="department" >
       <AwList>
         <AwListItem v-for="item in departments" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Help')" class="desktop-only help">
+    <AwFooterColumn :title="$t('Help')" class=" help">
       <AwList>
         <AwListItem v-for="item in help" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" @click="handleClickOnHelp(item)"/>
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Payment & Delivery')" class="desktop-only payment_delivery">
+    <AwFooterColumn :title="$t('Payment & Delivery')" class=" payment_delivery">
       <AwList>
         <AwListItem v-for="item in paymentsDelivery" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn title="Social" class="desktop-only social">
+    <AwFooterColumn title="Social" class="social">
       <div class="footer__socials">
         <AwImage
           v-for="item in social"
@@ -41,7 +41,22 @@
         />
       </div>
     </AwFooterColumn>
-    <AwFooterColumn title="Language" class="desktop-only language">
+    <!-- <AwFooterColumn class="smartphone-only"> -->
+      <div class="footer__subscribe smartphone-only">
+        <AwInput
+          class="sf-input--outline"
+          type="text"
+          placeholder="Type your email address"
+        />
+        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px; height: 32px; ">
+          Subscribe
+        </AwButton>
+      </div>
+    <!-- </AwFooterColumn> -->
+    <div class="footer-logo smartphone-only">
+      <HeaderLogo />
+    </div>
+    <AwFooterColumn title="Language" class=" language">
       <AwButton
         class="sf-button--pure"
         style="display: flex; align-self: end; color: white; margin-top: 22px"
@@ -55,11 +70,13 @@
         />
         <span style="margin-top:20px;">English</span>
       </AwButton>
+      
     </AwFooterColumn>
-    <AwFooterColumn >
-      <div class="footer__subscribe">
+    
+    <AwFooterColumn class="desktop-only">
+      <div class="footer__subscribe ">
         <AwInput
-          class="sf-input--outline text_to"
+          class="sf-input--outline"
           type="text"
           placeholder="Type your email address"
         />
@@ -84,6 +101,7 @@ import AwMenuItem from "@storefront-ui/root/packages/vue/src/components/molecule
 import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import { addBasePath } from "@vue-storefront/core";
+import HeaderLogo from "~/components/HeaderLogo.vue";
 
 export default {
   components: {
@@ -94,6 +112,7 @@ export default {
     AwInput,
     AwButton,
     AwFooterColumn,
+    HeaderLogo,
   },
   setup() {
     const router = useRouter();
@@ -122,7 +141,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer {
   margin-bottom: 3.75rem;
   @include for-desktop {
@@ -168,5 +187,12 @@ export default {
       margin: 0 auto;
     }
   }
+}
+.footer-logo {
+  background:  #3C3C3C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 38px;
 }
 </style>
