@@ -20,9 +20,41 @@
     line-height: 22px;
     color: #EFEFEF;
 }
-.sf-footer-column__content{
-    display: var(--footer-column-content-display, block);
-    margin-top: 22px;
+.social {
+    @media (max-width: 1024px) { 
+        padding: 16px 0 0 0;
+    }
+    button.sf-button--pure.sf-footer-column__title.smartphone-only.sf-button {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px !important;
+        line-height: 22px;
+        color: #FFFFFF;
+        padding-left: 24px;
+    }
+    .sf-footer-column__content{
+        display: var(--footer-column-content-display, block) !important;
+        margin-top: 22px;
+    }
+    .sf-footer-column__content.sf-footer-column__content--hidden-on-mobile {
+        display:  block !important;
+    }
+    .footer__socials {
+        @media (max-width: 1024px) { 
+            padding: 0 8px 0 8px;
+        }
+    }
+}
+.language {
+    @media (max-width: 1024px) { 
+        display: none;
+    }
+}
+.sf-footer__container {
+    @media (max-width: 1024px) { 
+       margin: 16px 0;
+    }
 }
 .footer__subscribe{
     height: 32px;
@@ -48,14 +80,51 @@
 .language{
     margin-left: 40.14px;
 }
-.text_to{
-    width: 242px;
-    min-height: auto;
-    font-size: 12px;
-    color: #EFEFEF; 
-    background-color: #FFFFFF;
+.sf-footer {
+    background: #3C3C3C;
+    @media (max-width: 1024px) {
+     padding: 21px 0 0 0 !important; 
+    }
 }
-// .text_to[type=text]{
-//     color:#EFEFEF;
-//     font-size:16px;
-// }
+.sf-footer-column {
+    button.sf-button--pure.sf-footer-column__title.smartphone-only.sf-button {
+        width: 100%;
+
+        span.sf-footer-column__chevron {
+            right: 0;
+            margin-left: auto;
+            text-align: right;
+
+        }
+        .sf-chevron__bar:after {
+            background: #3C3C3C;
+        }
+        
+    }
+    .sf-menu-item__label{
+        color: #3C3C3C;
+        &:hover{
+            color: #037EE6;
+        }
+    }
+}
+.about_us,
+.department,
+.help,
+.payment_delivery,
+.language,
+.sf-footer {
+    @media (max-width: 1024px) {
+        margin-left: 0;
+        background: #F9F9F9;
+        color: #FFFFFF;
+        padding: 21px;
+    }
+}
+.social{
+    @media (max-width: 1024px) {
+        margin-top: 50px;
+        background: #3C3C3C;
+        color: #FFFFFF;
+    }
+}
