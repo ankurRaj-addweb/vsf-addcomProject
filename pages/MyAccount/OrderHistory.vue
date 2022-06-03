@@ -78,7 +78,7 @@
               Quantity
             </AwTableHeader>
             <div class="Amount_price">
-              <AwTableHeader class="oamount">
+              <AwTableHeader class="amount">
               <!-- {{ $t("Amount") }} -->
               Amount
             </AwTableHeader>
