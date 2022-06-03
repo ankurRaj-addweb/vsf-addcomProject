@@ -3,7 +3,7 @@
     <!-- Personal data update -->
 
     <AwTab
-      class="fontpersonal"
+      class="fontpersonal pwdchange"
       :title="
       $route.fullPath == '/default/checkout/user-account'
       ? $t('')
@@ -33,7 +33,7 @@
 
     <!-- Password reset -->
     <AwTab
-      class="fontpersonal"
+      class="fontpersonal pwdchange"
       :title="$t('Password change')"
       v-if="route.fullPath != '/default/checkout/user-account'"
       >
@@ -141,11 +141,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-.message,
-.notice {
-  font-family: var(--font-family--primary);
-  line-height: 1.6;
-}
+
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;
@@ -156,9 +152,6 @@ export default defineComponent({
   }
 }
 
-.notice {
-  margin: var(--spacer-lg) 0 0 0;
-  font-size: var(--font-size--sm);
-}
+
 
 </style>

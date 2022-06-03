@@ -377,4 +377,15 @@ export default defineComponent({
     }
   }
 }
+.form__button{
+  font-family: 'Source Sans Pro';
+  font-style: 'SemiBold';
+  font-size: 16px;
+  line-height: 16px;
+  line-height: 100%;
+  align-items: center;
+  vertical-align: top;
+  width: 280px;
+  height: 50px;
+}
 </style>

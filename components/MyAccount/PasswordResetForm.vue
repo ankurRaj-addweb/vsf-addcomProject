@@ -53,7 +53,7 @@
           />
         </ValidationProvider>
       </div>
-      <AwButton class="form__button">
+      <AwButton class="form__button myprofile">
         {{ $t('SAVE CHANGES') }}
       </AwButton>
     </form>
@@ -153,5 +153,14 @@ export default defineComponent({
       }
     }
   }
+}
+.myprofile{
+ 
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+    text-align: center;
 }
 </style>
