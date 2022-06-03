@@ -1,3 +1,5 @@
+
+.fontpersonal{
 .fontfeel,.fontif{
     font-family: 'Roboto';
     font-style: normal;
@@ -8,6 +10,16 @@
     width: 768px;
 height: 48px;
 }
+.sf-button{
+    font-size: 18px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+        
+    line-height: 28px;
+    text-align: center;
+    padding: 0px;
+    }
 .fontAt{
     font-family: 'Roboto';
     font-style: normal;
@@ -20,18 +32,25 @@ height: 48px;
 .linkcolor{
     color: #037EE6;
 }
-.sf-button{
-    font-size: 18px;
-    font-family: 'Source Sans Pro';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 26px;
-}
+
 .sf-input input:required ~ *{
     font-family: 'Source Sans Pro';
     font-style: normal;
     // font-weight: 400;
     // font-size: 16px;
     // line-height: 24px;
+    margin-top: 0px !important;
+}
+}
+
+
+
+.sf-button{
+    font-size: 18px;
+    // font-family: 'Source Sans Pro   ';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
 }
