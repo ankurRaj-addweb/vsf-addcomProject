@@ -1,17 +1,12 @@
 #my-account {
-    .heading{
+    .heading {
         font-size: 24px;
     }
-    .info{
+    .info {
         float: right;
-        // left: 5%;
-        // right: 5%;
-        // top: 5%;
         margin-top: -50px;
-        // height: 28.8px;
-        // width: 28.8px;
     }
-    .shippinga{
+    .shippinga {
         margin-top: 40px;
         font-family: 'Source Sans Pro';
         font-style: normal;
@@ -19,7 +14,7 @@
         font-size: 18px;
         line-height: 26px;
     }
-    .borderbox1{
+    .borderbox1 {
         width: 320px;
         height: 190px;
         left: 572px;
@@ -27,7 +22,7 @@
         padding: 10px;
         border: 1px solid #EFEFEF;
     }
-    .borderbox2{
+    .borderbox2 {
         width: 320px;
         height: 190px;
         // left: 966px;
@@ -35,7 +30,7 @@
         padding: 10px;
         border: 1px solid #EFEFEF;
     }
-    .billinga{
+    .billinga {
         float: right;
         margin-top: -42px;
         margin-right: 230px;
@@ -45,54 +40,53 @@
         font-size: 18px;
         line-height: 26px;
     }
-    .card{
+    .card {
         display: block;
     }
-    .pricefont{
+    .pricefont {
         font-size: 50px;
     }
-    .address{
-        display:inline-block;
+    .address {
+        display: inline-block;
         margin-top: 100px;
         margin-left: -110px;
     }
-    .billingaddress{
+    .billingaddress {
         display: flex;
         margin-top: -212px;
         margin-left: 435px;
     }
-    .shippingdetails{
+    .shippingdetails {
         margin-top: 0px;
         float: left;
     }
-    .billingingdetails{
+    .billingingdetails {
         float: right;
         margin-right: -84px;
         margin-top: 40px;
     }
-    .orderitem{
+    .orderitem {
         float: left;
         margin-left: -200px;
         margin-top: 210px;
     }
-    .textaddress{
+    .textaddress {
         color: black;
     }
-    .colo{
+    .colo {
         color: black;
     }
-
-    .addresses__address{
+    .addresses__address {
         margin-top: 56px;
     }
-    .fontorder{
+    .fontorder {
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 600;
         font-size: 24px;
         line-height: 32px;
     }
-    .orderitems{
+    .orderitems {
         margin-top: 230px;
         font-family: 'Source Sans Pro';
         font-style: normal;
@@ -100,101 +94,113 @@
         font-size: 18px;
         line-height: 26px;
     }
-    .oitem{
+    .oitem {
         margin-top: 20px;
     }
-    .odescription{
+    .odescription {
         margin-top: 20px;
     }
-    .ocolor{
+    .ocolor {
         margin-left: 120px;
         margin-top: 20px;
     }
-    .osize{
+    .osize {
         margin-top: 20px;
     }
-    .oquantity{
+    .oquantity {
         margin-top: 20px;
     }
-    .oamount{
+    .oamount {
         margin-top: 20px;
         margin-left: 40px;
-        
+    }
+    .descriptionfor {
+        margin-left: 100px;
+    .Amount_price{
+        margin-top: 20px;
+        margin-right: -8px;
     }
     .descriptionfor{
-        margin-left: 100px;
+        margin-left: 115px;
     }
-    .colorfor{
+    .colorfor {
         margin-left: 318px;
         margin-top: -50px;
     }
-    .sizefor{
+    .sizefor {
         margin-left: 72px;
         margin-top: 3px;
     }
-    .qtyfor{
+    .qtyfor {
         margin-left: 5px;
     }
-    .pricefor{
+    .pricefor {
         margin-left: 50px;
     }
-    .sf-table__row{
+    .sf-table__row {
         height: 80px;
     }
-    .message{
+    .message {
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
         line-height: 22px;
     }
-    .notorder{
+    .notorder {
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
     }
-    .oid,.pdate,.pmethod,.amount,.status,.dall{
+    .oid,
+    .pdate,
+    .pmethod,
+    .amount,
+    .status,
+    .dall {
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 22px;
     }
-    .pdate{
-        margin-left: 52px;
+    .orders{
+        .pdate{
+            margin-left: 40px;
+        }
+        .pmethod{
+            margin-left: 43px;
+        }
+        .oamount{
+            margin-left: 40px;
+        }
+        .status{
+            margin-left: 43px;
+        }
+        .dall{
+            margin-left: 80px;
+        }
     }
-    .pmethod{
-        margin-left: 52px;
-    }
-    .amount{
-        margin-left: 52px;
-    }
-    .status{
-        margin-left: 52px;
-    }
-    .dall{
-        margin-left: 79px;
-    }
+    
     .getterid,.getterdate,.gettrsmethod,.getterprice,.getterstatus,.getterdownload{
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 400;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 22px;
         color: #3C3C3C;
     }
-    .getterid{
+    .getterid {
         width: 48px;
         height: 22px;
         position: fixed;
     }
-    .getterdate{
+    .getterdate {
         width: 48px;
         height: 22px;
-        margin-left:105px;
-        // position: fixed;
+        margin-left: 105px;
     }
     .gettrsmethod {
         font-family: "Source Sans Pro";
@@ -221,21 +227,27 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
-        /* or 129% */   
-
+        /* or 129% */
         text-align: right;
         text-decoration-line: underline;
     }
-    .products{
-        margin-top:-40px;
+    .products {
+        margin-top: -40px;
     }
-    .product-sku{
+    .product-sku {
         margin-left: 0px;
         margin-top: 10px;
     }
-    .property{
+    .property {
         margin-top: 16px;
     }
     
 }
 
+.sf-table{
+    .sf-table__heading {
+        margin-top: 40px;
+    }
+}
+
+}

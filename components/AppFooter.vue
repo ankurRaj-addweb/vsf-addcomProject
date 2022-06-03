@@ -41,10 +41,21 @@
         />
       </div>
     </AwFooterColumn>
+    <!-- <AwFooterColumn class="smartphone-only"> -->
+      <div class="footer__subscribe smartphone-only">
+        <AwInput
+          class="sf-input--outline"
+          type="text"
+          placeholder="Type your email address"
+        />
+        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px; height: 32px; ">
+          Subscribe
+        </AwButton>
+      </div>
+    <!-- </AwFooterColumn> -->
     <div class="footer-logo smartphone-only">
       <HeaderLogo />
     </div>
-    
     <AwFooterColumn title="Language" class=" language">
       <AwButton
         class="sf-button--pure"
@@ -62,7 +73,7 @@
       
     </AwFooterColumn>
     
-    <AwFooterColumn >
+    <AwFooterColumn class="desktop-only">
       <div class="footer__subscribe ">
         <AwInput
           class="sf-input--outline"
@@ -182,5 +193,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 38px;
 }
 </style>

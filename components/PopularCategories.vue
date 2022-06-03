@@ -62,7 +62,7 @@ export default {
   .outer {
     width: 100%;
     .main {
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1300px) {
           overflow: scroll;
       }
 }

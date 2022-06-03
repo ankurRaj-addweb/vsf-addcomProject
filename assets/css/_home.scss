@@ -8,7 +8,7 @@
         line-height: 22px;
         color: #3C3C3C;
     }
-    .sf-banner__title{
+    .sf-banner__title {
         font-family: 'Source Sans Pro';
         font-style: normal;
         font-weight: 600;
@@ -73,6 +73,10 @@ section.sf-section.section {
         .sf-product-card__image-wrapper {
             a.sf-link.sf-button--pure.sf-product-card__link.sf-button {
                 max-width: unset !important;
+                img.sf-product-card__image {
+                    width: 100%;
+                    object-fit: contain;
+                }
             }
         }
         a.sf-link.sf-button--pure.sf-product-card__link.sf-button {
@@ -96,12 +100,19 @@ section.sf-section.section {
     }
 }
 
-
-button.sf-hero-item__button.sf-button, button.sf-banner__call-to-action.color-secondary.sf-button, button.sf-call-to-action__button.sf-button, .footer__subscribe button.sf-button, button.sf-button--full-width.form__button.sf-button, button.action-button.sf-button, button.form__button, button.no-orders__button.sf-button {
+button.sf-hero-item__button.sf-button,
+button.sf-banner__call-to-action.color-secondary.sf-button,
+button.sf-call-to-action__button.sf-button,
+.footer__subscribe button.sf-button,
+button.sf-button--full-width.form__button.sf-button,
+button.action-button.sf-button,
+button.form__button,
+button.no-orders__button.sf-button {
     background: #037EE6;
     width: 168px;
     height: 50px;
 }
+
 .sf-call-to-action__title {
     font-family: 'Source Sans Pro';
     font-style: normal;
@@ -109,18 +120,19 @@ button.sf-hero-item__button.sf-button, button.sf-banner__call-to-action.color-se
     font-size: 36px;
     line-height: 48px;
 }
+
 .carousel .sf-arrow[data-v-bdde9382] {
     --button-color: #282828;
     width: 70px;
     height: 40px;
     background: #F9F9F9;
-    &:hover{
+    &:hover {
         background: #282828;
     }
 }
 
-element.style {
-}
+element.style {}
+
 section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
     color: rgb(40, 40, 40);
     font-style: normal;
@@ -132,6 +144,7 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
     font-size: 24px;
     line-height: 32px;
 }
+
 .sf-banner__wrapper-desktop .sf-banner__title {
     font-family: "Source Sans Pro";
     font-style: normal;
