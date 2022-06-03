@@ -5,7 +5,8 @@ button.sf-call-to-action__button.sf-button,
 button.sf-button--full-width.form__button.sf-button,
 button.action-button.sf-button,
 button.form__button,
-button.no-orders__button.sf-button {
+button.no-orders__button.sf-button,
+button.sf-button--full-width.actions__button.returnbtn.sf-button {
     background: #037EE6;
 }
 
@@ -101,6 +102,7 @@ button.sf-arrow.sf-button {
     --icon-color: #037EE6;
 }
 
-.navbar__view-icon--active {
+.navbar__view-icon--active,
+.sf-heading__title.h2 {
     color: #037EE6 !important;
 }

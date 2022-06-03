@@ -100,15 +100,10 @@ section.sf-section.section {
     }
 }
 
-button.sf-hero-item__button.sf-button,
 button.sf-banner__call-to-action.color-secondary.sf-button,
 button.sf-call-to-action__button.sf-button,
-.footer__subscribe button.sf-button,
-button.sf-button--full-width.form__button.sf-button,
-button.action-button.sf-button,
-button.form__button,
-button.no-orders__button.sf-button {
-    background: #037EE6;
+button.sf-hero-item__button.sf-button {
+    padding-top: 11px;
     width: 168px;
     height: 50px;
 }
