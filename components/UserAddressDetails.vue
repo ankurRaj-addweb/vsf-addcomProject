@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p
-      :style="userAddress.isDefault ? 'font-weight: bold;' : ''"
-    >
+    <p :style="userAddress.isDefault ? 'font-weight: bold;' : ''">
       {{ userAddress.firstName }} {{ userAddress.lastName }}
     </p>
     <p>{{ userAddress.street }}, {{ userAddress.streetNumber }}</p>
@@ -13,15 +11,10 @@
     </p>
 
     <p>{{ userAddress.country }}</p>
-    <p
-      v-if="userAddress.phone"
-      class="phone"
-    >
+    <p v-if="userAddress.phone" class="phone">
       {{ userAddress.phone }}
     </p>
-    <small
-      v-if="isDefaultShippingText || isDefaultBillingText"
-    >
+    <small v-if="isDefaultShippingText || isDefaultBillingText">
       <span
         v-if="isDefaultShippingText"
         class="sf-badge--number color-info sf-badge"
@@ -39,15 +32,11 @@
 </template>
 
 <script>
-import {
-  toRef,
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
-import { userAddressesGetters } from '@vue-storefront/magento';
+import { toRef, computed, defineComponent } from "@nuxtjs/composition-api";
+import { userAddressesGetters } from "@vue-storefront/magento";
 
 export default defineComponent({
-  name: 'UserAddressDetails',
+  name: "UserAddressDetails",
   props: {
     address: {
       type: Object,
@@ -56,7 +45,7 @@ export default defineComponent({
   },
 
   setup(props) {
-    const address = toRef(props, 'address');
+    const address = toRef(props, "address");
 
     const userAddress = computed(() => ({
       firstName: userAddressesGetters.getFirstName(address.value),
@@ -65,7 +54,7 @@ export default defineComponent({
       streetNumber: userAddressesGetters.getApartmentNumber(address.value),
       postalCode: userAddressesGetters.getPostCode(address.value),
       city: userAddressesGetters.getCity(address.value),
-      province: userAddressesGetters.getProvince(address.value) || '',
+      province: userAddressesGetters.getProvince(address.value) || "",
       country: userAddressesGetters.getCountry(address.value),
       phone: userAddressesGetters.getPhone(address.value),
       isDefault: userAddressesGetters.isDefault(address.value),
@@ -73,9 +62,13 @@ export default defineComponent({
       isDefaultBilling: userAddressesGetters.isDefaultBilling(address.value),
     }));
 
-    const isDefaultShippingText = computed(() => (userAddress.value.isDefaultShipping ? 'Default Shipping Address' : ''));
+    const isDefaultShippingText = computed(() =>
+      userAddress.value.isDefaultShipping ? "Default Shipping Address" : ""
+    );
 
-    const isDefaultBillingText = computed(() => (userAddress.value.isDefaultBilling ? 'Default Billing Address' : ''));
+    const isDefaultBillingText = computed(() =>
+      userAddress.value.isDefaultBilling ? "Default Billing Address" : ""
+    );
 
     return {
       userAddress,

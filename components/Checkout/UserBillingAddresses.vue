@@ -14,33 +14,17 @@
         <UserAddressDetails :address="billingAddress" />
       </SfAddress>
     </SfAddressPicker>
-    <SfCheckbox
-      :selected="value"
-      name="setAsDefault"
-      label="Use this address as my default one."
-      class="billing__setAsDefault"
-      @change="$emit('input', $event)"
-    />
-    <hr class="sf-divider">
   </div>
 </template>
 
 <script>
-import {
-  SfCheckbox,
-  SfAddressPicker,
-} from '@storefront-ui/vue';
-import {
-  useUserBilling,
-  userBillingGetters,
-} from '@vue-storefront/magento';
-import {
-  defineComponent,
-} from '@nuxtjs/composition-api';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
+import { SfCheckbox, SfAddressPicker } from "@storefront-ui/vue";
+import { useUserBilling, userBillingGetters } from "@vue-storefront/magento";
+import { defineComponent } from "@nuxtjs/composition-api";
+import UserAddressDetails from "~/components/UserAddressDetails.vue";
 
 export default defineComponent({
-  name: 'UserBillingAddresses',
+  name: "UserBillingAddresses",
   components: {
     SfCheckbox,
     SfAddressPicker,
@@ -56,16 +40,19 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['setCurrentAddress'],
+  emits: ["setCurrentAddress"],
   setup(_, { emit }) {
     const { billing: userBilling } = useUserBilling();
 
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userBillingGetters.getAddresses(userBilling.value, { id: Number.parseInt(addressId, 10) });
+      const selectedAddress = userBillingGetters.getAddresses(
+        userBilling.value,
+        { id: Number.parseInt(addressId, 10) }
+      );
       if (!selectedAddress || selectedAddress.length === 0) {
         return;
       }
-      emit('setCurrentAddress', selectedAddress[0]);
+      emit("setCurrentAddress", selectedAddress[0]);
     };
 
     const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
@@ -103,7 +90,8 @@ export default defineComponent({
   }
 }
 
-.sf-divider, .form__action-button--margin-bottom {
+.sf-divider,
+.form__action-button--margin-bottom {
   margin-bottom: var(--spacer-xl);
 }
 </style>

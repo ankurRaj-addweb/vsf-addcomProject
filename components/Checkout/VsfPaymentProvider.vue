@@ -19,23 +19,23 @@
 </template>
 
 <script>
-import { SfRadio } from '@storefront-ui/vue';
+import { SfRadio } from "@storefront-ui/vue";
 import {
   ref,
   onMounted,
   computed,
   defineComponent,
-} from '@nuxtjs/composition-api';
-import { usePaymentProvider } from '@vue-storefront/magento';
+} from "@nuxtjs/composition-api";
+import { usePaymentProvider } from "@vue-storefront/magento";
 
 export default defineComponent({
-  name: 'VsfPaymentProvider',
+  name: "VsfPaymentProvider",
 
   components: {
     SfRadio,
   },
 
-  emits: ['status'],
+  emits: ["status"],
 
   setup(props, { emit }) {
     const { load, state, save } = usePaymentProvider();
@@ -45,10 +45,14 @@ export default defineComponent({
       await load();
     });
 
-    const paymentMethods = computed(() => (Array.isArray(state.value) ? state.value.map((p) => ({
-      label: p.title,
-      value: p.code,
-    })) : []));
+    const paymentMethods = computed(() =>
+      Array.isArray(state.value)
+        ? state.value.map((p) => ({
+            label: p.title,
+            value: p.code,
+          }))
+        : []
+    );
 
     const definePaymentMethods = async (paymentMethod) => {
       try {
@@ -60,7 +64,7 @@ export default defineComponent({
 
         selectedMethod.value = paymentMethod;
 
-        emit('status', paymentMethod);
+        emit("status", paymentMethod);
       } catch (e) {
         console.error(e);
       }

@@ -8,7 +8,7 @@
     <AwTable class="sf-table--bordered table desktop-only">
       <AwTableHeading class="table__row">
         <AwTableHeader class="table__header table__image">
-          {{ $t('Item') }}
+          {{ $t("Item") }}
         </AwTableHeader>
         <AwTableHeader
           v-for="tableHeader in tableHeaders"
@@ -17,7 +17,6 @@
           :class="{ table__description: tableHeader === 'Description' }"
         >
           {{ tableHeader }}
-          
         </AwTableHeader>
       </AwTableHeading>
       <AwTableRow
@@ -26,15 +25,13 @@
         class="table__row"
       >
         <AwTableData class="table__image">
-           <nuxt-img
+          <nuxt-img
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
             :width="imageSizes.cartItem.width"
             :height="imageSizes.cartItem.height"
-          /> 
-           </AwTableData>
-          
-            
+          />
+        </AwTableData>
 
         <AwTableData class="table__data table__description table__data">
           <div class="product-title">
@@ -43,10 +40,8 @@
           <div class="product-sku">
             {{ cartGetters.getItemSku(product) }}
           </div>
-          
-          <template
-            v-if="getBundles(product).length > 0"
-          >
+
+          <template v-if="getBundles(product).length > 0">
             <p
               v-for="bundle in getBundles(product)"
               :key="bundle.label"
@@ -54,24 +49,40 @@
             >
               {{ `${bundle.quantity}x ${bundle.label}` }}
             </p>
-
           </template>
         </AwTableData>
-         <AwTableData>
-          <h5 v-if="(getAttributes(product))&&(getAttributes(product))[0] && (getAttributes(product))[0].value_label">{{(getAttributes(product))[0].value_label}}</h5>
-           
-            </AwTableData>
-             <AwTableData>
-          <h5 v-if="(getAttributes(product))&&(getAttributes(product))[1] && (getAttributes(product))[1].value_label">{{(getAttributes(product))[1].value_label}}</h5>
-           
-            </AwTableData>
+        <AwTableData>
+          <h5
+            v-if="
+              getAttributes(product) &&
+              getAttributes(product)[0] &&
+              getAttributes(product)[0].value_label
+            "
+          >
+            {{ getAttributes(product)[0].value_label }}
+          </h5>
+        </AwTableData>
+        <AwTableData>
+          <h5
+            v-if="
+              getAttributes(product) &&
+              getAttributes(product)[1] &&
+              getAttributes(product)[1].value_label
+            "
+          >
+            {{ getAttributes(product)[1].value_label }}
+          </h5>
+        </AwTableData>
         <AwTableData class="table__data">
           {{ cartGetters.getItemQty(product) }}
         </AwTableData>
         <AwTableData class="table__data price">
           <AwPrice
             :regular="$fc(cartGetters.getItemPrice(product).regular)"
-            :special="cartGetters.getItemPrice(product).special && $fc(cartGetters.getItemPrice(product).special)"
+            :special="
+              cartGetters.getItemPrice(product).special &&
+              $fc(cartGetters.getItemPrice(product).special)
+            "
             class="product-price"
           />
         </AwTableData>
@@ -85,24 +96,25 @@
             :value="$fc(totals.subtotal)"
             class="sf-property--full-width property"
           />
-           <AwProperty
+          <AwProperty
             name="Shipping"
-            :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
+            value="free"
             class="sf-property--full-width property"
           />
         </div>
-       
-       
 
         <AwDivider />
 
         <AwProperty
           name="Total price"
           :value="$fc(totals.total)"
-          class="sf-property--full-width sf-property--large summary__property-total"
+          class="
+            sf-property--full-width sf-property--large
+            summary__property-total
+          "
         />
 
-         <!-- <VsfPaymentProvider
+        <!-- <VsfPaymentProvider
           @status="isPaymentReady = true"
         />  -->
 
@@ -112,11 +124,11 @@
           name="terms"
           class="summary__terms"
         >
-          <template>
-            <div class="sf-checkbox__label" >
-              {{ $t('I agree to') }}
-              <AwLink href='#'>
-                {{ $t('Terms and conditions') }}
+          <template #label>
+            <div class="sf-checkbox__label">
+              {{ $t("I agree to") }}
+              <AwLink href="#">
+                {{ $t("Terms and conditions") }}
               </AwLink>
             </div>
           </template>
@@ -128,7 +140,7 @@
             class="summary__action-button"
             @click="processOrder"
           >
-            {{ $t('CONFIRM AND PAY') }}
+            {{ $t("CONFIRM AND PAY") }}
           </AwButton>
         </div>
       </div>
@@ -137,35 +149,31 @@
 </template>
 
 <script>
-
-import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
-import AwTable from '@storefront-ui/root/packages/vue/src/components/organisms/AwTable/AwTable.vue';
-import AwCheckbox from '@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue';
-import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
-import AwDivider from '@storefront-ui/root/packages/vue/src/components/atoms/AwDivider/AwDivider.vue';
-import AwPrice from '@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue';
-import AwProperty from '@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue'
-import AwLink from '@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue';
-import { useVSFContext } from '@vue-storefront/core';
+import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
+import AwTable from "@storefront-ui/root/packages/vue/src/components/organisms/AwTable/AwTable.vue";
+import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwDivider from "@storefront-ui/root/packages/vue/src/components/atoms/AwDivider/AwDivider.vue";
+import AwPrice from "@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue";
+import AwProperty from "@storefront-ui/root/packages/vue/src/components/atoms/AwProperty/AwProperty.vue";
+import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue";
+import { useVSFContext } from "@vue-storefront/core";
 import {
   ref,
   computed,
   defineComponent,
   useRouter,
-  useContext, onMounted,
-} from '@nuxtjs/composition-api';
-import {
-  useMakeOrder,
-  useCart,
-  cartGetters,
-} from '@vue-storefront/magento';
-import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import { useImage } from '~/composables';
-import { removeItem } from '~/helpers/asyncLocalStorage';
-import { isPreviousStepValid } from '~/helpers/checkout/steps';
+  useContext,
+  onMounted,
+} from "@nuxtjs/composition-api";
+import { useMakeOrder, useCart, cartGetters } from "@vue-storefront/magento";
+import getShippingMethodPrice from "~/helpers/checkout/getShippingMethodPrice";
+import { useImage } from "~/composables";
+import { removeItem } from "~/helpers/asyncLocalStorage";
+import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
 export default defineComponent({
-  name: 'ReviewOrderAndPayment',
+  name: "ReviewOrderAndPayment",
   components: {
     AwHeading,
     AwTable,
@@ -175,7 +183,8 @@ export default defineComponent({
     AwPrice,
     AwProperty,
     AwLink,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
+    VsfPaymentProvider: () =>
+      import("~/components/Checkout/VsfPaymentProvider.vue"),
   },
   setup() {
     const { cart, load, setCart } = useCart();
@@ -186,21 +195,22 @@ export default defineComponent({
     const isPaymentReady = ref(false);
     const terms = ref(false);
     const getAttributes = (product) => product.configurable_options || [];
-    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
+    const getBundles = (product) =>
+      product.bundle_options?.map((b) => b.values).flat() || [];
 
     onMounted(async () => {
-      const validStep = await isPreviousStepValid('billing');
+      const validStep = await isPreviousStepValid("billing");
       if (!validStep) {
-        await router.push(app.localePath('/checkout/user-account'));
+        await router.push(app.localePath("/checkout/user-account"));
       }
 
       await load();
     });
 
     onMounted(async () => {
-      const validStep = await isPreviousStepValid('billing');
+      const validStep = await isPreviousStepValid("billing");
       if (!validStep) {
-        await router.push(app.localePath('/checkout/user-account'));
+        await router.push(app.localePath("/checkout/user-account"));
       }
 
       await load();
@@ -211,14 +221,16 @@ export default defineComponent({
       setCart(null);
       $magento.config.state.setCartId();
       await load();
-      await removeItem('checkout');
+      await removeItem("checkout");
       // await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
-      router.push(`${app.localePath(`/checkout/thank-you?`)}`)
+      router.push(`${app.localePath(`/checkout/thank-you?`)}`);
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
     const hasDiscounts = computed(() => discounts.value.length > 0);
-    const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
+    const discountsAmount = computed(
+      () => -1 * discounts.value.reduce((a, el) => el.value + a, 0)
+    );
 
     const { getMagentoImage, imageSizes } = useImage();
 
@@ -233,8 +245,10 @@ export default defineComponent({
       loading,
       processOrder,
       products: computed(() => cartGetters.getItems(cart.value)),
-      selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
-      tableHeaders: ['Description','color','size', 'Quantity','Amount',],
+      selectedShippingMethod: computed(() =>
+        cartGetters.getSelectedShippingMethod(cart.value)
+      ),
+      tableHeaders: ["Description", "color", "size", "Quantity", "Amount"],
       terms,
       totals: computed(() => cartGetters.getTotals(cart.value)),
       getAttributes,
@@ -388,7 +402,7 @@ export default defineComponent({
     font-weight: var(--font-weight--normal);
   }
 }
-.summary__action-button{
+.summary__action-button {
   background-color: blue;
 }
 </style>
