@@ -1,3 +1,25 @@
+#billing {
+
+    .sf-radio.sf-address.billing__address {
+        width: 340px;
+        height: 190px;
+    }
+
+    .sf-address-picker.billing__addresses {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    button.color-light.form__action-button.form__action-button--add-address.sf-button {
+        width: 280px;
+        height: 50px;
+        background-color: #EFEFEF;
+        font-size: 16px;
+        margin-top: 30px;
+        font-weight: 600;
+    }
+}
+
 .extend {
     margin-top: 50px;
 }
@@ -6,6 +28,7 @@
     .sf-radio.sf-radio--transparent {
         z-index: 1;
     }
+
     .accordion {
         z-index: 999999;
     }
@@ -45,38 +68,48 @@
 form.bil {
     margin-top: 55px;
     width: 610px;
+
     .sf-input input {
         border-color: transparent !important;
+
         &:focus-visible {
             outline: unset !important;
         }
     }
+
     label.sf-input__label {
         font-size: 16px;
         color: #3C3C3C;
     }
+
     .sf-input__label {
         top: 60% !important;
     }
+
     .for {
         width: 216px;
     }
+
     .dis {
         display: flex;
     }
+
     a {
         margin: 35px 0 0 55px;
         color: #037EE6;
     }
+
     select {
         background-color: white;
     }
+
     #ed {
         margin: 30px 40px 0 10px;
         font-size: 16px;
         font-weight: 400, regular;
         font: source sans pro;
     }
+
     .form-check-input {
         // width: 258px;
         margin-top: 24px;
@@ -86,7 +119,38 @@ form.bil {
 }
 
 .free-shipping {
-.sf-radio.sf-radio--transparent    {
-    width: 320px;
+    .sf-radio.sf-radio--transparent {
+        width: 320px;
+    }
 }
+
+.shipping {
+    .sf-radio.sf-address.shipping__address {
+        width: 340px;
+        height: 190px;
+    }
+
+    .sf-address-picker.shipping__addresses {
+        display: flex;
+
+        flex-wrap: wrap;
+    }
+
+    button.color-light.form__action-button.form__action-button--add-address.sf-button {
+        width: 280px;
+        height: 50px;
+        background-color: #EFEFEF;
+        FONT-SIZE: 16px;
+        font-weight: 600;
+    }
+
+    .sf-divider {
+        display: none;
+    }
+}
+
+#checkout {
+    .checkout__aside.desktop-only {
+        margin-left: 35px !important;
+    }
 }

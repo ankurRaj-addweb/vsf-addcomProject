@@ -11,14 +11,20 @@
       "
       >
 
-      <p class="message fontfeel">
+      <p class="message fontfeel" v-if="$route.fullPath != '/default/checkout/user-account'">
       {{
       $t(
       "Feel free to edit any of your details below so your account is always up to date "
       )
       }}
       </p>
-
+<p class="message fontfeel" v-else>
+      {{
+      $t(
+      "You are able to change your personal details, after changing details please save the changes."
+      )
+      }}
+      </p>
 
       <ProfileUpdateForm
       :loading="loading"
