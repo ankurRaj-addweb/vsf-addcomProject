@@ -1,5 +1,5 @@
 <template>
-    <AwFooter :column="4" multiple class="footer foo" >
+    <AwFooter :column="4" multiple class="footer" >
     <AwFooterColumn :title="$t('About us')" class="about_us">
       <AwList>
         <AwListItem v-for="item in aboutUs" :key="item" :style="{'--list-item-margin':'15px 0'}">
