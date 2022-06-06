@@ -1,0 +1,71 @@
+.mobile_signin{
+    @media (max-width: 1024px) {
+        display: none;
+    }
+}
+
+.text-uppercase{
+    @media (max-width:1024px) {
+        margin-top: 40px;
+    }
+}
+
+.mobile_login{
+    @media (max-width:1024px) {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+    }
+}
+.sf-modal__content{
+    @media (max-width:1024px) {
+        .form{
+            margin-top: 31px;
+            .text-uppercase, .mobile_your{
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 24px;
+                margin-left: 7px;
+                margin-top: 70px;
+            }
+            .sf_bar{
+                background: #F9F9F9;
+            }
+            button.sf-hero-item__button.sf-button, button.sf-banner__call-to-action.color-secondary.sf-button, button.sf-call-to-action__button.sf-button, .footer__subscribe button.sf-button, button.sf-button--full-width.form__button.sf-button, button.action-button.sf-button, button.form__button, button.no-orders__button.sf-button {
+                @media (max-width:1024px) {
+                    background: #037EE6;
+                    width: 100%;
+                    height: 50px;
+                    margin-top: 40px;
+                }
+            }
+            .mobile_forgot{
+                @media (max-width:1024px) {
+                    font-family: 'Source Sans Pro';
+                    font-style: normal;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 18px;
+                }
+            }
+            @media (max-width:1024px) {
+                .bottom__paragraph{
+                    font-family: 'Source Sans Pro';
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 18px;
+                    line-height: 24px;
+                }
+                .g-recaptcha[data-v-98699342] {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 40px;
+                }
+            }
+        }
+    }
+}

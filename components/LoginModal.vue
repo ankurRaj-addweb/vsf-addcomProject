@@ -5,11 +5,12 @@
     class="modal"
     @close="closeModal"
   >
-    <h4 class="signin">
+    <h4 class="signin mobile_signin">
       {{
         isLogin ? "Sign In" : isForgotten ? "Reset Password" : "Register Here"
       }}
     </h4>
+    <p class="smartphone-only mobile_login">Log in</p>
     <template #modal-bar>
       <AwBar
         class="sf-modal__bar smartphone-only"
@@ -24,7 +25,7 @@
         <ValidationObserver v-slot="{ handleSubmit, invalid }" key="log-in">
           <form class="form" @submit.prevent="handleSubmit(handleLogin)">
             <ValidationProvider v-slot="{ errors }" rules="required|email">
-              <label class="text-uppercase">Your email</label>
+              <label class="text-uppercase mobile_your">Your email</label>
               <AwInput
                 v-model="form.username"
                 v-e2e="'login-modal-email'"
@@ -54,6 +55,19 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <template>
+              <AwCheckbox
+                name="shipping"
+                label="Remember me"
+                hintMessage="Required."
+                :required="false"
+                infoMessage=""
+                errorMessage=""
+                valid
+                :disabled="false"
+                :selected="false"
+              />
+            </template>
             <vue-recaptcha
               ref="recaptcha"
               :sitekey="sitekey"
@@ -75,7 +89,7 @@
           </form>
         </ValidationObserver>
         <div class="action">
-          <AwButton class="sf-button--text" @click="setIsForgottenValue(true)">
+          <AwButton class="sf-button--text DD" @click="setIsForgottenValue(true)">
             {{ $t("Forgotten password?") }}
           </AwButton>
         </div>
@@ -369,7 +383,7 @@ export default defineComponent({
 
     const barTitle = computed(() => {
       if (isLogin.value) {
-        return "Sign in";
+        return "Log In";
       }
       if (isForgotten.value || isThankYouAfterForgotten.value) {
         return "Reset Password";

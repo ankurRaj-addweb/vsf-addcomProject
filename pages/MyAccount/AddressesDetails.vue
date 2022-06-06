@@ -92,10 +92,13 @@
           </div>
         </transition-group>
         <AwButton
-          class="action-button"
+          class="action-button address_button"
           @click="changeAddress()"
         >
-          {{ $t('Add new address') }}
+          <!-- {{ $t('Add new address') }} -->
+          <div style="width:280px;font-family: 'Source Sans Pro';font-style: normal;font-weight: 600;font-size: 16px;line-height: 100%;">
+            Add new address
+          </div>
         </AwButton>
       </AwTab>
     </AwTabs>
