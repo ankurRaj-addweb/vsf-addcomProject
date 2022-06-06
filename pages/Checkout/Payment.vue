@@ -113,11 +113,6 @@
             summary__property-total
           "
         />
-
-        <!-- <VsfPaymentProvider
-          @status="isPaymentReady = true"
-        />  -->
-
         <AwCheckbox
           v-model="terms"
           v-e2e="'terms'"
@@ -127,7 +122,7 @@
           <template #label>
             <div class="sf-checkbox__label">
               {{ $t("I agree to") }}
-              <AwLink href="#">
+              <AwLink link="#">
                 {{ $t("Terms and conditions") }}
               </AwLink>
             </div>
@@ -186,7 +181,9 @@ export default defineComponent({
     VsfPaymentProvider: () =>
       import("~/components/Checkout/VsfPaymentProvider.vue"),
   },
-  setup() {
+  
+  setup(){ 
+ 
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
     const { $magento } = useVSFContext();
