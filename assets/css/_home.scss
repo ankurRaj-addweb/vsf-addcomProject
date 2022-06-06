@@ -103,9 +103,14 @@ section.sf-section.section {
 button.sf-banner__call-to-action.color-secondary.sf-button,
 button.sf-call-to-action__button.sf-button,
 button.sf-hero-item__button.sf-button {
-    padding-top: 11px;
+    background: #037EE6;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
     width: 168px;
     height: 50px;
+    padding: 0;
 }
 
 .sf-call-to-action__title {
