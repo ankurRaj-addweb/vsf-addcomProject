@@ -29,13 +29,12 @@
               <AwInput
                 v-model="form.username"
                 v-e2e="'login-modal-email'"
-                :error-message="errorMessage"
                 @blur="handleBlur()"
                 @focus="handleFocus()"
                 name="email"
                 class="form__element"
               >
-                <template #error-message="{ errorMessage }">
+                <template #error-message="{   }">
                   <div>
                     <p v-if="setShowError">{{ errors[0] }}</p>
                   </div>
@@ -167,13 +166,12 @@
                 type="text"
                 v-e2e="'login-modal-email'"
                 name="email"
-                :error-message="errorMessage"
                 @blur="handleBlur()"
                 @focus="handleFocus()"
                 
                 class="form__element"
               >
-                <template #error-message="{ errorMessage }">
+                <template #error-message="{   }">
                   <div>
                     <p v-if="setShowError">{{ errors[0] }}</p>
                   </div>

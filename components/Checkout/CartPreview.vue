@@ -13,8 +13,8 @@
           type="link"
         />
         <div>
-          <ul v-for="array in arr" :key="array">
-            <li v-for="user in array" :key="user">
+          <ul v-for="array in arr" :key="array.id">
+            <li v-for="user in array" :key="user.id">
               {{ user }}
             </li>
           </ul>
@@ -23,11 +23,10 @@
       <template>
         <AwProperty
           :name="$t('shipping detail')"
-          :value="dataforReview"
           class="sf-property--full-width sf-property--large property"
         />
         <ul>
-          <li v-for="item in shipp" :key="item">
+          <li v-for="item in shipp" :key="item.id">
             {{ item }}
           </li>
         </ul>
@@ -38,14 +37,13 @@
           class="sf-property--full-width sf-property--large property"
         />
         <ul>
-          <li v-for="item in shipp" :key="item">
+          <li v-for="item in shipp" :key="item.id">
             {{ item }}
           </li>
         </ul>
       </template>
       <AwProperty
         :name="$t('Payment method')"
-        :value="selectedMethod"
         class="sf-property--full-width sf-property--large property"
       />
     </div>
@@ -76,11 +74,14 @@
       />
 
       <AwProperty
+        v-if="
+          route.fullPath == '/default/checkout/billing' ||
+          selectedShippingMethod
+        "
         :name="$t('Shipping')"
         value="Free"
         class="sf-property--full-width sf-property--large property"
       />
-
       <AwProperty
         :name="$t('Total')"
         :value="$fc(totals.total)"
@@ -121,7 +122,7 @@ import CouponCode from "../../components/CouponCode.vue";
 import { useUser, userGetters } from "@vue-storefront/magento";
 import { useUserBilling, userBillingGetters } from "@vue-storefront/magento";
 import { useUserShipping, userShippingGetters } from "@vue-storefront/magento";
-import { selectedMethod } from "./VsfPaymentProvider.vue";
+// import selectedMethod from "./VsfPaymentProvider.vue";
 import { useBilling, useShipping } from "@vue-storefront/magento";
 
 const CHARACTERISTICS = [
@@ -150,7 +151,7 @@ export default defineComponent({
     AwProperty,
     AwCharacteristic,
     CouponCode,
-    selectedMethod,
+    // selectedMethod,
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();
@@ -251,25 +252,9 @@ export default defineComponent({
       shipp.value.push(shipStreet);
       shipp.value.push(shipCity);
       shipp.value.push(shipCountryCode);
-      // console.log(shipCountry)
-
-      // console.log(shipFullName,shipStreet,shipCity,shipRegioCode,shipPostCode,shipTelephone,shipCountryCode)
-
-      // // billing detail
-      // const billFullName = billing.billing.value.firstname + " " + shipping.shipping.value.lastname
-      // const billStreet = billing.billing.value.street[0]
-      // const billCity = billing.billing.value.city
-      // const billRegioCode = billing.billing.value.region.code
-      // const billPostCode = billing.billing.value.postcode
-      // const billTelephone = billing.billing.value.telephone
-      // const billCountryCode = billing.billing.value.country.code
     } catch (err) {
       console.log("data is loading ......");
     }
-
-    // console.log(user)
-    // console.log(shipping)
-    // console.log(billing)
 
     const Data = computed(() => {
       return store.state.shippingData;

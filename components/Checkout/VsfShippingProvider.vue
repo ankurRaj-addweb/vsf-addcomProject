@@ -68,7 +68,6 @@
       <div
         class="shipping-method"
         :class="isDisable ? 'ShippingClass' : ' '"
-        @click="isDisable = true"
       >
         <AwRadio
           class="sf-radio--transparent"
@@ -281,7 +280,8 @@ export default defineComponent({
     const showCategoryD = ref(false);
     const showCategoryE = ref(false);
     const infoVisible = ref(false);
-    // const isDisable = ref(false)
+    const isDisable = ref(false);
+     
     const {
       state,
       save: saveShippingProvider,
@@ -327,7 +327,7 @@ export default defineComponent({
       isShippingMethodStepCompleted,
       loadingShippingProvider,
       selectedShippingMethod,
-      selectShippingMethod,
+       selectShippingMethod,
       shippingMethods,
       state,
       totals,
@@ -336,9 +336,10 @@ export default defineComponent({
       showCategoryC,
       showCategoryD,
       showCategoryE,
-      // isDisable,
+      isDisable,
       infoVisible,
       infoFunction,
+      
     };
   },
 });
