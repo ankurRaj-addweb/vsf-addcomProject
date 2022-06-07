@@ -10,21 +10,22 @@
     >
       <div class="bread">
         <router-link to="/default"> Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; </router-link>
-        <LazyHydrate never>
+        
           <template v-for="breads in result">
+            <LazyHydrate never :key="breads">
             <router-link :to="'/default/c/'+(breads)+'.html'">
-              <!-- {{ urlValue }}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; -->
+        
               {{breads +"&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;"}}
             </router-link>
+            </LazyHydrate>
           </template>
-        </LazyHydrate>
       </div>
-      <div>
+      <!-- <div>
         <AwBreadcrumbs
           class="breadcrumbs desktop-only"
           :breadcrumbs="breadcrumbs"
         />
-      </div>
+      </div> -->
   </div>
   <div class="product">
     <AwBadge class="badge-label"
@@ -44,7 +45,7 @@
           :images="productGallery"
           :enable-zoom="true"
           class="product__gallery"
-
+      
         >
          
         </AwGallery>
