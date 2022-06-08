@@ -105,7 +105,8 @@ h1 {
     letter-spacing: 0.1px;
     margin-bottom: 10px;
     
-    margin-right: 350px;
+    text-align: inherit;
+    width: 100%;
 
     
   }
