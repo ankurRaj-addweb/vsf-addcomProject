@@ -90,7 +90,7 @@ section.sf-section.section {
             max-width: 109px;
         }
         .sf-product-card {
-            @media (min-width: 768px) {
+            @media (min-width: 1024px) {
                 padding: 20px;
             }
             img.sf-product-card__image.lol {
@@ -145,9 +145,9 @@ button.sf-hero-item__button.sf-button {
         background: #282828;
     }
 }
-.sf-bottom-navigation-item.center {
-    align-self: auto;
-   
+.sf-bottom-navigation-item .sf-circle-icon {
+    --button-size: 4.125rem;
+    margin-top: -35px;
 }
 element.style {}
 
