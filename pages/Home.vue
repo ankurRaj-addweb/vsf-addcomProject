@@ -13,12 +13,16 @@
       />
       <template #prev="prevArrow">
         <AwButton
-          aria-label="previous" 
+          aria-label="previous"
           class="hero__arrow"
           @click="prevArrow.go('prev')"
         >
-          <SvgImage icon="arrow_left" width="24" height="24" />
-        </AwButton>
+          <SvgImage
+            icon="arrow_left"
+            width="24"
+            height="24"
+          />
+          </AwButton>
       </template>
       <template #next="nextArrow">
         <AwButton
@@ -26,113 +30,111 @@
           class="hero__arrow"
           @click="nextArrow.go('next')"
         >
-          <SvgImage icon="arrow_right" width="24" height="24" />
-        </AwButton>
+          <SvgImage
+            icon="arrow_right"
+            width="24"
+            height="24"
+          />
+          </AwButton>
       </template>
     </AwHero>
-  <template>
-   <popular-categories/>
-  </template> 
-  <LazyHydrate when-visible>
-    <AwBannerGrid :banner-grid="1" class="banner-grid">
-      <template v-for="item in banners" #[item.slot]>
-        <AwBanner
-        :key="item.slot"
-        :title="item.title"
-        :subtitle="item.subtitle"
-        :description="item.description"
-        :button-text="item.buttonText"
-        :image="item.image"
-        :class="item.class"
-        />
-      </template>
-  </AwBannerGrid>
-  </LazyHydrate>
+    <template>
+      <popular-categories/>
+    </template>
     <LazyHydrate when-visible>
-      <ProductsCarousel
-        :products="newProducts"
-        :loading="newProductsLoading"
-        :title="$t('Match it with')"
-        class="match_with"
-      />
-    </LazyHydrate>
-    <LazyHydrate when-visible>
-        <AwCallToAction
-          :title="$t('Subscribe to Newsletters')"
-          :button-text="$t('Subscribe')"
-          :description="
+      <AwBannerGrid
+        :banner-grid="1"
+        class="banner-grid"
+      >
+        <template
+          v-for="item in banners"
+          #[item.slot]
+        >
+          <AwBanner
+            :key="item.slot"
+            :title="item.title"
+            :subtitle="item.subtitle"
+            :description="item.description"
+            :button-text="item.buttonText"
+            :image="item.image"
+            :class="item.class"
+          />
+</template>
+</AwBannerGrid>
+</LazyHydrate>
+<LazyHydrate when-visible>
+  <ProductsCarousel
+    :products="newProducts"
+    :loading="newProductsLoading"
+    :title="$t('Match it with')"
+    class="match_with"
+  />
+</LazyHydrate>
+<LazyHydrate when-visible>
+  <AwCallToAction
+    :title="$t('Subscribe to Newsletters')"
+    :button-text="$t('Subscribe')"
+    :description="
             $t(
               'Be aware of upcoming sales and events. Receive gifts and special offers!'
             )
           "
-          :image="require('static/homepage/banner1.jpg')"
-          class="call-to-action"
-          style="font-size: 30px"
-        />
-    </LazyHydrate>
-    <template>
-      <AwInput
-        v-if="!isAuthenticated"
-          value=""
-          name="email"
-          placeholder="Your Email"
-          type="text"
-          class="sf-input--outline"
-          style="
-            position: relative;
-            width: 300px;
-            top: 0%;
-            height:51px;
-            font-size: 12px;
-            color: #43464e;
-            background-color: white;
-            margin-left: 710px; 
-            margin-top: 236px;
-            margin-bottom: 150px;
-          "
-      />
-    </template>
-    <div class="login" v-if="isAuthenticated">
-      <LazyHydrate when-visible>
-        <InstagramFeed />
-      </LazyHydrate>
-    </div>
-    <div v-if="!isAuthenticated">
-      <LazyHydrate when-visible>
-        <InstagramFeed />
-      </LazyHydrate> 
-    </div>
-      <LazyHydrate when-visible>
-        <MobileStoreBanner />
-      </LazyHydrate> 
-    </div>
+    :image="require('static/homepage/banner1.jpg')"
+    class="call-to-action"
+    style="font-size: 30px"
+  />
+</LazyHydrate>
+<template>
+  <AwInput
+    v-if="!isAuthenticated"
+    value=""
+    name="email"
+    placeholder="Your Email"
+    type="text"
+    class="sf-input--outline"
+    
+  />
 </template>
+<div
+  class="login"
+  v-if="isAuthenticated"
+>
+  <LazyHydrate when-visible>
+    <InstagramFeed />
+  </LazyHydrate>
+  </div>
+  <div v-if="!isAuthenticated">
+    <LazyHydrate when-visible>
+      <InstagramFeed />
+    </LazyHydrate>
+  </div>
+  <LazyHydrate when-visible>
+    <MobileStoreBanner />
+  </LazyHydrate>
+  </div>
+  </template>
 <script type="module">
-  import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
-  import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
-  import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue"
-  import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
-  import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
-  import PopularCategories from '../components/PopularCategories.vue';
-  import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
-  import { onSSR } from "@vue-storefront/core";
-  import LazyHydrate from "vue-lazy-hydration";
-  import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
-  import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
-  import InstagramFeed from "~/components/InstagramFeed.vue";
-  import ProductsCarousel from "~/components/ProductsCarousel.vue";
-  import SvgImage from "~/components/General/SvgImage.vue";
-  import {
-    computed,
-    defineComponent,
-    ref,
-    useContext,
-  } from "@nuxtjs/composition-api";
-  import {
-  useProduct,
-  productGetters,
-  useUser
-  } from '@vue-storefront/magento';
+import AwCallToAction from "@storefront-ui/root/packages/vue/src/components/molecules/AwCallToAction/AwCallToAction.vue";
+import AwBanner from "@storefront-ui/root/packages/vue/src/components/molecules/AwBanner/AwBanner.vue";
+import AwBannerGrid from "@storefront-ui/root/packages/vue/src/components/organisms/AwBannerGrid/AwBannerGrid.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwHero from "@storefront-ui/root/packages/vue/src/components/organisms/AwHero/AwHero.vue";
+import PopularCategories from "../components/PopularCategories.vue";
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
+import { onSSR } from "@vue-storefront/core";
+import LazyHydrate from "vue-lazy-hydration";
+import { useCache, CacheTagPrefix } from "@vue-storefront/cache";
+import MobileStoreBanner from "~/components/MobileStoreBanner.vue";
+import InstagramFeed from "~/components/InstagramFeed.vue";
+import ProductsCarousel from "~/components/ProductsCarousel.vue";
+import SvgImage from "~/components/General/SvgImage.vue";
+import {
+  computed,
+  defineComponent,
+  ref,
+  useContext,
+} from "@nuxtjs/composition-api";
+import { useProduct, productGetters, useUser } from "@vue-storefront/magento";
 
 export default defineComponent({
   name: "HomePage",
@@ -150,14 +152,14 @@ export default defineComponent({
     AwButton,
     AwInput,
     PopularCategories,
-
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
- const { isAuthenticated } = useUser();
+
+    const { isAuthenticated } = useUser();
     const {
       products: newProductsResult,
       search: newProductsSearch,
@@ -172,8 +174,7 @@ export default defineComponent({
         image: {
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg",
-          desktop:
-            require('../static/homepage/hero.png'),
+          desktop: require("../static/homepage/hero.png"),
         },
         link: "/default",
       },
@@ -185,8 +186,7 @@ export default defineComponent({
         image: {
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg",
-          desktop:
-            require('../static/homepage/hero.png'),
+          desktop: require("../static/homepage/hero.png"),
         },
         link: "/c/women/women-clothing-dresses",
       },
@@ -198,8 +198,7 @@ export default defineComponent({
         image: {
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg",
-          desktop:
-            require('../static/homepage/hero.png'),
+          desktop: require("../static/homepage/hero.png"),
         },
         link: "/c/women/women-shoes-sandals",
         className:
@@ -216,10 +215,8 @@ export default defineComponent({
         ),
         buttonText: app.i18n.t("Shop now"),
         image: {
-          mobile:
-            require('../static/homepage/1.jpg'),
-          desktop:
-            require('../static/homepage/1.jpg'),
+          mobile: require("../static/homepage/1.jpg"),
+          desktop: require("../static/homepage/1.jpg"),
         },
         class: "sf-banner--slim desktop-only",
         link: "/c/women/women-clothing-skirts",
@@ -233,10 +230,8 @@ export default defineComponent({
         ),
         buttonText: app.i18n.t("Shop now"),
         image: {
-          mobile:
-             require('../static/homepage/2.jpg'),
-          desktop:
-             require('../static/homepage/2.jpg'),
+          mobile: require("../static/homepage/2.jpg"),
+          desktop: require("../static/homepage/2.jpg"),
         },
         class: "sf-banner--slim banner-central desktop-only Slot_b",
         link: "/c/women/women-clothing-dresses",
@@ -246,10 +241,8 @@ export default defineComponent({
         subtitle: app.i18n.t("T-Shirts"),
         title: app.i18n.t("The Office Life"),
         image: {
-          mobile:
-            require('../static/homepage/3.jpg'),
-          desktop:
-            require('../static/homepage/3.jpg'),
+          mobile: require("../static/homepage/3.jpg"),
+          desktop: require("../static/homepage/3.jpg"),
         },
         class: "sf-banner--slim banner__tshirt",
         link: "/c/women/women-clothing-shirts",
@@ -257,12 +250,12 @@ export default defineComponent({
       {
         slot: "banner-D",
         subtitle: app.i18n.t("Summer Sandals"),
-        title: app.i18n.t("Eco Friendly Environment"),
+        title: app.i18n.t("Eco \n Friendly \n Environment"),
+        class: "wordbreak",
         image: {
-          mobile:
-           require('../static/homepage/4.jpg'), 
-          desktop:
-           require('../static/homepage/4.jpg'),
+          mobile: require("../static/homepage/4.jpg"),
+
+          desktop: require("../static/homepage/4.jpg"),
         },
         class: "sf-banner--slim",
         link: "/c/women/women-shoes-sandals",
@@ -331,9 +324,11 @@ export default defineComponent({
     margin: 0 auto;
   }
 
-  .login{.sf-section{
-    margin-top: 435px;
-}}
+  .login {
+    .sf-section {
+      margin-top: 435px;
+    }
+  }
 }
 
 .hero {
@@ -386,7 +381,7 @@ export default defineComponent({
 .banner-grid {
   --banner-container-width: 50%;
   @include for-desktop {
-     margin: var(--spacer-xl) 0;
+    margin: var(--spacer-xl) 0;
   }
 
   ::v-deep .sf-link:hover {
@@ -428,16 +423,18 @@ export default defineComponent({
 }
 
 .call-to-action {
-  max-width: 1240px;
+  @media (min-width:768px) {
+     max-width: 1240px;
   width: 92%;
   margin: 8px auto;
   position: absolute;
   background-position: right;
+  }
+ 
   @include for-desktop {
     margin: var(--spacer-l) 0 var(--spacer-2xl) 0;
     width: 99%;
   }
-
 }
 
 .carousel {
@@ -455,6 +452,40 @@ export default defineComponent({
     &__product {
       --product-card-add-button-transform: translate3d(0, 30%, 0);
     }
+  }
+}
+.wordbreak {
+  @media (max-width: 1024px) {
+    word-break: break-all;
+    white-space: pre-line;
+    text-align: left;
+    font-size: 36px;
+  }
+}
+.sf-banner__title {
+  @media (max-width: 1024px) {
+    word-break: break-all;
+    white-space: pre-line;
+    text-align: left;
+    font-size: 36px;
+  }
+}
+.sf-input--outline {
+  position: relative;
+  width: 300px;
+  top: 0%;
+  height: 51px;
+  font-size: 12px;
+  color: #43464e;
+  background-color: white;
+  margin-left: 710px;
+  margin-top: 236px;
+  margin-bottom: 150px;
+
+  @media (max-width: 1024px) {
+   
+    margin-bottom: 0%;
+    display: none;
   }
 }
 </style>
