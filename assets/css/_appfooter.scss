@@ -36,7 +36,8 @@ h5 {
         font-size: 16px !important;
         line-height: 22px;
         color: #FFFFFF;
-        padding-left: 42px;
+        padding-left: 10px;
+        text-transform: uppercase;
     }
     .sf-footer-column__content {
         display: var(--footer-column-content-display, block) !important;
@@ -48,6 +49,7 @@ h5 {
     .footer__socials {
         @media (max-width: 1024px) {
             padding: 0 8px 0 8px;
+            
         }
     }
     .footer .sf-footer-column, .footer .sf-footer-column__title {

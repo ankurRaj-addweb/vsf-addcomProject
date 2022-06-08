@@ -14,6 +14,7 @@
         font-weight: 600;
         font-size: 36px;
         line-height: 48px;
+        
     }
 }
 
@@ -59,10 +60,13 @@ section.sf-section.section {
         h2.sf-heading__title.h2 {
             color: #282828;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 700 !important;
             line-height: 24px;
             @media (max-width: 767px) {
                 font-size: 18px !important;
+                color: #282828 !important;
+                margin-right: 370px;
+                letter-spacing: 0.1px;
             }
         }
     }
@@ -111,6 +115,10 @@ button.sf-hero-item__button.sf-button {
     width: 168px;
     height: 50px;
     padding: 0;
+    @media (max-width:1024px) {
+        width: 280px;
+        width: 100%;
+    }
 }
 
 .sf-call-to-action__title {
@@ -119,6 +127,13 @@ button.sf-hero-item__button.sf-button {
     font-weight: 600;
     font-size: 36px;
     line-height: 48px;
+    @media (max-width:1024px) {
+        font-style: SemiBold;
+        font-size: 24px;
+        line-height: 30px;
+        text-align: left;
+
+    }
 }
 
 .carousel .sf-arrow[data-v-bdde9382] {
@@ -130,7 +145,10 @@ button.sf-hero-item__button.sf-button {
         background: #282828;
     }
 }
-
+.sf-bottom-navigation-item.center {
+    align-self: auto;
+   
+}
 element.style {}
 
 section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
@@ -170,3 +188,16 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
 
 
 
+    
+  
+
+.sf-banner__title{
+    @media (max-width:1024px) {
+       
+        white-space: pre-line !important;
+        white-space: normal;
+        text-align: left !important;
+        font-size: 36px ;
+    }
+    
+}
