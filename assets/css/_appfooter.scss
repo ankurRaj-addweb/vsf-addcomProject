@@ -52,6 +52,14 @@ h5 {
             
         }
     }
+    .footer .sf-footer-column, .footer .sf-footer-column__title {
+        background: transparent;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+    }
 }
 
 .language {
@@ -70,6 +78,8 @@ h5 {
 .sf-footer-column__title {
     background: transparent;
 }
+
+
 
 .footer__subscribe {
     left: unset !important;
@@ -161,8 +171,27 @@ h5 {
         background: #F9F9F9;
         color: #FFFFFF;
         padding: 21px;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        text-transform: uppercase;
     }
 }
+
+.sf-footer-column button.sf-footer-column__title.smartphone-only{
+    @media (max-width: 1024px) {
+        width: 100%;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        text-transform: uppercase !important;
+    }
+}
+
 
 .sf-footer {
     border-top: var(--spacer-xs) solid #037EE6 !important;

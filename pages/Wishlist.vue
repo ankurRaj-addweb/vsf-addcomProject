@@ -1,5 +1,5 @@
 <template>
-  <div class="wishist">
+  <div class="wishist smartphone-only">
     <div class="sf-breadcrumbs__breadcrumb">
       <template>
         <router-link to="/default">

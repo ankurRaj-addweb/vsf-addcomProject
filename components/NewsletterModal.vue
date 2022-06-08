@@ -20,12 +20,14 @@
           class="modal__title desktop-only"
         />
         <form @submit.prevent="$emit('email-submitted', emailAddress)">
-          <SfInput
-            type="email"
-            :label="$t('Email address')"
-            v-model="emailAddress"
-            class="modal__input"
-          />
+          <div class="media_remove">
+            <SfInput
+              type="email"
+              :label="$t('Email address')"
+              v-model="emailAddress"
+              class="modal__input"
+            />
+          </div>
           <SfButton class="modal__button" type="submit">
             {{ $t('I confirm subscription') }}
           </SfButton>
@@ -112,5 +114,4 @@ export default {
     font-weight: var(--font-weight--light);
   }
 }
-
 </style>

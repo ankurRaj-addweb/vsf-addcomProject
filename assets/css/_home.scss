@@ -174,9 +174,23 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
     font-weight: 400;
     font-size: 36px;
     line-height: 48px;
+}
+.sf-hero{
+    @media (max-width:1024px) {
+        .sf-hero-item__subtitle{
+            width: 147px;
+        }
+        .sf-hero-item__title{
+            width: 166px;
+        }
+    }
+}
+
+
+
     
   
-}
+
 .sf-banner__title{
     @media (max-width:1024px) {
        
