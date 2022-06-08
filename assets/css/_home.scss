@@ -60,10 +60,13 @@ section.sf-section.section {
         h2.sf-heading__title.h2 {
             color: #282828;
             font-style: normal;
-            font-weight: 700;
+            font-weight: 700 !important;
             line-height: 24px;
             @media (max-width: 767px) {
                 font-size: 18px !important;
+                color: #282828 !important;
+                margin-right: 370px;
+                letter-spacing: 0.1px;
             }
         }
     }
@@ -142,7 +145,10 @@ button.sf-hero-item__button.sf-button {
         background: #282828;
     }
 }
-
+.sf-bottom-navigation-item.center {
+    align-self: auto;
+   
+}
 element.style {}
 
 section.sf-section.section .sf-heading h2.sf-heading__title.h2 {

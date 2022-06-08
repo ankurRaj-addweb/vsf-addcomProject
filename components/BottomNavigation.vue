@@ -63,7 +63,7 @@
         <template #icon>
           <SfCircleIcon aria-label="Add to cart">
             <SvgImage
-              icon="add_to_cart"
+              icon="empty_cart"
               width="25"
               height="25"
               class="navigation-bottom__add-to-cart"
@@ -132,7 +132,7 @@ export default defineComponent({
 
   ::v-deep {
     .sf-bottom-navigation-item {
-      align-self: end;
+      // align-self: end;
     }
 
     .svg-image {
