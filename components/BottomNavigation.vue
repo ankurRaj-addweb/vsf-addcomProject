@@ -57,7 +57,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        :label="$route.name && $route.name.startsWith('product') ? 'Add to Cart' : 'Basket'"
+        :label="$route.name && $route.name.startsWith('product') ? 'Add to Cart' : 'Cart'"
         @click="toggleCartSidebar"
       >
         <template #icon>

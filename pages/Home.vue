@@ -327,7 +327,10 @@ export default defineComponent({
 
   .login {
     .sf-section {
-      margin-top: 435px;
+      @media (min-width: 1024px) {
+         margin-top: 435px;
+      }
+     
     }
   }
 }
