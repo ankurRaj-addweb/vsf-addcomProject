@@ -165,10 +165,11 @@ export default defineComponent({
     } = useProduct("newProducts");
     const heroes = ref([
       {
-        title: app.i18n.t("Colorful summer dresses are already in store"),
-        subtitle: app.i18n.t("SUMMER COLLECTION {year}", { year }),
+        title: app.i18n.t("Amazing Corporate designs are already in store"),
+        subtitle: app.i18n.t("CORPORATE COLLECTION {year}", { year }),
         buttonText: app.i18n.t("Learn more"),
         background: "#eceff1",
+        class:"carousal",
         image: {
           mobile:
             "https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg",
@@ -178,8 +179,8 @@ export default defineComponent({
         link: "/default",
       },
       {
-        title: app.i18n.t("Colorful summer dresses are already in store"),
-        subtitle: app.i18n.t("SUMMER COLLECTION {year}", { year }),
+        title: app.i18n.t("Amazing Corporate designs are already in store"),
+        subtitle: app.i18n.t("CORPORATE COLLECTION {year}", { year }),
         buttonText: app.i18n.t("Learn more"),
         background: "#fce4ec",
         image: {
@@ -191,8 +192,8 @@ export default defineComponent({
         link: "/c/women/women-clothing-dresses",
       },
       {
-        title: app.i18n.t("Colorful summer dresses are already in store"),
-        subtitle: app.i18n.t("SUMMER COLLECTION {year}", { year }),
+        title: app.i18n.t("Amazing Corporate designs are already in store"),
+        subtitle: app.i18n.t("CORPORATE COLLECTION {year}", { year }),
         buttonText: app.i18n.t("Learn more"),
         background: "#efebe9",
         image: {
@@ -457,4 +458,5 @@ export default defineComponent({
     }
   }
 }
+
 </style>

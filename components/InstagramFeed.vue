@@ -10,11 +10,11 @@
         <div class="grid__col container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageAm.webp "
+            src="/homepage/mobile_img_1.png"
             alt="katherina_trn"
             loading="lazy"
-            :width="163"
-            :height="220"
+            :width="162"
+            :height="162"
           />
           <nuxt-img
             v-else
@@ -34,7 +34,7 @@
         <div class="grid__col small container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageBm.webp"
+            src="/homepage/mobile_img_2.png"
             alt="katherina_trn"
             loading="lazy"
             :width="162"
@@ -59,11 +59,11 @@
         <div class="grid__col small container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageCm.webp"
+            src="/homepage/mobile_img_3.png"
             alt="katherina_trn"
             loading="lazy"
-            :width="163"
-            :height="220"
+            :width="162"
+            :height="162"
           />
           <nuxt-img
             v-else
@@ -81,7 +81,7 @@
         <div class="grid__col container" >
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageDm.webp"
+            src="/homepage/mobile_img_4.png"
             alt="katherina_trn"
             loading="lazy"
             :width="162"
