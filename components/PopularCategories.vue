@@ -104,8 +104,8 @@ h1 {
     line-height: 24px;
     letter-spacing: 0.1px;
     margin-bottom: 10px;
-    
-    margin-right: 350px;
+    max-width: 100%;
+    text-align: inherit;
 
     
   }
