@@ -65,10 +65,13 @@ section.sf-section.section {
             @media (max-width: 767px) {
                 font-size: 18px !important;
                 color: #282828 !important;
-                
+
+                // margin-right: 370px;
+                max-width: 100%;
+                text-align: inherit;
                 letter-spacing: 0.1px;
                 text-align: inherit;
-                max-width: 100%;
+
             }
         }
     }
