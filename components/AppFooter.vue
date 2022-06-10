@@ -34,7 +34,7 @@
           v-for="item in social"
           :key="item"
           class="footer__social-image"
-          :src="addBasePath('/icons/' + item + '.svg')"
+          :src="addBasePath('/icons/' + item + '.png')"
           :alt="item"
           width="32"
           height="32"
@@ -133,7 +133,7 @@ export default {
       departments: ["Women fashion", "Men fashion", "Kidswear", "Home"],
       help: ["Customer service", "Size guide", "Contact us"],
       paymentsDelivery: ["Purchase terms", "Guarantee"],
-      social: ["facebook", "pinterest", "google", "twitter", "youtube"],
+      social: ["Facebook Icon", "Pinterest Icon", "Google Icon", "Twitter Icon", "Youtube Icon"],
       isMobile: false,
       desktopMin: 1024,
     };

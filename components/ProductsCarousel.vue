@@ -1,7 +1,13 @@
 <template>
   <AwSection :title-heading="title" class="section">
+    <div class="match_see_all">
+      <label class="match_it">Match it with</label>
+      <AwLink>
+        <label class="see_all">See all</label>
+      </AwLink>
+    </div>
     <AwLoader :class="{ loading }" :loading="loading">
-    
+
       <AwCarousel
         data-cy="related-products-carousel"
         :settings="{ peek: 16, breakpoints: { 103: { peek: 0, perView: 2 } } }"
@@ -104,6 +110,7 @@ import AwCarousel from "@storefront-ui/root/packages/vue/src/components/organism
 import AwSection from "@storefront-ui/root/packages/vue/src/components/molecules/AwSection/AwSection.vue";
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
+import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue";
 import { productGetters, useUser, useWishlist } from "@vue-storefront/magento";
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { useAddToCart } from "~/helpers/cart/addToCart";
@@ -118,6 +125,7 @@ export default defineComponent({
     AwSection,
     AwLoader,
     AwButton,
+    AwLink,
     SvgImage,
   },
   props: {

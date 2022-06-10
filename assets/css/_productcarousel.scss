@@ -1,17 +1,52 @@
-// .sf-heading__title.h2 {
-//     // font-size: var(--h2-font-size);
-//     // font-size: var(--h2-font-size);
-//     // font-size: var(--heading-title-font-size, var(--h2-font-size));
-//     // font-weight: var(--font-weight--normal);
-//     // font-weight: var(--font-weight--normal);
-//     // font-weight: var(--heading-title-font-weight, var(--font-weight--normal));
-//     // font-family: "Source Sans Pro";
-//     // font-style: normal;
-//     font-weight: 600;
-//     line-height: 32px;
-//     text-align: center;
-//     font-family: 'Source Sans Pro';
-//     font-style: normal;
-//     font-size: 24px;
-//     color: #282828;
-// }
+.match_see_all{
+    text-align: center;
+    justify-content: center;
+}
+.match_it{
+    float: center;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    width: 158px;
+    height: 32px;
+    margin-bottom: 55px;
+}
+.see_all{
+    display: none;
+}
+.sf-carousel .glide__slide > * {
+    flex: 1;
+    margin-top: 26px;
+}
+@media (max-width:1024px) {
+    .match_it{
+        float: left;
+        text-align: start;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 26px;
+        margin-right: -166px;
+
+    }
+    .see_all{
+        display: block;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        float: right;
+        margin-bottom: 26px;
+        text-decoration-line: underline;
+    }
+}
+@media (max-width:768px) {
+    .match_see_all{
+        background-color: red;
+    }
+}

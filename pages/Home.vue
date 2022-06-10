@@ -66,8 +66,6 @@
   <ProductsCarousel
     :products="newProducts"
     :loading="newProductsLoading"
-    :title="$t('Match it with')"
-    class="match_with"
   />
 </LazyHydrate>
 <LazyHydrate when-visible>

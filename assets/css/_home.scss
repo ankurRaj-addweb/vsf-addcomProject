@@ -151,8 +151,6 @@ button.sf-hero-item__button.sf-button {
     --button-size: 4.125rem;
     margin-top: -35px;
 }
-element.style {}
-
 section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
     color: rgb(40, 40, 40);
     font-style: normal;
@@ -163,6 +161,36 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
+}
+@media (max-width:1024px) {
+    .section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
+        color: #282828;
+        font-style: normal;
+        font-family: 'Source Sans Pro';
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+        width: 158px;
+        height: 32px;
+        margin-left: -23px;
+    }
+}
+.popular_category{
+    /* outline: dotted; */
+    text-align: center;
+    left: 42.1%;
+    right: 42.1%;
+    top: 0%;
+    bottom: 84.24%;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    /* display: flex; */
+    color: #282828;
+    margin-bottom: 40px;
+
 }
 
 .sf-banner__wrapper-desktop .sf-banner__title {
@@ -187,12 +215,6 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
         }
     }
 }
-
-
-
-    
-  
-
 .sf-banner__title{
     @media (max-width:1024px) {
        
@@ -202,4 +224,37 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
         font-size: 36px ;
     }
     
+}
+.match_it_with{
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    width: 158px;
+    height: 32px;
+    color: #282828;
+}
+
+@media (max-width:1024px) {
+    .carousal{
+        width: 343px;
+        height: 223px;
+    }
+}
+
+@media (max-width: 1024px){
+.popular_category[data-v-3c8a0f8a] {
+    margin-top: 32px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    margin-bottom: 16px;
+    margin-right: 350px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    height: 40px;
+    width: 185px;
+}
 }
