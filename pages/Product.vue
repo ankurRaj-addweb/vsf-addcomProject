@@ -31,7 +31,7 @@
     <AwBadge class="badge-label"
         v-if="productGetters.getPrice(product).special">
          
-            {{ productGetters.getPrice(product).special ? '-'+productGetters.getPrice(product).regular/ (productGetters.getPrice(product).regular - productGetters.getPrice(product).special)+'%' : '' }}
+            {{ productGetters.getPrice(product).special ? '-'+(productGetters.getPrice(product).regular/ (productGetters.getPrice(product).regular - productGetters.getPrice(product).special)).toFixed(2)+'%' : '' }}
          
         </AwBadge>
      
@@ -940,7 +940,8 @@ export default defineComponent({
   /* outline: dotted; */
   .sf-button--text {
     align-items: center;
-    color: #037ee6;
+    /* color: #037ee6; */
+    
     float: right;
     margin-right: 5px;
   }
@@ -968,6 +969,7 @@ export default defineComponent({
 
 .sf-add-to-cart__button {
   background: #037ee6;
+  
 }
 
 /* .sf-rating__icon--negative {
@@ -1000,6 +1002,7 @@ export default defineComponent({
   --button-background: #037ee6;
   --button-border-radius: 100%;
   position: var(--circle-icon-position, relative);
+  margin-top:-30px;
 }
 
 .sf-circle-icon:hover {
@@ -1066,6 +1069,7 @@ top: 3px; */
 }
 .badge-label{
   height:max-content;
+  background-color:#F87100;
   
 }
 </style>
