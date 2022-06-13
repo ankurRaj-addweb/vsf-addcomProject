@@ -1,11 +1,87 @@
 <template>
+<div id="storemodal">
   <SfBottomModal
     :is-open="isLangModalOpen"
-    :title="availableStores.length > 0 ? 'Change Store': ''"
+    :title="availableStores.length > 0 ? 'Select your localization and language': ''"
     @click:close="closeModal"
+   
   >
+  <p class="country">Africa</p>
     <SfList
       v-if="availableStores.length > 1"
+      
+    >
+      <SfListItem
+        v-for="store in availableStores"
+        :key="store.id"
+      >
+        <a
+          href="/"
+          class="container__store--link"
+          :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
+          @click="handleChanges({
+            callback: () => changeStore(store),
+            redirect: false,
+            windowRefresh: true,
+          })"
+        >
+          <SfCharacteristic class="language">
+            <template #title>
+              <span>{{ storeConfigGetters.getName(store) }}</span>
+            </template>
+            <template #icon>
+              <nuxt-img
+                :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
+                width="20"
+                height="20"
+                alt="Flag"
+                class="language__flag"
+              />
+            </template>
+          </SfCharacteristic>
+        </a>
+      </SfListItem>
+    </SfList>
+     <p class="country">Europe</p>
+    <SfList
+      v-if="availableStores.length > 1"
+      
+    >
+      <SfListItem
+        v-for="store in availableStores"
+        :key="store.id"
+      >
+        <a
+          href="/"
+          class="container__store--link"
+          :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
+          @click="handleChanges({
+            callback: () => changeStore(store),
+            redirect: false,
+            windowRefresh: true,
+          })"
+        >
+          <SfCharacteristic class="language">
+            <template #title>
+              <span>{{ storeConfigGetters.getName(store) }}</span>
+            </template>
+            <template #icon>
+              <nuxt-img
+                :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
+                width="20"
+                height="20"
+                alt="Flag"
+                class="language__flag"
+              />
+            </template>
+          </SfCharacteristic>
+        </a>
+      </SfListItem>
+    </SfList>
+     <p class="country">Asia Pacific</p>
+    <SfList
+      v-if="availableStores.length > 1"
+      
     >
       <SfListItem
         v-for="store in availableStores"
@@ -39,6 +115,7 @@
       </SfListItem>
     </SfList>
   </SfBottomModal>
+  </div>
 </template>
 <script>
 import {
@@ -82,6 +159,8 @@ export default defineComponent({
     const availableStores = computed(() => stores.value ?? []);
 
     onMounted(() => {
+      console.log(document.getElementById('storemodal').firstChild.firstChild)
+       document.getElementById('storemodal').firstChild.firstChild.classList.remove('sf-overlay')
       if (stores.value && stores.value?.length) return;
       loadStores();
     });
@@ -99,6 +178,7 @@ export default defineComponent({
       this.$emit('closeModal');
     },
   },
+
 });
 </script>
 <style scoped lang="scss">

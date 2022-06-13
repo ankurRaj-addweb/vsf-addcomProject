@@ -229,18 +229,11 @@
         </div>
         <AwCheckbox
           v-e2e="'copy-address'"
-          :selected="sameAsShipping"
           :label="$t('I want to generate invoice for the company')"
           name="copyShippingAddress"
           class="form__element"
         />
-        <AwCheckbox
-          :selected="sameAsShipping"
-          name="setAsDefault"
-          label="Use this billing address as my default one."
-          class="billing__setAsDefault"
-          @change="$emit('input', $event)"
-        />
+        
         <AwButton
           v-if="!sameAsShipping && !canAddNewAddress"
           class="
@@ -722,7 +715,6 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
-
       invoiceCheck,
       invoiceCheckToggle,
       getInvoiceCheck,

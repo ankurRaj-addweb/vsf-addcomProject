@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="categorysidebar">
     <slot v-if="loading" name="loading" :loading="loading" />
     <slot v-else name="category" :category-tree="categoryTree" :active-category="activeCategory">
       <AwAccordion :open="activeCategory" :show-chevron="true">
@@ -152,7 +152,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+ <style lang="scss" scoped>
 .sf-divider {
   margin-bottom: var(--spacer-xs);
 }

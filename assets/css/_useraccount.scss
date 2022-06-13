@@ -1,4 +1,8 @@
 .user {
+
+  .sf-checkbox.form__element{
+    margin: 7px;
+  }
   .check {
     background-color: #EFEFEF;
     color: black;
@@ -41,7 +45,8 @@ label.sf-input__label.will-change {
     color: aliceblue;
     margin-top: 2rem;
     width: 400px;
-    height: 50px
+    height: 50px;
+    font-weight: 600;
   }
   button.addd.sf-button {
     font-size: 16px;
@@ -53,8 +58,11 @@ label.sf-input__label.will-change {
   .ffff {
     background-color: #037ee6;
     width: 400px;
-
-
+    height: 50px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
   }
 
   button.is-disabled--button.form__button.\.color-primary\..sf-button.sf-button {
@@ -68,6 +76,28 @@ label.sf-input__label.will-change {
 }
 
 #checkout {
+  .highlighted {
+    .title {
+        h3.sf-heading__title.h3 {
+            font-size: 24px;
+            width: 167px;
+            height: 29px !important;
+            line-height: 32px;
+        }
+    }
+    .sf-property__name {
+      font-weight: 400;
+      width: 84px;
+      height: 26px !important;
+      font-size: 18px;
+      line-height: 26px;
+
+  }
+  .sf-property__value{
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
   .main {
     display: flex;
 
@@ -84,7 +114,19 @@ label.sf-input__label.will-change {
     }
    
   }
-
+  input#promoCode {
+    border-bottom: none !important;
+    
+    width: 210px;
+    height: 32px;
+  
+}
+.promo {
+label.sf-input__label {
+    color: #EFEFEF;
+    font-size: 16px;
+    line-height: 22px;
+}}
   .dev {
     display: flex;
     width: 300px;
@@ -114,7 +156,12 @@ label.sf-input__label.will-change {
     --button-width: 6.3125rem;
     --button-height: var(--spacer-lg);
   }
-
+  .sf-steps__title {
+    text-align: center;
+    line-height: 22px;
+    font-size: 16px;
+    height: 22px;
+}
   .sf-steps__step.current,
   .sf-steps__step.done {
     --steps-step-color: #037ee6;
@@ -127,7 +174,9 @@ label.sf-input__label.will-change {
     --_steps-progress-active-step: 1;
     background-color: #037ee6;
   }
-
+  .sf-steps__title::after {
+    background-color: #037ee6;
+}
   .sf-steps__step::after {
     background-color: #037ee6;
   }

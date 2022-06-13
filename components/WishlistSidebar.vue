@@ -128,7 +128,7 @@
         </div>
       </AwLoader>
       <template #content-bottom>
-         <div class="wish">
+         <div class="wish"  v-if="totalItems">
          
             <AwProperty class="sf-property my-wishlist__total-price">
               <template #name>

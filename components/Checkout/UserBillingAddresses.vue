@@ -14,6 +14,13 @@
         <UserAddressDetails :address="billingAddress" />
       </SfAddress>
     </SfAddressPicker>
+     <SfCheckbox
+      :selected="value"
+      name="setAsDefault"
+      label="Use this address as my default one."
+      class="billing__setAsDefault"
+      @change="$emit('input', $event)"
+    />
   </div>
 </template>
 

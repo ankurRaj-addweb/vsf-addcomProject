@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cartpreview">
     <div
       class="highlighted"
       v-if="route.fullPath === '/default/checkout/payment'"
