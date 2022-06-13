@@ -7,6 +7,16 @@
     font-size: 20px;
     line-height: 26px;
     // color: #3C3C3C;
+    @media (max-width:1024px) {
+        font-family: 'Source Sans Pro';
+        font-style: 'regular';
+        font-size: 16px;
+        line-height: 22px;
+        align-items: left;
+        font-weight: 400;
+      
+    }
+   
 }
 
 #my-account {
@@ -15,5 +25,16 @@
             padding-top: 40px;
         }
     }
+    .sf-content-pages__category-title{
+        
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-size: 18px;
+        line-height: 24px;
+        align-items: left;
+        font-weight: 700;
+    }
+    
+    
  
 }

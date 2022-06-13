@@ -5,16 +5,15 @@
     class="title font_change"
   >
     <div class="grid grid-images">
-
       <div class="grid__row">
         <div class="grid__col container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageAm.webp "
+            src="/homepage/mobile_img_1.png"
             alt="katherina_trn"
             loading="lazy"
-            :width="163"
-            :height="220"
+            :width="162"
+            :height="162"
           />
           <nuxt-img
             v-else
@@ -24,7 +23,6 @@
             loading="lazy"
             :width="470"
             :height="470"
-            
           />
           <div class="middle">
             <div class="text">@instagram</div>
@@ -34,7 +32,7 @@
         <div class="grid__col small container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageBm.webp"
+            src="/homepage/mobile_img_2.png"
             alt="katherina_trn"
             loading="lazy"
             :width="162"
@@ -52,18 +50,18 @@
           <div class="middle">
             <div class="text">@instagram</div>
           </div>
-      </div>
         </div>
-        
+      </div>
+
       <div class="grid__row">
         <div class="grid__col small container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageCm.webp"
+            src="/homepage/mobile_img_3.png"
             alt="katherina_trn"
             loading="lazy"
-            :width="163"
-            :height="220"
+            :width="162"
+            :height="162"
           />
           <nuxt-img
             v-else
@@ -78,10 +76,10 @@
             <div class="text">@instagram</div>
           </div>
         </div>
-        <div class="grid__col container" >
+        <div class="grid__col container">
           <nuxt-img
             v-if="isMobile"
-            src="/homepage/imageDm.webp"
+            src="/homepage/mobile_img_4.png"
             alt="katherina_trn"
             loading="lazy"
             :width="162"
@@ -100,12 +98,9 @@
             <div class="text">@instagram</div>
           </div>
         </div>
-
       </div>
-
     </div>
-
-    </AwSection>
+  </AwSection>
 </template>
 <script>
 import AwSection from "@storefront-ui/root/packages/vue/src/components/molecules/AwSection/AwSection.vue";
@@ -185,22 +180,18 @@ export default defineComponent({
     }
   }
 }
-.img-opacity:hover{
+.img-opacity:hover {
   opacity: 0.6;
 }
 .grid__col {
   background-color: #282828;
-  
 }
 .container {
   position: relative;
-  
 }
 
-
-
 .middle {
-  transition: .5s ease;
+  transition: 0.5s ease;
   opacity: 0;
   position: absolute;
   top: 50%;
@@ -210,22 +201,14 @@ export default defineComponent({
   text-align: center;
 }
 
-
 .container:hover .middle {
   opacity: 0.6;
 }
 
 .text {
-  
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 16px;
   padding: 16px 32px;
 }
-.font_change{
-  font-family: 'Source Sans Pro';
-font-style: normal;
-font-weight: 600;
-font-size: 24px;
-line-height: 32px;
-}
+
 </style>

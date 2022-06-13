@@ -9,4 +9,9 @@
     font-size: 24px;
     line-height: 32px;
     text-align: center;
+    @media (max-width:1024px){
+        
+        line-height:30px;
+        
+        }
 }

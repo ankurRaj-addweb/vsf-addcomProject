@@ -36,7 +36,8 @@ h5 {
         font-size: 16px !important;
         line-height: 22px;
         color: #FFFFFF;
-        padding-left: 24px;
+        padding-left: 10px;
+        text-transform: uppercase;
     }
     .sf-footer-column__content {
         display: var(--footer-column-content-display, block) !important;
@@ -48,7 +49,16 @@ h5 {
     .footer__socials {
         @media (max-width: 1024px) {
             padding: 0 8px 0 8px;
+            
         }
+    }
+    .footer .sf-footer-column, .footer .sf-footer-column__title {
+        background: transparent;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
     }
 }
 
@@ -68,6 +78,8 @@ h5 {
 .sf-footer-column__title {
     background: transparent;
 }
+
+
 
 .footer__subscribe {
     left: unset !important;
@@ -159,8 +171,27 @@ h5 {
         background: #F9F9F9;
         color: #FFFFFF;
         padding: 21px;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        text-transform: uppercase;
     }
 }
+
+.sf-footer-column button.sf-footer-column__title.smartphone-only{
+    @media (max-width: 1024px) {
+        width: 100%;
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        text-transform: uppercase !important;
+    }
+}
+
 
 .sf-footer {
     border-top: var(--spacer-xs) solid #037EE6 !important;
@@ -168,7 +199,7 @@ h5 {
 
 .social {
     @media (max-width: 1024px) {
-        margin-top: 50px;
+        // margin-top: 50px;
         background: #3C3C3C;
         color: #FFFFFF;
         border-top: 9px solid #3C3C3C;
@@ -185,6 +216,12 @@ h5 {
 .footer-logo {
     .svg-image svg {
         background: #FFFFFF;
+    }
+}
+@media (max-width:1024px) {
+    .sf-footer[data-v-409e2651] {
+        border-top: var(--spacer-xs) solid #037EE6;
+        display:inline;
     }
 }
 }
