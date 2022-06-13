@@ -20,7 +20,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="firstname"
-            rules="required|min:2"
+           :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -40,7 +40,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="lastname"
-            rules="required|min:2"
+             :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -58,7 +58,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="street"
-            rules="required"
+            rules="required|max:250"
             slim
           >
             <AwInput
@@ -77,7 +77,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="city"
-            rules="required|min:2"
+             :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -149,7 +149,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="zipCode"
-            rules="required|min:2"
+            rules="required|alpha_num:6"
             slim
           >
             <AwInput
@@ -197,9 +197,8 @@
           </ValidationProvider>
 
           <ValidationProvider
-            v-slot="{ errors }"
-            name="phone"
-            rules="required"
+            rules='required|min:11|max:11'
+          v-slot="{ errors }"
             slim
           >
             <AwInput
@@ -215,6 +214,7 @@
                 (telephone) => changeShippingDetails('telephone', telephone)
               "
             />
+      
           </ValidationProvider>
         </div>
         <div v-if="!canAddNewAddress">
@@ -278,25 +278,34 @@ import {
   useUser,
   useUserShipping,
 } from "@vue-storefront/magento";
-import { required, min, digits } from "vee-validate/dist/rules";
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
+import { required, min, digits, max,} from "vee-validate/dist/rules";
+import { ValidationProvider, ValidationObserver, extend, alpha  } from "vee-validate";
 import { addressFromApiToForm } from "~/helpers/checkout/address";
 import { mergeItem } from "~/helpers/asyncLocalStorage";
 import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
 const NOT_SELECTED_ADDRESS = "";
 
+extend("alpha", {
+  ...alpha,
+  message: "Alphabets only",
+});
 extend("required", {
   ...required,
   message: "This field is required",
+});
+extend("max", {
+  ...max,
+  message: "The field should have at least {length} characters",
 });
 extend("min", {
   ...min,
   message: "The field should have at least {length} characters",
 });
+
 extend("digits", {
   ...digits,
-  message: "Please provide a valid phone number",
+  message: "Zip code must be Numeric and of  {length} Digits",
 });
 
 export default defineComponent({

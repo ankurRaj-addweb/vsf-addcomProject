@@ -4,6 +4,38 @@
     color: black;
   }
 
+
+  h3.sf-heading__title.h3 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+}
+ label.sf-input__label.will-change {
+  /* padding-bottom: 10px; */
+  position: absolute;
+  width: 155px;
+  left: 5px;
+  top: 35.71%;
+  bottom: 2.38%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  text-align: center;
+}
+
+label.sf-input__label.will-change {
+  position: absolute;
+  width: 169px;
+  height: 14px;
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+}
+
   .addd {
     background-color: #3C3C3C;
     color: aliceblue;
@@ -11,6 +43,12 @@
     width: 400px;
     height: 50px
   }
+  button.addd.sf-button {
+    font-size: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-weight: 600;
+}
 
   .ffff {
     background-color: #037ee6;
@@ -44,6 +82,7 @@
       color: #037ee6;
       padding-top: 10px;
     }
+   
   }
 
   .dev {

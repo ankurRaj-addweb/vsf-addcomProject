@@ -29,7 +29,7 @@
           }}
         </div>
       </AwLoader>
-      <div class="shipping-method" :class="infoVisible ? 'method-active' : ''">
+      <div class="shipping-method" :class="infoVisible ? 'method-active' : ''" @click="isDisable = false">
         <div class="free-shipping">
           <AwRadio
             class="sf-radio--transparent"
@@ -64,10 +64,12 @@
           </p>
         </ul>
       </div>
+      
 
       <div
         class="shipping-method"
         :class="isDisable ? 'ShippingClass' : ' '"
+        @click="isDisable = false"
       >
         <AwRadio
           class="sf-radio--transparent"
@@ -79,14 +81,14 @@
           :disabled="false"
           selected=""
           :required="false"
-          @click="isDisable = false"
+          
         />
         <button
           class="accordion"
           :class="{ active: showCategoryB }"
           :aria-disabled="false"
           :link="null"
-          @click="showCategoryB = !showCategoryB"
+          @click="showCategoryB = !showCategoryB;"
           type="link"
         >
           info
@@ -101,7 +103,7 @@
           </p>
         </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method" @click="isDisable = false">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -133,7 +135,7 @@
           </p>
         </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method" @click="isDisable = false">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -165,7 +167,7 @@
           </p>
         </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method" @click="isDisable = false">
         <AwRadio
           class="sf-radio--transparent"
           name="Shipping"
@@ -197,7 +199,7 @@
           </p>
         </ul>
       </div>
-      <div class="shipping-method">
+      <div class="shipping-method" @click="isDisable = false">
         <AwRadio
           v-for="(method, index) in shippingMethods"
           :key="index"
@@ -280,7 +282,7 @@ export default defineComponent({
     const showCategoryD = ref(false);
     const showCategoryE = ref(false);
     const infoVisible = ref(false);
-    const isDisable = ref(false);
+    const isDisable = ref(true);
      
     const {
       state,
