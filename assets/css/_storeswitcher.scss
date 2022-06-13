@@ -1,0 +1,58 @@
+#storemodal {
+
+    p.country {
+        @media (max-width:912px) {
+            display: none;
+        }
+        color: #037EE6;
+        font-weight: 700;
+        margin-left: 25px;
+        margin-top: 47px;
+        line-height: 25.36px;
+        letter-spacing: .1px;
+        font-size: 18px;
+    }
+
+    h3.sf-heading__title.h3 {
+        @media (max-width:912px) {
+            width: 350px;
+            margin: 50px 60px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        width: 463px;
+        height: 31px;
+        margin-top: 20px;
+        margin-left: 352px;
+        line-height: 32px;
+        font-size: 24px !important;
+        font-weight: 600;
+    }
+
+    button.sf-circle-icon--small.sf-bottom-modal__close.sf-circle-icon.sf-button {
+        /* size: 20px; */
+        height: 25px;
+        width: 25px;
+        --icon-size: 1rem;
+    }
+    .sf-bottom-modal__container {
+            @media (max-width:912px) {
+                height: 300px;
+            }
+        }
+      
+        ul.sf-list {
+            @media (max-width:912px) {
+            margin-left: 131px;
+        }}
+    .sf-bottom-modal {
+        
+
+
+        --bottom-modal-height: 94vh;
+
+        .sf-bottom-modal__overlay .sf-overlay {
+            overflow-x: unset !important;
+        }
+    }
+}

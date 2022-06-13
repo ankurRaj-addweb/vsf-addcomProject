@@ -218,11 +218,7 @@
           </ValidationProvider>
         </div>
         <div v-if="!canAddNewAddress">
-          <AwCheckbox
-            label="Use this address as my default one."
-            name="default address"
-            class="form__element"
-          />
+        
           <AwButton
             class="
               color-light

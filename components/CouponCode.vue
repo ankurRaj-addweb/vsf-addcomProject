@@ -7,7 +7,7 @@
       {{ $t('Applied Coupon') }}:
       <span class="applied-coupon__code">{{ promoCode }}</span>
     </span>
-    <div class="promo-code">
+    <div class="promo-code promo">
       <SfInput
         v-model="promoCode"
         name="promoCode"

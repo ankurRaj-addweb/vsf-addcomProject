@@ -97,6 +97,12 @@
             class="sf-property--full-width property"
           />
           <AwProperty
+        v-if="hasDiscounts"
+        :name="$t('Discount')"
+        :value="$fc(discountsAmount)"
+        class="sf-property--full-width sf-property--small property"
+      /> 
+          <AwProperty
             name="Shipping"
             value="free"
             class="sf-property--full-width property"
