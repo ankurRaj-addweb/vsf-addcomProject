@@ -1,4 +1,5 @@
 <template>
+ <div class="thankyou">
   <div id="thank-you">
     <AwCallToAction
       v-e2e="'thank-you-banner'"
@@ -84,6 +85,7 @@
       {{ $t('Back to home page') }}
     </AwButton>
     </router-link>
+  </div>
   </div>
 </template>
 
@@ -275,11 +277,56 @@ export default {
   @include for-desktop {
     --button-width: 25rem;
   }
+}.sf-call-to-action__text-container {
+    position: absolute;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
 }
-
+h3.sf-heading__title.h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+}
+button.back-button.color-secondary.button-size.sf-button {
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 16px;
+}
+button.feedback-button.color-secondary.sf-button--full-width.button-size.sf-button {
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+}
+button.order__notifications-button.button-size.sf-button {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 16px;
+}
+h6.sf-heading__title.h6 {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+}
+.contact {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+h2.sf-call-to-action__title {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+}
 button.order__notifications-button.button-size.sf-button {
     background-color: #037EE6;
 }
+
 
 
 </style>

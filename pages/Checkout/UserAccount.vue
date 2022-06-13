@@ -203,7 +203,7 @@
               v-e2e="'continue-to-shipping'"
               class="ffff"
               type="submit"
-              :disabled="!canMoveForward"
+              :disabled="!canMoveForward || !isAuthenticated"
             >
               {{ $t("Go to shipping") }}
             </AwButton>
@@ -215,7 +215,7 @@
       </div>
       <div class="form" v-if="isAuthenticated">
         <div class="form__action">
-          <AwButton
+          <AwButton v-if="isAuthenticated"
             v-e2e="'continue-to-shipping'"
             class="ffff"
             type="submit"

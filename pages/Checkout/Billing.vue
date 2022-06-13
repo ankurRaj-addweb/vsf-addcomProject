@@ -41,7 +41,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="firstname"
-            rules="required|min:2"
+           :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -61,7 +61,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="lastname"
-            rules="required|min:2"
+             :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -79,7 +79,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="street"
-            rules="required"
+           rules="required|max:250"
             slim
           >
             <AwInput
@@ -97,7 +97,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="city"
-            rules="required|min:2"
+            :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -162,7 +162,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="postcode"
-            rules="required|min:2"
+           rules="required|digits:6"
             slim
           >
             <AwInput
@@ -209,7 +209,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="telephone"
-            rules="required"
+            rules='required|min:11|max:11'
             slim
           >
             <AwInput
@@ -330,19 +330,27 @@
           </div>
         </div>
         <template>
-          <form class="bil" v-if="showForm">
+           <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
+          <form class="bil" v-if="showForm" @submit.prevent="handleSubmit()">
+              <ValidationProvider rules="required|digits:16" v-slot="{ errors }">
             <AwInput
-              label="Card Number"
-              name="cardnumber"
+              v-model="user1"
+              placeholder="Card Number"
+              name="Card Number"
               class="form__control"
-              required
+              
             />
-            <AwInput
-              label="Card Holder"
-              name="cardholder"
-              class="form__control"
-              required
-            />
+             <span class="red">{{ errors[0] }}</span> </ValidationProvider
+         ><br />
+            <ValidationProvider rules="required|alpha" v-slot="{ errors }">
+          <AwInput
+            v-model="user"
+            type="text"
+            class="form__control"
+            placeholder="Card Holder"
+          />
+          <span class="red">{{ errors[0] }}</span> </ValidationProvider
+         ><br />
             <div class="dis">
               <label id="ed">Expiry Date :</label>
               <select class="form__control for">
@@ -371,12 +379,16 @@
               </select>
             </div>
             <div class="dis">
+                 <ValidationProvider rules="required|digits:3" v-slot="{ errors }">
               <AwInput
-                label="Code CVC "
+               v-model="CVC"
+                placeholder="Code CVC "
                 name="cardnumber"
                 class="form__control for"
-                required
+                
               />
+                 <span class="red">{{ errors[0] }}</span> </ValidationProvider
+         ><br />
               <a href="#">
                 <u>Where I find CVC code?</u>
               </a>
@@ -388,6 +400,7 @@
               id="flexCheckDefault"
             />Save this card for other purchases.
           </form>
+           </ValidationObserver>
         </template>
 
         <div class="form">
@@ -433,8 +446,8 @@ import {
   useCountrySearch,
   addressGetter,
 } from "@vue-storefront/magento";
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required, min, digits } from "vee-validate/dist/rules";
+import { ValidationProvider, ValidationObserver, extend,alpha ,credit_card} from "vee-validate";
+import { required, min, digits, max,} from "vee-validate/dist/rules";
 import {
   ref,
   computed,
@@ -458,14 +471,29 @@ extend("required", {
   ...required,
   message: "This field is required",
 });
+extend("length", {
+  ...required,
+  message: "The card_field  Details is invalid Please Fill Full details ",
+});
+
+extend("alpha", {
+  ...alpha,
+  message: "Alphabets only",
+});
 extend("min", {
   ...min,
   message: "The field should have at least {length} characters",
 });
 extend("digits", {
   ...digits,
-  message: "Please provide a valid phone number",
+  message: "must be Numeric and of  {length} Digits",
+})
+extend("max", {
+  ...max,
+  message: "The field should have at least {length} characters",
 });
+
+
 
 export default defineComponent({
   name: "BillingStep",
@@ -708,7 +736,9 @@ export default defineComponent({
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
   --heading-title-font-weight: var(--font-weight--bold);
 }
-
+.red {
+  color: red;
+}
 .copy__shipping {
   &__address {
     margin-bottom: var(--spacer-xs);

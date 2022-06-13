@@ -254,5 +254,6 @@ export default defineComponent({
     line-height: 16px !important;
     text-align: center;
 }
+
 </style>
 
