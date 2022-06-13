@@ -7,7 +7,9 @@
     background-color: #EFEFEF;
     color: black;
   }
-
+  button.form__button.myprofile.\.color-primary\..sf-button.check {
+    height: 50px;
+}
 
   h3.sf-heading__title.h3 {
     font-size: 24px;
@@ -20,13 +22,16 @@
   width: 155px;
   left: 5px;
   top: 35.71%;
-  bottom: 2.38%;
+  bottom: 2%;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   display: flex;
   text-align: center;
+}
+.sf-input.form__element{
+    margin-top: 30px !important;
 }
 
 label.sf-input__label.will-change {
@@ -179,5 +184,16 @@ label.sf-input__label {
 }
   .sf-steps__step::after {
     background-color: #037ee6;
-  }
+}
+}
+
+#checkout .sf-steps__step::after {
+  background-color: #EFEFEF !important;
+}
+#checkout button.sf-steps__step.current.sf-button--pure.sf-button::after ,
+#checkout button.sf-steps__step.is-done.sf-button--pure.sf-button::after {
+      background-color: #037ee6 !important;
+} 
+.sf-steps__header {
+  border-color: #EFEFEF;
 }
