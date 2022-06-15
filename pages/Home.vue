@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <AwHero class="hero">
+    <AwHero class="hero hero_two">
       <AwHeroItem
         v-for="(hero, i) in heroes"
         :key="i"
