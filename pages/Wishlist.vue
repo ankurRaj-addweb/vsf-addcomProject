@@ -11,7 +11,7 @@
       </template>
     </div>
     <div class="navbar section">
-      <div class="navbar__aside desktop-only">
+      <div class="navbar__aside">
         <LazyHydrate never>
           <AwHeading :level="3" :title="$t('Wishlist')" class="navbar__title" />
         </LazyHydrate>
@@ -37,14 +37,7 @@
           <span class="navbar__label desktop-only">{{ $t("Sort by") }}:</span>
           <LazyHydrate when-visible>
             <SfSelect placeholder="Select sorting" class="navbar__select">
-              <!-- <SfSelectOption
-                v-for="option in sortBy.options"
-                :key="option.value"
-                :value="option.value"
-                class="sort-by__option"
-              >
-                {{ $t(option.label) }}
-              </SfSelectOption> -->
+        
             </SfSelect>
           </LazyHydrate>
         </div>
@@ -140,17 +133,7 @@
             @click:wishlist="addItemToWishlist(product)"
             @click:add-to-cart="addItemToCart({ product:product.product, quantity: 1 })"
           >
-          <!-- <h1>haalo</h1>
-          <template > -->
-          <!-- <AwColor
-            v-for="(color, i) in product.product.configurable_options[0].values"
-            :key="i"
-             :color="productGetters.getSwatchData(color.swatch_data)"
-            :selected="color.selected"
-            class="sf-product-card__color"
-          /> -->
-          <!-- </template> -->
-            <!--card-->
+        
             <template #input>
               <div />
             </template>
@@ -367,6 +350,7 @@ export default defineComponent({
 }
 
 .my-wishlist {
+  
   flex: 1;
   margin-left: 218px;
   margin-top: 50px;
@@ -449,4 +433,5 @@ export default defineComponent({
   background-color: #037ee6;
   margin: 0 0 20px 0;
 }
+
 </style>

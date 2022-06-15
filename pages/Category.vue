@@ -132,7 +132,7 @@
       <div class="navbar__aside desktop-only">
         <LazyHydrate never>
           <div class="navbar__view">
-            <span class="navbar__view-label desktop-only">{{
+            <span class="navbar__view-label ">{{
               $t("View")
             }}</span>
             <SvgImage
@@ -195,7 +195,7 @@
               </AwSelectOption>
             </AwSelect>
 
-            <!-- <span> :{{ facet.options[0].attrName }} </span> -->
+          
           </div>
           <div v-if="facet.id === 'price'">
             <AwSelect
@@ -560,8 +560,11 @@
         @close="toggleFilterSidebar"
       >
         <div class="filters">
-          <div v-for="(facet, i) in facetsHeader" :key="i" class="filter-heading"
->
+          <div
+            v-for="(facet, i) in facetsHeader"
+            :key="i"
+            class="filter-heading" 
+          >
             <AwHeading
               :key="`filter-title-${facet.id}`"
               :level="5"
@@ -619,39 +622,9 @@
             </div>
           </div>
         </div>
-        <AwAccordion class="filters smartphone-only">
-          <div v-for="(facet, i) in facets" :key="i">
-            <AwAccordionItem
-              :key="`filter-title-${facet.id}`"
-              :header="facet.label"
-              class="filters__accordion-item"
-            >
-              <div v-if="facet.id === 'price'">
-                <AwRadio
-                  v-for="option in facet.options"
-                  :key="`${facet.id}-${option.value}`"
-                  :label="`${option.id}${
-                    option.count ? ` (${option.count})` : ''
-                  }`"
-                  :value="option.value"
-                  :selected="isFilterSelected(facet, option)"
-                  name="filter__price"
-                  @change="() => selectFilter(facet, option)"
-                />
-              </div>
-              <div v-else>
-                <AwFilter
-                  v-for="option in facet.options"
-                  :key="`${facet.id}-${option.id}`"
-                  :label="option.id"
-                  :selected="isFilterSelected(facet, option)"
-                  class="filters__item"
-                  @change="() => selectFilter(facet, option)"
-                />
-              </div>
-            </AwAccordionItem>
-          </div>
-        </AwAccordion>
+
+      
+
         <template #content-bottom>
           <div class="filters__buttons">
             <AwButton
@@ -744,6 +717,7 @@ export default defineComponent({
     LazyHydrate,
     AwSelectOption,
     AwCheckbox,
+   
   },
   middleware: cacheControl({
     "max-age": 60,
@@ -795,7 +769,7 @@ export default defineComponent({
     );
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
     const colorFilter = computed(() => facetGetters.getProducts(result.value));
-    // const facets = computed(() => facetGetters.getGrouped(result.value, magentoConfig.facets.available));
+    
     const facetsHeader = computed(() =>
       facetGetters.getGrouped(result.value, [
         "color",
@@ -1216,7 +1190,7 @@ export default defineComponent({
 }
 
 .sidebar-filters {
-  --overlay-z-index: 3;
+  
   --sidebar-title-display: none;
   --sidebar-top-padding: 0;
   @include for-desktop {
@@ -1345,6 +1319,7 @@ export default defineComponent({
 }
 
 .filters {
+     
   &__title {
     --heading-title-font-size: var(--font-size--xl);
     margin: var(--spacer-xl) 0 var(--spacer-base) 0;
@@ -1393,6 +1368,7 @@ export default defineComponent({
       border: 0;
       padding: 0;
     }
+    
   }
 
   &__accordion-item {
@@ -1421,9 +1397,13 @@ export default defineComponent({
 .navbar__aside {
   display: inline-block;
 }
+
 .navbar__main {
   .sf-button--text {
     color: black;
+    @media (max-width: 1024px) {
+      font-size: 16px;
+    }
   }
 }
 </style>
@@ -1460,9 +1440,12 @@ export default defineComponent({
     margin-bottom: 10px;
   }
 }
+
 .sf-product-card-horizontal__title {
   @media (max-width: 1024px) {
-    max-width: 100%;
+    width: 70%;
+    text-align: inherit;
+    font-family: "Source Sans Pro";
   }
 }
 
@@ -1503,10 +1486,30 @@ export default defineComponent({
   font-weight: bold;
 }
 
-.filter-heading{
-.sf-heading__title.h5{
-font-size:16px;
-font-weight: bold;
+.filter-heading {
+  .sf-heading__title.h5 {
+    font-size: 16px;
+    font-weight: bold;
+  }
 }
+
+.sort_by{
+display: flex;
+}
+.sf-select{
+  margin-left: auto;
+  @media (max-width:1024px){
+    margin-top:-15px;
+  }
+}
+
+
+
+.sf-component-select__dropdown {
+  top: 130px;
+}
+
+#category .product__found{
+  margin-left:auto;
 }
 </style>
