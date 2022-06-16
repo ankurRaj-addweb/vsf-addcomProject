@@ -48,3 +48,17 @@
         margin-right: 19px;
     }
 }
+li.sf-carousel-item.glide__slide.carousel__item {
+    @media (max-width:1024px) { 
+        justify-content: start;
+    }
+    .sf-product-card.has-colors {
+        @media (max-width:1024px) {  
+            max-width: 375px;
+        }
+        @media (max-width:575px) { 
+            max-width: 185px;
+        }
+    }
+}
+
