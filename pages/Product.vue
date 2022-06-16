@@ -47,15 +47,16 @@
           class="product__gallery"
       
         >
-         
+
         </AwGallery>
         </AwLoader>
     </LazyHydrate>
-    <!-- <div class="tip_div smartphon_only">
+    <div class="sf-color-picker__button smartphone-only"><button class="color-secondary sf-color-picker__button-open sf-button">+ Colors</button></div>
+    <div class="tip_div smartphon_only">
       <div class="tip_product">
         TIP: Press and hold item to drag them <br> to the cart or press plus button.
       </div>
-    </div> -->
+    </div>
     <div class="product__info">
       <div class="product__header">
         <AwHeading
