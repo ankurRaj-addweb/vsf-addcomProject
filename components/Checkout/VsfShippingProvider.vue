@@ -240,7 +240,7 @@
         :disabled="isDisable"
         @click="$router.push(`${localePath('/checkout/billing')}`)"
       >
-        {{ $t("Go To Shipping") }}
+        {{ $t("GO TO BILLING") }}
       </AwButton>
     </div>
   </div>
@@ -506,7 +506,7 @@ button.accordion {
     left: 27%;
     background: transparent;
     text-decoration: underline;
-    color: #282828;
+
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
