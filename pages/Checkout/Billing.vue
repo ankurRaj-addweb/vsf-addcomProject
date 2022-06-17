@@ -1,13 +1,18 @@
 <template>
   <div id="billing">
+
     <ValidationObserver v-slot="{ handleSubmit, reset }">
       <!-- <h1>{{getInvoiceCheck}}</h1> -->
+      <!-- <h1>{{billingDetails.firstname}}</h1>
+        <h2> {{billingDetails.street}}</h2> -->
+       
       <AwHeading
         v-e2e="'heading-billing'"
         :level="3"
         :title="$t('Billing Details')"
         class="sf-heading--left sf-heading--no-underline title"
       />
+    
 
       <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
         <AwCheckbox
@@ -209,7 +214,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="telephone"
-            rules='required|min:11|max:11'
+             rules='regex:^([0-9/+/-]+)$|required|min:11|max:15'
             slim
           >
             <AwInput
@@ -335,9 +340,9 @@
             />
              <span class="red">{{ errors[0] }}</span> </ValidationProvider
          ><br />
-            <ValidationProvider rules="required|alpha" v-slot="{ errors }">
+         <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
           <AwInput
-            v-model="user"
+            v-model="value"
             type="text"
             class="form__control"
             placeholder="Card Holder"
@@ -439,8 +444,8 @@ import {
   useCountrySearch,
   addressGetter,
 } from "@vue-storefront/magento";
-import { ValidationProvider, ValidationObserver, extend,alpha ,credit_card} from "vee-validate";
-import { required, min, digits, max,} from "vee-validate/dist/rules";
+import { ValidationProvider, ValidationObserver, extend,alpha } from "vee-validate";
+import { required, min, digits, max,alpha_spaces, regex} from "vee-validate/dist/rules";
 import {
   ref,
   computed,
@@ -468,11 +473,20 @@ extend("length", {
   ...required,
   message: "The card_field  Details is invalid Please Fill Full details ",
 });
-
+extend("regex", {
+  ...regex,
+  message: "The field format is invalid" ,
+});
 extend("alpha", {
   ...alpha,
   message: "Alphabets only",
 });
+
+extend("alpha_spaces", {
+  ...alpha_spaces,
+  message: "Alphabets only",
+});
+
 extend("min", {
   ...min,
   message: "The field should have at least {length} characters",

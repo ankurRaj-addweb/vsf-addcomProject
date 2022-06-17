@@ -10,6 +10,7 @@
       >
         {{ $t("Log Into Your Account") }}
       </AwButton>
+
       <div v-if="!isAuthenticated">
         <p>Or Fill the details below:</p>
       </div>
@@ -90,12 +91,13 @@
                 label="Password"
                 type="password"
                 class="
-                  form__element form__element--half form__element--half-even
+                  form__element form__element--half form__element--half-even 
                 "
                 required
                 has-show-password
                 :valid="!errors[0]"
                 :error-message="$t(errors[0])"
+                
               />
             </ValidationProvider>
             <div v-if="!isAuthenticated">
@@ -177,7 +179,7 @@
               </div>
             </div>
           </ValidationProvider>
-          <AwCheckbox
+          <AwCheckbox 
             v-if="createUserAccount"
             v-model="form.is_subscribed"
             v-e2e="'sign-up-newsletter'"
@@ -186,7 +188,7 @@
             class="form__element"
           />
         </div>
-        <AwCheckbox
+        <AwCheckbox 
           v-if="!isAuthenticated"
           v-model="createUserAccount"
           v-e2e="'create-account'"
@@ -203,7 +205,7 @@
               v-e2e="'continue-to-shipping'"
               class="ffff"
               type="submit"
-              :disabled="!canMoveForward || !isAuthenticated"
+              :disabled="!canMoveForward || !form.firstname || !form.lastname || !form.email ||!form.password"
             >
               {{ $t("Go to shipping") }}
             </AwButton>
@@ -334,8 +336,10 @@ export default defineComponent({
     const { send: sendNotification } = useUiNotification();
 
     const isFormSubmitted = ref(false);
+    const isActive = ref(false);
     const createUserAccount = ref(false);
     const loginUserAccount = ref(false);
+    const passVal = ref('');
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !loading.value);
@@ -412,6 +416,7 @@ export default defineComponent({
         form.value.firstname = user.value.firstname;
         form.value.lastname = user.value.lastname;
         form.value.email = user.value.email;
+        form.value.password = user.value.password;
       }
     });
 

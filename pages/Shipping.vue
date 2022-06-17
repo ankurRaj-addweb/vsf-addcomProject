@@ -6,12 +6,13 @@
       :title="$t('Shipping')"
       class="sf-heading--left sf-heading--no-underline title"
     />
+
     <form @submit.prevent="handleSubmit(handleFormSubmit)">
       <div class="form">
         <ValidationProvider
           v-slot="{ errors }"
           name="firstName"
-          rules="required|min:2"
+        :rules="loginUserAccount ? '' : 'required|alpha'"
           slim
         >
           <SfInput
@@ -201,11 +202,15 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
-import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { ValidationProvider, ValidationObserver, extend ,alpha} from 'vee-validate';
 
 extend('required', {
   ...required,
   message: 'This field is required',
+});
+extend("alpha", {
+  ...alpha,
+  message: "Alphabets only",
 });
 extend('min', {
   ...min,
