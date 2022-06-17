@@ -1,4 +1,13 @@
-#payment {
+#payment { 
+    // @media (max-width:1024px) {
+    //     .sf-property.sf-property {
+    //         display: inline-flex !important;
+    //     }  
+    // }
+   
+    .sf-property.sf-property {
+        display: inline-flex;
+    }
     tr.sf-table__heading {
         border-bottom-color: #037EE6;
     }
@@ -14,6 +23,14 @@
     .product-price.sf-price {
         margin-right: 34px;
     }
+    @media (max-width:1024px) {
+        button.summary__action-button.sf-button {
+            margin-top: 650px;
+            position: absolute;
+            width: 343px !important;
+        } 
+    }
+    
 
 }
 

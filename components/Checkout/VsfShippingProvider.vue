@@ -109,7 +109,7 @@
           name="Shipping"
           value="store"
           label="Paczkomaty InPost"
-          details="Novelty ! from now ."
+          details="Novelty! From now on you have the option of picking up an order in the selected InPack parceler. Just remember that in the case of orders paid on delivery, only the card payment will be accepted."
           description=""
           :disabled="false"
           selected=""
@@ -240,8 +240,15 @@
         :disabled="isDisable"
         @click="$router.push(`${localePath('/checkout/billing')}`)"
       >
-        {{ $t("Go To Shipping") }}
+        {{ $t("Go To Billing") }}
       </AwButton>
+         <AwButton
+              v-e2e="'continue-to-shipping'"
+              class="smartphone-only go"
+              type="submit"
+            >
+              {{ $t("Go Back") }}
+            </AwButton>
     </div>
   </div>
 </template>

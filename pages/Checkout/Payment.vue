@@ -5,7 +5,7 @@
       title="Order Details"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <AwTable class="sf-table--bordered table desktop-only">
+    <AwTable class="sf-table--bordered table">
       <AwTableHeading class="table__row">
         <AwTableHeader class="table__header table__image">
           {{ $t("Item") }}
@@ -143,6 +143,13 @@
           >
             {{ $t("CONFIRM AND PAY") }}
           </AwButton>
+              <AwButton
+              v-e2e="'continue-to-shipping'"
+              class="smartphone-only go"
+              type="submit"
+            >
+              {{ $t("Go Back") }} 
+            </AwButton>
         </div>
       </div>
     </div>

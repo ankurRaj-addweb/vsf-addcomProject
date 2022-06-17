@@ -197,37 +197,54 @@
         />
         <recaptcha v-if="isRecaptchaEnabled" />
         <div></div>
-        <div class="form">
+        <div class="form ffff">
           <div class="form__action">
             <AwButton
               v-e2e="'continue-to-shipping'"
-              class="ffff"
+              class="chec"
               type="submit"
               :disabled="!canMoveForward || !isAuthenticated"
             >
               {{ $t("Go to shipping") }}
             </AwButton>
+            <AwButton
+              v-e2e="'continue-to-shipping'"
+              class="smartphone-only go"
+              type="submit"
+            >
+              {{ $t("Go Back") }}
+            </AwButton>
           </div>
         </div>
       </form>
+
       <div class="demo">
         <MyProfile v-if="isAuthenticated" />
       </div>
       <div class="form" v-if="isAuthenticated">
-        <div class="form__action">
+        <div class="form__action ffff">
           <AwButton v-if="isAuthenticated"
             v-e2e="'continue-to-shipping'"
-            class="ffff"
+            class="chec"
             type="submit"
             :disabled="!canMoveForward"
             @click="$router.push('/default/checkout/shipping')"
           >
             {{ $t("Go to shipping") }}
           </AwButton>
+          <AwButton
+              v-e2e="'continue-to-shipping'"
+              class="smartphone-only go"
+              type="submit"
+            >
+              {{ $t("Go Back") }} 
+            </AwButton>
         </div>
       </div>
     </ValidationObserver>
+    
   </div>
+  
 </template>
 
 <script>
