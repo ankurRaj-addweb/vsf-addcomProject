@@ -1,0 +1,74 @@
+.storelocator{
+    .input_btn {
+        margin-top: -29px;
+        background: 377px;
+        width: 440px;
+    }
+    .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+        touch-action: none;
+        background: beige;
+        margin-top: -50px;
+        height: 537px;
+    }
+    input {
+        height: 26px;
+        width: 394px;
+        border: none;
+        border-left: 0.5rem #030303;
+        border-right: 0.5rem #030303;
+        border-bottom: 0.1rem solid #030303;
+        /* margin-right: -2px; */
+        margin-left: -15px;
+        margin-top: 8px;
+        padding: 12px;
+    }
+    input[type=text]{
+        color: azure;
+    }
+    .image_pin{
+        // background-color: aqua;
+    }
+    .sf-store__info {
+        margin-left: 12.42px;
+        margin-top: -4px;
+    }
+    .sf-store {
+        --store-distance-flex: 1 0 0;
+        --store-distance-order: 1;
+        --store-distance-margin: 0 0 0 0;
+        --store-distance-text-align: right;
+        --store-padding: 0 0 var(--spacer-2xs) 0;
+        height: 112.43px;
+    }
+    .sf-store__property{
+        margin-top: -16px;
+        padding: 2px;
+    }
+    .sf-store__address{
+        margin-top: 16px;
+    }
+    .sf-store-locator__list{
+        margin-top: 27px;
+    }
+    .sf-icon.size-lg {
+        --icon-size: 2rem;
+        margin-bottom: -82px;
+    }
+}
+
+.sf-store-locator__map-wrapper{
+    @media (max-width:1024px) {
+        display: flex;
+    }
+}
+.vue2leaflet-map .sf-store-locator__map .leaflet-container .leaflet-touch .leaflet-retina .leaflet-fade-anim .leaflet-grab .leaflet-touch-drag .leaflet-touch-zoom{
+    @media (max-width:1024px) {
+        width: 100%;
+        height: auto;
+    }
+}.locator{
+    @media (max-width:1024px) {
+        display: flex;
+        margin-top:30px;
+    }
+}

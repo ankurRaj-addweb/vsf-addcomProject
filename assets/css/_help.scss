@@ -31,3 +31,32 @@
     }
   }
 }
+.sf-store-locator {
+  @media (max-width:1024px) {
+    box-sizing: border-box;
+    display: flex;
+    }
+}
+.sf-store-locator__wrapper{
+  @media (max-width:1024px) {
+    margin-left: 20px;
+  }
+}
+.sf-content-pages__content{
+  @media (max-width:1024px) {
+    margin-left: 133px;
+    margin-top: -24px;
+  }
+}
+.input_btn,.Awbutton{
+  @media (max-width:1024px) {
+    margin-left: 13px;
+    margin-top: 24px;
+  }
+}
+.sf-store-locator__list{
+  @media (max-width:1024px) {
+    margin-left: 13px;
+    margin-top: 24px;
+  }
+}

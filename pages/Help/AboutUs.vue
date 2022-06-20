@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="smart-aboutus">
     <AwTabs :open-tab="1" class="customer_service smartphone_only">
       <AwTab :title="$t('Security')">
         <p>

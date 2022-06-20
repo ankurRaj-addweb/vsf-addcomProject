@@ -13,4 +13,14 @@
         font-size: 18px;
         line-height: 26px;
     }
+    .sf-tabs__content__tab{
+        @media (max-width:1024px) {
+            background: #3C3C3C;
+        }
+    }
+    .smart-aboutus{
+        @media (max-width:1024px) {
+            margin-left:20px;
+        }
+    }
 }
