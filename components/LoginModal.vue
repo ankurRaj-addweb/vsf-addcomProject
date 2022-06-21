@@ -619,7 +619,7 @@ export default defineComponent({
   //outline: solid rgb(57, 57, 218);
   border-block-style: initial;
   border-radius: 3px;
-  border:1px black solid;
+  // border:1px black solid;
   margin: 0px;
 }
 .login-loader {
