@@ -108,8 +108,8 @@
             <SvgImage
               :icon="accountIcon"
               :label="$t('Account')"
-              width="1.25rem"
-              height="1.25rem"
+              width="1.50rem"
+              height="1.50rem"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'account',
               }"
@@ -124,8 +124,8 @@
             <SvgImage
               :icon="wishlistHasProducts ? 'heart_fill' : 'heart'"
               :label="$t('Wishlist')"
-              width="1.25rem"
-              height="1.25rem"
+              width="1.50rem"
+              height="1.50rem"
               class="sf-header__icon"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'wishlist',
@@ -147,8 +147,8 @@
             <SvgImage
               icon="empty_cart"
               :label="$t('Cart')"
-              width="20"
-              height="20"
+              width="1.50rem"
+              height="1.50rem"
               class="sf-header__icon"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'cart',

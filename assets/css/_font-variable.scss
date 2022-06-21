@@ -48,11 +48,16 @@ a.sf-link.message__link.nuxt-link-exact-active.nuxt-link-active {
 
 .sf-header-navigation-item.nav-item {
     .sf-header-navigation-item__item--desktop> :not(.sf-mega-menu) {
+    //    --header-navigation-item-border-color:#037EE6;
         &:hover {
             color: #037EE6;
             border-color: #037EE6;
         }
     }
+}
+.sf-header-navigation-item__item--desktop > *:not(.sf-mega-menu):focus {
+    --header-navigation-item-color: var(--c-text);
+    --header-navigation-item-border-color: #037EE6;
 }
 
 .sf-footer {

@@ -555,20 +555,16 @@ export default defineComponent({
 
 </style>
 
-     <style>
-     .sf-input input {
-   /* outline: none !important; */
-   /* outline: dotted !important; */
-  /* border-bottom: initial !important;
-  border-top: initial !important;
-  border-right: initial !important;
-  border-left: initial !important;
-  border-block-style: initial; */
+<style>
+
+  .sf-input input {
+   
   border: none !important;
-  border-bottom: 1px solid #3C3C3C !important;
+  /* border-bottom: 1px solid #3C3C3C !important;  */
   border-radius: 0px !important;
-     }
-     </style>
+  }
+
+</style>
    
 
   
