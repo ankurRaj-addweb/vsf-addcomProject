@@ -300,12 +300,12 @@
             width="290.24"
             height="177.61"
           />
-          <p class="before-results__paragraph">
+          <p class="before-results__paragraph desktop-only">
             {{ $t("No Searches") }}
           </p>
-          <!-- <p class="before-results__paragraph">
-            {{ $t('You haven’t searched for items yet') }}
-          </p> -->
+           <p class="discription smartphone-only" style="font-family: 'Roboto';font-style: normal;font-weight: 400;font-size: 16px;line-height: 22px;">
+            {{ $t("You haven’t searched for items yet. Let’s start now – we’ll help you.") }}
+          </p>
           <!-- <p class="before-results__paragraph">
             {{ $t('Let’s start now – we’ll help you') }}
           </p> -->

@@ -1,4 +1,12 @@
 #__layout{
+    .sf-heading__title.h3 {
+        font-family: "Source Sans Pro";
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 32px;
+    }
     .section.sf-section.section .sf-heading h2.sf-heading__title.h2{
         display: none;
     }
@@ -13,6 +21,10 @@
     }
     .product__rating[data-v-03500634] {
         margin-top: -43px;
+    }
+    .product__price-and-rating{
+        // background-color: aqua;
+        margin: 0;
     }
     @media (max-width:1024px) {
         .breadMain {
