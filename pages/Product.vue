@@ -47,11 +47,16 @@
           class="product__gallery"
       
         >
-         
+
         </AwGallery>
         </AwLoader>
     </LazyHydrate>
-
+    <div class="sf-color-picker__button smartphone-only"><button class="color-secondary sf-color-picker__button-open sf-button">+ Colors</button></div>
+    <div class="tip_div smartphon_only">
+      <div class="tip_product">
+        TIP: Press and hold item to drag them <br> to the cart or press plus button.
+      </div>
+    </div>
     <div class="product__info">
       <div class="product__header">
         <AwHeading
@@ -71,8 +76,6 @@
           :regular="$fc(productPrice)"
           :special="productSpecialPrice && $fc(productSpecialPrice)"
         />
-        
-       
         <div>
           <div class="product__rating">
             <AwRating
@@ -88,14 +91,14 @@
               </a>
           </div>
           <AwButton
-            class="sf-button--text"
+            class="sf-button--text addreview_smartphone"
             @click="changeTab(2)"
           >
             {{ $t("Read all reviews") }}
             </AwButton>
             <AwButton
               v-if="isAuthenticated"
-              class="sf-button--text"
+              class="sf-button--text review_smartphone"
               @click="changeNewReview(); showrev=!showrev"
             >
 
@@ -230,7 +233,7 @@
                     </template>
                   </AwProperty>-->
         </AwTab>
-        <AwTab title="Read reviews">
+        <AwTab title="Reviews">
           <div v-show="reviewsLoading">
             <AwLoader />
           </div>
@@ -298,8 +301,14 @@
     <LazyHydrate when-visible>
       <RelatedProducts />
     </LazyHydrate>
-    <LazyHydrate when-visible>
+    <!-- <LazyHydrate when-visible>
       <UpsellProducts />
+    </LazyHydrate> -->
+    <LazyHydrate when-visible>
+      <ProductsCarousel
+        :products="newProducts"
+      />
+      <RelatedProducts />
     </LazyHydrate>
     </div>
 </template>
@@ -333,7 +342,7 @@ import AwSelect from "../node_modules/@storefront-ui/root/packages/vue/src/compo
 import AwTabs from "../node_modules/@storefront-ui/root/packages/vue/src/components/organisms/AwTabs/AwTabs.vue";
 import AwPagination from "../node_modules/@storefront-ui/root/packages/vue/src/components/molecules/AwPagination/AwPagination.vue";
 import AwLoader from "../node_modules/@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
-
+import ProductsCarousel from "~/components/ProductsCarousel.vue";
 import {
   useProduct,
   useCart,
@@ -398,6 +407,7 @@ export default defineComponent({
     UpsellProducts,
     AwPagination,
     AwBadge,
+    ProductsCarousel,
   },
   middleware: cacheControl({
     "max-age": 60,
@@ -420,6 +430,9 @@ export default defineComponent({
       addReview,
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
+
+    
+
     const { addItem: addItemToWishlist, isInWishlist } = useWishlist(
       "GlobalWishlist"
     );

@@ -219,9 +219,14 @@ h5 {
     }
 }
 @media (max-width:1024px) {
-    .sf-footer[data-v-409e2651] {
-        border-top: var(--spacer-xs) solid #037EE6;
-        display:inline;
+    .sf-footer {
+        border-top: var(--spacer-xs) solid #ffffff;
+        background-color: #ffffff;
     }
 }
+
 }
+.footer__social-image:hover{
+    background-color:#828282 ;
+}
+

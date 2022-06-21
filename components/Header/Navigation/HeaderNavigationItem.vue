@@ -2,26 +2,26 @@
   <div class="sf-header-navigation-item">
     <div class="sf-header-navigation-item__item sf-header-navigation-item__item--desktop">
       <slot name="desktop-navigation-item">
-        <SfLink
+        <AwLink
           class="sf-header-navigation-item__link"
           :link="link"
         >
           {{
             label
           }}
-        </SfLink>
+        </AwLink>
       </slot>
       <slot />
     </div>
   </div>
 </template>
 <script>
-import { SfLink } from '@storefront-ui/vue';
+import AwLink from '@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue';
 
 export default {
   name: 'HeaderNavigationItem',
   components: {
-    SfLink,
+    AwLink,
   },
   props: {
     label: {
@@ -35,3 +35,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.sf-header-navigation-item__link{
+  margin-top: 10px;
+}
+</style>
+

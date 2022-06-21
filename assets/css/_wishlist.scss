@@ -243,3 +243,11 @@ color: #3C3C3C;
         width: 150px;
     }
 }
+.sf-heading__description{
+  @media (max-width: 1024px) {
+  text-align: center;
+  line-height: 22px;
+  font-family: 'Roboto';
+  color: #3c3c3c;
+  }
+  }

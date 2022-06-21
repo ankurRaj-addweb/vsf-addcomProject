@@ -220,7 +220,6 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
 }
 .sf-banner__title{
     @media (max-width:1024px) {
-       
         white-space: pre-line !important;
         white-space: normal;
         text-align: left !important;
@@ -260,4 +259,14 @@ section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
     height: 40px;
     width: 185px;
 }
+}
+@media (max-width:1024px) {
+    .sf-footer {
+        border-top: var(--button-color) solid #a81010 !important;
+        background-color: #ffffff;
+    }
+    li.glide__slide.sf-hero-item.glide__slide--active {
+        background-position: 87%;
+        z-index: -1;
+    }
 }

@@ -59,6 +59,7 @@
         display: flex !important;
         align-items: center;
         justify-content: space-between;
+        float: left !important;
     }
     a.sf-link.sf-header-navigation-item__link {
         @media (max-width: 1024px) {

@@ -47,6 +47,9 @@
         padding: 0.5rem;
         height: 18px;
         display: flex;
+        @media (max-width:1024px) {
+            margin-left: 0px;
+        }
       }
     
      .sf-circle-icon {
@@ -63,3 +66,11 @@
          color: #037EE6;
      }
  }
+ .sf-heading__description{
+    @media (max-width: 1024px) {
+    text-align: center;
+    line-height: 22px;
+    font-family: 'Roboto';
+    color: #3c3c3c;
+    }
+    }

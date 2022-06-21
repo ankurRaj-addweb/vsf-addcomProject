@@ -7,6 +7,8 @@
         :title="$t('Shipping Details')"
         class="sf-heading--left sf-heading--no-underline title"
       />
+      <!-- <h1>{{shippingDetails.firstname}}</h1> -->
+       
 
       <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
         <UserShippingAddresses
@@ -75,9 +77,9 @@
           </ValidationProvider>
 
           <ValidationProvider
-            v-slot="{ errors }"
+            v-slot="{ errors }"     
             name="city"
-             :rules="loginUserAccount ? '' : 'required|alpha'"
+             :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
             slim
           >
             <AwInput
@@ -149,7 +151,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="zipCode"
-            rules="required|alpha_num:6"
+            rules="required|digits:6"
             slim
           >
             <AwInput
@@ -197,7 +199,7 @@
           </ValidationProvider>
 
           <ValidationProvider
-            rules='required|min:11|max:11'
+            rules='regex:^([0-9/+/-]+)$|required|min:11|max:15'
           v-slot="{ errors }"
             slim
           >
@@ -244,6 +246,7 @@
         </div>
       </div> -->
         <VsfShippingProvider
+          disabled="!shippingDetails.firstname || !shippingDetails.lastname || !shippingDetails.street || !shippingDetails.city || !shippingDetails.city || !shippingDetails.region"
           @submit="$router.push(`${localePath('/checkout/billing')}`)"
         />
       </form>
@@ -274,7 +277,7 @@ import {
   useUser,
   useUserShipping,
 } from "@vue-storefront/magento";
-import { required, min, digits, max,} from "vee-validate/dist/rules";
+import { required, min, digits, max, alpha_spaces, regex} from "vee-validate/dist/rules";
 import { ValidationProvider, ValidationObserver, extend, alpha  } from "vee-validate";
 import { addressFromApiToForm } from "~/helpers/checkout/address";
 import { mergeItem } from "~/helpers/asyncLocalStorage";
@@ -286,24 +289,31 @@ extend("alpha", {
   ...alpha,
   message: "Alphabets only",
 });
+extend("alpha_spaces", {
+  ...alpha_spaces,
+  message: "Alphabets only",
+});
 extend("required", {
   ...required,
   message: "This field is required",
 });
 extend("max", {
   ...max,
-  message: "The field should have at least {length} characters",
+  message: "The field should have at least max {length} characters  and must be Numeric " ,
 });
 extend("min", {
   ...min,
-  message: "The field should have at least {length} characters",
+  message: "The field should have at least min {length} characters and must be Numeric",
 });
 
 extend("digits", {
   ...digits,
-  message: "Zip code must be Numeric and of  {length} Digits",
+  message: "must be Numeric and of  {length} Digits",
 });
-
+extend("regex", {
+  ...regex,
+  message: "The field  format is invalid",
+});
 export default defineComponent({
   name: "ShippingStep",
   components: {

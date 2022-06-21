@@ -243,4 +243,8 @@ export default {
   flex: unset;
   width: 11.875rem;
 }
+.navbar__label{
+font-size: 16px;
+font-family: 'Source Sans Pro';
+}
 </style>

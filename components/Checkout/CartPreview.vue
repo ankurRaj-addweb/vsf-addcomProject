@@ -46,7 +46,7 @@
         :name="$t('Payment method')"
         class="sf-property--full-width sf-property--large property"
       />
-    </div>
+    </div>  
 
     <div
       class="highlighted"
@@ -72,7 +72,12 @@
         :value="$fc(totals.subtotal)"
         :class="['sf-property--full-width', 'sf-property--large property']"
       />
-
+       <AwProperty
+        :name="$t('Shipping')"
+        value="Free"
+        :class="['sf-property--full-width', 'sf-property--large property']"
+      />
+<!-- 
       <AwProperty
         v-if="
           route.fullPath == '/default/checkout/billing' ||
@@ -81,9 +86,9 @@
         :name="$t('Shipping')"
         value="Free"
         class="sf-property--full-width sf-property--large property"
-      />
+      /> -->
       <AwProperty
-        :name="$t('Total')"
+        :name="$t('Total ')"
         :value="$fc(totals.total)"
         class="sf-property--full-width sf-property--large property-total"
       />
@@ -313,6 +318,9 @@ export default defineComponent({
     padding-bottom: var(--spacer-xl);
   }
 }
+span.sf-property__name {
+    display: contents;
+}
 
 .total-items {
   display: flex;
@@ -348,4 +356,5 @@ button.pp {
 ul {
   list-style: none;
 }
+
 </style>
