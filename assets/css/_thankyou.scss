@@ -1,11 +1,17 @@
 .thankyou{
-    sf-call-to-action__text-container {
-        position: absolute;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 24px;
-        line-height: 32px;
+    @media (max-width:1024px) {
+        button.back-button.color-secondary.button-size.sf-button{
+            margin-left: 17px;
+        }
     }
+   
+    // sf-call-to-action__text-container {
+    //     position: absolute;
+    //     font-style: normal;
+    //     font-weight: 600;
+    //     font-size: 24px;
+    //     line-height: 32px;
+    // }
     h3.sf-heading__title.h3 {
         font-style: normal;
         font-weight: 600;

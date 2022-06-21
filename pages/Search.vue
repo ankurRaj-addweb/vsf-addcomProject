@@ -15,9 +15,10 @@
         <router-link :to="'/default/'"
           >Search Result for "{{searchTerm}}"&nbsp;&nbsp;&nbsp;
         </router-link>
+       
       </template>
     </div>
-       
+       <div class="term smartphone-only"> Search Result for "{{searchTerm}}"</div>
     <!-- <div>{{categoryTree[0].items[0].items[0].label}}</div> <div>{{categoryTree[0].items[0].items[0].count}}</div> -->
      <div class="navbar section">
       <div class="navbar__aside desktop-only">
@@ -61,7 +62,8 @@
         <div class="navbar__counter">
           <span class="navbar__label desktop-only">{{ $t("Products :") }}</span>
 
-          <strong v-if="products">{{products.length}}</strong>
+          <strong v-if="products" class="desktop-only">{{products.length}}</strong>
+          <p class="smartphone-only"><strong v-if="products">{{products.length}}</strong> items</p>
         </div>
 
         <div class="navbar__view">
@@ -88,7 +90,7 @@
     <div style="display:flex">
     
  
-            <category-sidebar-menu />
+            <category-sidebar-menu class="desktop-only"/>
        
       <transition
         name="sf-fade"
@@ -139,7 +141,7 @@
               </AwMenuItem>
             </template>
             <AwScrollable
-              class="results--desktop desktop-only"
+              class="results--desktop"
               show-text=""
               hide-text=""
             >
@@ -195,7 +197,7 @@
                 </AwProductCard>
               </div>
             </AwScrollable>
-            <div class="results--mobile smartphone-only">
+            <!-- <div class="results--mobile smartphone-only">
               <AwProductCard
                 v-for="(product, index) in products"
                 :key="index"
@@ -245,7 +247,7 @@
                   </AwButton>
                 </template>
               </AwProductCard>
-            </div>
+            </div> -->
           </AwMegaMenuColumn>
           <div class="action-buttons smartphone-only">
             <AwButton
@@ -408,12 +410,10 @@ const categoryNames=ref([])
   // const pagination = computed(() => facetGetters.getPagination(results.value));
     watch(() => props.visible, (newVal) => {
       isSearchOpen.value = newVal;
-      if (isSearchOpen.value) {
-        document.body.classList.add('search-scroll');
-      } else {
-        document.body.classList.remove('search-scroll');
-        emit('removeSearchResults');
-      }
+      if (!isSearchOpen.value) {
+       
+          emit('removeSearchResults');
+      } 
     });
     const addItemToWishlist = async (product) => {
       await (
@@ -518,6 +518,12 @@ const categoryNames=ref([])
   }
 }
 .results-listing {
+  @media (max-width:1024px) {
+    width: 466px !important;
+     margin-top: 37px;
+    background-color: white;
+  }
+ 
   display: flex;
   flex-wrap: wrap;
   margin-left: var(--spacer-2xs);

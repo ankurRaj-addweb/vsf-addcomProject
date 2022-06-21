@@ -9,6 +9,7 @@
           @change="handleStepClick"
         >
           <AwStep
+          
             v-for="(step, key) in STEPS"
             :key="key"
             :name="$t(step.title)"
@@ -18,11 +19,12 @@
             <nuxt-child />
           </AwStep>
         </AwSteps>
+        
         <nuxt-child v-else />
       </div>
       <div
         v-if="!isThankYou"
-        class="checkout__aside desktop-only"
+        class="checkout__aside"
       >
         <transition name="fade">
           <CartPreview key="order-summary" />
@@ -62,6 +64,10 @@ export default defineComponent({
          {
           title:'Personal Details',
           url: 'user-account',
+          mobile:{
+              title:'Details',
+              url: 'user-account',
+          },
         },
         {
           title: 'Shipping',
@@ -77,6 +83,7 @@ export default defineComponent({
         },
       ],
     );
+    
 
     const currentStepIndex = computed(() => STEPS.value
       .findIndex((step) => step.url === currentStep.value));

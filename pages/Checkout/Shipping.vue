@@ -224,7 +224,7 @@
           <AwButton
             class="
               color-light
-              form__action-button form__action-button--add-address
+              form__action-button form__action-button--add-address adnew
             "
             type="submit"
             @click="handleAddNewAddressBtnClick"
