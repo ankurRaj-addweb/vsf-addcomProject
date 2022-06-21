@@ -572,12 +572,12 @@ export default defineComponent({
 
 </style>
 
-<style>
+<style scoped>
 
   .sf-input input {
    
   border: none !important;
-  /* border-bottom: 1px solid #3C3C3C !important;  */
+  border-bottom: 1px solid #3C3C3C !important; 
   border-radius: 0px !important;
   }
 
