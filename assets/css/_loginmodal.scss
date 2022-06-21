@@ -1,3 +1,9 @@
+.modal{
+
+    .sf-input input{
+    border-bottom: 1px solid black !important;
+    }
+    }
 .mobile_signin{
     @media (max-width: 1024px) {
         display: none;
