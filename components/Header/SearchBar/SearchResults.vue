@@ -209,16 +209,28 @@
                 </template>
               </div>
             </AwScrollable>
+            <div class="btn">
             <AwButton
               v-if="isSeeMore"
               class="sf-button mmm"
-              @click="$emit('SearchResults:toggeSearchPage')"
+              @click="seeAllResult"
             >
-              <u> {{ $t("See all Result") }}</u>
+               {{ $t("See all Result") }}
             </AwButton>
+             <div class="action-buttons smartphone-only">
+            <AwButton
+              class="action-buttons__button color-light"
+              @click="$emit('close')"
+            >
+              {{ $t("Cancel") }}
+            </AwButton>
+          </div>
+          </div>
             <div class="results--mobile smartphone-only">
+              <template v-for="(product, index) in products">
               <AwProductCard
-                v-for="(product, index) in products"
+               
+                v-if="index < 4"
                 :key="index"
                 class="result-card"
                 :regular-price="$fc(productGetters.getPrice(product).regular)"
@@ -279,17 +291,11 @@
                   </AwButton>
                 </template>
               </AwProductCard>
+              </template>
             </div>
           </AwMegaMenuColumn>
 
-          <div class="action-buttons smartphone-only">
-            <AwButton
-              class="action-buttons__button color-light"
-              @click="$emit('close')"
-            >
-              {{ $t("Cancel") }}
-            </AwButton>
-          </div>
+         
         </div>
 
         <div v-else key="no-results" class="before-results">
@@ -425,7 +431,10 @@ export default defineComponent({
         categoryNames.value.slice(0,categoryNames.value.length)
       }
     });
-
+ const seeAllResult = ()=>{
+   document.body.classList.add('search-scroll');
+    emit('SearchResults:toggeSearchPage');
+ }
     const addItemToWishlist = async (product) => {
       await (
         isInWishlist({ product })
@@ -438,6 +447,7 @@ export default defineComponent({
 
     return {
       th,
+      seeAllResult,
       isSearchOpen,
       productGetters,
       products,

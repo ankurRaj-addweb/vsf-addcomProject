@@ -1,4 +1,16 @@
 #billing {
+    @media (max-width:1024px) {
+        form.bil .for {
+            width: 98px;
+        }
+        button.form__action-button.extend.sf-button {
+            margin-top: 83px;
+        }
+        .form__action {
+            margin-top: 650px;
+            position: absolute;
+        }
+    }
 
     .sf-radio.sf-address.billing__address {
         width: 340px;
@@ -19,6 +31,9 @@
         font-weight: 600;
     }
 
+}
+
+
 label.sf-input__label.will-change {
     padding-bottom: 10px;
     position: absolute;
@@ -33,7 +48,7 @@ label.sf-input__label.will-change {
     display: flex;
     align-items: center;
 }
-}
+
 .extend {
     margin-top: 50px;
 }
@@ -56,11 +71,19 @@ label.sf-input__label.will-change {
 }
 
 .lii {
+    @media (max-width:1024px) {
+        display: block !important;
+        border-top: 0px !important;
+        border-bottom: 2px solid #EFEFEF;
+        height: auto;
+        margin: 7px 3px;
+    }
+
     display: flex;
     border-top: 2px solid #EFEFEF;
     border-bottom: 2px solid #EFEFEF;
     width: 810px;
-    
+
     height: 74px;
     padding-top: 12px;
 }
@@ -140,6 +163,36 @@ form.bil {
 }
 
 .shipping {
+    @media (max-width:1024px) {
+        button.smartphone-only.go.sf-button {
+            margin-top: 765px;
+            position: absolute;
+        }
+        button.color-light.form__action-button.form__action-button--add-address.adnew.sf-button{
+            margin-top: -50px !important;
+        }
+        button.accordion {
+            display: none;
+        }
+        // .adnew{
+        //     margin-top: -50px !important;
+        // }
+        button.form__action-button.sf-button {
+            background-color: #037ee6;
+            position: absolute;
+            margin-top: 700px !important;
+            width: 343px;
+        }
+
+        button.form__action-button.sf-button.is-disabled--button {
+            position: absolute;
+            margin-top: 620px;
+            width: 343px;
+        }
+    }
+    .shipping-method.ShippingClass{
+        background-color: transparent !important;
+    }
     .sf-radio.sf-address.shipping__address {
         width: 340px;
         height: 190px;
@@ -165,7 +218,11 @@ form.bil {
 }
 
 #checkout {
-    .checkout__aside.desktop-only {
-        margin-left: 35px !important;
+    .checkout__aside {
+        // margin-left: 35px !important;
+        @media (max-width:1024px) {
+                margin-top: 29px !important;
+                height: 840px;
+            }
     }
 }
