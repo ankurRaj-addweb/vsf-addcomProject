@@ -29,6 +29,8 @@
             position: absolute;
             width: 343px !important;
         } 
+        .sf-table__data:nth-child(even), .sf-table__header:nth-child(even) {
+            order: 0;}
     }
     
 
