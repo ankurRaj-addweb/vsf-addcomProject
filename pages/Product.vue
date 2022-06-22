@@ -9,16 +9,17 @@
       v-if="result && urlsp && urlValue && arrOfBreadcrumb"
     >
       <div class="bread">
-        <router-link to="/default"> Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; </router-link>
-        
-          <template v-for="breads in result">
-            <LazyHydrate never :key="breads">
-            <router-link :to="'/default/c/'+(breads)+'.html'">
-        
-              {{breads +"&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;"}}
+        <router-link to="/default">
+          Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
+        </router-link>
+
+        <template v-for="breads in result">
+          <LazyHydrate never :key="breads">
+            <router-link :to="'/default/c/' + breads + '.html'">
+              {{ breads + "&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;" }}
             </router-link>
-            </LazyHydrate>
-          </template>
+          </LazyHydrate>
+        </template>
       </div>
       <!-- <div>
         <AwBreadcrumbs
@@ -26,141 +27,144 @@
           :breadcrumbs="breadcrumbs"
         />
       </div> -->
-  </div>
-  <div class="product">
-    <AwBadge class="badge-label"
-        v-if="productGetters.getPrice(product).special">
-         
-            {{ productGetters.getPrice(product).special ? '-'+(productGetters.getPrice(product).regular/ (productGetters.getPrice(product).regular - productGetters.getPrice(product).special)).toFixed(2)+'%' : '' }}
-         
-        </AwBadge>
-     
-    <LazyHydrate when-idle>
-      <AwLoader
-        :class="{ 'loading--product-gallery': productLoading }"
-        :loading="productLoading"
-      >
-     
-        <AwGallery
-          :images="productGallery"
-          :enable-zoom="true"
-          class="product__gallery"
-      
-        >
-
-        </AwGallery>
-        </AwLoader>
-    </LazyHydrate>
-    <div class="sf-color-picker__button smartphone-only"><button class="color-secondary sf-color-picker__button-open sf-button">+ Colors</button></div>
-    <div class="tip_div smartphon_only">
-      <div class="tip_product">
-        TIP: Press and hold item to drag them <br> to the cart or press plus button.
-      </div>
     </div>
-    <div class="product__info">
-      <div class="product__header">
-        <AwHeading
-          :title="productGetters.getName(product)"
-          :level="3"
-          class="sf-heading--no-underline sf-heading--left"
-        />
-        <SvgImage
-          icon="drag"
-          width="40"
-          height="40"
-          class="product__drag-icon smartphone-only"
-        />
-      </div>
-      <div class="product__price-and-rating">
-        <AwPrice
-          :regular="$fc(productPrice)"
-          :special="productSpecialPrice && $fc(productSpecialPrice)"
-        />
-        <div>
-          <div class="product__rating">
-            <AwRating
-              :score="averageRating"
-              :max="5"
-            />
-            <a
-              v-if="!!totalReviews"
-              href="#"
-              class="product__count"
-            >
-              ({{ totalReviews }})
-              </a>
-          </div>
-          <AwButton
-            class="sf-button--text addreview_smartphone"
-            @click="changeTab(2)"
+    <div class="product">
+      <AwBadge
+        class="badge-label"
+        v-if="productGetters.getPrice(product).special"
+      >
+        {{
+          productGetters.getPrice(product).special
+            ? "-" +
+              (
+                productGetters.getPrice(product).regular /
+                (productGetters.getPrice(product).regular -
+                  productGetters.getPrice(product).special)
+              ).toFixed(2) +
+              "%"
+            : ""
+        }}
+      </AwBadge>
+
+      <LazyHydrate when-idle>
+        <AwLoader
+          :class="{ 'loading--product-gallery': productLoading }"
+          :loading="productLoading"
+        >
+          <AwGallery
+            :images="productGallery"
+            :enable-zoom="true"
+            class="product__gallery"
           >
-            {{ $t("Read all reviews") }}
+          </AwGallery>
+        </AwLoader>
+      </LazyHydrate>
+      <div class="sf-color-picker__button smartphone-only">
+        <button class="color-secondary sf-color-picker__button-open sf-button">
+          + Colors
+        </button>
+      </div>
+      <div class="tip_div smartphon_only">
+        <div class="tip_product">
+          TIP: Press and hold item to drag them <br />
+          to the cart or press plus button.
+        </div>
+      </div>
+      <div class="product__info">
+        <div class="product__header">
+          <AwHeading
+            :title="productGetters.getName(product)"
+            :level="3"
+            class="sf-heading--no-underline sf-heading--left"
+          />
+          <SvgImage
+            icon="drag"
+            width="40"
+            height="40"
+            class="product__drag-icon smartphone-only"
+          />
+        </div>
+        <div class="product__price-and-rating">
+          <AwPrice
+            :regular="$fc(productPrice)"
+            :special="productSpecialPrice && $fc(productSpecialPrice)"
+          />
+          <div>
+            <div class="product__rating">
+              <AwRating :score="averageRating" :max="5" />
+              <a v-if="!!totalReviews" href="#" class="product__count">
+                ({{ totalReviews }})
+              </a>
+            </div>
+            <AwButton
+              class="sf-button--text addreview_smartphone"
+              @click="changeTab(2)"
+            >
+              {{ $t("Read all reviews") }}
             </AwButton>
             <AwButton
               v-if="isAuthenticated"
               class="sf-button--text review_smartphone"
-              @click="changeNewReview(); showrev=!showrev"
-            >
-
-              | Add a review
-
-              </AwButton>
-        </div>
-      </div>
-      <div>
-        <HTMLContent
-          v-if="productShortDescription"
-          :content="productShortDescription"
-          tag="p"
-          class="product__description desktop-only"
-        />
-        <AwButton class="sf-button--text desktop-only product__guide">
-          {{ $t("Size guide") }}
-        </AwButton>
-        <template v-for="option in configurableOptions">
-          <div
-            v-if="option.attribute_code === 'color'"
-            :key="option.uid"
-            class="product__colors desktop-only"
-          >
-            <p class="product__color-label">{{ option.label }}:</p>
-            <AwColor
-              v-for="color in option.values"
-              :key="color.uid"
-              :color="productGetters.getSwatchData(color.swatch_data)"
-              :selected="
-                      productConfiguration[option.attribute_uid] === color.uid
-                    "
-              class="product__color"
               @click="
-                      () =>
-                        updateProductConfiguration(
-                          option.attribute_uid,
-                          color.uid
-                        )
-                    "
-            />
-      </div>
-      <AwSelect
-        v-else
-        :key="option.uid"
-        :value="productConfiguration[option.attribute_uid]"
-        :label="option.label"
-        class="sf-select--underlined product__select-size"
-        :required="true"
-        @input="
-                    ($event) =>
-                      updateProductConfiguration(option.attribute_uid, $event)
-                  "
-      >
-        <AwSelectOption
-          v-for="attribute in option.values"
-          :key="attribute.uid"
-          :value="attribute.uid"
-        >
-          {{ attribute.label }}
-          </AwSelectOption>
-          </AwSelect>
+                changeNewReview();
+                showrev = !showrev;
+              "
+            >
+              | Add a review
+            </AwButton>
+          </div>
+        </div>
+        <div>
+          <HTMLContent
+            v-if="productShortDescription"
+            :content="productShortDescription"
+            tag="p"
+            class="product__description desktop-only"
+          />
+          <AwButton class="sf-button--text desktop-only product__guide">
+            {{ $t("Size guide") }}
+          </AwButton>
+          <template v-for="option in configurableOptions">
+            <div
+              v-if="option.attribute_code === 'color'"
+              :key="option.uid"
+              class="product__colors desktop-only"
+            >
+              <p class="product__color-label">{{ option.label }}:</p>
+              <AwColor
+                v-for="color in option.values"
+                :key="color.uid"
+                :color="productGetters.getSwatchData(color.swatch_data)"
+                :selected="
+                  productConfiguration[option.attribute_uid] === color.uid
+                "
+                class="product__color"
+                @click="
+                  () =>
+                    updateProductConfiguration(option.attribute_uid, color.uid)
+                "
+              />
+            </div>
+            <AwSelect
+              v-else
+              :key="option.uid"
+              :value="productConfiguration[option.attribute_uid]"
+              :label="option.label"
+              class="sf-select--underlined product__select-size"
+              :required="true"
+              @input="
+                ($event) =>
+                  updateProductConfiguration(option.attribute_uid, $event)
+              "
+            >
+              <AwSelectOption
+                v-for="attribute in option.values"
+                :key="attribute.uid"
+                :value="attribute.uid"
+              >
+                {{ attribute.label }}
+              </AwSelectOption>
+            </AwSelect>
           </template>
           <template v-if="product.__typename === 'GroupedProduct'">
             <grouped-product-selector
@@ -178,7 +182,15 @@
             v-else
             v-model="qty"
             v-e2e="'product_add-to-cart'"
-            :disabled="(routePathWB != -1 || routePathWG != -1 || routePathMG != -1) || (routePathOTM == -1 || routePathMTQ == -1) ||loading || productLoading"
+            :disabled="
+              routePathWB != -1 ||
+              routePathWG != -1 ||
+              routePathMG != -1 ||
+              routePathOTM == -1 ||
+              routePathMTQ == -1 ||
+              loading ||
+              productLoading
+            "
             class="product__add-to-cart"
             @click="addItem({ product, quantity: parseInt(qty) })"
           />
@@ -191,32 +203,29 @@
               />
             </div>
             <div class="compare">
-              <AwButton
-                class="sf-button--text"
-                @click="changeNewReview"
-              >
+              <AwButton class="sf-button--text" @click="changeNewReview">
                 Add to Compare
-                </AwButton>
+              </AwButton>
             </div>
           </div>
-    </div>
+        </div>
 
-    <LazyHydrate when-idle>
-      <AwTabs
-        id="tabs"
-        :open-tab="openTab"
-        class="product__tabs"
-        @click:tab="changeTab"
-      >
-        <AwTab title="Description">
-          <HTMLContent
-            v-if="productDescription"
-            :content="productDescription"
-            tag="div"
-            class="product__description"
-          />
-          <!-- @TODO: Check Property in Configurable Products              -->
-          <!--              <AwProperty
+        <LazyHydrate when-idle>
+          <AwTabs
+            id="tabs"
+            :open-tab="openTab"
+            class="product__tabs"
+            @click:tab="changeTab"
+          >
+            <AwTab title="Description">
+              <HTMLContent
+                v-if="productDescription"
+                :content="productDescription"
+                tag="div"
+                class="product__description"
+              />
+              <!-- @TODO: Check Property in Configurable Products              -->
+              <!--              <AwProperty
                     v-for="(property, i) in properties"
                     :key="i"
                     :name="property.name"
@@ -232,42 +241,39 @@
                       </AwButton>
                     </template>
                   </AwProperty>-->
-        </AwTab>
-        <AwTab title="Reviews">
-          <div v-show="reviewsLoading">
-            <AwLoader />
-          </div>
-          <AwReview
-            v-for="review in reviews"
-            v-show="!reviewsLoading"
-            :key="reviewGetters.getReviewId(review)"
-            :author="reviewGetters.getReviewAuthor(review)"
-            :date="reviewGetters.getReviewDate(review)"
-            :message="reviewGetters.getReviewMessage(review)"
-            :max-rating="5"
-            :rating="reviewGetters.getReviewRating(review)"
-            :char-limit="250"
-            read-more-text="Read more"
-            hide-full-text="Read less"
-            class="product__review"
-          />
+            </AwTab>
+            <AwTab title="Reviews">
+              <div v-show="reviewsLoading">
+                <AwLoader />
+              </div>
+              <AwReview
+                v-for="review in reviews"
+                v-show="!reviewsLoading"
+                :key="reviewGetters.getReviewId(review)"
+                :author="reviewGetters.getReviewAuthor(review)"
+                :date="reviewGetters.getReviewDate(review)"
+                :message="reviewGetters.getReviewMessage(review)"
+                :max-rating="5"
+                :rating="reviewGetters.getReviewRating(review)"
+                :char-limit="250"
+                read-more-text="Read more"
+                hide-full-text="Read less"
+                class="product__review"
+              />
 
-          <div
-            v-show="showrev"
-            id="addReview"
-          >
-            <ProductAddReviewForm @add-review="successAddReview" />
-  </div>
-  <div>
-    <AwPagination
-      :total="4"
-      :visible="4"
-      hasArrows
-      :current="1"
-      class="Pagignation"
-    />
-  </div>
-  <!-- <LazyHydrate on-interaction>
+              <div v-show="showrev" id="addReview">
+                <ProductAddReviewForm @add-review="successAddReview" />
+              </div>
+              <div>
+                <AwPagination
+                  :total="4"
+                  :visible="4"
+                  hasArrows
+                  :current="1"
+                  class="Pagignation"
+                />
+              </div>
+              <!-- <LazyHydrate on-interaction>
                     <AwPagination
                       v-if="!loading"
                       v-show="pagination.totalPages > 1"
@@ -277,26 +283,26 @@
                       :visible="5"
                     />
                   </LazyHydrate> -->
-  </AwTab>
-  <AwTab
-    title="Additional Information"
-    class="product__additional-info"
-  >
-    <div class="product__additional-info">
-      <p class="product__additional-info__title">
-        {{ $t("Instruction1") }}
-      </p>
-      <p class="product__additional-info__paragraph">
-        {{ $t("Instruction2") }}
-      </p>
-      <p class="product__additional-info__paragraph">
-        {{ $t("Instruction3") }}
-      </p>
-    </div>
-    </AwTab>
-    </AwTabs>
-    </LazyHydrate>
-    </div>
+            </AwTab>
+            <AwTab
+              title="Additional Information"
+              class="product__additional-info"
+            >
+              <div class="product__additional-info">
+                <p class="product__additional-info__title">
+                  {{ $t("Instruction1") }}
+                </p>
+                <p class="product__additional-info__paragraph">
+                  {{ $t("Instruction2") }}
+                </p>
+                <p class="product__additional-info__paragraph">
+                  {{ $t("Instruction3") }}
+                </p>
+              </div>
+            </AwTab>
+          </AwTabs>
+        </LazyHydrate>
+      </div>
     </div>
     <LazyHydrate when-visible>
       <RelatedProducts />
@@ -305,12 +311,10 @@
       <UpsellProducts />
     </LazyHydrate> -->
     <LazyHydrate when-visible>
-      <ProductsCarousel
-        :products="newProducts"
-      />
+      <ProductsCarousel :products="newProducts" />
       <RelatedProducts />
     </LazyHydrate>
-    </div>
+  </div>
 </template>
 <script>
 import LazyHydrate from "vue-lazy-hydration";
@@ -431,11 +435,8 @@ export default defineComponent({
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
 
-    
-
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist(
-      "GlobalWishlist"
-    );
+    const { addItem: addItemToWishlist, isInWishlist } =
+      useWishlist("GlobalWishlist");
     const { error: nuxtError, app } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
@@ -464,11 +465,10 @@ export default defineComponent({
     const categories = computed(() =>
       productGetters.getCategoryIds(product.value)
     );
-    const baseReviews = computed(
-      () =>
-        Array.isArray(productReviews.value)
-          ? [...productReviews.value].shift()
-          : productReviews.value
+    const baseReviews = computed(() =>
+      Array.isArray(productReviews.value)
+        ? [...productReviews.value].shift()
+        : productReviews.value
     );
     const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
     const totalReviews = computed(() =>
@@ -485,7 +485,7 @@ export default defineComponent({
       );
     });
     const productGallery = computed(() =>
-      productGetters.getGallery(product.value).map(img => ({
+      productGetters.getGallery(product.value).map((img) => ({
         mobile: { url: img.small },
         desktop: { url: img.normal },
         big: { url: img.big },
@@ -543,7 +543,7 @@ export default defineComponent({
         );
       });
     };
-    const successAddReview = async reviewData => {
+    const successAddReview = async (reviewData) => {
       await addReview(reviewData);
       document.querySelector("#tabs").scrollIntoView({
         behavior: "smooth",
@@ -581,7 +581,7 @@ export default defineComponent({
     // console.log(urlValue)
     // const breadLength = breadcrumbs.value.length;
     const arrOfBreadcrumb = [urlValue];
-    breadcrumbs.value.map(val => arrOfBreadcrumb.push(val.text));
+    breadcrumbs.value.map((val) => arrOfBreadcrumb.push(val.text));
     // arrOfBreadcrumb.push(urlValue,"Home")
     // console.log(breadLength)
     // const breadFirstvalue = breadcrumbs.value[0].text
@@ -622,7 +622,7 @@ export default defineComponent({
         ...(productConfiguration.value.length > 0
           ? {
               configurations: productConfiguration.value.map(
-                config => config[1]
+                (config) => config[1]
               ),
             }
           : {}),
@@ -648,7 +648,7 @@ export default defineComponent({
         value: product.value.uid,
       };
 
-      const categoriesTags = categories.value.map(catId => ({
+      const categoriesTags = categories.value.map((catId) => ({
         prefix: CacheTagPrefix.Category,
         value: catId,
       }));
@@ -937,7 +937,7 @@ export default defineComponent({
 }
 </style>
 
-<style lang=scss>
+<style lang="scss">
 .carousel .sf-arrow[data-v-bdde9382] {
   --button-color: #282828;
   width: 70px;
@@ -954,7 +954,7 @@ export default defineComponent({
   .sf-button--text {
     align-items: center;
     /* color: #037ee6; */
-    
+
     float: right;
     margin-right: 5px;
   }
@@ -982,10 +982,10 @@ export default defineComponent({
 
 .sf-add-to-cart__button {
   background: #037ee6;
-  
-}
-
-/* .sf-rating__icon--negative {
+  font-family: 'Source Sans Pro';
+                                                                               font-size: 16px !important;
+font-weight: 600;
+                                                                                                                                                            }                                                                                                                                                            /* .sf-rating__icon--negative {
   color:#037EE6 !important;
 } */
 
@@ -1057,7 +1057,7 @@ export default defineComponent({
 }
 </style>
 
-<style lang=scss>
+<style lang="scss">
 .breadMain {
   display: flex;
   margin-bottom: 20px;
@@ -1080,9 +1080,8 @@ top: 3px; */
 
   color: #3c3c3c;
 }
-.badge-label{
-  height:max-content;
-  background-color:#F87100;
-  
+.badge-label {
+  height: max-content;
+  background-color: #f87100;
 }
 </style>

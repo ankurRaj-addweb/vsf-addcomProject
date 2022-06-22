@@ -65,8 +65,8 @@ a.sf-link.message__link.nuxt-link-exact-active.nuxt-link-active {
 }
 
 .sf-header-navigation-item:hover>*:not(.sf-mega-menu) {
-    --header-navigation-item-color: #037EE6;
-    --header-navigation-item-border-color: #037EE6;
+    --header-navigation-item-color: #037EE6 !important;
+    --header-navigation-item-border-color: #037EE6 !important;
 }
 
 .sf-hero__control--left,
