@@ -9,103 +9,114 @@
           Home &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;
         </router-link>
         <router-link :to="'/default/c/' + head + '.html'">
-          {{ head.charAt(0).toUpperCase() + head .slice(1) .replaceAll("/", "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;") }} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+          {{
+            head.charAt(0).toUpperCase() +
+            head
+              .slice(1)
+              .replaceAll("/", "&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;")
+          }}
+          &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
         </router-link>
       </template>
-  </div>
+    </div>
 
-  <AwBreadcrumbs
-    class="breadcrumbs desktop-only"
-    :breadcrumbs="breadcrumbs"
-  />
-  <div
-    class="navbar section"
-    v-if="
+    <AwBreadcrumbs
+      class="breadcrumbs desktop-only"
+      :breadcrumbs="breadcrumbs"
+    />
+    <div
+      class="navbar section"
+      v-if="
         Object.keys($route.query).length == 0 ||
         ($route.query.itemsPerPage && Object.keys($route.query).length == 1)
       "
-  >
-    <div class="navbar__aside desktop-only">
-      <LazyHydrate never>
-        <AwHeading
-          :level="3"
-          :title="$t('Categories')"
-          class="navbar__title "
-        />
-      </LazyHydrate>
-    </div>
-
-    <div class="navbar__main">
-      <LazyHydrate on-interaction>
-        <AwButton
-          class="sf-button--text navbar__filters-button"
-          :aria-label="$t('Filter')"
-          @click="toggleFilterSidebar"
-        >
-          <SvgImage
-            icon="filter2"
-            width="24"
-            height="24"
-            class="navbar__filters-icon"
-          /> {{ $t('Filters ') }}
-          </AwButton>
-      </LazyHydrate>
-
-      <div class="navbar__sort">
-        <span class="navbar__label nav_label desktop-only">{{ $t("Sort by") }}:</span>
-        <LazyHydrate when-visible>
-          <AwSelect
-            :value="sortBy.selected"
-            placeholder="Select sorting"
-            class="navbar__select"
-            @input="uiHelpers.changeSorting"
-          >
-            <AwSelectOption
-              v-for="option in sortBy.options"
-              :key="option.value"
-              :value="option.value"
-              class="sort-by__option"
-            >
-              {{ $t(option.label) }}
-              </AwSelectOption>
-              </AwSelect>
+    >
+      <div class="navbar__aside desktop-only">
+        <LazyHydrate never>
+          <AwHeading
+            :level="3"
+            :title="$t('Categories')"
+            class="navbar__title"
+          />
         </LazyHydrate>
       </div>
 
-      <div class="navbar__counter product__found">
-        <span class="navbar__label desktop-only">{{ $t("Products found:") }}
-        </span>
-        <span class="desktop-only">
-          <b>{{ pagination.totalItems }}</b>
-        </span>
-        <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t("Items") }}
-        </span>
-      </div>
+      <div class="navbar__main">
+        <LazyHydrate on-interaction>
+          <AwButton
+            class="sf-button--text navbar__filters-button"
+            :aria-label="$t('Filter')"
+            @click="toggleFilterSidebar"
+          >
+            <SvgImage
+              icon="filter2"
+              width="24"
+              height="24"
+              class="navbar__filters-icon"
+            />
+            {{ $t("Filters ") }}
+          </AwButton>
+        </LazyHydrate>
 
-      <div class="navbar__view">
-        <span class="navbar__view-label desktop-only">{{ $t("View") }}</span>
-        <SvgImage
-          icon="tiles"
-          :label="$t('Change to grid view')"
-          :aria-pressed="isCategoryGridView"
-          width="12"
-          height="12"
-          class="navbar__view-icon"
-          :class="{ 'navbar__view-icon--active': isCategoryGridView }"
-          @click.native="changeToCategoryGridView"
-        />
-        <SvgImage
-          icon="list"
-          :label="$t('Change to list view')"
-          :aria-pressed="!isCategoryGridView"
-          width="12"
-          height="12"
-          class="navbar__view-icon"
-          :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
-          @click.native="changeToCategoryListView"
-        />
+        <div class="navbar__sort">
+          <span class="navbar__label nav_label desktop-only"
+            >{{ $t("Sort by") }}:</span
+          >
+          <LazyHydrate when-visible>
+            <AwSelect
+              :value="sortBy.selected"
+              placeholder="Select sorting"
+              class="navbar__select"
+              @input="uiHelpers.changeSorting"
+            >
+              <AwSelectOption
+                v-for="option in sortBy.options"
+                :key="option.value"
+                :value="option.value"
+                class="sort-by__option"
+              >
+                {{ $t(option.label) }}
+              </AwSelectOption>
+            </AwSelect>
+          </LazyHydrate>
+        </div>
+
+        <div class="navbar__counter product__found">
+          <span class="navbar__label desktop-only"
+            >{{ $t("Products found:") }}
+          </span>
+          <span class="desktop-only">
+            <b>{{ pagination.totalItems }}</b>
+          </span>
+          <span class="navbar__label smartphone-only"
+            >{{ pagination.totalItems }} {{ $t("Items") }}
+          </span>
+        </div>
+
+        <div class="navbar__view">
+          <span class="navbar__view-label desktop-only">{{ $t("View") }}</span>
+          <SvgImage
+            icon="tiles"
+            :label="$t('Change to grid view')"
+            :aria-pressed="isCategoryGridView"
+            width="12"
+            height="12"
+            class="navbar__view-icon"
+            :class="{ 'navbar__view-icon--active': isCategoryGridView }"
+            @click.native="changeToCategoryGridView"
+          />
+          <SvgImage
+            icon="list"
+            :label="$t('Change to list view')"
+            :aria-pressed="!isCategoryGridView"
+            width="12"
+            height="12"
+            class="navbar__view-icon"
+            :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
+            @click.native="changeToCategoryListView"
+          />
+        </div>
       </div>
-    </div>
     </div>
 
     <div
@@ -123,8 +134,7 @@
       <div class="navbar__aside desktop-only">
         <LazyHydrate never>
           <div class="navbar__view">
-            <span class="navbar__view-label ">{{ $t("View") }}
-            </span>
+            <span class="navbar__view-label">{{ $t("View") }} </span>
             <SvgImage
               icon="tiles"
               :label="$t('Change to grid view')"
@@ -148,20 +158,19 @@
           </div>
         </LazyHydrate>
         <div class="navbar__counter">
-          <span class="navbar__label desktop-only">{{ $t("Products found:") }}
+          <span class="navbar__label desktop-only"
+            >{{ $t("Products found:") }}
           </span>
           <span class="desktop-only">
             <b>{{ pagination.totalItems }}</b>
           </span>
-          <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t("Items") }}</span>
+          <span class="navbar__label smartphone-only"
+            >{{ pagination.totalItems }} {{ $t("Items") }}</span
+          >
         </div>
       </div>
-      <div class="navbar__sort ">
-        <div
-          v-for="(facet, i) in facets"
-          :key="i"
-          class="filter-title"
-        >
+      <div class="navbar__sort">
+        <div v-for="(facet, i) in facets" :key="i" class="filter-title">
           <AwHeading
             :key="`filter-title-${facet.id}`"
             :level="5"
@@ -170,10 +179,7 @@
           />
           <span class="colon">{{ $t(":") }}</span>
 
-          <div
-            v-if="uiHelpers.isFacetColor(facet)"
-            :key="`${facet.id}-colors`"
-          >
+          <div v-if="uiHelpers.isFacetColor(facet)" :key="`${facet.id}-colors`">
             <AwSelect
               :value="facet.options.selected"
               @input="uiHelpers.changeSorting"
@@ -186,68 +192,68 @@
                 class="filters__color"
               >
                 {{ $t(facet.options.label) }}
-                </AwSelectOption>
-                </AwSelect>
-
-      </div>
-      <div v-if="facet.id === 'price'">
-        <AwSelect
-          :value="facet.options.selected"
-          @input="uiHelpers.changeSorting"
-          class="navbar__select selectvalue"
-        >
-          <AwSelectOption
-            v-for="option in facet.options"
-            :key="`${facet.id}-${option.value}`"
-            :label="`${option.id}${
+              </AwSelectOption>
+            </AwSelect>
+          </div>
+          <div v-if="facet.id === 'price'">
+            <AwSelect
+              :value="facet.options.selected"
+              @input="uiHelpers.changeSorting"
+              class="navbar__select selectvalue"
+            >
+              <AwSelectOption
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :label="`${option.id}${
                   option.count ? ` (${option.count})` : ''
                 }`"
-            name="filter__price"
-            class="filters__color"
-          >
-            {{ $t(facet.options.label) }}
-            </AwSelectOption>
+                name="filter__price"
+                class="filters__color"
+              >
+                {{ $t(facet.options.label) }}
+              </AwSelectOption>
             </AwSelect>
-      </div>
+          </div>
 
-      <div v-if="facet.id === 'material'">
-        <AwSelect
-          :value="facet.options.selected"
-          @input="uiHelpers.changeSorting"
-          class="navbar__select"
-        >
-          <AwSelectOption
-            v-for="option in facet.options"
-            :key="`${facet.id}-${option.value}`"
-            :label="`${option.id}${
+          <div v-if="facet.id === 'material'">
+            <AwSelect
+              :value="facet.options.selected"
+              @input="uiHelpers.changeSorting"
+              class="navbar__select"
+            >
+              <AwSelectOption
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :label="`${option.id}${
                   option.count ? ` (${option.count})` : ''
                 }`"
-            name="filter__price"
-            class="filters__color"
-            style="margin-left:40px;"
-          >
-            {{ $t(facet.options.label) }}
-            </AwSelectOption>
+                name="filter__price"
+                class="filters__color"
+                style="margin-left: 40px"
+              >
+                {{ $t(facet.options.label) }}
+              </AwSelectOption>
             </AwSelect>
-      </div>
-      </div>
-      <div>
-        <LazyHydrate on-interaction>
-          <AwButton
-            class="sf-button--text navbar__filters-button filter_button"
-            :aria-label="$t('All Filters')"
-            @click="toggleFilterSidebar"
-            style="font-family: 'Source Sans Pro'; font-size:16px;"
-          >
-            <SvgImage
-              icon="filter2"
-              width="24"
-              height="24"
-              class="navbar__filters-icon"
-            /> {{ $t("All Filters") }}
+          </div>
+        </div>
+        <div>
+          <LazyHydrate on-interaction>
+            <AwButton
+              class="sf-button--text navbar__filters-button filter_button"
+              :aria-label="$t('All Filters')"
+              @click="toggleFilterSidebar"
+              style="font-family: 'Source Sans Pro'; font-size: 16px"
+            >
+              <SvgImage
+                icon="filter2"
+                width="24"
+                height="24"
+                class="navbar__filters-icon"
+              />
+              {{ $t("All Filters") }}
             </AwButton>
-        </LazyHydrate>
-      </div>
+          </LazyHydrate>
+        </div>
       </div>
 
       <div class="navbar__main">
@@ -267,55 +273,52 @@
                 class="sort-by__option"
               >
                 {{ $t(option.label) }}
-                </AwSelectOption>
-                </AwSelect>
+              </AwSelectOption>
+            </AwSelect>
           </LazyHydrate>
         </div>
       </div>
-      </div>
+    </div>
 
-      <div class="main section">
-        <div class="sidebar desktop-only">
-          <AwLoader
-            :class="{ loading: isCategoriesLoading }"
-            :loading="isCategoriesLoading"
-          >
-            <LazyHydrate when-visible>
-              <category-sidebar-menu :no-fetch="true" />
-            </LazyHydrate>
-            </AwLoader>
-        </div>
+    <div class="main section">
+      <div class="sidebar desktop-only">
         <AwLoader
-          :class="{ loading: isProductsLoading }"
-          :loading="isProductsLoading"
+          :class="{ loading: isCategoriesLoading }"
+          :loading="isCategoriesLoading"
         >
-          <div
-            v-if="!isProductsLoading"
-            class="products"
+          <LazyHydrate when-visible>
+            <category-sidebar-menu :no-fetch="true" />
+          </LazyHydrate>
+        </AwLoader>
+      </div>
+      <AwLoader
+        :class="{ loading: isProductsLoading }"
+        :loading="isProductsLoading"
+      >
+        <div v-if="!isProductsLoading" class="products">
+          <transition-group
+            v-if="isCategoryGridView"
+            appear
+            name="products__slide"
+            tag="div"
+            class="products__grid"
           >
-            <transition-group
-              v-if="isCategoryGridView"
-              appear
-              name="products__slide"
-              tag="div"
-              class="products__grid"
-            >
-              <AwProductCardQuantitySelector
-                v-for="(product, i) in products"
-                :key="productGetters.getSlug(product)"
-                v-e2e="'category-product-card'"
-                class="products__product-card"
-                :style="{ '--index': i }"
-                :title="productGetters.getName(product)"
-                :image-width="imageSizes.productCard.width"
-                :image-height="imageSizes.productCard.height"
-                :image="
+            <AwProductCardQuantitySelector
+              v-for="(product, i) in products"
+              :key="productGetters.getSlug(product)"
+              v-e2e="'category-product-card'"
+              class="products__product-card"
+              :style="{ '--index': i }"
+              :title="productGetters.getName(product)"
+              :image-width="imageSizes.productCard.width"
+              :image-height="imageSizes.productCard.height"
+              :image="
                 getMagentoImage(
                   productGetters.getProductThumbnailImage(product)
                 )
               "
-                badgeColor=""
-                :colors="[
+              badgeColor=""
+              :colors="[
                 {
                   label: 'Sand',
                   value: 'sand',
@@ -347,12 +350,12 @@
                   selected: false,
                 },
               ]"
-                :regular-price="$fc(productGetters.getPrice(product).regular)"
-                :special-price="
+              :regular-price="$fc(productGetters.getPrice(product).regular)"
+              :special-price="
                 productGetters.getPrice(product).special &&
                 $fc(productGetters.getPrice(product).special)
               "
-                :badge-label="
+              :badge-label="
                 productGetters.getPrice(product).special
                   ? '-' +
                     (
@@ -363,123 +366,123 @@
                     '%'
                   : ''
               "
-                :score-rating="productGetters.getAverageRating(product)"
-                :reviews-count="productGetters.getTotalReviews(product)"
-                :show-add-to-cart-button="true"
-                :is-added-to-cart="isInCart({ product })"
-                :is-in-wishlist="isInWishlist({ product })"
-                :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-                :link="
+              :score-rating="productGetters.getAverageRating(product)"
+              :reviews-count="productGetters.getTotalReviews(product)"
+              :show-add-to-cart-button="true"
+              :is-added-to-cart="isInCart({ product })"
+              :is-in-wishlist="isInWishlist({ product })"
+              :wishlist-icon="isAuthenticated ? 'heart' : ''"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+              :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
                     product
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-                @click:wishlist="addItemToWishlist(product)"
-                @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-              >
-                <template #image="imageSlotProps">
-                  <AwButton
-                    :link="imageSlotProps.link"
-                    class="sf-button--pure sf-product-card__link"
-                    data-testid="product-link"
-                    aria-label="Go To Product"
-                    v-on="$listeners"
-                  >
-                    <template v-if="Array.isArray(imageSlotProps.image)">
-                      <nuxt-img
-                        v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                        :key="key"
-                        class="sf-product-card__picture"
-                        :src="picture"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </template>
+              @click:wishlist="addItemToWishlist(product)"
+              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+            >
+              <template #image="imageSlotProps">
+                <AwButton
+                  :link="imageSlotProps.link"
+                  class="sf-button--pure sf-product-card__link"
+                  data-testid="product-link"
+                  aria-label="Go To Product"
+                  v-on="$listeners"
+                >
+                  <template v-if="Array.isArray(imageSlotProps.image)">
                     <nuxt-img
-                      v-else
-                      class="sf-product-card__image lol"
-                      :src="imageSlotProps.image"
+                      v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                      :key="key"
+                      class="sf-product-card__picture"
+                      :src="picture"
                       :alt="imageSlotProps.title"
                       :width="imageSlotProps.imageWidth"
                       :height="imageSlotProps.imageHeight"
                     />
-                    </AwButton>
-                </template>
-                </AwProductCardQuantitySelector>
-                </transition-group>
-                <transition-group
-                  v-else
-                  appear
-                  name="products__slide"
-                  tag="div"
-                  class="products__list"
-                >
-                  <AwProductCardHorizontal
-                    v-for="(product, i) in products"
-                    :key="productGetters.getSlug(product)"
-                    class="products__product-card-horizontal"
-                    :style="{ '--index': i }"
-                    :title="productGetters.getName(product)"
-                    :description="productGetters.getDescription(product)"
-                    :image="
+                  </template>
+                  <nuxt-img
+                    v-else
+                    class="sf-product-card__image lol"
+                    :src="imageSlotProps.image"
+                    :alt="imageSlotProps.title"
+                    :width="imageSlotProps.imageWidth"
+                    :height="imageSlotProps.imageHeight"
+                  />
+                </AwButton>
+              </template>
+            </AwProductCardQuantitySelector>
+          </transition-group>
+          <transition-group
+            v-else
+            appear
+            name="products__slide"
+            tag="div"
+            class="products__list"
+          >
+            <AwProductCardHorizontal
+              v-for="(product, i) in products"
+              :key="productGetters.getSlug(product)"
+              class="products__product-card-horizontal"
+              :style="{ '--index': i }"
+              :title="productGetters.getName(product)"
+              :description="productGetters.getDescription(product)"
+              :image="
                 getMagentoImage(
                   productGetters.getProductThumbnailImage(product)
                 )
               "
-                    :image-width="imageSizes.productCardHorizontal.width"
-                    :image-height="imageSizes.productCardHorizontal.height"
-                    :regular-price="$fc(productGetters.getPrice(product).regular)"
-                    :special-price="
+              :image-width="imageSizes.productCardHorizontal.width"
+              :image-height="imageSizes.productCardHorizontal.height"
+              :regular-price="$fc(productGetters.getPrice(product).regular)"
+              :special-price="
                 productGetters.getPrice(product).special &&
                 $fc(productGetters.getPrice(product).special)
               "
-                    :score-rating="productGetters.getAverageRating(product)"
-                    :reviews-count="productGetters.getTotalReviews(product)"
-                    :is-in-wishlist="isInWishlist({ product })"
-                    :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                    :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-                    :link="
+              :score-rating="productGetters.getAverageRating(product)"
+              :reviews-count="productGetters.getTotalReviews(product)"
+              :is-in-wishlist="isInWishlist({ product })"
+              :wishlist-icon="isAuthenticated ? 'heart' : ''"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+              :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
                     product
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-                    @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-                    @click:wishlist="addItemToWishlist(product)"
-                  >
-                    <template #image="imageSlotProps">
-                      <AwLink
-                        :link="imageSlotProps.link"
-                        class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
-                      >
-                        <template v-if="Array.isArray(imageSlotProps.image)">
-                          <nuxt-img
-                            v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                            :key="key"
-                            class="sf-product-card-horizontal__picture"
-                            :src="picture"
-                            :alt="imageSlotProps.title"
-                            :width="imageSlotProps.imageWidth"
-                            :height="imageSlotProps.imageHeight"
-                          />
-                        </template>
-                        <nuxt-img
-                          v-else
-                          class="sf-product-card-horizontal__image"
-                          :src="imageSlotProps.image"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                        </AwLink>
-                    </template>
-                    <template #configuration>
-                      <AwSelect class="desktop-only">
+              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+              @click:wishlist="addItemToWishlist(product)"
+            >
+              <template #image="imageSlotProps">
+                <AwLink
+                  :link="imageSlotProps.link"
+                  class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
+                >
+                  <template v-if="Array.isArray(imageSlotProps.image)">
+                    <nuxt-img
+                      v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                      :key="key"
+                      class="sf-product-card-horizontal__picture"
+                      :src="picture"
+                      :alt="imageSlotProps.title"
+                      :width="imageSlotProps.imageWidth"
+                      :height="imageSlotProps.imageHeight"
+                    />
+                  </template>
+                  <nuxt-img
+                    v-else
+                    class="sf-product-card-horizontal__image"
+                    :src="imageSlotProps.image"
+                    :alt="imageSlotProps.title"
+                    :width="imageSlotProps.imageWidth"
+                    :height="imageSlotProps.imageHeight"
+                  />
+                </AwLink>
+              </template>
+              <template #configuration>
+                <!-- <AwSelect class="desktop-only">
                         <AwSelectOption
                           v-for="(product, i) in products"
                           :key="productGetters.getSlug(product)"
@@ -488,163 +491,182 @@
                         >
                           {{ productGetters.getName(product) }}
                           </AwSelectOption>
-                      </AwSelect>
-                      <!-- <AwProperty
+                      </AwSelect> -->
+                <!-- <AwProperty
                         class="desktop-only"
                         name="Size"
                         value="XS"
                       /> -->
-                      <AwProperty
+                <!-- <AwProperty
                         class="desktop-only"
                         name="Color"
                         value="white"
-                      />
-                    </template>
-                    <template #actions>
-                      <AwButton
-                        v-if="isAuthenticated"
-                        class="sf-button--text products__product-card-horizontal__add-to-wishlist desktop-only"
-                        @click="addItemToWishlist(product)"
-                      >
-                        {{ isInWishlist({ product }) ? $t("Remove from Wishlist") : $t("Save for later") }}
-                        </AwButton>
-                    </template>
-                    </AwProductCardHorizontal>
-                    </transition-group>
-                    <div class="products__display-opt">
-                      <LazyHydrate on-interaction>
-                        <AwPagination
-                          v-if="!isProductsLoading"
-                          v-show="pagination.totalPages > 1"
-                          class="products__pagination"
-                          :current="pagination.currentPage"
-                          :total="pagination.totalPages"
-                          :visible="5"
-                        />
-                      </LazyHydrate>
-
-                      <div class="products__show-on-page">
-                        <span class="products__show-on-page__label">{{ $t("Show on page: ") }}
-                        </span>
-                        <LazyHydrate on-interaction>
-                          <AwSelect
-                            :value="pagination.itemsPerPage.toString()"
-                            class="products__items-per-page"
-                            @input="uiHelpers.changeItemsPerPage"
-                          >
-                            <AwSelectOption
-                              v-for="option in ['10', '20', '50', '75']"
-                              :key="option"
-                              :value="option"
-                              class="products__items-per-page__option"
-                            >
-                              {{ option + " items" }}
-                              </AwSelectOption>
-                              </AwSelect>
-                        </LazyHydrate>
-                      </div>
-                    </div>
-      </div>
-      </AwLoader>
-      </div>
-
-      <LazyHydrate when-idle>
-        <AwSidebar
-          :visible="isFilterSidebarOpen"
-          title="Filters"
-          class="sidebar-filters"
-          @close="toggleFilterSidebar"
-        >
-          <div class="filters">
-            <div
-              v-for="(facet, i) in facetsHeader"
-              :key="i"
-              class="filter-heading"
-            >
-              <AwHeading
-                :key="`filter-title-${facet.id}`"
-                :level="5"
-                :title="facet.label"
-                class="filters__title sf-heading--left"
-              />
-              <div
-                v-if="uiHelpers.isFacetColor(facet)"
-                :key="`${facet.id}-colors`"
-                class="filters__colors"
-              >
-                <AwColor
-                  v-for="option in facet.options"
-                  :key="`${facet.id}-${option.value}`"
-                  :color="option.attrName"
-                  :selected="isFilterSelected(facet, option)"
-                  class="filters__color"
-                  @click="() => selectFilter(facet, option)"
-                />
-                <AwLink
-                  link=""
-                  target="_blank"
-                  class="color-link"
+                      /> -->
+              </template>
+              <template #actions>
+                <AwButton
+                  v-if="isAuthenticated"
+                  class="sf-button--text products__product-card-horizontal__add-to-wishlist desktop-only save_for_later"
+                  @click="addItemToWishlist(product)"
+                  
                 >
-                  See all colors
-                  </AwLink>
-          </div>
-
-          <div v-else-if="facet.id === 'price'">
-            <AwRadio
-              v-for="option in facet.options"
-              :key="`${facet.id}-${option.value}`"
-              :label="`${option.id}${
-                  option.count ? ` (${option.count})` : ''
-                }`"
-              :value="option.value"
-              :selected="isFilterSelected(facet, option)"
-              name="filter__price"
-              @change="() => selectFilter(facet, option)"
-            />
-          </div>
-
-          <div v-else-if="facet.id === 'material'">
-            <AwCheckbox
-              v-for="option in facet.options"
-              :key="`${facet.id}-${option.value}`"
-              :label="option.id + `${option.count ?`  (${option.count})` : ''}`"
-              :selected="isFilterSelected(facet, option)"
-              class="filters__item"
-              @change="() => selectFilter(facet, option)"
-            />
-          </div>
-          <div v-else>
-            <AwCheckbox
-              v-for="option in facet.options"
-              :key="`${facet.id}-${option.value}`"
-              :label="option.id + `${option.count ?`  (${option.count})` : ''}`"
-              :selected="isFilterSelected(facet, option)"
-              class="filters__item"
-              @change="() => selectFilter(facet, option)"
-            />
-          </div>
-          </div>
-          </div>
-
-          <template #content-bottom>
-            <div class="filters__buttons">
-              <AwButton
-                class="sf-button--full-width done"
-                @click="applyFilters()"
-              >
-                {{ $t("Done") }}
+                  {{
+                    isInWishlist({ product })
+                      ? $t("Remove from Wishlist")
+                      : $t("Save for later")
+                  }}
                 </AwButton>
                 <AwButton
-                  class="sf-button--full-width filters__button-clear clear"
-                  @click="applyFilters({})"
+                  v-if="isAuthenticated"
+                  class="sf-button--text products__product-card-horizontal__add-to-wishlist desktop-only add-to-compare"
+                  @click="addItemToWishlist(product)"
                 >
-                  {{ $t("Clear all") }}
-                  </AwButton>
+                  {{
+                    isInWishlist({ product })
+                      ? $t("Remove from Wishlist")
+                      : $t("Add to Compare")
+                  }}
+                </AwButton>
+              </template>
+            </AwProductCardHorizontal>
+          </transition-group>
+          <div class="products__display-opt">
+            <LazyHydrate on-interaction>
+              <AwPagination
+                v-if="!isProductsLoading"
+                v-show="pagination.totalPages > 1"
+                class="products__pagination"
+                :current="pagination.currentPage"
+                :total="pagination.totalPages"
+                :visible="5"
+              />
+            </LazyHydrate>
+
+            <div class="products__show-on-page">
+              <span class="products__show-on-page__label"
+                >{{ $t("Show on page: ") }}
+              </span>
+              <LazyHydrate on-interaction>
+                <AwSelect
+                  :value="pagination.itemsPerPage.toString()"
+                  class="products__items-per-page"
+                  @input="uiHelpers.changeItemsPerPage"
+                >
+                  <AwSelectOption
+                    v-for="option in ['10', '20', '50', '75']"
+                    :key="option"
+                    :value="option"
+                    class="products__items-per-page__option"
+                  >
+                    {{ option + " items" }}
+                  </AwSelectOption>
+                </AwSelect>
+              </LazyHydrate>
             </div>
-          </template>
-          </AwSidebar>
-      </LazyHydrate>
-      </div>
+          </div>
+        </div>
+      </AwLoader>
+    </div>
+
+    <LazyHydrate when-idle>
+      <AwSidebar
+        :visible="isFilterSidebarOpen"
+        title="Filters"
+        class="sidebar-filters"
+        @close="toggleFilterSidebar"
+      >
+        <div class="filters">
+          <div
+            v-for="(facet, i) in facetsHeader"
+            :key="i"
+            class="filter-heading"
+          >
+            <AwHeading
+              :key="`filter-title-${facet.id}`"
+              :level="5"
+              :title="facet.label"
+              class="filters__title sf-heading--left"
+            />
+            <div
+              v-if="uiHelpers.isFacetColor(facet)"
+              :key="`${facet.id}-colors`"
+              class="filters__colors"
+            >
+              <AwColor
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :color="option.attrName"
+                :selected="isFilterSelected(facet, option)"
+                class="filters__color"
+                @click="() => selectFilter(facet, option)"
+              />
+            </div>
+
+            <div v-else-if="facet.id === 'price'">
+              <AwRadio
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :label="`${option.id}${
+                  option.count ? ` (${option.count})` : ''
+                }`"
+                :value="option.value"
+                :selected="isFilterSelected(facet, option)"
+                name="filter__price"
+                @change="() => selectFilter(facet, option)"
+              />
+            </div>
+
+            <div v-else-if="facet.id === 'material'">
+              <AwCheckbox
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :label="
+                  option.id + `${option.count ? `  (${option.count})` : ''}`
+                "
+                :selected="isFilterSelected(facet, option)"
+                class="filters__item"
+                @change="() => selectFilter(facet, option)"
+              />
+            </div>
+            <div v-else>
+              <AwCheckbox
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :label="
+                  option.id + `${option.count ? `  (${option.count})` : ''}`
+                "
+                :selected="isFilterSelected(facet, option)"
+                class="filters__item"
+                @change="() => selectFilter(facet, option)"
+              />
+            </div>
+          </div>
+          <div>
+            <AwLink link="" target="_blank" class="color-link">
+              See all colors
+            </AwLink>
+          </div>
+        </div>
+
+        <template #content-bottom>
+          <div class="filters__buttons">
+            <AwButton
+              class="sf-button--full-width done"
+              @click="applyFilters()"
+            >
+              {{ $t("Done") }}
+            </AwButton>
+            <AwButton
+              class="sf-button--full-width filters__button-clear clear"
+              @click="applyFilters({})"
+            >
+              {{ $t("Clear all") }}
+            </AwButton>
+          </div>
+        </template>
+      </AwSidebar>
+    </LazyHydrate>
+  </div>
 </template>
 
 <script>
@@ -731,9 +753,11 @@ export default defineComponent({
     const uiHelpers = useUiHelpers();
     const uiState = useUiState();
     const { path, result: routeData, search: resolveUrl } = useUrlResolver();
-    const { $magento: { config: magentoConfig } } = useVSFContext();
+    const {
+      $magento: { config: magentoConfig },
+    } = useVSFContext();
     const { isAuthenticated } = useUser();
-    const getAttributes = product => product.configurable_options || [];
+    const getAttributes = (product) => product.configurable_options || [];
     const {
       addItem: addItemToWishlistBase,
       isInWishlist,
@@ -791,13 +815,13 @@ export default defineComponent({
       }
 
       const category = items.find(
-        cat => cat.isCurrent || cat.items.find(c => c.isCurrent)
+        (cat) => cat.isCurrent || cat.items.find((c) => c.isCurrent)
       );
 
       return category?.label || items[0]?.label;
     });
 
-    const activeCategoryUid = categoryUid => {
+    const activeCategoryUid = (categoryUid) => {
       const items = categoryTree.value?.items;
 
       if (!items) {
@@ -845,10 +869,10 @@ export default defineComponent({
         selectedFilters.value[facet.id] = [];
       }
 
-      if (selectedFilters.value[facet.id].find(f => f === option.value)) {
+      if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
-        ]?.filter(f => f !== option.value);
+        ]?.filter((f) => f !== option.value);
         return;
       }
 
@@ -856,7 +880,7 @@ export default defineComponent({
     };
     /* eslint-enable */
 
-    const applyFilters = filters => {
+    const applyFilters = (filters) => {
       toggleFilterSidebar();
       if (filters) {
         selectedFilters.value = filters;
@@ -865,7 +889,7 @@ export default defineComponent({
       uiHelpers.changeFilters(selectedFilters.value);
     };
 
-    const addItemToWishlist = async product => {
+    const addItemToWishlist = async (product) => {
       await (isInWishlist({ product })
         ? removeItemFromWishlist({ product })
         : addItemToWishlistBase({ product }));
@@ -885,7 +909,7 @@ export default defineComponent({
     const getSelectedFilterValues = () => {
       let selectedFilterValues = Object.fromEntries(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        magentoConfig.facets.available.map(curr => [
+        magentoConfig.facets.available.map((curr) => [
           curr,
           curr === "price" ? "" : [],
         ])
@@ -893,7 +917,7 @@ export default defineComponent({
       const filters = uiHelpers.getFacetsFromURL().filters;
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      Object.keys(filters).forEach(filter => {
+      Object.keys(filters).forEach((filter) => {
         if (filter === "price") {
           selectedFilterValues[filter] = filters[filter][0];
         } else {
@@ -928,12 +952,12 @@ export default defineComponent({
 
       const tags = [{ prefix: CacheTagPrefix.View, value: "category" }];
       // eslint-disable-next-line no-underscore-dangle
-      const productTags = products.value.map(product => ({
+      const productTags = products.value.map((product) => ({
         prefix: CacheTagPrefix.Product,
         value: product.uid,
       }));
 
-      const categoriesTags = categoryTree.value.items.map(category => ({
+      const categoriesTags = categoryTree.value.items.map((category) => ({
         prefix: CacheTagPrefix.Category,
         value: category.slug,
       }));
@@ -1421,7 +1445,7 @@ export default defineComponent({
   /* or 143% */
 
   /* Secondary Color Dark Version 1 */
-
+  margin-top:20px;
   color: #3c3c3c;
 }
 
@@ -1440,6 +1464,7 @@ export default defineComponent({
 }
 
 .sf-product-card-horizontal__title {
+    font-family: "Source Sans Pro";
   @media (max-width: 1024px) {
     width: 70%;
     text-align: inherit;
@@ -1485,32 +1510,29 @@ export default defineComponent({
 }
 .navbar__select[data-v-a79260d2] .sf-select__dropdown {
   font-weight: bold;
-  // width: auto;
-  font-family: 'Source Sans Pro';
-
+  overflow: hidden;
+  font-family: "Source Sans Pro";
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.sf-heading__title.h5{
-font-family: 'Source Sans Pro';
-
+.sf-heading__title.h5 {
+  font-family: "Source Sans Pro";
 }
-.products__show-on-page[data-v-a79260d2]{
-display: flex;
-justify-content: flex-end;
-align-items: baseline;
-float: right;
+.products__show-on-page[data-v-a79260d2] {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  float: right;
 }
 .navbar__label[data-v-a79260d2] {
-font-size:16px;
-font-family: 'Source Sans Pro';
-
+  font-size: 16px;
+  font-family: "Source Sans Pro";
 }
-.navbar__view-label[data-v-a79260d2] .navbar__select .sort-by__option{
-font-family: 'Source Sans Pro';
-
+.navbar__view-label[data-v-a79260d2] .navbar__select .sort-by__option {
+  font-family: "Source Sans Pro";
 }
 .navbar__view-label[data-v-a79260d2] {
-font-family: 'Source Sans Pro';
-
+  font-family: "Source Sans Pro";
 }
 .filter-heading {
   .sf-heading__title.h5 {
@@ -1536,9 +1558,19 @@ font-family: 'Source Sans Pro';
   margin-left: auto;
 }
 .color-link {
-  margin-top: 36px;
-  margin-left: -222px;
   color: #037ee6;
   font-size: 14px;
 }
+.add-to-compare {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'Source Sans Pro';
+  font-size:16px !important;
+}
+.save_for_later{
+margin-left: 25px; 
+font-family: 'Source Sans Pro';
+font-size:16px !important;
+}
+
 </style>
