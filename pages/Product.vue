@@ -1023,10 +1023,10 @@ font-weight: 600;
   --button-padding: 0;
   --icon-size: 1.5rem;
   --button-size: 3.25rem;
-  --button-background: #037ee6;
+  --button-background: #037ee6 !important;
   --button-border-radius: 100%;
   position: var(--circle-icon-position, relative);
-  --button-box-shadow: #037ee6;
+  --button-box-shadow: #037ee6 !important;
 }
 
 .sf-icon svg .sf-icon img {
