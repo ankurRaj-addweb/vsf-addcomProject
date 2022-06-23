@@ -4,7 +4,7 @@
       class="highlighted"
       v-if="route.fullPath === '/default/checkout/payment'"
     >
-      <h1>Order Review</h1>
+      <h1 class="yyy">Order Review</h1>
 
       <template>
         <AwProperty
@@ -22,8 +22,7 @@
       </template>
       <template>
         <AwProperty
-          :name="$t('shipping detail')"
-          class="sf-property--full-width sf-property--large property"
+          :name="$t('Shipping detail')"
         />
         <ul>
           <li v-for="item in shipp" :key="item.id">
@@ -33,8 +32,7 @@
       </template>
       <template>
         <AwProperty
-          :name="$t('billing detail')"
-          class="sf-property--full-width sf-property--large property"
+          :name="$t('Billing detail')"
         />
         <ul>
           <li v-for="item in shipp" :key="item.id">
@@ -44,7 +42,6 @@
       </template>
       <AwProperty
         :name="$t('Payment method')"
-        class="sf-property--full-width sf-property--large property"
       />
     </div>  
 
@@ -340,6 +337,9 @@ span.sf-property__name {
   border-top: var(--c-white) 1px solid;
   --property-name-font-weight: var(--font-weight--semibold);
   --property-name-color: var(--c-text);
+}
+h1.yyy {
+    padding: 8px;
 }
 
 .characteristic {
