@@ -34,7 +34,13 @@
         align-items: left;
         font-weight: 700;
     }
-    
-    
- 
+}
+
+#my-account{
+    @media (max-width: 1024px) {
+        .img_profile{
+            display: flex;
+            max-width:100%;
+        }
+    }
 }

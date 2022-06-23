@@ -108,6 +108,7 @@
         </div>
       </div>
       <div>
+        
         <HTMLContent
           v-if="productShortDescription"
           :content="productShortDescription"
@@ -149,9 +150,9 @@
         class="sf-select--underlined product__select-size"
         :required="true"
         @input="
-                    ($event) =>
-                      updateProductConfiguration(option.attribute_uid, $event)
-                  "
+          ($event) =>
+            updateProductConfiguration(option.attribute_uid, $event)
+        "
       >
         <AwSelectOption
           v-for="attribute in option.values"
@@ -190,13 +191,21 @@
                 @addToWishlist="addItemToWishlist({ product })"
               />
             </div>
+            <div class="save">
+              <AwButton
+                class="sf-button--text"
+                @click="changeNewReview"
+              >
+                <p>Save for leter</p>
+              </AwButton>
+            </div>
             <div class="compare">
               <AwButton
                 class="sf-button--text"
                 @click="changeNewReview"
               >
                 Add to Compare
-                </AwButton>
+              </AwButton>
             </div>
           </div>
     </div>
@@ -215,6 +224,11 @@
             tag="div"
             class="product__description"
           />
+          <p>Product Code: <b>{{productGetters.getProductSku(product)}}</b></p>
+          <p>Meterial: <b>Cotton</b></p>
+          <p>category: <b style="color:#037EE6; text-decoration:underline;"> Pants</b></p>
+          <p>Contry: <b>Poland</b></p>
+          
           <!-- @TODO: Check Property in Configurable Products              -->
           <!--              <AwProperty
                     v-for="(property, i) in properties"

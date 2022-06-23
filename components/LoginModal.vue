@@ -10,7 +10,7 @@
         isLogin ? "Sign In" : isForgotten ? "Reset Password" : "Register Here"
       }}
     </h4>
-    <p class="smartphone-only mobile_login">Log in</p>
+    <!-- <p class="smartphone-only mobile_login">Log inDD</p> -->
     <template #modal-bar>
       <AwBar
         class="sf-modal__bar smartphone-only"
@@ -25,6 +25,7 @@
         <ValidationObserver v-slot="{ handleSubmit, invalid }" key="log-in">
           <form class="form" @submit.prevent="handleSubmit(handleLogin)">
             <ValidationProvider v-slot="{ errors }" rules="required|email">
+               <p class="smartphone-only mobile_login">Log in</p>
               <label class="text-uppercase mobile_your">Your email</label>
               <AwInput
                 v-model="form.username"
@@ -154,6 +155,7 @@
       </div>
       <div v-else class="form">
         <ValidationObserver v-slot="{ handleSubmit, invalid }" key="sign-up">
+            <p class="smartphone-only mobile_login">Personal details</p>
           <form
             class="form"
             autocomplete="off"
@@ -263,6 +265,51 @@
             {{ $t("login in to your account") }}
           </AwButton>
         </div>
+          <div class="smartphone-only">
+           <div>
+            <p class="smartphone-only enjoy_perks">Enjoy these perks with your free account!</p>
+           </div>
+            <div class="flex">
+              <AwIcon
+                icon="clock"
+                size="xs"
+                color="green-primary"
+                viewBox="0 0 24 24"
+                class=""
+              />
+                <label class="smartphone-only text_footer">Faster checkout</label>     
+            </div>
+            <div class="flex">
+              <AwIcon
+                icon="rewards"
+                size="xs"
+                color="green-primary"
+                viewBox="0 0 24 24"
+                class=""
+              />
+                <label class="smartlabelhone-only text_footer">Full rewards program benefits</label>  
+            </div>
+            <div class="flex">
+              <AwIcon
+                icon="credits"
+                size="xs"
+                color="green-primary"
+                viewBox="0 0 24 24"
+                class=""
+              />
+                <label class="smartphone-only text_footer">Earn credits with every purchase</label>    
+            </div>
+            <div class="flex">
+              <AwIcon
+                icon="heart"
+                size="xs"
+                color="green-primary"
+                viewBox="0 0 24 24"
+                class=""
+              />
+                <label class="smartphone-only text_footer">Manage your wishlist</label>    
+            </div>
+          </div>
       </div>
       </AwLoader>
     </transition>
@@ -283,7 +330,7 @@ import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInp
 import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
-
+import AwIcon from "@storefront-ui/root/packages/vue/src/components/atoms/AwIcon/AwIcon.vue";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required, email, alpha } from "vee-validate/dist/rules";
 import {
@@ -330,6 +377,7 @@ export default defineComponent({
     ValidationObserver,
     AwBar,
     VueRecaptcha,
+    AwIcon,
   },
   data() {
     return {
