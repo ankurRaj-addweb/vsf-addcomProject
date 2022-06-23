@@ -1,8 +1,31 @@
-#payment{
-tr.sf-table__heading {
-    border-bottom-color: #037EE6;
+#payment {
+    tr.sf-table__heading {
+        border-bottom-color: #037EE6;
+    }
+    td.sf-table__data.table__data.price {
+        text-align: center !important;
+    }
+    hr.sf-divider {
+        border-bottom-color: #037EE6;
+    }
+    del.sf-price__old {
+        width: 44px;
+    }
+    .product-price.sf-price {
+        margin-right: 34px;
+    }
+
 }
-hr.sf-divider {
-    border-bottom-color: #037EE6;
-}
+
+.checkout__main {
+    .sf-input input {
+        border: unset;
+        border-bottom: 1px black solid;
+        border-radius: unset;
+
+        &:focus-visible {
+            border: unset;
+            border-bottom: 1px black solid;
+        }
+    }
 }

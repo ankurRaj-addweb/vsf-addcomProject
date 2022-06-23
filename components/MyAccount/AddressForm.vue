@@ -5,7 +5,15 @@
       class="form profile"
       @submit.prevent="handleSubmit(submitForm)"
     >
-      <div class="form__horizontal">
+      <div class="checkbox">
+         <AwCheckbox
+          v-model="form.default_shipping"
+          name="isDefaultShipping"
+          :label="$t('Set as default shipping')"
+          class="form__checkbox-isDefaultShipping"
+        />
+      </div>
+      <div class="form__horizontal cardbox">  
         <ValidationProvider
           v-slot="{ errors }"
           rules="required|min:2"
@@ -14,6 +22,7 @@
         >
           <AwInput
             v-model="form.firstname"
+            class="firstbox"
             name="firstname"
             :label="$t('First Name')"
             required
@@ -162,18 +171,12 @@
           :error-message="$t(errors[0])"
         />
       </ValidationProvider>
-      <AwCheckbox
-        v-model="form.default_shipping"
-        name="isDefaultShipping"
-        :label="$t('Set as default shipping')"
-        class="form__checkbox-isDefaultShipping"
-      />
-      <AwCheckbox
+      <!-- <AwCheckbox
         v-model="form.default_billing"
         name="isDefaultBilling"
         :label="$t('Set as default billing')"
         class="form__checkbox-isDefaultBilling"
-      />
+      /> -->
       <AwButton class="form__button">
         {{ isNew ? $t('Add the address') : $t('Update the address') }}
       </AwButton>
@@ -373,5 +376,16 @@ export default defineComponent({
       }
     }
   }
+}
+.form__button{
+  font-family: 'Source Sans Pro';
+  font-style: 'SemiBold';
+  font-size: 16px;
+  line-height: 16px;
+  line-height: 100%;
+  align-items: center;
+  vertical-align: top;
+  width: 280px;
+  height: 50px;
 }
 </style>

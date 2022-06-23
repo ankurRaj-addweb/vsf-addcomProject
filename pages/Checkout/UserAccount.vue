@@ -10,6 +10,7 @@
       >
         {{ $t("Log Into Your Account") }}
       </AwButton>
+
       <div v-if="!isAuthenticated">
         <p>Or Fill the details below:</p>
       </div>
@@ -25,10 +26,10 @@
         v-if="!isAuthenticated"
       >
         <div class="form">
-          <ValidationProvider
+          <ValidationProvider 
             v-slot="{ errors }"
             name="firstname"
-            :rules="loginUserAccount ? '' : 'required|min:2'"
+            :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -46,7 +47,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="lastname"
-            :rules="loginUserAccount ? '' : 'required|min:2'"
+            :rules="loginUserAccount ? '' : 'required|alpha'"
             slim
           >
             <AwInput
@@ -90,12 +91,13 @@
                 label="Password"
                 type="password"
                 class="
-                  form__element form__element--half form__element--half-even
+                  form__element form__element--half form__element--half-even 
                 "
                 required
                 has-show-password
                 :valid="!errors[0]"
                 :error-message="$t(errors[0])"
+                
               />
             </ValidationProvider>
             <div v-if="!isAuthenticated">
@@ -177,7 +179,7 @@
               </div>
             </div>
           </ValidationProvider>
-          <AwCheckbox
+          <AwCheckbox 
             v-if="createUserAccount"
             v-model="form.is_subscribed"
             v-e2e="'sign-up-newsletter'"
@@ -186,7 +188,7 @@
             class="form__element"
           />
         </div>
-        <AwCheckbox
+        <AwCheckbox 
           v-if="!isAuthenticated"
           v-model="createUserAccount"
           v-e2e="'create-account'"
@@ -203,7 +205,7 @@
               v-e2e="'continue-to-shipping'"
               class="ffff"
               type="submit"
-              :disabled="!canMoveForward"
+              :disabled="!canMoveForward || !form.firstname || !form.lastname || !form.email ||!form.password"
             >
               {{ $t("Go to shipping") }}
             </AwButton>
@@ -215,7 +217,7 @@
       </div>
       <div class="form" v-if="isAuthenticated">
         <div class="form__action">
-          <AwButton
+          <AwButton v-if="isAuthenticated"
             v-e2e="'continue-to-shipping'"
             class="ffff"
             type="submit"
@@ -250,13 +252,14 @@ import {
   onMounted,
 } from "@nuxtjs/composition-api";
 import { useUser, useGuestUser } from "@vue-storefront/magento";
-import { required, min, email } from "vee-validate/dist/rules";
+import { required, min, email,alpha } from "vee-validate/dist/rules";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { useUiNotification } from "~/composables";
 import { getItem, mergeItem } from "~/helpers/asyncLocalStorage";
 import {
   customerPasswordRegExp,
   invalidPasswordMsg,
+  
 } from "../../helpers/customer/regex";
 
 import { useUiState } from "~/composables";
@@ -264,6 +267,10 @@ import { useUiState } from "~/composables";
 extend("required", {
   ...required,
   message: "This field is required",
+});
+extend("alpha", {
+  ...alpha,
+  message: "Name should contain alphabetic characters only",
 });
 extend("min", {
   ...min,
@@ -329,8 +336,10 @@ export default defineComponent({
     const { send: sendNotification } = useUiNotification();
 
     const isFormSubmitted = ref(false);
+    const isActive = ref(false);
     const createUserAccount = ref(false);
     const loginUserAccount = ref(false);
+    const passVal = ref('');
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !loading.value);
@@ -407,6 +416,7 @@ export default defineComponent({
         form.value.firstname = user.value.firstname;
         form.value.lastname = user.value.lastname;
         form.value.email = user.value.email;
+        form.value.password = user.value.password;
       }
     });
 
@@ -545,7 +555,20 @@ export default defineComponent({
 
 </style>
 
-     
+     <style>
+     .sf-input input {
+   /* outline: none !important; */
+   /* outline: dotted !important; */
+  /* border-bottom: initial !important;
+  border-top: initial !important;
+  border-right: initial !important;
+  border-left: initial !important;
+  border-block-style: initial; */
+  border: none !important;
+  border-bottom: 1px solid #3C3C3C !important;
+  border-radius: 0px !important;
+     }
+     </style>
    
 
   

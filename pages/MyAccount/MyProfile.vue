@@ -1,46 +1,53 @@
 <template>
   <AwTabs :open-tab="1">
-<!-- Personal data update -->
+    <!-- Personal data update -->
 
-<AwTab
-:title="
-$route.fullPath == '/default/checkout/user-account'
-? $t('')
-: $t('Personal details')
-"
->
+    <AwTab
+      class="fontpersonal pwdchange"
+      :title="
+      $route.fullPath == '/default/checkout/user-account'
+      ? $t('')
+      : $t('Personal Data')
+      "
+      >
 
-<p class="message">
-{{
-$t(
-"you are able to change your personal details, after changed details please save the changes "
-)
-}}
-</p>
+      <p class="message fontfeel" v-if="$route.fullPath != '/default/checkout/user-account'">
+      {{
+      $t(
+      "Feel free to edit any of your details below so your account is always up to date "
+      )
+      }}
+      </p>
+<p class="message fontfeel" v-else>
+      {{
+      $t(
+      "You are able to change your personal details, after changing details please save the changes."
+      )
+      }}
+      </p>
 
+      <ProfileUpdateForm
+      :loading="loading"
+      @submit="updatePersonalData"
+      />
 
-<ProfileUpdateForm
-:loading="loading"
-@submit="updatePersonalData"
-/>
+      <p class="notice fontAt" v-if=" $route.fullPath != '/default/checkout/user-account'">
+      {{ $t('Use your personal data') }}
+      <a class="policy linkcolor" href="">{{ $t('Privacy Policy') }}</a>
+      </p>
+    </AwTab>
 
-<p class="notice" v-if=" $route.fullPath != '/default/checkout/user-account'">
-{{ $t('Use your personal data') }}
-<a class="policy" href="">{{ $t('Privacy Policy') }}</a>
-</p>
-</AwTab>
+    <!-- Password reset -->
+    <AwTab
+      class="fontpersonal pwdchange"
+      :title="$t('Password change')"
+      v-if="route.fullPath != '/default/checkout/user-account'"
+      >
+      <p class="message fontif">{{ $t("If you want to change the password to access your account, enter the following information:") }}<br/> {{ $t("Your current email address is example@email.com") }}</p>
 
-<!-- Password reset -->
-<AwTab
-:title="$t('Password change')"
-v-if="route.fullPath != '/default/checkout/user-account'"
->
-<p class="message">{{ $t("Change password your account") }}:<br /></p>
-
-
-<PasswordResetForm @submit="updatePassword" />
-</AwTab>
-</AwTabs>
+      <PasswordResetForm @submit="updatePassword" />
+    </AwTab>
+  </AwTabs>
 </template>
 
 <script>
@@ -140,11 +147,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-.message,
-.notice {
-  font-family: var(--font-family--primary);
-  line-height: 1.6;
-}
+
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;
@@ -154,10 +157,8 @@ export default defineComponent({
     font-weight: 400;
   }
 }
+ 
 
-.notice {
-  margin: var(--spacer-lg) 0 0 0;
-  font-size: var(--font-size--sm);
-}
+
 
 </style>

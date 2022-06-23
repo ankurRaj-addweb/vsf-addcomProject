@@ -13,6 +13,7 @@
           <AwInput
             v-model="form.firstname"
             name="firstName"
+            class="fontdetails"
             :label="$t('First Name')"
             @input="changeDisable()"
             
@@ -102,7 +103,7 @@
         </AwButton>
       </div>
 
-      <AwButton v-if="!requirePassword" class="form__button .color-primary. sf-button "
+      <AwButton v-if="!requirePassword" class="form__button myprofile .color-primary. sf-button "
        :class="$route.fullPath == '/default/checkout/user-account'? 'is-disabled--button':''"
        @click="changeDisable()">
 
@@ -244,4 +245,15 @@ export default defineComponent({
     }
   }
 }
+.myprofile{
+ 
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 16px !important;
+    text-align: center;
+}
+
 </style>
+

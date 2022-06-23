@@ -1,418 +1,436 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, reset }">
-    <!-- <h1>{{getInvoiceCheck}}</h1> -->
-    <AwHeading
-      v-e2e="'heading-billing'"
-      :level="3"
-      :title="$t('Billing Details')"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
+  <div id="billing">
 
-    
-    <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
-      <AwCheckbox
-
-        v-e2e="'copy-address'"
-        :selected="sameAsShipping"
-        :label="$t('Copy address from shipping')"
-        name="copyShippingAddress"
-        class="form__element"
-        @change="handleCheckSameAddress"
+    <ValidationObserver v-slot="{ handleSubmit, reset }">
+       
+      <AwHeading
+        v-e2e="'heading-billing'"
+        :level="3"
+        :title="$t('Billing Details')"
+        class="sf-heading--left sf-heading--no-underline title"
       />
-      <div v-if="sameAsShipping" class="copy__shipping__addresses">
-        <div class="copy__shipping__address">
-          <div class="sf-address">
-            <UserAddressDetails
-              :address="{
-                ...billingDetails,
-                region: { region_code: billingDetails.region },
-              }"
-            />
+    
+
+      <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
+        <AwCheckbox
+          v-e2e="'copy-address'"
+          :selected="sameAsShipping"
+          :label="$t('Copy address from shipping')"
+          name="copyShippingAddress"
+          class="form__element"
+          @change="handleCheckSameAddress"
+        />
+        <div v-if="sameAsShipping" class="copy__shipping__addresses">
+          <div class="copy__shipping__address">
+            <div class="sf-address">
+              <UserAddressDetails
+                :address="{
+                  ...billingDetails,
+                  region: { region_code: billingDetails.region },
+                }"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <UserBillingAddresses
-        v-if="!sameAsShipping && isAuthenticated && hasSavedBillingAddress"
-        v-model="setAsDefault"
-        v-e2e="'billing-addresses'"
-        :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
-        @setCurrentAddress="handleSetCurrentAddress"
-      />
-      <div v-if="!sameAsShipping && canAddNewAddress" class="form">
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="firstname"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'firstName'"
-            :value="billingDetails.firstname"
-            label="First name"
-            name="firstName"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="(firstname) => changeBillingDetails('firstname', firstname)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="lastname"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'lastName'"
-            :value="billingDetails.lastname"
-            label="Last name"
-            name="lastName"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="(lastname) => changeBillingDetails('lastname', lastname)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="street"
-          rules="required"
-          slim
-        >
-          <AwInput
-            v-e2e="'streetName'"
-            :value="billingDetails.street"
-            label="Street name"
-            name="streetName"
-
-            class="form__element form"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="(street) => changeBillingDetails('street', street)"
-
-     
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="city"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'city'"
-            :value="billingDetails.city"
-            label="City"
+        <UserBillingAddresses
+          v-if="!sameAsShipping && isAuthenticated && hasSavedBillingAddress"
+          v-model="setAsDefault"
+          v-e2e="'billing-addresses'"
+          :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+          @setCurrentAddress="handleSetCurrentAddress"
+        />
+        <div v-if="!sameAsShipping && canAddNewAddress" class="form">
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="firstname"
+           :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
+            slim
+          >
+            <AwInput
+              v-e2e="'firstName'"
+              :value="billingDetails.firstname"
+              label="First name"
+              name="firstName"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="
+                (firstname) => changeBillingDetails('firstname', firstname)
+              "
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="lastname"
+             :rules="loginUserAccount ? '' : 'required|alpha'"
+            slim
+          >
+            <AwInput
+              v-e2e="'lastName'"
+              :value="billingDetails.lastname"
+              label="Last name"
+              name="lastName"
+              class="form__element form__element--half form__element--half-even"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(lastname) => changeBillingDetails('lastname', lastname)"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="street"
+           rules="required|max:250"
+            slim
+          >
+            <AwInput
+              v-e2e="'streetName'"
+              :value="billingDetails.street"
+              label="Street name"
+              name="streetName"
+              class="form__element form"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(street) => changeBillingDetails('street', street)"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
             name="city"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="(city) => changeBillingDetails('city', city)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="state"
-          :rules="!regionInformation ? null : 'required|min:2'"
-          slim
->
-          <AwInput
-
-            v-if="
-              !billingDetails.country_code || regionInformation.length === 0
-            "
-            v-model="billingDetails.region"
-            v-e2e="'state'"
-            label="State/Province"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            :disabled="!billingDetails.country_code"
-            name="state"
-            class="form__element form__element--half form__element--half-even"
-            @input="(region) => changeBillingDetails('region', region)"
-          />
-          <AwSelect
-            v-else
-            v-model="billingDetails.region"
-            v-e2e="'state'"
-            label="State/Province"
-            name="state"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            class="
-              form__element
-              form__element--half
-              form__element--half-even
-              form__select
-              sf-select--underlined
-            "
-            @input="(state) => changeBillingDetails('region', state)"
+            :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
+            slim
           >
-            <AwSelectOption
-              v-for="regionOption in regionInformation"
-              :key="regionOption.id"
-              :value="regionOption.abbreviation"
-            >
-              {{ regionOption.label }}
-            </AwSelectOption>
-          </AwSelect>
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="postcode"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'zipcode'"
-            :value="billingDetails.postcode"
-            label="Zip-code"
-            name="zipCode"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="(postcode) => changeBillingDetails('postcode', postcode)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="country_code"
-          rules="required|min:2"
-          slim
-        >
-          <AwSelect
-            v-e2e="'country'"
-            :value="billingDetails.country_code"
-            label="Country"
-            name="country"
-            class="
-
-              form__element form__element--half form__select 
-              sf-select--underlined form__element--half-even
-
-            "
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="changeCountry"
+            <AwInput
+              v-e2e="'city'"
+              :value="billingDetails.city"
+              label="City"
+              name="city"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(city) => changeBillingDetails('city', city)"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="state"
+            :rules="!regionInformation ? null : 'required|min:2'"
+            slim
           >
-            <AwSelectOption
-              v-for="countryOption in countriesList"
-              :key="countryOption.id"
-              :value="countryOption.abbreviation"
+            <AwInput
+              v-if="
+                !billingDetails.country_code || regionInformation.length === 0
+              "
+              v-model="billingDetails.region"
+              v-e2e="'state'"
+              label="State/Province"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              :disabled="!billingDetails.country_code"
+              name="state"
+              class="form__element form__element--half form__element--half-even"
+              @input="(region) => changeBillingDetails('region', region)"
+            />
+            <AwSelect
+              v-else
+              v-model="billingDetails.region"
+              v-e2e="'state'"
+              label="State/Province"
+              name="state"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              class="
+                form__element
+                form__element--half
+                form__element--half-even
+                form__select
+                sf-select--underlined
+              "
+              @input="(state) => changeBillingDetails('region', state)"
             >
-              {{ countryOption.label }}
-
-            </AwSelectOption>
-          </AwSelect>
-
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="telephone"
-          rules="required"
-          slim
-        >
-          <AwInput
-            v-e2e="'phone'"
-            :value="billingDetails.telephone"
-            label="Phone number"
-            name="phone"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="(telephone) => changeBillingDetails('telephone', telephone)"
-          />
-        </ValidationProvider>
-      </div>
-
-      <div class="pay">
-        <p>Payment Methods</p>
-      </div>
-      <div class="lii">
-        <div class="one select-payment" @click="showForm = true">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-
-          <nuxt-img
-            src="/icons/visa1.png"
-            class="payment-method"
-            alt="visa"
-            width="52"
-            height="34"
-          />
+              <AwSelectOption
+                v-for="regionOption in regionInformation"
+                :key="regionOption.id"
+                :value="regionOption.abbreviation"
+                >{{ regionOption.label }}</AwSelectOption
+              >
+            </AwSelect>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="postcode"
+           rules="required|digits:6"
+            slim
+          >
+            <AwInput
+              v-e2e="'zipcode'"
+              :value="billingDetails.postcode"
+              label="Zip-code"
+              name="zipCode"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(postcode) => changeBillingDetails('postcode', postcode)"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="country_code"
+            rules="required|min:2"
+            slim
+          >
+            <AwSelect
+              v-e2e="'country'"
+              :value="billingDetails.country_code"
+              placeholder="Country"
+              name="country"
+              class="
+                form__element form__element--half form__select
+                sf-select--underlined
+                form__element--half-even
+              "
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="changeCountry"
+            >
+              <AwSelectOption
+                v-for="countryOption in countriesList"
+                :key="countryOption.id"
+                :value="countryOption.abbreviation"
+                >{{ countryOption.label }}</AwSelectOption
+              >
+            </AwSelect>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="telephone"
+             rules='regex:^([0-9/+/-]+)$|required|min:11|max:15'
+            slim
+          >
+            <AwInput
+              v-e2e="'phone'"
+              :value="billingDetails.telephone"
+              label="Phone number"
+              name="phone"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="
+                (telephone) => changeBillingDetails('telephone', telephone)
+              "
+            />
+          </ValidationProvider>
         </div>
+        <AwCheckbox
+          v-e2e="'copy-address'"
+          :label="$t('I want to generate invoice for the company')"
+          name="copyShippingAddress"
+          class="form__element"
+        />
+        
+        <AwButton
+          v-if="!sameAsShipping && !canAddNewAddress"
+          class="
+            color-light
+            form__action-button form__action-button--add-address
+          "
+          type="submit"
+          @click="handleAddNewAddressBtnClick"
+          >{{ $t("Add new address") }}</AwButton
+        >
+        <div class="pay">
+          <p>Payment Methods</p>
+        </div>
+        <div class="lii">
+          <div class="one select-payment" @click="showForm = true">
+            <AwRadio
+              name="visa"
+              value="store"
+              :disabled="false"
+              selected
+              :required="false"
+            />
 
-         <div class="one select-payment"  @click="showForm = true">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-        <nuxt-img
-          src="/icons/mas2.png"
-          class="payment-method"
-          alt="mas"
-          width="52"
-          height="34"
-        /></div>
+            <nuxt-img
+              src="/icons/visa1.png"
+              class="payment-method"
+              alt="visa"
+              width="52"
+              height="34"
+            />
+          </div>
 
-         <div class="one select-payment" @click="showForm = true">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-        <nuxt-img
-          src="/icons/visa3.png"
-          class="payment-method"
-          alt="visa"
-          width="75"
-          height="34"
-        /></div>
+          <div class="one select-payment" @click="showForm = true">
+            <AwRadio
+              name="visa"
+              value="store"
+              :disabled="false"
+              selected
+              :required="false"
+            />
+            <nuxt-img
+              src="/icons/mas2.png"
+              class="payment-method"
+              alt="mas"
+              width="52"
+              height="34"
+            />
+          </div>
 
-         <div class="one select-payment"  @click="showForm = false">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-          <a href="#" class="payment-method">Cash On Delivery</a>
+          <div class="one select-payment" @click="showForm = true">
+            <AwRadio
+              name="visa"
+              value="store"
+              :disabled="false"
+              selected
+              :required="false"
+            />
+            <nuxt-img
+              src="/icons/visa3.png"
+              class="payment-method"
+              alt="visa"
+              width="75"
+              height="34"
+            />
           </div>
 
           <div class="one select-payment" @click="showForm = false">
-          <AwRadio
-            name="visa"
-            value="store"
-            :disabled="false"
-            selected=""
-            :required="false"
-          />
-          <a href="#" class="payment-method">Cheque</a>
+            <AwRadio
+              name="visa"
+              value="store"
+              :disabled="false"
+              selected
+              :required="false"
+            />
+            <a href="#" class="payment-method">Cash On Delivery</a>
           </div>
-      </div>
-      <template>
-      <form class="bil" v-if="showForm">
-       <AwInput
-             
-            label="Card Number"
-            name="cardnumber"
-            class="form__control"
-            required
-          />
-          <AwInput
-            
-            label="Card Holder"
-            name="cardholder"
-            class="form__control"
-            required
-          />
-          <div class="dis">
-          <label id="ed">Expiry Date :</label>
-          <select class="form__control for">
-            <option value="23">MM</option>
-<option value="01">January</option>
-<option value="02">February </option>
-<option value="03">March</option>
-<option value="04">April</option>
-<option value="05">May</option>
-<option value="06">June</option>
-<option value="07">July</option>
-<option value="08">August</option>
-<option value="09">September</option>
-<option value="10">October</option>
-<option value="11">November</option>
-<option value="12">December</option>
-</select>
-          <select class="form__control for" name="yy">
-             <option value="22">YYYY</option>
-<option value="16"> 2021</option>
-<option value="17"> 2022</option>
-<option value="18"> 2023</option>
-<option value="19"> 2024</option>
-<option value="20"> 2025</option>
-<option value="21"> 2026</option>
-</select>
-</div>
-          <div class="dis">
-          <AwInput
-            
-            label="Code CVC "
-            name="cardnumber"
-            class="form__control for"
-            required
-          />
-          <a href="#"><u>Where I find CVC code?</u></a> </div>
-<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">Save this card for other purchases.
-      </form>
-      </template>
-      <AwButton
 
-        v-if="!sameAsShipping && !canAddNewAddress"
-        class="color-light form__action-button form__action-button--add-address"
-        type="submit"
-        @click="handleAddNewAddressBtnClick"
-      >
-        {{ $t("Add new address") }}
-
-      </AwButton>
-
-      <div class="form">
-        <div class="form__action">
-          <AwButton
-            v-e2e="'continue-to-payment'"
-            class="form__action-button extend"
-            type="submit"
-            :disabled="!canMoveForward"
-          >
-
-            {{ $t("Pay for Order") }}
-          </AwButton>
-
-          <nuxt-link
-            to="localePath('/checkout/shipping')"
-            class="
-              sf-button sf-button--underlined
-              form__back-button
-              smartphone-only
-            "
-          >
-            {{ $t("Go back") }}
-          </nuxt-link>
+          <div class="one select-payment" @click="showForm = false">
+            <AwRadio
+              name="visa"
+              value="store"
+              :disabled="false"
+              selected
+              :required="false"
+            />
+            <a href="#" class="payment-method">Cheque</a>
+          </div>
         </div>
-      </div>
-    </form>
-  </ValidationObserver>
+        <template>
+           <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
+          <form class="bil" v-if="showForm" @submit.prevent="handleSubmit()">
+              <ValidationProvider rules="required|digits:16" v-slot="{ errors }">
+            <AwInput
+              v-model="user1"
+              placeholder="Card Number"
+              name="Card Number"
+              class="form__control"
+              
+            />
+             <span class="red">{{ errors[0] }}</span> </ValidationProvider
+         ><br />
+         <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+          <AwInput
+            v-model="value"
+            type="text"
+            class="form__control"
+            placeholder="Card Holder"
+          />
+          <span class="red">{{ errors[0] }}</span> </ValidationProvider
+         ><br />
+            <div class="dis">
+              <label id="ed">Expiry Date :</label>
+              <select class="form__control for">
+                <option value="23">MM</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <select class="form__control for" name="yy">
+                <option value="22">YYYY</option>
+                <option value="16">2022</option>
+                <option value="17">2023</option>
+                <option value="18">2024</option>
+                <option value="19">2025</option>
+                <option value="20">2026</option>
+                <option value="21">2027</option>
+              </select>
+            </div>
+            <div class="dis">
+                 <ValidationProvider rules="required|digits:3" v-slot="{ errors }">
+              <AwInput
+               v-model="CVC"
+                placeholder="Code CVC "
+                name="cardnumber"
+                class="form__control for"
+                
+              />
+                 <span class="red">{{ errors[0] }}</span> </ValidationProvider
+         ><br />
+              <a href="#">
+                <u>Where I find CVC code?</u>
+              </a>
+            </div>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value
+              id="flexCheckDefault"
+            />Save this card for other purchases.
+          </form>
+           </ValidationObserver>
+        </template>
+
+        <div class="form">
+          <div class="form__action">
+            <AwButton
+              v-e2e="'continue-to-payment'"
+              class="form__action-button extend"
+              type="submit"
+              :disabled="!canMoveForward"
+              >{{ $t("Pay for Order") }}</AwButton
+            >
+
+            <nuxt-link
+              to="localePath('/checkout/shipping')"
+              class="
+                sf-button sf-button--underlined
+                form__back-button
+                smartphone-only
+              "
+              >{{ $t("Go back") }}</nuxt-link
+            >
+          </div>
+        </div>
+      </form>
+    </ValidationObserver>
+  </div>
 </template>
 
 <script>
-
 import AwRadio from "@storefront-ui/root/packages/vue/src/components/molecules/AwRadio/AwRadio.vue";
 import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
 import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import AwSelect from "@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
 import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
-
 
 import {
   useUserBilling,
@@ -423,8 +441,8 @@ import {
   useCountrySearch,
   addressGetter,
 } from "@vue-storefront/magento";
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required, min, digits } from "vee-validate/dist/rules";
+import { ValidationProvider, ValidationObserver, extend,alpha } from "vee-validate";
+import { required, min, digits, max,alpha_spaces, regex} from "vee-validate/dist/rules";
 import {
   ref,
   computed,
@@ -442,26 +460,48 @@ import {
 import { mergeItem } from "~/helpers/asyncLocalStorage";
 import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
-
 const NOT_SELECTED_ADDRESS = "";
 
 extend("required", {
   ...required,
   message: "This field is required",
 });
+extend("length", {
+  ...required,
+  message: "The card_field  Details is invalid Please Fill Full details ",
+});
+extend("regex", {
+  ...regex,
+  message: "The field format is invalid" ,
+});
+extend("alpha", {
+  ...alpha,
+  message: "Alphabets only",
+});
+
+extend("alpha_spaces", {
+  ...alpha_spaces,
+  message: "Alphabets only",
+});
+
 extend("min", {
   ...min,
   message: "The field should have at least {length} characters",
 });
 extend("digits", {
   ...digits,
-  message: "Please provide a valid phone number",
+  message: "must be Numeric and of  {length} Digits",
+})
+extend("max", {
+  ...max,
+  message: "The field should have at least {length} characters",
 });
+
+
 
 export default defineComponent({
   name: "BillingStep",
   components: {
-
     AwHeading,
     AwInput,
     AwSelect,
@@ -525,13 +565,11 @@ export default defineComponent({
       addressGetter.countriesList(countries.value)
     );
 
-
     const regionInformation = computed(() =>
       addressGetter.regionList(country.value)
     );
 
     const getInvoiceCheck = computed(() => invoiceCheck.value);
-
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
@@ -638,7 +676,6 @@ export default defineComponent({
       //   await router.push(app.localePath("/checkout/user-account"));
       // }
 
-
       await Promise.all([loadCountries(), load()]);
 
       if (billingDetails.value?.country_code) {
@@ -689,12 +726,10 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
-
       invoiceCheck,
       invoiceCheckToggle,
       getInvoiceCheck,
       showForm,
-
     };
   },
 });
@@ -704,7 +739,9 @@ export default defineComponent({
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
   --heading-title-font-weight: var(--font-weight--bold);
 }
-
+.red {
+  color: red;
+}
 .copy__shipping {
   &__address {
     margin-bottom: var(--spacer-xs);
@@ -810,7 +847,7 @@ export default defineComponent({
     }
   }
 }
-.select-payment{
+.select-payment {
   align-items: center !important;
 
   .payment-method {

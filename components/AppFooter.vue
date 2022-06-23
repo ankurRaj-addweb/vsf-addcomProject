@@ -1,77 +1,88 @@
 <template>
-  <AwFooter :column="4" multiple class="footer" >
-    <AwFooterColumn :title="$t('About us')">
+    <AwFooter :column="4" multiple class="footer" >
+    <AwFooterColumn :title="$t('About us')" class="about_us">
       <AwList>
         <AwListItem v-for="item in aboutUs" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Departments')" class="desktop-only" >
+    <AwFooterColumn :title="$t('Departments')" class="department" >
       <AwList>
         <AwListItem v-for="item in departments" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Help')" class="desktop-only">
+    <AwFooterColumn :title="$t('Help')" class=" help">
       <AwList>
         <AwListItem v-for="item in help" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" @click="handleClickOnHelp(item)"/>
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn :title="$t('Payment & Delivery')" class="desktop-only">
+    <AwFooterColumn :title="$t('Payment & Delivery')" class=" payment_delivery">
       <AwList>
         <AwListItem v-for="item in paymentsDelivery" :key="item" :style="{'--list-item-margin':'15px 0'}">
           <AwMenuItem :label="$t(item)" />
         </AwListItem>
       </AwList>
     </AwFooterColumn>
-    <AwFooterColumn title="Social" class="desktop-only">
+    <AwFooterColumn title="Social" class="social">
       <div class="footer__socials">
         <AwImage
           v-for="item in social"
           :key="item"
           class="footer__social-image"
-          :src="addBasePath('/icons/' + item + '.svg')"
+          :src="addBasePath('/icons/' + item + '.png')"
           :alt="item"
           width="32"
           height="32"
         />
       </div>
     </AwFooterColumn>
-    <AwFooterColumn title="Language" class="desktop-only">
+    <!-- <AwFooterColumn class="smartphone-only"> -->
+      <div class="footer__subscribe smartphone-only">
+        <AwInput
+          class="sf-input--outline"
+          type="text"
+          placeholder="Type your email address"
+        />
+        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px; height: 32px; ">
+          Subscribe
+        </AwButton>
+      </div>
+    <!-- </AwFooterColumn> -->
+    <div class="footer-logo smartphone-only">
+      <HeaderLogo />
+    </div>
+    <AwFooterColumn title="Language" class=" language">
       <AwButton
         class="sf-button--pure"
-        style="display: flex; align-self: end; color: white; margin-top: 15px"
+        style="display: flex; align-self: end; color: white; margin-top: 22px"
       >
         <AwImage
           :src="addBasePath('/icons/english.svg')"
           alt="flag of the USA"
           :width="20"
           :height="20"
-          style="margin-right: 10px"
+          style="margin-right: 10px; margin-top:20px;"
         />
-        English
+        <span style="margin-top:20px;">English</span>
       </AwButton>
+      
     </AwFooterColumn>
+    
     <AwFooterColumn class="desktop-only">
-      <div class="footer__subscribe">
+      <div class="footer__subscribe ">
         <AwInput
           class="sf-input--outline"
           type="text"
           placeholder="Type your email address"
-          style="
-            width: 242px;
-            min-height: auto;
-            font-size: 12px;
-            color: #43464e;
-            background-color: #f1f2f3;
-            --input-border-color: #f1f2f3;
-          "
         />
-        <AwButton style="width: 116px; font-size: 12px">Subscribe</AwButton>
+        <AwButton class="subscribe__button" style="width: 116px; font-size: 12px; height: 32px; ">
+          Subscribe
+        </AwButton>
       </div>
     </AwFooterColumn>
   </AwFooter>
@@ -90,6 +101,7 @@ import AwMenuItem from "@storefront-ui/root/packages/vue/src/components/molecule
 import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
 import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
 import { addBasePath } from "@vue-storefront/core";
+import HeaderLogo from "~/components/HeaderLogo.vue";
 
 export default {
   components: {
@@ -100,6 +112,7 @@ export default {
     AwInput,
     AwButton,
     AwFooterColumn,
+    HeaderLogo,
   },
   setup() {
     const router = useRouter();
@@ -120,7 +133,7 @@ export default {
       departments: ["Women fashion", "Men fashion", "Kidswear", "Home"],
       help: ["Customer service", "Size guide", "Contact us"],
       paymentsDelivery: ["Purchase terms", "Guarantee"],
-      social: ["facebook", "pinterest", "google", "twitter", "youtube"],
+      social: ["Facebook Icon", "Pinterest Icon", "Google Icon", "Twitter Icon", "Youtube Icon"],
       isMobile: false,
       desktopMin: 1024,
     };
@@ -128,7 +141,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .footer {
   margin-bottom: 3.75rem;
   @include for-desktop {
@@ -163,7 +176,7 @@ export default {
 }
 .sf-footer {
   @include for-desktop {
-    border-top: var(--spacer-xs) solid var(--c-primary);
+    // border-top: var(--spacer-xs) solid var(--c-primary);
     padding-bottom: 0;
     margin-top: var(--spacer-2xl);
   }
@@ -174,5 +187,12 @@ export default {
       margin: 0 auto;
     }
   }
+}
+.footer-logo {
+  background:  #3C3C3C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 38px;
 }
 </style>

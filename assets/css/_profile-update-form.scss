@@ -1,8 +1,15 @@
 .profile input{
     border:none;
     font-size: 1rem;
-  border-top: .5rem  rgb(3, 3, 3);
-  border-left: .5rem  rgb(3, 3, 3);
-border-right: .5rem  rgb(3, 3, 3);
-border-bottom: .1rem solid rgb(3, 3, 3);
+    border-top: .5rem  rgb(3, 3, 3);
+    border-left: .5rem  rgb(3, 3, 3);
+    border-right: .5rem  rgb(3, 3, 3);
+    border-bottom: .1rem solid rgb(3, 3, 3);
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+    display: flex;
 }

@@ -8,6 +8,30 @@
         line-height: 22px;
         color: #3C3C3C;
     }
+    .sf-banner__title {
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 48px;
+        
+    }
+}
+
+.sf-banner-grid__col.sf-banner-grid__col--medium {
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+
+.sf-banner-grid.banner-grid {
+    .sf-banner-grid__row {
+        .sf-banner-grid__col {
+            @media (max-width: 767px) {
+                margin-top: 10px;
+            }
+        }
+    }
 }
 
 .sf-banner-grid__col.sf-banner-grid__col--medium,
@@ -17,5 +41,232 @@ section.sf-banner.sf-banner--slim.desktop-only {
         .sf-banner__subtitle {
             color: #F9F9F9 !important;
         }
+    }
+}
+
+section.sf-section.section {
+    @media (max-width: 767px) {
+        margin-top: 35px;
+    }
+    .sf-section__content {
+        @media (max-width: 767px) {
+            margin-top: 0;
+        }
+    }
+    .sf-heading {
+        @media (max-width: 767px) {
+            text-align: unset;
+        }
+        h2.sf-heading__title.h2 {
+            color: #282828;
+            font-style: normal;
+            font-weight: 700 !important;
+            line-height: 24px;
+            @media (max-width: 767px) {
+                font-size: 18px !important;
+                color: #282828 !important;
+
+                // margin-right: 370px;
+                max-width: 100%;
+                text-align: inherit;
+                letter-spacing: 0.1px;
+                text-align: inherit;
+
+            }
+        }
+    }
+    li.sf-carousel-item.glide__slide.carousel__item {
+        @media (max-width: 767px) {
+            margin: 0;
+        }
+        .sf-product-card__image-wrapper {
+            a.sf-link.sf-button--pure.sf-product-card__link.sf-button {
+                max-width: unset !important;
+                img.sf-product-card__image {
+                    width: 100%;
+                    object-fit: contain;
+                }
+            }
+        }
+        a.sf-link.sf-button--pure.sf-product-card__link.sf-button {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 109px;
+        }
+        .sf-product-card {
+            @media (min-width: 1024px) {
+                padding: 20px;
+            }
+            img.sf-product-card__image.lol {
+                width: 100%;
+                @media (max-width: 767px) {
+                    height: 173px;
+                    object-fit: fill;
+                }
+            }
+        }
+    }
+}
+
+button.sf-banner__call-to-action.color-secondary.sf-button,
+button.sf-call-to-action__button.sf-button,
+button.sf-hero-item__button.sf-button {
+    background: #037EE6;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    width: 168px;
+    height: 50px;
+    padding: 0;
+    @media (max-width:1024px) {
+        width: 280px;
+        width: 100%;
+    }
+}
+
+.sf-call-to-action__title {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+    @media (max-width:1024px) {
+        font-style: SemiBold;
+        font-size: 24px;
+        line-height: 30px;
+        text-align: left;
+
+    }
+}
+
+.carousel .sf-arrow[data-v-bdde9382] {
+    --button-color: #282828;
+    width: 70px;
+    height: 40px;
+    background: #F9F9F9;
+    &:hover {
+        background: #282828;
+    }
+}
+.sf-bottom-navigation-item .sf-circle-icon {
+    --button-size: 4.125rem;
+    margin-top: -35px;
+}
+section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
+    color: rgb(40, 40, 40);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+}
+@media (max-width:1024px) {
+    .section.sf-section.section .sf-heading h2.sf-heading__title.h2 {
+        color: #282828;
+        font-style: normal;
+        font-family: 'Source Sans Pro';
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 24px;
+        width: 158px;
+        height: 32px;
+        margin-left: -23px;
+    }
+}
+.popular_category{
+    /* outline: dotted; */
+    text-align: center;
+    left: 42.1%;
+    right: 42.1%;
+    top: 0%;
+    bottom: 84.24%;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    /* display: flex; */
+    color: #282828;
+    margin-bottom: 40px;
+
+}
+
+.sf-banner__wrapper-desktop .sf-banner__title {
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 48px;
+}
+.sf-hero{
+    @media (max-width:1024px) {
+        .sf-hero-item__subtitle{
+            width: 147px;
+        }
+        .sf-hero-item__title{
+            width: 166px;
+        }
+    }
+}
+.sf-banner__title{
+    @media (max-width:1024px) {
+        white-space: pre-line !important;
+        white-space: normal;
+        text-align: left !important;
+        font-size: 36px ;
+    }
+    
+}
+.match_it_with{
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    width: 158px;
+    height: 32px;
+    color: #282828;
+}
+
+@media (max-width:1024px) {
+    .carousal{
+        width: 343px;
+        height: 223px;
+    }
+}
+
+@media (max-width: 1024px){
+.popular_category[data-v-3c8a0f8a] {
+    margin-top: 32px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    margin-bottom: 16px;
+    margin-right: 350px;
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    height: 40px;
+    width: 185px;
+}
+}
+@media (max-width:1024px) {
+    .sf-footer {
+        border-top: var(--button-color) solid #a81010 !important;
+        background-color: #ffffff;
+    }
+    li.glide__slide.sf-hero-item.glide__slide--active {
+        background-position: 87%;
+        z-index: -1;
     }
 }

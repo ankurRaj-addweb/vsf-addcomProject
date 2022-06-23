@@ -1,73 +1,199 @@
-.user{
-  .check{
+.user {
+
+  .sf-checkbox.form__element{
+    margin: 7px;
+  }
+  .check {
     background-color: #EFEFEF;
     color: black;
   }
+  button.form__button.myprofile.\.color-primary\..sf-button.check {
+    height: 50px;
+}
+
+  h3.sf-heading__title.h3 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+}
+ label.sf-input__label.will-change {
+  /* padding-bottom: 10px; */
+  position: absolute;
+  width: 155px;
+  left: 5px;
+  top: 35.71%;
+  bottom: 2%;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  text-align: center;
+}
+.sf-input.form__element{
+    margin-top: 30px !important;
+}
+
+label.sf-input__label.will-change {
+  position: absolute;
+  width: 169px;
+  height: 14px;
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+}
+
   .addd {
-    background-color: rgb(24, 23, 23);
+    background-color: #3C3C3C;
     color: aliceblue;
     margin-top: 2rem;
+    width: 400px;
+    height: 50px;
+    font-weight: 600;
   }
+  button.addd.sf-button {
+    font-size: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-weight: 600;
+}
+
   .ffff {
     background-color: #037ee6;
     width: 400px;
-  }}
-  #checkout{
-.main {
+    height: 50px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
+  }
+
+  button.is-disabled--button.form__button.\.color-primary\..sf-button.sf-button {
+    background-color: #EFEFEF;
+    color: #3C3C3C;
+    height: 50px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+  }
+}
+
+#checkout {
+  .highlighted {
+    .title {
+        h3.sf-heading__title.h3 {
+            font-size: 24px;
+            width: 167px;
+            height: 29px !important;
+            line-height: 32px;
+        }
+    }
+    .sf-property__name {
+      font-weight: 400;
+      width: 84px;
+      height: 26px !important;
+      font-size: 18px;
+      line-height: 26px;
+
+  }
+  .sf-property__value{
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
+  .main {
     display: flex;
-  
+
     left: 18.75%;
     right: 18.75%;
     top: 18.75%;
     bottom: 18.75%;
+
     .svg-image {
-        fill: currentColor;
-        margin: 10px;
-        color: #037ee6;
-        padding-top: 10px;
-      } 
+      fill: currentColor;
+      margin: 10px;
+      color: #037ee6;
+      padding-top: 10px;
+    }
+   
   }
+  input#promoCode {
+    border-bottom: none !important;
+    
+    width: 210px;
+    height: 32px;
   
+}
+.promo {
+label.sf-input__label {
+    color: #EFEFEF;
+    font-size: 16px;
+    line-height: 22px;
+}}
   .dev {
     display: flex;
     width: 300px;
-  
+
     #p {
       margin-bottom: 10px;
     }
   }
+
   .addd {
     background-color: rgb(24, 23, 23);
     color: aliceblue;
     margin-top: 2rem;
   }
+
   .ffff {
     background-color: #037ee6;
   }
 
-.sf-characteristic__icon {
-  --icon-color: blue;
-}
-  
+  .sf-characteristic__icon {
+    --icon-color: blue;
+  }
 
-.promo-code__button[data-v-7c00ed64] {
-  background-color: blue;
-  --button-width: 6.3125rem;
-  --button-height: var(--spacer-lg);
+
+  .promo-code__button[data-v-7c00ed64] {
+    background-color: blue;
+    --button-width: 6.3125rem;
+    --button-height: var(--spacer-lg);
+  }
+  .sf-steps__title {
+    text-align: center;
+    line-height: 22px;
+    font-size: 16px;
+    height: 22px;
+}
+  .sf-steps__step.current,
+  .sf-steps__step.done {
+    --steps-step-color: #037ee6;
+    --steps-step-cursor: default;
+    --step-font-weight: var(--font-weight--normal);
+  }
+
+  .sf-steps__progress {
+    --_steps-progress-width: 25%;
+    --_steps-progress-active-step: 1;
+    background-color: #037ee6;
+  }
+  .sf-steps__title::after {
+    background-color: #037ee6;
+}
+  .sf-steps__step::after {
+    background-color: #037ee6;
+}
 }
 
-.sf-steps__step.current,
-.sf-steps__step.done {
-  --steps-step-color: #037ee6;
-  --steps-step-cursor: default;
-  --step-font-weight: var(--font-weight--normal);
+#checkout .sf-steps__step::after {
+  background-color: #EFEFEF !important;
 }
-.sf-steps__progress {
-  --_steps-progress-width: 25%;
-  --_steps-progress-active-step: 1;
-  background-color: #037ee6;
-}
-.sf-steps__step::after {
-  background-color: #037ee6;
-}
+#checkout button.sf-steps__step.current.sf-button--pure.sf-button::after ,
+#checkout button.sf-steps__step.is-done.sf-button--pure.sf-button::after {
+      background-color: #037ee6 !important;
+} 
+.sf-steps__header {
+  border-color: #EFEFEF;
 }

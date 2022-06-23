@@ -1,209 +1,235 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, reset }">
-    <AwHeading
-      v-e2e="'shipping-heading'"
-      :level="3"
-      :title="$t('Shipping')"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
-
-    <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
-      <UserShippingAddresses
-        v-if="isAuthenticated && hasSavedShippingAddress"
-        v-model="setAsDefault"
-        v-e2e="'shipping-addresses'"
-        :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
-        @setCurrentAddress="handleSetCurrentAddress"
+  <div class="shipping">
+    <ValidationObserver v-slot="{ handleSubmit, reset }">
+      <AwHeading
+        v-e2e="'shipping-heading'"
+        :level="3"
+        :title="$t('Shipping Details')"
+        class="sf-heading--left sf-heading--no-underline title"
       />
-      <div
-        v-if="canAddNewAddress"
-        class="form"
-      >
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="firstname"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'shipping-firstName'"
-            :value="shippingDetails.firstname"
-            label="First name"
-            name="firstName"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="firstname => changeShippingDetails('firstname', firstname)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="lastname"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'shipping-lastName'"
-            :value="shippingDetails.lastname"
-            label="Last name"
-            name="lastName"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="lastname => changeShippingDetails('lastname', lastname)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="street"
-          rules="required"
-          slim
-        >
-          <AwInput
-            v-e2e="'shipping-streetName'"
-            :value="shippingDetails.street"
-            label="Street name"
-            name="streetName"
-            class="form__element "
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="street => changeShippingDetails('street', street)"
-          />
-        </ValidationProvider>
-        
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="city"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'shipping-city'"
-            :value="shippingDetails.city"
-            label="City"
-            name="city"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="city => changeShippingDetails('city', city)"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="region"
-          :rules="!shippingDetails.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
-          slim
-        >
-          <AwInput
-            v-if="!shippingDetails.country_code || regionInformation.length === 0"
-            v-e2e="'shipping-state'"
-            :value="shippingDetails.region"
-            label="State/Province"
-            :disabled="!shippingDetails.country_code"
-            name="state"
-            class="form__element form__element--half form__element--half-even"
-            :valid="!!shippingDetails.country_code"
-            :error-message="!shippingDetails.country_code ? $t('Please select a country first') : ''"
-            @input="region => changeShippingDetails('region', region)"
-          />
-          <AwSelect
-            v-else
-            v-e2e="'shipping-state'"
-            :value="shippingDetails.region"
-            label="State/Province"
-            name="state"
-            class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="region => changeShippingDetails('region', region)"
+      <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
+        <UserShippingAddresses
+          v-if="isAuthenticated && hasSavedShippingAddress"
+          v-model="setAsDefault"
+          v-e2e="'shipping-addresses'"
+          :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+          @setCurrentAddress="handleSetCurrentAddress"
+        />
+        <div v-if="canAddNewAddress" class="form">
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="firstname"
+           :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
+            slim
           >
-            <AwSelectOption
-              v-for="regionOption in regionInformation"
-              :key="regionOption.id"
-              :value="regionOption.abbreviation"
-            >
-              {{ regionOption.label }}
-            </AwSelectOption>
-          </AwSelect>
-        </ValidationProvider>
-         <ValidationProvider
-          v-slot="{ errors }"
-          name="zipCode"
-          rules="required|min:2"
-          slim
-        >
-          <AwInput
-            v-e2e="'shipping-zipcode'"
-            :value="shippingDetails.postcode"
-            label="Zip-code"
-            name="zipCode"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="postcode => changeShippingDetails('postcode', postcode)"
-          />
-        </ValidationProvider>
+            <AwInput
+              v-e2e="'shipping-firstName'"
+              :value="shippingDetails.firstname"
+              label="First name"
+              name="firstName"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="
+                (firstname) => changeShippingDetails('firstname', firstname)
+              "
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="lastname"
+             :rules="loginUserAccount ? '' : 'required|alpha'"
+            slim
+          >
+            <AwInput
+              v-e2e="'shipping-lastName'"
+              :value="shippingDetails.lastname"
+              label="Last name"
+              name="lastName"
+              class="form__element form__element--half form__element--half-even"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(lastname) => changeShippingDetails('lastname', lastname)"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="street"
+            rules="required|max:250"
+            slim
+          >
+            <AwInput
+              v-e2e="'shipping-streetName'"
+              :value="shippingDetails.street"
+              label="Street name"
+              name="streetName"
+              class="form__element"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(street) => changeShippingDetails('street', street)"
+            />
+          </ValidationProvider>
 
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="country"
-          rules="required|min:2"
-          slim
-        >
-          <AwSelect
-            v-e2e="'shipping-country'"
-            :value="shippingDetails.country_code"
-            label="Country"
-            name="country"
-            class="form__element form__element--half form__select sf-select--underlined form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="changeCountry"
+          <ValidationProvider
+            v-slot="{ errors }"     
+            name="city"
+             :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
+            slim
           >
-            <AwSelectOption
-              v-for="countryOption in countriesList"
-              :key="countryOption.id"
-              :value="countryOption.abbreviation"
+            <AwInput
+              v-e2e="'shipping-city'"
+              :value="shippingDetails.city"
+              label="City"
+              name="city"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(city) => changeShippingDetails('city', city)"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="region"
+            :rules="
+              !shippingDetails.country_code || regionInformation.length === 0
+                ? null
+                : 'required|min:2'
+            "
+            slim
+          >
+            <AwInput
+              v-if="
+                !shippingDetails.country_code || regionInformation.length === 0
+              "
+              v-e2e="'shipping-state'"
+              :value="shippingDetails.region"
+              label="State/Province"
+              :disabled="!shippingDetails.country_code"
+              name="state"
+              class="form__element form__element--half form__element--half-even"
+              :valid="!!shippingDetails.country_code"
+              :error-message="
+                !shippingDetails.country_code
+                  ? $t('Please select a country first')
+                  : ''
+              "
+              @input="(region) => changeShippingDetails('region', region)"
+            />
+            <AwSelect
+              v-else
+              v-e2e="'shipping-state'"
+              :value="shippingDetails.region"
+              label="State/Province"
+              name="state"
+              class="
+                form__element
+                form__element--half
+                form__element--half-even
+                form__select
+                sf-select--underlined
+              "
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(region) => changeShippingDetails('region', region)"
             >
-              {{ countryOption.label }}
-            </AwSelectOption>
-          </AwSelect>
-        </ValidationProvider>
-      
-        <ValidationProvider
+              <AwSelectOption
+                v-for="regionOption in regionInformation"
+                :key="regionOption.id"
+                :value="regionOption.abbreviation"
+              >
+                {{ regionOption.label }}
+              </AwSelectOption>
+            </AwSelect>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="zipCode"
+            rules="required|digits:6"
+            slim
+          >
+            <AwInput
+              v-e2e="'shipping-zipcode'"
+              :value="shippingDetails.postcode"
+              label="Zip-code"
+              name="zipCode"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="(postcode) => changeShippingDetails('postcode', postcode)"
+            />
+          </ValidationProvider>
+
+          <ValidationProvider
+            v-slot="{ errors }"
+            name="country"
+            rules="required|min:2"
+            slim
+          >
+            <AwSelect
+              v-e2e="'shipping-country'"
+              :value="shippingDetails.country_code"
+              label="Country"
+              name="country"
+              class="
+                form__element form__element--half form__select
+                sf-select--underlined
+                form__element--half-even
+              "
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="changeCountry"
+            >
+              <AwSelectOption
+                v-for="countryOption in countriesList"
+                :key="countryOption.id"
+                :value="countryOption.abbreviation"
+              >
+                {{ countryOption.label }}
+              </AwSelectOption>
+            </AwSelect>
+          </ValidationProvider>
+
+          <ValidationProvider
+            rules='regex:^([0-9/+/-]+)$|required|min:11|max:15'
           v-slot="{ errors }"
-          name="phone"
-          rules="required"
-          slim
-        >
-          <AwInput
-            v-model="shippingDetails.telephone"
-            v-e2e="'shipping-phone'"
-            label="Phone number"
-            name="phone"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="$t(errors[0])"
-            @input="telephone => changeShippingDetails('telephone', telephone)"
-          />
-        </ValidationProvider>
-      </div>
-      <AwButton
-        v-if="!canAddNewAddress"
-        class="color-light form__action-button form__action-button--add-address"
-        type="submit"
-        @click="handleAddNewAddressBtnClick"
-      >
-        {{ $t('Add new address') }}
-      </AwButton>
-      <!-- <div class="form">
+            slim
+          >
+            <AwInput
+              v-model="shippingDetails.telephone"
+              v-e2e="'shipping-phone'"
+              label="Phone number"
+              name="phone"
+              class="form__element form__element--half"
+              required
+              :valid="!errors[0]"
+              :error-message="$t(errors[0])"
+              @input="
+                (telephone) => changeShippingDetails('telephone', telephone)
+              "
+            />
+      
+          </ValidationProvider>
+        </div>
+        <div v-if="!canAddNewAddress">
+        
+          <AwButton
+            class="
+              color-light
+              form__action-button form__action-button--add-address
+            "
+            type="submit"
+            @click="handleAddNewAddressBtnClick"
+          >
+            {{ $t("Add new address") }}
+          </AwButton>
+        </div>
+        <!-- <div class="form">
         <div class="form__action">
           <AwButton
             v-if="!(isShippingDetailsStepCompleted && !dirty)"
@@ -216,27 +242,30 @@
           </AwButton>
         </div>
       </div> -->
-      <VsfShippingProvider
-      
-        @submit="$router.push(`${localePath('/checkout/billing')}`)"
-      />
-    </form>
-  </ValidationObserver>
+        <VsfShippingProvider
+          disabled="!shippingDetails.firstname || !shippingDetails.lastname || !shippingDetails.street || !shippingDetails.city || !shippingDetails.city || !shippingDetails.region"
+          @submit="$router.push(`${localePath('/checkout/billing')}`)"
+        />
+      </form>
+    </ValidationObserver>
+  </div>
 </template>
 
 <script>
-
-import AwHeading from '@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue';
-import AwInput from '@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue'
-import AwButton from '@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue';
-import AwSelect from '@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue';
+import AwCheckbox from "@storefront-ui/root/packages/vue/src/components/molecules/AwCheckbox/AwCheckbox.vue";
+import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
+import AwInput from "@storefront-ui/root/packages/vue/src/components/atoms/AwInput/AwInput.vue";
+import AwButton from "@storefront-ui/root/packages/vue/src/components/atoms/AwButton/AwButton.vue";
+import AwSelect from "@storefront-ui/root/packages/vue/src/components/molecules/AwSelect/AwSelect.vue";
 import {
   ref,
   computed,
   watch,
   onMounted,
-  defineComponent, useRouter, useContext,
-} from '@nuxtjs/composition-api';
+  defineComponent,
+  useRouter,
+  useContext,
+} from "@nuxtjs/composition-api";
 import {
   addressGetter,
   useCountrySearch,
@@ -244,49 +273,60 @@ import {
   useShipping,
   useUser,
   useUserShipping,
-} from '@vue-storefront/magento';
-import { required, min, digits } from 'vee-validate/dist/rules';
-import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { addressFromApiToForm } from '~/helpers/checkout/address';
-import { mergeItem } from '~/helpers/asyncLocalStorage';
-import { isPreviousStepValid } from '~/helpers/checkout/steps';
+} from "@vue-storefront/magento";
+import { required, min, digits, max, alpha_spaces, regex} from "vee-validate/dist/rules";
+import { ValidationProvider, ValidationObserver, extend, } from "vee-validate";
+import { addressFromApiToForm } from "~/helpers/checkout/address";
+import { mergeItem } from "~/helpers/asyncLocalStorage";
+import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
-const NOT_SELECTED_ADDRESS = '';
+const NOT_SELECTED_ADDRESS = "";
 
-extend('required', {
+
+extend("alpha_spaces", {
+  ...alpha_spaces,
+  message: "Alphabets only",
+});
+extend("required", {
   ...required,
-  message: 'This field is required',
+  message: "This field is required",
 });
-extend('min', {
+extend("max", {
+  ...max,
+  message: "The field should have at least max {length} characters  and must be Numeric " ,
+});
+extend("min", {
   ...min,
-  message: 'The field should have at least {length} characters',
-});
-extend('digits', {
-  ...digits,
-  message: 'Please provide a valid phone number',
+  message: "The field should have at least min {length} characters and must be Numeric",
 });
 
+extend("digits", {
+  ...digits,
+  message: "must be Numeric and of  {length} Digits",
+});
+extend("regex", {
+  ...regex,
+  message: "The field  format is invalid",
+});
 export default defineComponent({
-  name: 'ShippingStep',
+  name: "ShippingStep",
   components: {
     AwHeading,
     AwInput,
     AwButton,
     AwSelect,
+    AwCheckbox,
     ValidationProvider,
     ValidationObserver,
-    UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses.vue'),
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider.vue'),
+    UserShippingAddresses: () =>
+      import("~/components/Checkout/UserShippingAddresses.vue"),
+    VsfShippingProvider: () =>
+      import("~/components/Checkout/VsfShippingProvider.vue"),
   },
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const {
-      load,
-      save,
-      loading,
-      shipping: address,
-    } = useShipping();
+    const { load, save, loading, shipping: address } = useShipping();
     const {
       shipping: userShipping,
       load: loadUserShipping,
@@ -297,21 +337,26 @@ export default defineComponent({
       countries,
       search: searchCountry,
       country,
-    } = useCountrySearch('Step:Shipping');
+    } = useCountrySearch("Step:Shipping");
     const { isAuthenticated } = useUser();
     const shippingDetails = ref(addressFromApiToForm(address.value) || {});
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
-    const canAddNewAddress = ref(true);
+    const canAddNewAddress = ref(false);
 
     const isShippingDetailsStepCompleted = ref(false);
 
-    const canMoveForward = computed(() => !loading.value && shippingDetails.value && Object.keys(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      shippingDetails.value,
-    ).length > 0);
+    const canMoveForward = computed(
+      () =>
+        !loading.value &&
+        shippingDetails.value &&
+        Object.keys(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          shippingDetails.value
+        ).length > 0
+    );
 
     const hasSavedShippingAddress = computed(() => {
       if (!isAuthenticated.value || !userShipping.value) {
@@ -321,9 +366,13 @@ export default defineComponent({
       return Boolean(addresses?.length);
     });
     // @ts-ignore
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
+    const countriesList = computed(() =>
+      addressGetter.countriesList(countries.value)
+    );
 
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
+    const regionInformation = computed(() =>
+      addressGetter.regionList(country.value)
+    );
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
@@ -331,14 +380,14 @@ export default defineComponent({
         ...shippingDetails.value,
         customerAddressId: addressId,
       };
-      await mergeItem('checkout', { shipping: shippingDetailsData });
+      await mergeItem("checkout", { shipping: shippingDetailsData });
       // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
       // @ts-ignore
       await save({ shippingDetails: shippingDetailsData });
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userShippingGetters.getAddresses(
           userShipping.value,
-          { id: addressId },
+          { id: addressId }
         );
         if (chosenAddress && chosenAddress.length > 0) {
           await setDefaultAddress({ address: chosenAddress[0] });
@@ -374,7 +423,7 @@ export default defineComponent({
     const selectDefaultAddress = () => {
       const defaultAddress = userShippingGetters.getAddresses(
         userShipping.value,
-        { default_shipping: true },
+        { default_shipping: true }
       );
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
@@ -382,7 +431,7 @@ export default defineComponent({
     };
 
     const changeCountry = async (id) => {
-      changeShippingDetails('country_code', id);
+      changeShippingDetails("country_code", id);
       await searchCountry({ id });
     };
 
@@ -396,24 +445,24 @@ export default defineComponent({
       //   await router.push(app.localePath('/checkout/user-account'));
       // }
 
-      await Promise.all([
-        loadCountries(),
-        load(),
-        loadUserShipping(),
-      ]);
+      await Promise.all([loadCountries(), load(), loadUserShipping()]);
 
       if (shippingDetails.value?.country_code) {
         await searchCountry({ id: shippingDetails.value.country_code });
       }
 
-      const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
+      const shippingAddresses = userShippingGetters.getAddresses(
+        userShipping.value
+      );
 
       if (!shippingAddresses || shippingAddresses.length === 0) {
         return;
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
+      const hasEmptyShippingDetails =
+        !shippingDetails.value ||
+        Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();
       }
@@ -549,6 +598,6 @@ export default defineComponent({
 }
 .form__action-button {
   background-color: #037ee6;
-  margin-top: 56px; 
+  margin-top: 56px;
 }
 </style>

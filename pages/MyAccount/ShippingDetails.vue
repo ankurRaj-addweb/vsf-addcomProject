@@ -48,6 +48,7 @@
                   @click="removeAddress(address)"
                 />
                 <AwButton
+                  class="shipping_button"
                   @click="changeAddress(address)">
                   {{ $t('Change') }}
                 </AwButton>
@@ -209,4 +210,4 @@ import AwIcon from "@storefront-ui/root/packages/vue/src/components/atoms/AwIcon
       }
     }
   }
-  </style>
+</style>

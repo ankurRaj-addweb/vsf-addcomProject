@@ -5,9 +5,9 @@
         <AwLoader />
       </div>
       <div v-else-if="currentOrder">
-        <transition-group tag="div" name="fade" class="addresses-list">
+        <transition-group tag="div" name="fade" class="addresses-list message">
           <div class="addresses" key="addesses">
-            <h3>Order Details</h3>
+            <h3 class="fontorder">Order Details</h3>
             <h3></h3>
             <AwProperty
               :value="orderGetters.getId(currentOrder)"
@@ -25,11 +25,11 @@
             <p class="shippinga">Shipping Address</p>
             <p class="billinga">Billing Address</p>
 
-            <div class="shippinga">
-              <UserAddressDetails :address="getCurrentAddress" />
+            <div class="shippinga borderbox1">
+              <UserAddressDetails :address="getCurrentAddress"/>
             </div>
 
-            <div class="billingaddress">
+            <div class="billingaddress borderbox2">
               <UserAddressDetails :address="getDefaultBillingAddress" />
             </div>
 
@@ -41,45 +41,49 @@
             <div class="shippingdetails" >
               <!-- <UserAddressDetails :address="getCurrentAddress" /> -->
               <p style="margin-top: 20px">
-                Demo !!!!!!!!!
+                <!-- shippingDetails  here -->
                 <!-- Zielinskiego 30 – 41, 53-345 <br />
                 Wroclaw, Poland -->
               </p>
             </div>
             <div class="billingingdetails">
-              <p style="margin-top: -20px">Demo !!!!!!!!!</p>
+              <p style="margin-top: -20px"> <!-- shippingDetails  here --></p>
             </div>
             <div class="orderitems">
-              <p style="margin-top: -20px">Ordered Items</p>
+              <p>Ordered Items</p>
             </div>
           </div>
         </transition-group>
 
         <AwTable class="products">
-          <!-- <AwTableData class="table__image">
-                <nuxt-img
-                  :src="getMagentoImage(orderGetters.getItemImage(item))"
-                  :alt="orderGetters.getItemName(item)"
-                  
-                />
-              </AwTableData>
-             -->
-            
           <AwTableHeading>
             <AwTableHeader class="oitem">
-              {{ $t("Item") }}
+              <!-- {{ $t("Item") }} -->
+              Item
             </AwTableHeader>
             <AwTableHeader class="odescription">
-              {{ $t("Description") }}
+              <!-- {{ $t("Description") }} -->
+              Description
             </AwTableHeader>
             <AwTableHeader class="ocolor">
-              {{ $t("Color") }}
+              <!-- {{ $t("Color") }} -->
+              Color
             </AwTableHeader>
             <AwTableHeader class="osize">
-              {{ $t("Size") }}
+              <!-- {{ $t("Size") }} -->
+              Size
             </AwTableHeader>
-            <AwTableHeader class="oquantity">{{ $t("Quantity") }}</AwTableHeader>
-            <AwTableHeader class="oamount">{{ $t("Amount") }}</AwTableHeader>
+            <AwTableHeader class="oquantity">
+              <!-- {{ $t("Quantity") }} -->
+              Quantity
+            </AwTableHeader>
+            <div class="Amount_price">
+              <AwTableHeader class="amount">
+              <!-- {{ $t("Amount") }} -->
+              Amount
+            </AwTableHeader>
+            </div>
+            
           </AwTableHeading>
           <AwTableRow
             v-for="(item, i) in orderGetters.getItems(currentOrder)"
@@ -103,10 +107,10 @@
               </div>
                
               <div class="colorfor">
-                <label> !!!!!</label>
+                <label> <!--color here --> </label>
               </div>
             </AwTableData>
-            <AwTableData class="sizefor">!!!!!</AwTableData>
+            <AwTableData class="sizefor"><!--size  here --></AwTableData>
 
             <AwTableData class="qtyfor">{{
               orderGetters.getItemQty(item)
@@ -131,7 +135,7 @@
         <AwProperty
           name="Total Price"
           :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
-          class="sf-property--full-width property total "
+          class="sf-property--full-width property"
         />
         <div class="back-button" style="margin-top:100px;">
           <div>
@@ -160,7 +164,7 @@
           {{ $t("Details and status orders") }}
         </p>
         <div v-if="orders.length === 0" class="no-orders">
-          <p class="no-orders__title">
+          <p class="no-orders__title notorder">
             {{ $t("You currently have no orders") }}
           </p>
           <AwButton
@@ -174,26 +178,34 @@
         <AwTable v-else class="orders">
           <AwTableHeading>
             <AwTableHeader
-              v-for="tableHeader in tableHeaders"
-              :key="tableHeader"
             >
-              {{ tableHeader }}
+              <!-- {{ tableHeader }} -->
+              <span class="oid">Order Id</span>
+              <span class="pdate">Payment Date</span>
+              <span class="pmethod">Payment Method</span>
+              <span class="oamount">Amount</span>
+              <span class="status">Status</span>
+              <span class="dall">Download All</span>
             </AwTableHeader>
             <AwTableHeader class="orders__element--right" />
           </AwTableHeading>
           <AwTableRow v-for="order in orders" :key="orderGetters.getId(order)">
-            <AwTableData>{{ orderGetters.getId(order) }}</AwTableData>
-            <AwTableData>{{ orderGetters.getDate(order) }}</AwTableData>
-            <!-- <AwTableData>{{ }}</AwTableData> -->
-            <AwTableData>{{
-              $n(orderGetters.getPrice(order), "currency")
-            }}</AwTableData>
-            <AwTableData>
+            <AwTableData class="getterid">
+              {{ orderGetters.getId(order) }}
+            </AwTableData>
+            <AwTableData class="getterdate">
+              {{ orderGetters.getDate(order) }}
+            </AwTableData>
+            <AwTableData  class="gettrsmethod" style="margin-left:60px; width:10px;"></AwTableData>
+            <AwTableData class="getterprice">
+              {{ $n(orderGetters.getPrice(order), "currency")}}
+            </AwTableData>
+            <AwTableData class="getterstatus">
               <span :class="getStatusTextClass(order)">{{
                 orderGetters.getStatus(order)
               }}</span>
             </AwTableData>
-            <AwTableData class="orders__view orders__element--right">
+            <AwTableData class="orders__view orders__element--right getterdownload">
               <AwButton
                 data-cy="order-history-btn_download"
                 class="sf-button--text smartphone-only"
@@ -270,7 +282,7 @@ import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink
 import AwHeading from "@storefront-ui/root/packages/vue/src/components/atoms/AwHeading/AwHeading.vue";
 import UserAddressDetails from "~/components/UserAddressDetails.vue";
 import AwAlert from "@storefront-ui/root/packages/vue/src/components/molecules/AwAlert/AwAlert.vue";
-
+import AwPrice from "@storefront-ui/root/packages/vue/src/components/atoms/AwPrice/AwPrice.vue";
 import {
   computed,
   defineComponent,
@@ -307,6 +319,7 @@ export default defineComponent({
     UserAddressDetails,
     AwTableData,
     AwAlert,
+    AwPrice,
   },
   setup() {
     const { addresses } = useAddresses();

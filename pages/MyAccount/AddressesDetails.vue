@@ -7,7 +7,8 @@
       class="tab-orphan"
     >
       <AwTab
-        :title="isNewAddress ? $t('Add the address') : $t('Update the address')"
+      class="fontpersonal"
+        :title="isNewAddress ? $t('Shipping Address') : $t('Billing address')"
       >
         <!-- <p class="message">
           {{ $t('Contact details updated') }}
@@ -20,7 +21,8 @@
         />
       </AwTab>
       <AwTab
-        :title="isNewAddress ? $t('Shipping Address') : $t('Billing Address')"
+      class="fontpersonal"
+        :title="isNewAddress ? $t('Billing Address') : $t('Shipping Address')"
       >
         <!-- <p class="message">
           {{ $t('Contact details updated') }}
@@ -38,9 +40,12 @@
       v-else
       key="address-list"
       :open-tab="1"
-      class="tab-orphan"
+      
     >
-      <AwTab :title="$t('Addresses details')">
+    
+      <AwTab 
+      :title="$t('Addresses details')"
+      class="fontpersonal" >
         <p class="message">
           {{ $t('Manage addresses') }}
         </p>
@@ -70,6 +75,7 @@
                 @click.native="removeAddress(address)"
               />
               <AwButton
+              class="action-button" 
                 @click="changeAddress(address)"
               >
                 {{ $t('Change') }}
@@ -86,10 +92,13 @@
           </div>
         </transition-group>
         <AwButton
-          class="action-button"
+          class="action-button address_button"
           @click="changeAddress()"
         >
-          {{ $t('Add new address') }}
+          <!-- {{ $t('Add new address') }} -->
+          <div style="width:280px;font-family: 'Source Sans Pro';font-style: normal;font-weight: 600;font-size: 16px;line-height: 100%;">
+            Add new address
+          </div>
         </AwButton>
       </AwTab>
     </AwTabs>
@@ -251,6 +260,8 @@ export default defineComponent({
 
 .action-button {
   width: 100%;
+  
+  height: 100px;
   @include for-desktop {
     width: auto;
   }
@@ -270,4 +281,7 @@ export default defineComponent({
     }
   }
 }
+
+
+
 </style>

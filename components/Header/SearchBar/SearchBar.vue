@@ -1,4 +1,5 @@
 <template>
+
   <AwSearchBar
     v-click-outside="closeSearch"
     :placeholder="$t('Search for items and promotions')"
@@ -117,6 +118,7 @@ export default defineComponent({
         isSearchOpen.value = false;
         emit('SearchBar:toggle', false);
         emit('SearchBar:result', {});
+        
         if (document) {
           document.body.classList.remove('no-scroll');
         }
@@ -161,21 +163,21 @@ export default defineComponent({
         categories: (categories?.value ?? [])
           .map((element) => categoryGetters.getCategoryTree(element)),
       };
+      console.log(result.value);
       let searchResultArray = []
       for (var i=0; i < result.value.products.length; i++) {
-        // console.log(result.value.products[i].name)
         var match_var = RegExp(term.value, "ig");
         if (result.value.products[i].name.match(match_var)!==null){
          console.log(result.value.products[i].name.match(term.value))
          searchResultArray.push(result.value.products[i]);
         }
       } 
-      // console.log(result.value);
       console.log('productstest')
       console.log(result.value.products);
       console.log(searchResultArray)
       result.value.products = searchResultArray;
       emit('SearchBar:result', result.value);
+      emit('SearchBar:searchTerm', term.value);
     }, 1000);
 
     watch(route, () => {
@@ -203,9 +205,11 @@ export default defineComponent({
   right: 20px;
   bottom: 0;
 }
+
 .sf-header__search
 {
-  color:#3C3C3C;
-  border-bottom: 274px ;
+height: 2px;
+width:274px;
+
 }
 </style>

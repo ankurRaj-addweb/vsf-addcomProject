@@ -1,6 +1,13 @@
 <template>
   <AwSection :title-heading="title" class="section">
+    <div class="match_see_all">
+      <label class="match_it">Match it with</label>
+      <AwLink>
+        <label class="see_all">See all</label>
+      </AwLink>
+    </div>
     <AwLoader :class="{ loading }" :loading="loading">
+
       <AwCarousel
         data-cy="related-products-carousel"
         :settings="{ peek: 16, breakpoints: { 103: { peek: 0, perView: 2 } } }"
@@ -12,6 +19,9 @@
           class="carousel__item"
         >
           <AwProductCard
+            wishlistIcon="heart"
+            badgeColor=""
+            :colors='[{"label":"Sand","value":"sand","color":"#EDCBB9","selected":false},{"label":"Mint","value":"mint","color":"#ABD9D8","selected":false},{"label":"Vivid rose","value":"vivid rose","color":"#DB5593","selected":false},{"label":"Peach","value":"peach","color":"#F59F93","selected":false},{"label":"Citrus","value":"citrus","color":"#FFEE97","selected":false}]'
             :title="productGetters.getName(product)"
             :image-width="imageSizes.productCard.width"
             :image-height="imageSizes.productCard.height"
@@ -61,7 +71,7 @@
                 </template>
                 <nuxt-img
                   v-else
-                  class="sf-product-card__image lol"
+                  class="sf-product-card__image"
                   :src="imageSlotProps.image"
                   :alt="imageSlotProps.title"
                   :width="imageSlotProps.imageWidth"
@@ -100,6 +110,7 @@ import AwCarousel from "@storefront-ui/root/packages/vue/src/components/organism
 import AwSection from "@storefront-ui/root/packages/vue/src/components/molecules/AwSection/AwSection.vue";
 import AwLoader from "@storefront-ui/root/packages/vue/src/components/atoms/AwLoader/AwLoader.vue";
 import AwProductCard from "@storefront-ui/root/packages/vue/src/components/organisms/AwProductCard/AwProductCard.vue";
+import AwLink from "@storefront-ui/root/packages/vue/src/components/atoms/AwLink/AwLink.vue";
 import { productGetters, useUser, useWishlist } from "@vue-storefront/magento";
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { useAddToCart } from "~/helpers/cart/addToCart";
@@ -114,6 +125,7 @@ export default defineComponent({
     AwSection,
     AwLoader,
     AwButton,
+    AwLink,
     SvgImage,
   },
   props: {

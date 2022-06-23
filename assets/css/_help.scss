@@ -9,9 +9,10 @@
   .sf-content-pages__sidebar {
     height: 100%;
     min-height: 525px;
-    width: 374px;
+    max-width: 300px;
     background: #f9f9f9;
   }
+ 
   .sf-menu-item__label {
     font-style: normal;
     font-weight: 400;

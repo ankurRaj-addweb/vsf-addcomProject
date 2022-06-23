@@ -1,121 +1,221 @@
 <template>
-  <div>
+  <div class="seeResult">
+    
     <AwMegaMenu
       :visible="isSearchOpen"
       :title="$t('Search results')"
       class="search"
     >
-      <transition
-        name="sf-fade"
-        mode="out-in"
-      >
+
+      <transition name="sf-fade" mode="out-in">
         <div
           v-if="products && products.length > 0"
-          key="results"
+         
           class="search__wrapper-results"
         >
           <AwMegaMenuColumn
             :title="$t('Categories')"
-            class="sf-mega-menu-column--pined-content-on-mobile search__categories"
+            class="
+              sf-mega-menu-column--pined-content-on-mobile
+              search__categories
+            "
           >
-            <template #title="{title}">
-              <AwMenuItem
-                :label="title"
-              >
-                <template #mobile-nav-icon>
-                  &#8203;
-                </template>
+            <template #title="{ title }">
+              <AwMenuItem :label="title">
+                <template #mobile-nav-icon> &#8203; </template>
               </AwMenuItem>
             </template>
-            <AwList
-              v-if="categories.length > 0"
-            >
-              <AwListItem
-                v-for="(category, key) in categories"
-                :key="key"
-              >
+            <AwList>
+              <AwListItem v-for="(product, index) in categoryNames" :key="index">
                 <AwMenuItem
-                  :label="category.label"
-                  :link="localePath(th.getAgnosticCatLink(category))"
+                  :label="product"
+                  link="#"
                 >
-                  <template #mobile-nav-icon>
-                    &#8203;
-                  </template>
+                  <template #mobile-nav-icon> &#8203; </template>
                 </AwMenuItem>
               </AwListItem>
             </AwList>
+            <!-- <AwList v-if=" result && result.products">
+              <AwListItem v-for="(product, index) in result.products" :key="index">
+                <AwMenuItem
+                v-for="(category,i) in product.categories"
+                :key="i"
+                  :label="testCategory(category.name)"
+                  link="#"
+                >
+                  <template #mobile-nav-icon> &#8203; </template>
+                </AwMenuItem>
+              </AwListItem>
+            </AwList> -->
+            <category-sidebar-menu />
           </AwMegaMenuColumn>
           <AwMegaMenuColumn
             :title="$t('Product suggestions')"
             class="sf-mega-menu-column--pined-content-on-mobile search__results"
           >
-            <template #title="{title}">
+            <template #title="{ title }">
               <AwMenuItem
                 :label="title"
                 class="sf-mega-menu-column__header search__header"
               >
-                <template #mobile-nav-icon>
-                  &#8203;
-                </template>
+                <template #mobile-nav-icon> &#8203; </template>
               </AwMenuItem>
             </template>
             <AwScrollable
+              id="see"
               class="results--desktop desktop-only"
               show-text=""
               hide-text=""
             >
-              <div class="results-listing">
-                <AwProductCard
-                  v-for="(product, index) in products"
-                  :key="index"
-                  class="result-card"
-                  :regular-price="$fc(productGetters.getPrice(product).regular)"
-                  :max-rating="5"
-                  :score-rating="productGetters.getAverageRating(product)"
-                  :reviews-count="productGetters.getTotalReviews(product)"
-                  :image-width="imageSizes.productCard.width"
-                  :image-height="imageSizes.productCard.height"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
-                  :alt="productGetters.getName(product)"
-                  :title="productGetters.getName(product)"
-                  :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
-                  :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                  :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-                  :is-in-wishlist="product.isInWishlist"
-                  @click:wishlist="addItemToWishlist(product)"
-                >
-                  <template #image="imageSlotProps">
-                    <AwButton
-                      :link="imageSlotProps.link"
-                      class="sf-button--pure sf-product-card__link"
-                      data-testid="product-link"
-                      aria-label="Go To Product"
-                      v-on="$listeners"
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
+              <div class="results-listing" v-if="isSeeMore">
+                <template v-for="(product, index) in products">
+                  <AwProductCard
+                    v-if="index < 4"
+                    :key="index"
+                    class="result-card"
+                    :regular-price="
+                      $fc(productGetters.getPrice(product).regular)
+                    "
+                    :max-rating="5"
+                    :score-rating="productGetters.getAverageRating(product)"
+                    :reviews-count="productGetters.getTotalReviews(product)"
+                    :image-width="imageSizes.productCard.width"
+                    :image-height="imageSizes.productCard.height"
+                    :image="
+                      getMagentoImage(
+                        productGetters.getProductThumbnailImage(product)
+                      )
+                    "
+                    :alt="productGetters.getName(product)"
+                    :title="productGetters.getName(product)"
+                    :link="
+                      localePath(
+                        `/p/${productGetters.getProductSku(
+                          product
+                        )}${productGetters.getSlug(
+                          product,
+                          product.categories[0]
+                        )}`
+                      )
+                    "
+                    :wishlist-icon="isAuthenticated ? 'heart' : ''"
+                    :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+                    :is-in-wishlist="product.isInWishlist"
+                    @click:wishlist="addItemToWishlist(product)"
+                  >
+                    <template #image="imageSlotProps">
+                      <AwButton
+                        :link="imageSlotProps.link"
+                        class="sf-button--pure sf-product-card__link"
+                        data-testid="product-link"
+                        aria-label="Go To Product"
+                        v-on="$listeners"
+                      >
+                        <template v-if="Array.isArray(imageSlotProps.image)">
+                          <nuxt-img
+                            v-for="(picture, index) in imageSlotProps.image.slice(
+                              0,
+                              2
+                            )"
+                            :key="index"
+                            class="sf-product-card__picture"
+                            :src="picture"
+                            :alt="imageSlotProps.title"
+                            :width="imageSlotProps.imageWidth"
+                            :height="imageSlotProps.imageHeight"
+                          />
+                        </template>
                         <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                          :key="key"
-                          class="sf-product-card__picture"
-                          :src="picture"
+                          v-else
+                          class="sf-product-card__image lol"
+                          :src="imageSlotProps.image"
                           :alt="imageSlotProps.title"
                           :width="imageSlotProps.imageWidth"
                           :height="imageSlotProps.imageHeight"
                         />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card__image lol"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </AwButton>
-                  </template>
-                </AwProductCard>
+                      </AwButton>
+                    </template>
+                  </AwProductCard>
+                </template>
+              </div>
+              <div class="results-listing" v-else>
+                <template v-for="(product, index) in products">
+                  <AwProductCard
+                    :key="index"
+                    class="result-card"
+                    :regular-price="
+                      $fc(productGetters.getPrice(product).regular)
+                    "
+                    :max-rating="5"
+                    :score-rating="productGetters.getAverageRating(product)"
+                    :reviews-count="productGetters.getTotalReviews(product)"
+                    :image-width="imageSizes.productCard.width"
+                    :image-height="imageSizes.productCard.height"
+                    :image="
+                      getMagentoImage(
+                        productGetters.getProductThumbnailImage(product)
+                      )
+                    "
+                    :alt="productGetters.getName(product)"
+                    :title="productGetters.getName(product)"
+                    :link="
+                      localePath(
+                        `/p/${productGetters.getProductSku(
+                          product
+                        )}${productGetters.getSlug(
+                          product,
+                          product.categories[0]
+                        )}`
+                      )
+                    "
+                    :wishlist-icon="isAuthenticated ? 'heart' : ''"
+                    :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+                    :is-in-wishlist="product.isInWishlist"
+                    @click:wishlist="addItemToWishlist(product)"
+                  >
+                    <template #image="imageSlotProps">
+                      <AwButton
+                        :link="imageSlotProps.link"
+                        class="sf-button--pure sf-product-card__link"
+                        data-testid="product-link"
+                        aria-label="Go To Product"
+                        v-on="$listeners"
+                      >
+                        <template v-if="Array.isArray(imageSlotProps.image)">
+                          <nuxt-img
+                            v-for="(picture, index) in imageSlotProps.image.slice(
+                              0,
+                              2
+                            )"
+                            :key="index"
+                            class="sf-product-card__picture"
+                            :src="picture"
+                            :alt="imageSlotProps.title"
+                            :width="imageSlotProps.imageWidth"
+                            :height="imageSlotProps.imageHeight"
+                          />
+                        </template>
+                        <nuxt-img
+                          v-else
+                          class="sf-product-card__image lol"
+                          :src="imageSlotProps.image"
+                          :alt="imageSlotProps.title"
+                          :width="imageSlotProps.imageWidth"
+                          :height="imageSlotProps.imageHeight"
+                        />
+                      </AwButton>
+                    </template>
+                  </AwProductCard>
+                </template>
               </div>
             </AwScrollable>
+            <AwButton
+              v-if="isSeeMore"
+              class="sf-button mmm"
+              @click="$emit('SearchResults:toggeSearchPage')"
+            >
+              <u> {{ $t("See all Result") }}</u>
+            </AwButton>
             <div class="results--mobile smartphone-only">
               <AwProductCard
                 v-for="(product, index) in products"
@@ -127,10 +227,20 @@
                 :reviews-count="productGetters.getTotalReviews(product)"
                 :image-width="imageSizes.productCardHorizontal.width"
                 :image-height="imageSizes.productCardHorizontal.height"
-                :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+                :image="
+                  getMagentoImage(
+                    productGetters.getProductThumbnailImage(product)
+                  )
+                "
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+                :link="
+                  localePath(
+                    `/p/${productGetters.getProductSku(
+                      product
+                    )}${productGetters.getSlug(product, product.categories[0])}`
+                  )
+                "
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
@@ -146,8 +256,11 @@
                   >
                     <template v-if="Array.isArray(imageSlotProps.image)">
                       <nuxt-img
-                        v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                        :key="key"
+                        v-for="(picture, index) in imageSlotProps.image.slice(
+                          0,
+                          2
+                        )"
+                        :key="index"
                         class="sf-product-card__picture"
                         :src="picture"
                         :alt="imageSlotProps.title"
@@ -168,29 +281,27 @@
               </AwProductCard>
             </div>
           </AwMegaMenuColumn>
+
           <div class="action-buttons smartphone-only">
             <AwButton
               class="action-buttons__button color-light"
               @click="$emit('close')"
             >
-              {{ $t('Cancel') }}
+              {{ $t("Cancel") }}
             </AwButton>
           </div>
         </div>
-        <div
-          v-else
-          key="no-results"
-          class="before-results"
-        >
+
+        <div v-else key="no-results" class="before-results">
           <nuxt-img
             src="/error/Frame 1.png"
             class="before-results__picture"
             alt="error"
             width="290.24"
-            height="177.61" 
+            height="177.61"
           />
           <p class="before-results__paragraph">
-            {{ $t('No Searches') }}
+            {{ $t("No Searches") }}
           </p>
           <!-- <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -202,11 +313,12 @@
             class="before-results__button color-secondary smartphone-only"
             @click="$emit('close')"
           >
-            {{ $t('Go back') }}
+            {{ $t("Go back") }}
           </AwButton>
         </div>
       </transition>
     </AwMegaMenu>
+    
   </div>
 </template>
 <script>
@@ -230,12 +342,15 @@ import {
   ref,
   watch,
   computed,
+  useRouter,
+  useContext,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
+import { productGetters, useUser, useWishlist,useExternalCheckout, categoryGetters } from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
 import { keyboardImplementationWrapper } from '@testing-library/user-event/dist/keyboard';
-
+import category from '~/tests/e2e/pages/category';
+import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 export default defineComponent({
   name: 'SearchResults',
   components: {
@@ -247,6 +362,7 @@ export default defineComponent({
     AwButton,
     AwMenuItem,
     SfList,
+    CategorySidebarMenu,
     AwScrollable,
     SfProductCard,
     AwProductCard,
@@ -261,17 +377,39 @@ export default defineComponent({
     },
     result: {
       type: Object,
-      default: () => ({}),
-    },
+      default:null,   },
   },
   setup(props, { emit }) {
+    const categoryNames = ref([])
+    const isSeeMore = ref(true)
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
-
+    const { initializeCheckout } = useExternalCheckout();
     const th = useUiHelpers();
+    const router = useRouter();
+    const { app } = useContext();
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
     const categories = computed(() => props.result?.categories);
+    
+  const testCategory=(categoryName)=>{
+    // console.log(categoryName)
+    // console.log(categoryNames.value.includes(categoryName))
+    if(categoryNames.value.includes(categoryName)){
+      // console.log(categoryNames.value)
+      return 
+    }
+    else{
+      categoryNames.value.push(categoryName)
+      // console.log(categoryNames.value)
+      return 
+    }
+  }
+  const view = async () => {
+
+      const redirectUrl = await initializeCheckout({ baseUrl: '/default/search' });
+      await router.push(`${app.localePath(redirectUrl)}`);
+    };
 
     watch(() => props.visible, (newVal) => {
       isSearchOpen.value = newVal;
@@ -280,6 +418,11 @@ export default defineComponent({
       } else {
         document.body.classList.remove('no-scroll');
         emit('removeSearchResults');
+      }
+    });
+    watch(() => props.result, (newVal,oldVal) => {
+      if(newVal!= oldVal){
+        categoryNames.value.slice(0,categoryNames.value.length)
       }
     });
 
@@ -298,12 +441,16 @@ export default defineComponent({
       isSearchOpen,
       productGetters,
       products,
+      view,
       categories,
+      testCategory,
+      categoryNames,
       addItemToWishlist,
       isInWishlist,
       isAuthenticated,
       getMagentoImage,
-      imageSizes
+      imageSizes,
+      isSeeMore
     };
   },
 });
@@ -332,7 +479,7 @@ export default defineComponent({
     flex: 0 0 220px;
   }
   &__results {
-    flex: 1
+    flex: 1;
   }
   &__header {
     margin-left: var(--spacer-sm);
@@ -357,7 +504,7 @@ export default defineComponent({
     justify-content: space-around;
     background: var(--c-white);
     padding: var(--spacer-base) var(--spacer-sm);
-    --product-card-max-width: 9rem ;
+    --product-card-max-width: 9rem;
   }
 }
 .see-all {
@@ -416,14 +563,14 @@ export default defineComponent({
     margin: var(--spacer-xl) auto;
     width: 100%;
   }
-  .before-results__paragraph{
+  .before-results__paragraph {
     /* position: absolute; */
     width: 101px;
     height: 23px;
     left: 201px;
     top: 453px;
 
-    font-family: 'Source Sans Pro';
+    font-family: "Source Sans Pro";
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -435,7 +582,10 @@ export default defineComponent({
     letter-spacing: 0.03em;
 
     color: #000000;
-
-    }
+  }
 }
+// .sf-button--pure.sf-accordion-item__header.sf-button {
+//     display: unset !important;
+ 
+// }
 </style>
