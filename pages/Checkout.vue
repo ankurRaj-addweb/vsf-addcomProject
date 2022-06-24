@@ -19,7 +19,6 @@
             <nuxt-child />
           </AwStep>
         </AwSteps>
-        
         <nuxt-child v-else />
       </div>
       <div
@@ -62,7 +61,7 @@ export default defineComponent({
     const STEPS = ref(
       [
          {
-          title:'Personal Details',
+          title:'Personal',
           url: 'user-account',
           mobile:{
               title:'Details',
@@ -78,7 +77,7 @@ export default defineComponent({
           url: 'billing',
         },
         {
-          title: 'Review Order',
+          title: 'Review',
           url: 'payment',
         },
       ],

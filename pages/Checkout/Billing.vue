@@ -8,7 +8,6 @@
         :title="$t('Billing Details')"
         class="sf-heading--left sf-heading--no-underline title"
       />
-
       <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
         <AwCheckbox
           v-e2e="'copy-address'"
@@ -232,8 +231,7 @@
           :label="$t('I want to generate invoice for the company')"
           name="copyShippingAddress"
           class="form__element"
-        />
-        
+        /> 
         <AwButton
           v-if="!sameAsShipping && !canAddNewAddress"
           class="
@@ -322,80 +320,6 @@
             <a href="#" class="payment-method">Cheque</a>
           </div>
         </div>
-        <template>
-           <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-          <form class="bil" v-if="showForm" @submit.prevent="handleSubmit()">
-              <ValidationProvider rules="required|digits:16" v-slot="{ errors }">
-            <AwInput
-              v-model="user1"
-              placeholder="Card Number"
-              name="Card Number"
-              class="form__control"
-              
-            />
-             <span class="red">{{ errors[0] }}</span> </ValidationProvider
-         ><br />
-            <ValidationProvider rules="required|alpha" v-slot="{ errors }">
-          <AwInput
-            v-model="user"
-            type="text"
-            class="form__control"
-            placeholder="Card Holder"
-          />
-          <span class="red">{{ errors[0] }}</span> </ValidationProvider
-         ><br />
-            <div class="dis">
-              <label id="ed">Expiry Date :</label>
-              <select class="form__control for">
-                <option value="23">MM</option>
-                <option value="01">January</option>
-                <option value="02">February</option>
-                <option value="03">March</option>
-                <option value="04">April</option>
-                <option value="05">May</option>
-                <option value="06">June</option>
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
-              <select class="form__control for" name="yy">
-                <option value="22">YYYY</option>
-                <option value="16">2021</option>
-                <option value="17">2022</option>
-                <option value="18">2023</option>
-                <option value="19">2024</option>
-                <option value="20">2025</option>
-                <option value="21">2026</option>
-              </select>
-            </div>
-            <div class="dis">
-                 <ValidationProvider rules="required|digits:3" v-slot="{ errors }">
-              <AwInput
-               v-model="CVC"
-                placeholder="Code CVC "
-                name="cardnumber"
-                class="form__control for"
-                
-              />
-                 <span class="red">{{ errors[0] }}</span> </ValidationProvider
-         ><br />
-              <a href="#">
-                <u>Where I find CVC code?</u>
-              </a>
-            </div>
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value
-              id="flexCheckDefault"
-            />Save this card for other purchases.
-          </form>
-           </ValidationObserver>
-        </template>
-
         <div class="form">
           <div class="form__action">
             <AwButton
@@ -419,6 +343,79 @@
         </div>
       </form>
     </ValidationObserver>
+      <template>
+        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
+            <form class="bil" v-if="showForm" @submit.prevent="handleSubmit()">
+                <ValidationProvider rules="required|digits:16" v-slot="{ errors }">
+                <AwInput
+                v-model="user1"
+                placeholder="Card Number"
+                name="Card Number"
+                class="form__control"
+
+                />
+                <span class="red">{{ errors[0] }}</span> </ValidationProvider
+                ><br />
+                <ValidationProvider rules="required|alpha" v-slot="{ errors }">
+                <AwInput
+                v-model="user"
+                type="text"
+                class="form__control"
+                placeholder="Card Holder"
+                />
+                <span class="red">{{ errors[0] }}</span> </ValidationProvider
+                ><br />
+                <div class="dis">
+                <label id="ed">Expiry Date :</label>
+                <select class="form__control for">
+                <option value="23">MM</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+                </select>
+                <select class="form__control for" name="yy">
+                <option value="22">YYYY</option>
+                <option value="16">2021</option>
+                <option value="17">2022</option>
+                <option value="18">2023</option>
+                <option value="19">2024</option>
+                <option value="20">2025</option>
+                <option value="21">2026</option>
+                </select>
+                </div>
+                <div class="dis">
+                  <ValidationProvider rules="required|digits:3" v-slot="{ errors }">
+                <AwInput
+                v-model="CVC"
+                placeholder="Code CVC "
+                name="cardnumber"
+                class="form__control for"
+
+                />
+                  <span class="red">{{ errors[0] }}</span> </ValidationProvider
+                ><br />
+                <a href="#">
+                <u>Where I find CVC code?</u>
+                </a>
+                </div>
+                <input
+                class="form-check-input"
+                type="checkbox"
+                value
+                id="flexCheckDefault"
+                />
+            </form>
+        </ValidationObserver>
+      </template>
   </div>
 </template>
 

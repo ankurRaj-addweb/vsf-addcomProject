@@ -592,8 +592,4 @@ export default defineComponent({
 .title {
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
 }
-.form__action-button {
-  background-color: #037ee6;
-  margin-top: 56px;
-}
 </style>

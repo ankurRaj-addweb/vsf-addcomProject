@@ -1,10 +1,9 @@
-#payment { 
+#payment {
     // @media (max-width:1024px) {
     //     .sf-property.sf-property {
     //         display: inline-flex !important;
     //     }  
     // }
-   
     .sf-property.sf-property {
         display: inline-flex;
     }
@@ -28,18 +27,18 @@
             margin-top: 650px;
             position: absolute;
             width: 343px !important;
-        } 
+        }
     }
-    
-
 }
 
 .checkout__main {
+    @media (max-width: 1024px) {
+        margin-top: 20px;
+    }
     .sf-input input {
         border: unset;
         border-bottom: 1px black solid;
         border-radius: unset;
-
         &:focus-visible {
             border: unset;
             border-bottom: 1px black solid;

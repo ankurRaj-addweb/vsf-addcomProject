@@ -1,24 +1,13 @@
 #billing {
-    @media (max-width:1024px) {
-        button.form__action-button.extend.sf-button {
-            margin-top: 83px;
-        }
-        .form__action {
-            margin-top: 650px;
-            position: absolute;
-        }
-    }
-
+    @media (max-width: 1024px) {}
     .sf-radio.sf-address.billing__address {
         width: 340px;
         height: 190px;
     }
-
     .sf-address-picker.billing__addresses {
         display: flex;
         flex-wrap: wrap;
     }
-
     button.color-light.form__action-button.form__action-button--add-address.sf-button {
         width: 280px;
         height: 50px;
@@ -52,7 +41,6 @@ label.sf-input__label.will-change {
     .sf-radio.sf-radio--transparent {
         z-index: 1;
     }
-
     .accordion {
         z-index: 999999;
     }
@@ -66,19 +54,17 @@ label.sf-input__label.will-change {
 }
 
 .lii {
-    @media (max-width:1024px) {
+    @media (max-width: 1024px) {
         display: block !important;
         border-top: 0px !important;
         border-bottom: 2px solid #EFEFEF;
         height: auto;
         margin: 7px 3px;
     }
-
     display: flex;
     border-top: 2px solid #EFEFEF;
     border-bottom: 2px solid #EFEFEF;
     width: 810px;
-
     height: 74px;
     padding-top: 12px;
 }
@@ -101,48 +87,38 @@ label.sf-input__label.will-change {
 form.bil {
     margin-top: 55px;
     width: 610px;
-
     .sf-input input {
         border-color: transparent !important;
-
         &:focus-visible {
             outline: unset !important;
         }
     }
-
     label.sf-input__label {
         font-size: 16px;
         color: #3C3C3C;
     }
-
     .sf-input__label {
         top: 60% !important;
     }
-
     .for {
         width: 216px;
     }
-
     .dis {
         display: flex;
     }
-
     a {
         margin: 35px 0 0 55px;
         color: #037EE6;
     }
-
     select {
         background-color: white;
     }
-
     #ed {
         margin: 30px 40px 0 10px;
         font-size: 16px;
         font-weight: 400, regular;
         font: source sans pro;
     }
-
     .form-check-input {
         // width: 258px;
         margin-top: 24px;
@@ -158,12 +134,12 @@ form.bil {
 }
 
 .shipping {
-    @media (max-width:1024px) {
+    @media (max-width: 1024px) {
         button.smartphone-only.go.sf-button {
             margin-top: 765px;
             position: absolute;
         }
-        button.color-light.form__action-button.form__action-button--add-address.adnew.sf-button{
+        button.color-light.form__action-button.form__action-button--add-address.adnew.sf-button {
             margin-top: -50px !important;
         }
         button.accordion {
@@ -178,27 +154,23 @@ form.bil {
             margin-top: 700px !important;
             width: 343px;
         }
-
         button.form__action-button.sf-button.is-disabled--button {
             position: absolute;
             margin-top: 620px;
             width: 343px;
         }
     }
-    .shipping-method.ShippingClass{
+    .shipping-method.ShippingClass {
         background-color: transparent !important;
     }
     .sf-radio.sf-address.shipping__address {
         width: 340px;
         height: 190px;
     }
-
     .sf-address-picker.shipping__addresses {
         display: flex;
-
         flex-wrap: wrap;
     }
-
     button.color-light.form__action-button.form__action-button--add-address.sf-button {
         width: 280px;
         height: 50px;
@@ -206,7 +178,6 @@ form.bil {
         font-size: 16px;
         font-weight: 600;
     }
-
     .sf-divider {
         display: none;
     }
@@ -215,9 +186,9 @@ form.bil {
 #checkout {
     .checkout__aside {
         // margin-left: 35px !important;
-        @media (max-width:1024px) {
-                margin-top: 29px !important;
-                height: 840px;
-            }
+        @media (max-width: 1024px) {
+            margin-top: 29px !important;
+            height: 840px;
+        }
     }
 }
