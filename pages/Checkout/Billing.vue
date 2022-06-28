@@ -2,9 +2,6 @@
   <div id="billing">
 
     <ValidationObserver v-slot="{ handleSubmit, reset }">
-      <!-- <h1>{{getInvoiceCheck}}</h1> -->
-      <!-- <h1>{{billingDetails.firstname}}</h1>
-        <h2> {{billingDetails.street}}</h2> -->
        
       <AwHeading
         v-e2e="'heading-billing'"
@@ -46,7 +43,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="firstname"
-           :rules="loginUserAccount ? '' : 'required|alpha'"
+           :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
             slim
           >
             <AwInput
@@ -102,7 +99,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="city"
-            :rules="loginUserAccount ? '' : 'required|alpha'"
+            :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
             slim
           >
             <AwInput
@@ -191,7 +188,7 @@
             <AwSelect
               v-e2e="'country'"
               :value="billingDetails.country_code"
-              label="Country"
+              placeholder="Country"
               name="country"
               class="
                 form__element form__element--half form__select
@@ -368,12 +365,12 @@
               </select>
               <select class="form__control for" name="yy">
                 <option value="22">YYYY</option>
-                <option value="16">2021</option>
-                <option value="17">2022</option>
-                <option value="18">2023</option>
-                <option value="19">2024</option>
-                <option value="20">2025</option>
-                <option value="21">2026</option>
+                <option value="16">2022</option>
+                <option value="17">2023</option>
+                <option value="18">2024</option>
+                <option value="19">2025</option>
+                <option value="20">2026</option>
+                <option value="21">2027</option>
               </select>
             </div>
             <div class="dis">

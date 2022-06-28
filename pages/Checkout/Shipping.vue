@@ -7,9 +7,6 @@
         :title="$t('Shipping Details')"
         class="sf-heading--left sf-heading--no-underline title"
       />
-      <!-- <h1>{{shippingDetails.firstname}}</h1> -->
-       
-
       <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
         <UserShippingAddresses
           v-if="isAuthenticated && hasSavedShippingAddress"
@@ -22,7 +19,7 @@
           <ValidationProvider
             v-slot="{ errors }"
             name="firstname"
-           :rules="loginUserAccount ? '' : 'required|alpha'"
+           :rules="loginUserAccount ? '' : 'required|alpha_spaces'"
             slim
           >
             <AwInput
@@ -278,17 +275,14 @@ import {
   useUserShipping,
 } from "@vue-storefront/magento";
 import { required, min, digits, max, alpha_spaces, regex} from "vee-validate/dist/rules";
-import { ValidationProvider, ValidationObserver, extend, alpha  } from "vee-validate";
+import { ValidationProvider, ValidationObserver, extend, } from "vee-validate";
 import { addressFromApiToForm } from "~/helpers/checkout/address";
 import { mergeItem } from "~/helpers/asyncLocalStorage";
 import { isPreviousStepValid } from "~/helpers/checkout/steps";
 
 const NOT_SELECTED_ADDRESS = "";
 
-extend("alpha", {
-  ...alpha,
-  message: "Alphabets only",
-});
+
 extend("alpha_spaces", {
   ...alpha_spaces,
   message: "Alphabets only",
