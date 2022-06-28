@@ -120,7 +120,7 @@
     </div>
 
     <div
-      class="navbar section "
+      class="navbar section"
       v-if="
         $route.query.itemsPerPage
           ? Object.keys($route.query).length > 1
@@ -131,10 +131,10 @@
           : false
       "
     >
-      <div class="navbar__aside ">
+      <div class="navbar__aside desktop-only">
         <LazyHydrate never>
-          <div class="navbar__view ">
-            <span class="navbar__view-label desktop-only">{{ $t("View") }} </span>
+          <div class="navbar__view">
+            <span class="navbar__view-label">{{ $t("View") }} </span>
             <SvgImage
               icon="tiles"
               :label="$t('Change to grid view')"
@@ -164,13 +164,13 @@
           <span class="desktop-only">
             <b>{{ pagination.totalItems }}</b>
           </span>
-          <!-- <span class="navbar__label smartphone-only"
+          <span class="navbar__label smartphone-only"
             >{{ pagination.totalItems }} {{ $t("Items") }}</span
-          > -->
+          >
         </div>
       </div>
       <div class="navbar__sort">
-        <div v-for="(facet, i) in facets" :key="i" class="filter-title desktop-only">
+        <div v-for="(facet, i) in facets" :key="i" class="filter-title">
           <AwHeading
             :key="`filter-title-${facet.id}`"
             :level="5"
@@ -257,14 +257,7 @@
       </div>
 
       <div class="navbar__main">
-      
-          
-          <span class="smartphone-only"
-            >{{ pagination.totalItems }} {{ $t("Items") }}</span >
-       
-     
-
-        <div class="navbar__sort desktop-only">
+        <div class="navbar__sort">
           <span>{{ $t("SortBy") }}:</span>
           <LazyHydrate when-visible>
             <AwSelect
@@ -282,14 +275,9 @@
                 {{ $t(option.label) }}
               </AwSelectOption>
             </AwSelect>
-            
           </LazyHydrate>
-          
         </div>
-        
-        
       </div>
-      
     </div>
 
     <div class="main section">
@@ -1427,10 +1415,6 @@ export default defineComponent({
 }
 .navbar__aside {
   display: inline-block;
-  @media (max-width: 1024px) {
-    display:flex;
-  }
- 
 }
 
 .navbar__main {
@@ -1441,14 +1425,7 @@ export default defineComponent({
     font-family: "Source Sans Pro";
     @media (max-width: 1024px) {
       font-size: 16px;
-      margin-right:0%;
     }
-  }
-}
-.navbar__main[data-v-a79260d2]{
-  @media(max-width: 1024px){
-    text-align: center;
-    justify-content: center;
   }
 }
 </style>
@@ -1477,7 +1454,6 @@ export default defineComponent({
     margin-top: 15px;
     line-height: 23px;
     font-weight: 400;
-    font-family: 'Source Sans Pro';
   }
 }
 
@@ -1523,9 +1499,6 @@ export default defineComponent({
 .done {
   background-color: #037ee6;
   font-family: "Source Sans Pro";
-}
-.done:hover{
-    --button-background:#037EE6 !important;
 }
 
 .clear {
@@ -1593,21 +1566,12 @@ export default defineComponent({
   margin-bottom: 10px;
   font-family: 'Source Sans Pro';
   font-size:16px !important;
+  margin-left:auto;
 }
 .save_for_later{
 margin-left: 25px; 
 font-family: 'Source Sans Pro';
 font-size:16px !important;
-}
-.after-filter{
-  @media (max-width:1024px) {
-    display: flex;
-  }
-}
-.navbar__aside[data-v-a79260d2] {
-  @media (max-width: 1024px) {
-    border: none;
-  }
 }
 
 </style>
